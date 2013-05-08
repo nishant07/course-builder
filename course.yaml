@@ -45,7 +45,7 @@ course:
   # priority. The image alt text allows the image to be understood by text-only
   # screen readers.
   main_video:
-    url: https://www.youtube.com/embed/Kdg2drcUjYI?rel=0
+    url: http://www.youtube.com/embed/tAUuY0Yld0E
   main_image:
     url: /assets/img/banner1.png
     alt_text: Photo of Dan Russell

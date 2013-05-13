@@ -1,0 +1,108 @@
+<div class="navbar navbar-mooc navbar-fixed-top" style="position:fixed">
+	<div class="navbar-inner">
+	  <div class="container">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+      </a>
+      <span class="nav"><a href="{{course_info.institution.url}}"> <img
+					src="{{course_info.institution.logo.url}}"
+					alt="{{course_info.institution.logo.alt_text}}">
+				</a>
+	  </span>
+      <span class="brand">{{course_info.base.nav_header}}</span>
+      <div class="nav-collapse">
+	  <ul class="nav">
+		<li>
+			<a id="homelink" href="preview">Home</a>
+		</li>		
+		<li>
+	      <a id="announcements" href="announcements">Announcements</a>
+	    </li>
+		<li class="dropdown">
+	      <a class="dropdown-toggle" id="course" href="course">Course</a>
+            <ul class="dropdown-menu">
+                <li>
+                	<a href="course">All</a>
+                </li>
+                <li class="divider"></li>
+                <li class="dropdown-submenu">
+                    <a class="dropdown-toggle" href="#">Starting VMs</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="userJobs">VMware</a></li>
+                        <li><a href="br2UserJobs">Amazon EC2</a></li>
+                        <li><a href="masonUserJobs">Microsoft Azure</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu">
+                    <a class="dropdown-toggle" href="#">Storing Data</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="jobs">Google BigTable</a></li>
+                            <li><a href="br2JobMgt">Hadoop HBase</a></li>
+                            <li><a href="masonjobs">Hadoop Hive</a></li>
+                        </ul>
+                </li>
+                <li class="dropdown-submenu">
+                    <a class="dropdown-toggle" href="#">Accessing Data</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="nodeMgt">Google Sawzall</a></li>
+                        <li><a href="br2NodeMgt">Hadoop Pig</a></li>
+                    </ul>
+                </li>
+	       	    <li class="dropdown-submenu">
+                       <a class="dropdown-toggle" href="#">Running Programs</a>
+                       <ul class="dropdown-menu">
+                           <li><a href="reservations">Hadoop on Multicore</a></li>
+                           <li><a href="br2Reservations">Hadoop on GPU</a></li>
+                           <li><a href="masonReservations">DryadLINQ/Dryad</a></li>
+                           <li><a href="masonReservations">Twister Iterative MapReduce</a></li>
+                           <li><a href="masonReservations">Pregel</a></li>
+                           <li><a href="masonReservations">Spark</a></li>
+                       </ul>
+                </li>
+            </ul>
+	    </li>
+	    {% if logoutUrl %}
+		<li>
+		  <a class="dropdown-toggle" id="homework" href="#">Homework</a>
+	    </li>
+		<li>
+	      <a id="customize" href="#">Customize</a>
+	    </li>
+	    <li class="dropdown">
+	      <a id="forum" href="forum">Forum</a>	      
+	    </li>
+   	    <li>
+	      <a id="profile" href="student/home">Profile</a>
+	    </li>
+	    {% endif %}
+	    {% if is_super_admin %}
+          <li>
+            <a href="/admin">Admin</a>
+          </li>
+          {% endif %}
+          {% if is_course_admin %}
+          <li>
+            <a href="dashboard">Dashboard</a>
+          </li>
+        {% endif %}
+	  </ul>
+	  {% if logoutUrl %}
+	  <ul class="nav pull-right">
+	    <li id="loginLink">
+	      <a href="{{ logoutUrl }}">Logout</a>
+	    </li>
+	  </ul>
+	  {% elif loginUrl %}
+	  	<ul class="nav pull-right">
+	    <li id="loginLink">
+	      <a href="{{ loginUrl }}">Login</a>
+	    </li>
+	  </ul>		
+	  {% endif %}			
+	  </div>
+	  </div>
+	</div>
+</div>
+<br/><br/><br/>

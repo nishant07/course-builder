@@ -98,3 +98,11 @@ a.menu:after, .dropdown-toggle:after {
       margin-right: 0px;
   }
 }
+
+.SliderNameNavigation_2 { 
+	margin: 0; 
+	padding: 8px 0 0 0; 
+	height: 20px; 
+	text-align: center; 
+	overflow-y: hidden; 
+}

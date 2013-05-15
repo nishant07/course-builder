@@ -406,29 +406,6 @@ class StudentUnenrollHandler(BaseHandler):
         self.template_value['navbar'] = {'registration': True}
         self.render('unenroll_confirmation.html')
         
-class HomeWorkHandler(BaseHandler):
-    """Handler for students to unenroll themselves."""
-
-    def get(self):
-        """Handles GET requests."""
-        student = self.personalize_page_and_get_enrolled()
-        if not student:
-            return
-
-        u = self.request.get('unit')
-
-        if not u:
-            u = 0
-        u = int(u)
-        homeworks = [{"index":0, "title":"Tools", "filename":"hw/tools.html"},
-                     {"index":1, "title":"Hadoop Word Count", "filename":"hw/wordcount.html"}]
-
-        self.template_value['homework'] = homeworks[u]
-        self.template_value['homeworks'] = homeworks
-        self.template_value['homework_id'] = u
-
-        self.render('homework.html')
-        
 
 
 class XsrfTokenManager(object):

@@ -29,7 +29,7 @@ course:
   admin_user_emails: 'supun06@gmail.com'
 
   # Course title
-  title: 'Distributed Computing'
+  title: 'Cloud Computing'
 
   # Main page blurb. (The '|' at the beginning enables multi-line input.)
   blurb: |

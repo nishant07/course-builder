@@ -1,0 +1,16 @@
+<div class="gcb-nav" id="gcb-nav-y">
+    <ul>
+        {% for homework in homeworks %}
+        {% if homework.index == homework_id %}
+        <li class="active">
+            {{ homework.index }}. {{ homework.title }}
+        {% else %}
+        <li>
+            <a href="homework?unit={{ homework.index }}">
+                {{ homework.index }}. {{ homework.title }}
+            </a>
+        {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>

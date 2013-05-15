@@ -1,0 +1,189 @@
+<div id="accordion">
+
+
+    <h2>1. <a name="overview">Overview</a></h2>
+
+    <div>
+
+        <p>WordCount is a simple program which counts the number of occurrences of each word in a given text input data
+            set. WordCount fits very well with the MapReduce programming model making it a great example to understand
+            the Hadoop Map/Reduce programming style. Our implementation consists of three main parts: </p>
+
+        <ol>
+            <li>Mapper</li>
+            <li>Reducer</li>
+            <li>Main program</li>
+        </ol>
+
+    </div>
+
+    <h2>2. <a name="mapper">Write a Mapper</a></h2>
+
+    <div>
+        <p>A Mapper overrides the “map” function from the Class "org.apache.hadoop.mapreduce.Mapper" which provides &lt;key,
+            value&gt; pairs as the input. A Mapper implementation may output &lt;key,value&gt; pairs using the provided
+            Context . </p>
+
+        <p>Input value of the WordCount Map task will be a line of text from the input data file and the key would be
+            the line number &lt;line_number, line_of_text&gt; . Map task outputs &lt;word, one&gt; for each word in the
+            line of text. </p>
+
+        <p><em><u>Pseudo-code</u></em></p>
+
+        <div class="dp-highlighter">
+            <div class="bar">
+                <div class="tools"><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
+                                      onClick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view
+                    plain</a><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
+                                onClick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a
+                        href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
+                        onClick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div>
+            </div>
+            <ol class="dp-j">
+                <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Map&nbsp;(key,&nbsp;value){&nbsp;&nbsp;</span></span>
+                </li>
+                <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="keyword">for</span><span>&nbsp;each&nbsp;word&nbsp;x&nbsp;in&nbsp;value:&nbsp;&nbsp;</span></span>
+                </li>
+                <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output.collect(x,&nbsp;<span
+                        class="number">1</span><span>);&nbsp;&nbsp;</span></span></li>
+                <li class=""><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+            </ol>
+        </div>
+        <p><em><u>Detail implementation</u></em></p>
+
+        <iframe src="http://pastebin.com/embed_iframe.php?i=PQ9xn3Mj"
+                style="border:none;width:100%;height:360px"></iframe>
+
+    </div>
+    <h2>3. <a name="reducer">Write a Reducer</a></h2>
+
+    <div>
+        <p>A Reducer collects the intermediate &lt;key,value&gt; output from multiple map tasks and assemble a single
+            result. Here, the WordCount program will sum up the occurrence of each word to pairs as &lt;word, occurrence&gt;.</p>
+
+        <p>
+            <em><u>Pseudo-code</u></em></p>
+
+        <div class="dp-highlighter">
+            <div class="bar">
+                <div class="tools"><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
+                                      onClick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view
+                    plain</a><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
+                                onClick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a
+                        href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
+                        onClick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div>
+            </div>
+            <ol class="dp-j">
+                <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){&nbsp;&nbsp;</span></span>
+                </li>
+                <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                        class="keyword">for</span><span>&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:&nbsp;&nbsp;</span></span>
+                </li>
+                <li class="alt"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;&nbsp;&nbsp;</span>
+                </li>
+                <li class=""><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);&nbsp;&nbsp;</span>
+                </li>
+                <li class="alt"><span>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+            </ol>
+        </div>
+        <pre name="code" class="java" style="display: none;">void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);<br>}   </pre>
+        <p><em><u>Detail implementation</u></em></p>
+        <iframe src="http://pastebin.com/embed_iframe.php?i=s0th1tJc"
+                style="border:none;width:100%;height:400px"></iframe>
+    </div>
+    <h2>4. <a name="mainprogram">Setup the Main Program</a></h2>
+
+    <div>
+
+        <p><br>
+            The Main program configures and run the MapReduce job. We use the main program to perform basic
+            configurations such as:</p>
+        <ol>
+            <li><strong>Job Name</strong> : name of this Job</li>
+            <li><strong>Executable (Jar) Class</strong>: the main executable class. For here, WordCount.</li>
+            <li><strong>Mapper Class</strong>: class which overrides the "map" function. For here, Map.</li>
+
+            <li><strong>Reducer</strong>: class which override the "reduce" function. For here , Reduce.</li>
+            <li><strong>Output Key</strong>: type of output key. For here, Text.</li>
+            <li><strong>Output Value</strong>: type of output value. For here, IntWritable.</li>
+            <li><strong>File Input Path</strong></li>
+
+            <li><strong>File Output Path</strong></li>
+        </ol>
+        <script src="http://pastebin.com/embed_js.php?i=qcUxNQYH"></script>
+    </div>
+    <h2>5. <a name="compile">Compile the program</a></h2>
+
+    <div>
+        <p>Please enter the following commands where the “WordCount.java " located in the bash mode: </p>
+				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
+cat WordCount.java<br>
+cat build.sh<br>
+./build.sh </pre>
+        <p>Here please make sure the JAVA_HOME path is correctly set in both “conf/hadoop-env.sh” and ".bashrc". </p>
+    </div>
+    <!-- content area -->
+    <h2>6. <a name="run">Execute Standalone Hadoop-WordCount</a></h2>
+
+    <div>
+        <p>The simplest way is to run a standalone WordCount. First, an <a
+                href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone version of
+            Hadoop</a> (without any environment setting) is required, then, download the <a
+                href="source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.
+            If you are using FutureGrid machine, all the packages has been pre-installed in your home directory. </p>
+
+        <p>Assume that:</p>
+        <ol>
+            <li>~/hadoop-0.20.2-standalone - Hadoop standalone framework directory</li>
+            <li>~/Hadoop-WordCount - WordCount program directory</li>
+        </ol>
+        <p>Next, enter the following commands to run the program:</p>
+<pre xml:space="preserve">
+cd ~/hadoop-0.20.2-standalone/bin<br />
+cp ~/Hadoop-WordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br />
+# Make sure you copy the wordcount.jar in ~/hadoop-0.20.2-standalone/bin<br />
+./hadoop jar wordcount.jar WordCount ~/Hadoop-WordCount/input ~/Hadoop-WordCount/output <br />
+cd ~/Hadoop-WordCount/<br />
+cat output/part-r-00000<br />
+</pre>
+    </div>
+    <h2>7. <a name="combiner">Adding a Combiner</a></h2>
+
+    <div>
+        <p>A combiner is a reduce-type function to be used when there are map key-value pairs are not immediately
+            written to the output. It will collect those pairs in lists and perform local aggregation of the
+            intermediate outputs. It speeds up the process which cuts down the amount of data transferred from the
+            Mapper to the Reducer.</p>
+        <pre name="code"
+             class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>
+
+<pre xml:space="preserve">
+cd ~/Hadoop-WordCount/<br />
+./clean.sh <br />
+ls  <br />
+# you should have only build.sh clean.sh input & WordCount.java<br /><br />
+
+vi WordCount.java # uncomment the above line (line number 67) & save (ESC, :wq!)<br />
+./build.sh<br /><br />
+
+cd ~/hadoop-0.20.2-standalone/bin <br />
+
+cp ~/Hadoop-WordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br /><br />
+
+# Run the WordCount Program<br />
+
+./hadoop jar wordcount.jar WordCount ~/Hadoop-WordCount/input ~/Hadoop-WordCount/output-combiner<br /><br />
+</pre>
+    </div>
+    <h2>8. <a name="combiner">Check the Result and Submit</a></h2>
+
+    <div>
+        # Check the result<br/>
+        cd ~/Hadoop-WordCount/<br/>
+        cat output-combiner/part-r-00000<br/>
+
+        <p> To submit, answer the following question: What are the top 10 words to appear in the complete works of
+            William Shakespeare? http://www.gutenberg.org/cache/epub/100/pg100.txt </p>
+    </div>
+</div>

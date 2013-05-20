@@ -306,19 +306,21 @@ class HomeWorkHandler(BaseHandler):
             return
 
         u = self.request.get('unit')
-
         hws = self.get_homeworks()
 
         if not u:
-            u = 0
+            u = -1
+
         u = int(u)
         homework = None
-        for hw in hws:
-            if hw.id == u:
-                homework = hw
+        if u != -1:
+            for hw in hws:
+                if hw.id == u:
+                    homework = hw
+        else:
+            homework = hws[0]
+            u = homework.id
 
-        # homeworks = [{"index":0, "title":"Tools", "filename":"hw/tools.html"},
-        #             {"index":1, "title":"Hadoop Word Count", "filename":"hw/wordcount.html"}]
 
         self.template_value['homework'] = homework
         self.template_value['homeworks'] = hws

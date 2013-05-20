@@ -116,6 +116,7 @@ def load_csv_course(app_context):
 
     unit_file = os.path.join(app_context.get_data_home(), 'unit.csv')
     lesson_file = os.path.join(app_context.get_data_home(), 'lesson.csv')
+    homework_file = os.path.join(app_context.get_data_home(), 'homework.csv')
 
     # Check files exist.
     if (not app_context.fs.isfile(unit_file) or
@@ -144,7 +145,13 @@ def load_csv_course(app_context):
     lessons = verify.read_objects_from_csv_stream(
         app_context.fs.open(lesson_file), verify.LESSONS_HEADER, Lesson12,
         converter=verify.LESSON_CSV_TO_DB_CONVERTER)
-    return units, lessons
+    home_works = verify.read_objects_from_csv_stream(
+        app_context.fs.open(homework_file), verify.HOME_WORKS_HEADER, Homework12,
+        converter=verify.HOME_WORK_CSV_TO_DB_CONVERTER)
+
+    print home_works
+
+    return units, lessons, home_works
 
 
 def index_units_and_lessons(course):
@@ -285,13 +292,25 @@ class Lesson12(object):
     def index(self):
         return self._index
 
+class Homework12(object):
+    def __init__(self):
+        self.id = 0
+        self.homework_id = ''
+        self.title = ''
+        self.filename = ''
+
+        self._index = None
+
+    @property
+    def index(self):
+        return self._index
 
 class CachedCourse12(AbstractCachedObject):
     """A representation of a Course12 optimized for storing in memcache."""
 
     VERSION = COURSE_MODEL_VERSION_1_2
 
-    def __init__(self, units=None, lessons=None, unit_id_to_lessons=None):
+    def __init__(self, units=None, lessons=None, homeworks=None, unit_id_to_lessons=None):
         self.version = self.VERSION
         self.units = units
         self.lessons = lessons
@@ -304,13 +323,13 @@ class CachedCourse12(AbstractCachedObject):
     @classmethod
     def instance_from_memento(cls, app_context, memento):
         return CourseModel12(
-            app_context, units=memento.units, lessons=memento.lessons,
+            app_context, units=memento.units, lessons=memento.lessons, homeworks=memento.homeworks,
             unit_id_to_lessons=memento.unit_id_to_lessons)
 
     @classmethod
     def memento_from_instance(cls, course):
         return CachedCourse12(
-            units=course.units, lessons=course.lessons,
+            units=course.units, lessons=course.lessons, homeworks=course.homeworks,
             unit_id_to_lessons=course.unit_id_to_lessons)
 
 
@@ -324,9 +343,9 @@ class CourseModel12(object):
         """Loads course data into a model."""
         course = CachedCourse12.load(app_context)
         if not course:
-            units, lessons = load_csv_course(app_context)
+            units, lessons, homeworks = load_csv_course(app_context)
             if units and lessons:
-                course = CourseModel12(app_context, units, lessons)
+                course = CourseModel12(app_context, units, lessons, homeworks)
         if course:
             CachedCourse12.save(app_context, course)
         return course
@@ -344,17 +363,20 @@ class CourseModel12(object):
 
     def __init__(
         self, app_context,
-        units=None, lessons=None, unit_id_to_lessons=None):
+        units=None, lessons=None, homeworks=None, unit_id_to_lessons=None):
 
         self._app_context = app_context
         self._units = []
         self._lessons = []
+        self._homeworks = []
         self._unit_id_to_lessons = {}
 
         if units:
             self._units = units
         if lessons:
             self._lessons = lessons
+        if homeworks:
+            self._homeworks = homeworks
         if unit_id_to_lessons:
             self._unit_id_to_lessons = unit_id_to_lessons
         else:
@@ -375,11 +397,18 @@ class CourseModel12(object):
         return self._lessons
 
     @property
+    def homeworks(self):
+        return self._homeworks
+
+    @property
     def unit_id_to_lessons(self):
         return self._unit_id_to_lessons
 
     def get_units(self):
         return self._units[:]
+
+    def get_homeworks(self):
+        return self._homeworks[:]
 
     def get_lessons(self, unit_id):
         return self._unit_id_to_lessons.get(str(unit_id), [])
@@ -469,6 +498,20 @@ class Lesson13(object):
     def activity(self):
         """A symbolic name to old attribute."""
         return self.has_activity
+
+
+class Homework13(object):
+    def __init__(self):
+        self.index = 0
+        self.homework_id = ""
+        self.title = ""
+        self.filename = ""
+
+        self._index = None
+
+    @property
+    def index(self):
+        return self._index
 
 
 class PersistentCourse13(object):
@@ -1223,6 +1266,9 @@ class Course(object):
 
     def get_lessons(self, unit_id):
         return self._model.get_lessons(unit_id)
+
+    def get_homeworks(self):
+        return self._model.get_homeworks()
 
     def save(self):
         return self._model.save()

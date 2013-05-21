@@ -297,7 +297,7 @@ class AssessmentHandler(BaseHandler):
 
 
 class HomeWorkHandler(BaseHandler):
-    """Handler for students to unenroll themselves."""
+    """Handler for home works."""
 
     def get(self):
         """Handles GET requests."""

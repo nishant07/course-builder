@@ -239,6 +239,19 @@ class BaseHandler(ApplicationHandler):
 
     def render(self, template_file):
         """Renders a template."""
+        # set the units and lessons
+        self.template_value['units'] = self.get_units()
+        ls = {}
+        for unit in self.get_units():
+            if len(self.get_lessons(unit.unit_id)) != 0:
+                ls[unit.unit_id] = self.get_lessons(unit.unit_id)
+            else:
+                ls[unit.unit_id] = 'None'
+            print unit.unit_id
+            for l in self.get_lessons(unit.unit_id):
+                print l.title
+        self.template_value['lessons'] = ls
+
         template = self.get_template(template_file)
         self.response.out.write(template.render(self.template_value))
 

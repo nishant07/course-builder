@@ -16,53 +16,42 @@
 						<ul class="dropdown-menu">
 							<li><a href="course">All</a></li>
 							<li class="divider"></li>
-							<li class="dropdown-submenu"><a class="dropdown-toggle"
-								href="#">Starting VMs</a>
-								<ul class="dropdown-menu">
-									<li><a href="#">VMware</a></li>
-									<li><a href="#">Amazon EC2</a></li>
-									<li><a href="#">Microsoft Azure</a></li>
-								</ul></li>
-							<li class="dropdown-submenu"><a class="dropdown-toggle"
-								href="#">Storing Data</a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Google BigTable</a></li>
-									<li><a href="#">Hadoop HBase</a></li>
-									<li><a href="#">Hadoop Hive</a></li>
-								</ul></li>
-							<li class="dropdown-submenu"><a class="dropdown-toggle"
-								href="#">Accessing Data</a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Google Sawzall</a></li>
-									<li><a href="#">Hadoop Pig</a></li>
-								</ul></li>
-							<li class="dropdown-submenu"><a class="dropdown-toggle"
-								href="#">Running Programs</a>
-								<ul class="dropdown-menu">
-									<li><a href="#">Hadoop on Multicore</a></li>
-									<li><a href="#">Hadoop on GPU</a></li>
-									<li><a href="#">DryadLINQ/Dryad</a></li>
-									<li><a href="#">Twister Iterative
-											MapReduce</a></li>
-									<li><a href="#">Pregel</a></li>
-									<li><a href="#">Spark</a></li>
-								</ul></li>
-						</ul></li> 
-						{% if logoutUrl %}
-						<li>
-							<a class="dropdown-toggle" id="homework" href="homework">Homework</a>
-						</li>
-						<li>
-							<a id="customize" href="#">Customize</a>
-						</li>
-						<li class="dropdown"><a id="forum" href="forum">Forum</a></li>
-						<li><a id="profile" href="student/home">Profile</a></li> 
-						{% endif%} 
-						{% if is_super_admin %}
-						<li><a href="/admin">Admin</a></li> 
-						{% endif %} {% if is_course_admin %}
-						<li><a href="dashboard">Dashboard</a></li> 
-						{% endif %}
+                            {% for unit in units %}
+                                {% if unit.type != 'A' %}
+                                {% if lessons[unit.unit_id] == 'None' %}
+                                <li><a class="dropdown-toggle" href="#">{{ unit.title }}</a>
+                                {% else %}
+                                <li class="dropdown-submenu"><a class="dropdown-toggle" href="#">{{ unit.title }}</a>
+                                {% endif %}
+                                    {% for lu, les in lessons.iteritems() %}
+                                        {% if lu == unit.unit_id %}
+                                        <ul class="dropdown-menu">
+                                            {% for v in les %}
+                                            <li><a href="#">{{v.title}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    {% endfor %}
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+						</ul>
+                    </li>
+                    {% if logoutUrl %}
+                    <li>
+                        <a class="dropdown-toggle" id="homework" href="homework">Homework</a>
+                    </li>
+                    <li>
+                        <a id="customize" href="#">Customize</a>
+                    </li>
+                    <li class="dropdown"><a id="forum" href="forum">Forum</a></li>
+                    <li><a id="profile" href="student/home">Profile</a></li>
+                    {% endif%}
+                    {% if is_super_admin %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %} {% if is_course_admin %}
+                    <li><a href="dashboard">Dashboard</a></li>
+                    {% endif %}
 				</ul>
 				{% if logoutUrl %}
 				<ul class="nav pull-right">

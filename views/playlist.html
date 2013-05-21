@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block subtitle %}
+{% trans %} Customize {% endtrans %}
+{% endblock subtitle %}
+
+{% block header_content %}
+
+{% endblock %}
+
+{% block top_content %}
+{% endblock %}
+
+{% block main_content %}
+
+<div class="gcb-main">
+    <div style="width: 250px;" class="gcb-nav" id="gcb-nav-y">
+        <ul>
+            {% for unit in units %}
+            {% if unit.type != 'A' %}
+            <li>
+                <p>{{ unit.unit_id }}. {{ unit.title }}</p>
+                {% if units_lessons[unit.unit_id] != 'None' %}
+                <ul>
+                    {% for v in units_lessons[unit.unit_id] %}
+                    <li><a href="#">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="gcb-article tab-content" role="main">
+
+    </div>
+</div>
+
+{% endblock %}

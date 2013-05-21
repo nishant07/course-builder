@@ -18,16 +18,16 @@
 							<li class="divider"></li>
                             {% for unit in units %}
                                 {% if unit.type != 'A' %}
-                                {% if lessons[unit.unit_id] == 'None' %}
+                                {% if units_lessons[unit.unit_id] == 'None' %}
                                 <li><a class="dropdown-toggle" href="#">{{ unit.title }}</a>
                                 {% else %}
-                                <li class="dropdown-submenu"><a class="dropdown-toggle" href="#">{{ unit.title }}</a>
+                                <li class="dropdown-submenu"><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
                                 {% endif %}
-                                    {% for lu, les in lessons.iteritems() %}
+                                    {% for lu, les in units_lessons.iteritems() %}
                                         {% if lu == unit.unit_id %}
                                         <ul class="dropdown-menu">
                                             {% for v in les %}
-                                            <li><a href="#">{{v.title}}</a></li>
+                                            <li><a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{v.title}}</a></li>
                                             {% endfor %}
                                         </ul>
                                         {% endif %}
@@ -55,8 +55,8 @@
 				</ul>
 				{% if logoutUrl %}
 				<ul class="nav pull-right">
-					<li id="loginLink"><a href="student/home">{{email}}</a></li>
-					<li id="loginLink"><a href="{{ logoutUrl }}">Logout</a></li>
+					<li id="emailLink"><a href="student/home">{{email}}</a></li>
+					<li id="logOutLink"><a href="{{ logoutUrl }}">Logout</a></li>
 				</ul>
 				{% elif loginUrl %}
 				<ul class="nav pull-right">

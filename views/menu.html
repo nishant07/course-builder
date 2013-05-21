@@ -19,7 +19,7 @@
                             {% for unit in units %}
                                 {% if unit.type != 'A' %}
                                 {% if units_lessons[unit.unit_id] == 'None' %}
-                                <li><a class="dropdown-toggle" href="#">{{ unit.title }}</a>
+                                <li><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
                                 {% else %}
                                 <li class="dropdown-submenu"><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
                                 {% endif %}

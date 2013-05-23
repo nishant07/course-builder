@@ -58,7 +58,7 @@ $(document).ready(function(){
             <h3>{{ unit.unit_id }}. {{ unit.title }}</h3>
             <div>
             {% if units_lessons[unit.unit_id] != 'None' %}
-                <table>
+                <table class='datagrid'>
                     <tbody>
                     {% for v in units_lessons[unit.unit_id] %}
                     <tr><td><a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a></td></tr>
@@ -73,19 +73,37 @@ $(document).ready(function(){
 
     <div class="gcb-article tab-content" style="width: 70%;" role="main">
         <div >
-            <div class="ui-widget-content" id="droppedItems">
+            <div id="submitForm">
                 <form method="post">
                     <table>
-                        <thead>
-                            <tr ><td style="width: 100%">Drop lessons</td></tr>
-                        </thead>
-
                         <tbody>
+                            <tr>
+                                <td><input type='button' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
+                            </tr>
                         </tbody>
                     </table>
                 </form>
             </div>
         </div>
+        <div>
+            <div id="droppedItems" style='height: 100%'>
+                <form method="post">
+                    <table class="tftable">
+                        <thead>
+                            <tr >
+                                <td style="width: 100%">Drop lessons</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 

@@ -247,9 +247,6 @@ class BaseHandler(ApplicationHandler):
                 ls[unit.unit_id] = self.get_lessons(unit.unit_id)
             else:
                 ls[unit.unit_id] = 'None'
-            print unit.unit_id
-            for l in self.get_lessons(unit.unit_id):
-                print l.title
         self.template_value['units_lessons'] = ls
 
         template = self.get_template(template_file)

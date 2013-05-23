@@ -336,26 +336,28 @@ class PlayListHandler(BaseHandler):
         if not student:
             return
 
-        u = self.request.get('unit')
-        hws = self.get_homeworks()
+        if student.playList is not None:
+            print 'playlist found'
+            playList = []
+            for p in student.playList:
+                print p
+                unit = {}
+                unit['unit'], unit['lesson'] = p.split(".")
+                unit['unit'] = unit['unit']
+                unit['lesson'] = int(unit['lesson'])
+                playList.append(unit)
 
-        if not u:
-            u = -1
-
-        u = int(u)
-        homework = None
-        if u != -1:
-            for hw in hws:
-                if hw.id == u:
-                    homework = hw
+            if len(student.playList) == 0:
+                self.template_value['playList'] = 'None'
+                self.template_value['total'] = 0
+            else:
+                # for p in playList:
+                #     print p['unit'] + p['lesson']
+                self.template_value['playList'] = playList
+                self.template_value['total'] = len(playList)
         else:
-            homework = hws[0]
-            u = homework.id
-
-
-        self.template_value['homework'] = homework
-        self.template_value['homeworks'] = hws
-        self.template_value['homework_id'] = u
+            self.template_value['playlist'] = 'None'
+            self.template_value['total'] = 0
 
         self.render('playlist.html')
 
@@ -364,26 +366,16 @@ class PlayListHandler(BaseHandler):
         if not student:
             return
 
-        u = self.request.get('unit')
-        hws = self.get_homeworks()
+        total = self.request.get('total')
+        total = int(total)
 
-        if not u:
-            u = -1
+        playList = []
+        for i in range(0, total):
+            lesson = self.request.get('lesson.' + str(i))
+            playList.append(lesson)
 
-        u = int(u)
-        homework = None
-        if u != -1:
-            for hw in hws:
-                if hw.id == u:
-                    homework = hw
-        else:
-            homework = hws[0]
-            u = homework.id
-
-
-        self.template_value['homework'] = homework
-        self.template_value['homeworks'] = hws
-        self.template_value['homework_id'] = u
+        student.playList= playList
+        student.put()
 
         self.render('playlist.html')
 

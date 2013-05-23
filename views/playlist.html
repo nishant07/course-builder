@@ -32,15 +32,30 @@ $(document).ready(function(){
             var lesson = ui.draggable.find('input[name="lesson"]').attr('value');
             var tr = $('<tr></tr>').append($('<td></td>').append($('<a></a>').text(a).attr('href', href))).
                     append($('<td></td>').append($('<a></a>').attr('type', 'button').addClass('removeButton').text('Remove')).
-                            append($('<input>').attr('type', 'hidden').attr('value', unit).attr('name', 'unit')).
-                            append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', lesson)));
+                            append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
 
             $( "#droppedItems tbody" ).append(tr);
         }
     });
 
     $("#droppedItems tbody").sortable();
+
+    $('#submitForm').submit(function() {
+        var count = 0;
+        $('#dropTable > tbody  > tr').each(function() {
+            $(this).find('input[name="lesson"]').attr('name', 'lesson.' + count);
+            count++;
+        });
+
+        $('#total').attr('value', count);
+    });
+
+    $('#save').click(function() {
+        $('#submitForm').submit();
+    });
 });
+
+
 
 </script>
 {% endblock %}
@@ -88,7 +103,7 @@ $(document).ready(function(){
                     <table>
                         <tbody>
                             <tr>
-                                <td><input type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
+                                <td><input id='save' type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
                             </tr>
                         </tbody>
                     </table>
@@ -96,7 +111,7 @@ $(document).ready(function(){
             </div>
             <div>
                 <div id="droppedItems" style='height: 100%'>
-                    <table class="tftable">
+                    <table class="tftable" id='dropTable'>
                         <thead>
                             <tr >
                                 <td style="width: 100%">Drag and Drop lessons here</td>
@@ -104,8 +119,25 @@ $(document).ready(function(){
                             </tr>
                         </thead>
                         <tbody>
+                        {% if playList != 'None' %}
+
+                        {% for p in playList %}
+                            {% for v in units_lessons[p['unit']] %}
+                                {% if v.lesson_id == p['lesson'] %}
+                                    <tr>
+                                        <td><a href="playlist">{{p['unit']}}.{{p['lesson']}} {{v.title}}</a></td>
+                                        <td>
+                                            <a type='button' class='removeButton'>Remove</a>
+                                            <input type="hidden" value="{{p['unit']}}.{{p['lesson']}}" name="lesson">
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% endif %}
                         </tbody>
                     </table>
+                    <input type="hidden" value='{{total}}' name='total' id='total'>
                 </div>
             </div>
         </form>

@@ -377,6 +377,29 @@ class PlayListHandler(BaseHandler):
         student.playList= playList
         student.put()
 
+        if student.playList is not None:
+            print 'playlist found'
+            playList = []
+            for p in student.playList:
+                print p
+                unit = {}
+                unit['unit'], unit['lesson'] = p.split(".")
+                unit['unit'] = unit['unit']
+                unit['lesson'] = int(unit['lesson'])
+                playList.append(unit)
+
+            if len(student.playList) == 0:
+                self.template_value['playList'] = 'None'
+                self.template_value['total'] = 0
+            else:
+                # for p in playList:
+                #     print p['unit'] + p['lesson']
+                self.template_value['playList'] = playList
+                self.template_value['total'] = len(playList)
+        else:
+            self.template_value['playlist'] = 'None'
+            self.template_value['total'] = 0
+
         self.render('playlist.html')
 
 class EventsRESTHandler(BaseRESTHandler):

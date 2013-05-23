@@ -53,6 +53,12 @@ $(document).ready(function(){
     $('#save').click(function() {
         $('#submitForm').submit();
     });
+
+    $('#clear').click(function() {
+        $('#dropTable > tbody  > tr').each(function() {
+            $(this).remove();
+        });
+    });
 });
 
 
@@ -103,7 +109,7 @@ $(document).ready(function(){
                     <table>
                         <tbody>
                             <tr>
-                                <td><input id='save' type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
+                                <td><input id='save' type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' id='clear' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
                             </tr>
                         </tbody>
                     </table>

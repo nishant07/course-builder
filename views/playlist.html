@@ -28,7 +28,12 @@ $(document).ready(function(){
         drop: function(event, ui) {
             var a = ui.draggable.find('a').text();
             var href = ui.draggable.find('a').attr('href');
-            var tr = $('<tr></tr>').append($('<td></td>').append($('<a></a>').text(a).attr('href', href))).append($('<td></td>').append($('<a></a>').attr('type', 'button').addClass('removeButton').text('Remove')));
+            var unit = ui.draggable.find('input[name="unit"]').attr('value');
+            var lesson = ui.draggable.find('input[name="lesson"]').attr('value');
+            var tr = $('<tr></tr>').append($('<td></td>').append($('<a></a>').text(a).attr('href', href))).
+                    append($('<td></td>').append($('<a></a>').attr('type', 'button').addClass('removeButton').text('Remove')).
+                            append($('<input>').attr('type', 'hidden').attr('value', unit).attr('name', 'unit')).
+                            append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', lesson)));
 
             $( "#droppedItems tbody" ).append(tr);
         }
@@ -61,7 +66,12 @@ $(document).ready(function(){
                 <table class='datagrid'>
                     <tbody>
                     {% for v in units_lessons[unit.unit_id] %}
-                    <tr><td><a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a></td></tr>
+                    <tr><td>
+                        <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
+                        <input type='hidden' name='unit' value="{{unit.unit_id}}">
+                        <input type='hidden' name='lesson' value="{{v.lesson_id}}">
+                        </td>
+                    </tr>
                     {% endfor %}
                     </tbody>
                 </table>
@@ -72,22 +82,20 @@ $(document).ready(function(){
     </div>
 
     <div class="gcb-article tab-content" style="width: 70%;" role="main">
-        <div >
-            <div id="submitForm">
-                <form method="post">
+        <form method="post" action="playlist">
+            <div >
+                <div id="submitForm">
                     <table>
                         <tbody>
                             <tr>
-                                <td><input type='button' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
+                                <td><input type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
                             </tr>
                         </tbody>
                     </table>
-                </form>
+                </div>
             </div>
-        </div>
-        <div>
-            <div id="droppedItems" style='height: 100%'>
-                <form method="post">
+            <div>
+                <div id="droppedItems" style='height: 100%'>
                     <table class="tftable">
                         <thead>
                             <tr >
@@ -95,15 +103,12 @@ $(document).ready(function(){
                                 <td>Action</td>
                             </tr>
                         </thead>
-
                         <tbody>
-
                         </tbody>
                     </table>
-                </form>
+                </div>
             </div>
-        </div>
-
+        </form>
     </div>
 </div>
 

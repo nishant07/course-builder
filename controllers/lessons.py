@@ -359,6 +359,34 @@ class PlayListHandler(BaseHandler):
 
         self.render('playlist.html')
 
+    def post(self):
+        student = self.personalize_page_and_get_enrolled()
+        if not student:
+            return
+
+        u = self.request.get('unit')
+        hws = self.get_homeworks()
+
+        if not u:
+            u = -1
+
+        u = int(u)
+        homework = None
+        if u != -1:
+            for hw in hws:
+                if hw.id == u:
+                    homework = hw
+        else:
+            homework = hws[0]
+            u = homework.id
+
+
+        self.template_value['homework'] = homework
+        self.template_value['homeworks'] = hws
+        self.template_value['homework_id'] = u
+
+        self.render('playlist.html')
+
 class EventsRESTHandler(BaseRESTHandler):
     """Provides REST API for an Event."""
 

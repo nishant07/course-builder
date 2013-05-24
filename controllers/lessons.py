@@ -113,6 +113,34 @@ class CourseHandler(BaseHandler):
         self.render('course.html')
 
 
+class CourseNewHandler(BaseHandler):
+    """Handler for generating course page."""
+
+    @classmethod
+    def get_child_routes(cls):
+        """Add child handlers for REST."""
+        return [('/rest/events', EventsRESTHandler)]
+
+    def get(self):
+        """Handles GET requests."""
+        user = self.personalize_page_and_get_user()
+        if not user:
+            self.redirect('/preview')
+            return None
+
+        student = self.personalize_page_and_get_enrolled()
+        if not student:
+            return
+
+        self.template_value['units'] = self.get_units()
+        self.template_value['progress'] = (
+            self.get_progress_tracker().get_unit_progress(student))
+        self.template_value['is_progress_recorded'] = (
+            CAN_PERSIST_ACTIVITY_EVENTS.value)
+        self.template_value['navbar'] = {'course': True}
+        self.render('course_new.html')
+
+
 class UnitHandler(BaseHandler):
     """Handler for generating unit page."""
 
@@ -375,6 +403,7 @@ class PlayListHandler(BaseHandler):
             playList.append(lesson)
 
         student.playList= playList
+        student.playListIndex = -1
         student.put()
 
         if student.playList is not None:

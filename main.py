@@ -43,7 +43,8 @@ urls = [
     ('/student/unenroll', utils.StudentUnenrollHandler),
     ('/unit', lessons.UnitHandler),
     ('/homework', lessons.HomeWorkHandler),
-    ('/playlist', lessons.PlayListHandler)]
+    ('/playlist', lessons.PlayListHandler),
+    ('/coursen', lessons.CourseNewHandler)]
 
 sites.ApplicationRequestHandler.bind(urls)
 

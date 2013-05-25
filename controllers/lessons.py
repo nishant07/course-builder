@@ -141,6 +141,97 @@ class CourseNewHandler(BaseHandler):
         self.render('course_new.html')
 
 
+class PlayListUnitHandler(BaseHandler):
+    """Handler for generating unit page."""
+
+    def get(self):
+        """Handles GET requests."""
+        student = self.personalize_page_and_get_enrolled()
+        if not student:
+            return
+
+        if student.playList is None or len(student.playList) == 0:
+            return
+
+        index = self.request.get('index')
+
+        if not index:
+            index = 0
+        index = int(index)
+
+        if index >= len(student.playList):
+            index = 0
+
+        print 'unit index ' + str(index)
+
+        unit, lesson = get_unit_lesson_from_playlist(self.get_course(), student.playList, index)
+        # Extract incoming args
+        unit_id = unit.unit_id
+
+        # If the unit is not currently available, and the user is not an admin,
+        # redirect to the main page.
+        if (not unit.now_available and
+                not Roles.is_course_admin(self.app_context)):
+            self.redirect('/')
+            return
+
+        # Set template values for nav bar and page type.
+        self.template_value['navbar'] = {'course': True}
+        self.template_value['page_type'] = UNIT_PAGE_TYPE
+
+        lessons = self.get_lessons(unit_id)
+
+        # Set template values for a unit and its lesson entities
+        self.template_value['unit'] = unit
+        self.template_value['unit_id'] = unit_id
+        self.template_value['lesson'] = lesson
+        self.template_value['lessons'] = lessons
+
+        # If this unit contains no lessons, return.
+        if not lesson:
+            self.render('unit.html')
+            return
+
+        lesson_id = lesson.lesson_id
+        self.template_value['lesson_id'] = lesson_id
+
+        # Format back button.
+        if index == 0:
+            self.template_value['back_button_url'] = ''
+        else:
+            prev_unit, prev_lesson = get_unit_lesson_from_playlist(self.get_course(), student.playList, index - 1)
+            print 'prev' + prev_unit.unit_id + " : " + str(prev_lesson.lesson_id)
+            if prev_lesson.activity:
+                self.template_value['back_button_url'] = (
+                    'activityplaylist?index=%s' % (index))
+            else:
+                self.template_value['back_button_url'] = (
+                    'unitplaylist?index=%s' % (index - 1))
+
+        # Format next button.
+        if lesson.activity:
+            self.template_value['next_button_url'] = (
+                'activityplaylist?index=%s' % (index))
+        else:
+            if not index < len(student.playList) - 1:
+                self.template_value['next_button_url'] = ''
+            else:
+                next_unit, next_lesson = get_unit_lesson_from_playlist(self.get_course(), student.playList, index + 1)
+                print 'next' + next_unit.unit_id + " : " + str(next_lesson.lesson_id)
+                self.template_value['next_button_url'] = (
+                    'unitplaylist?index=%s' % (
+                        index + 1))
+
+            # Set template values for student progress
+        self.template_value['is_progress_recorded'] = (
+            CAN_PERSIST_ACTIVITY_EVENTS.value)
+        if CAN_PERSIST_ACTIVITY_EVENTS.value:
+            self.template_value['progress'] = (
+                self.get_progress_tracker().get_lesson_progress(
+                    student, unit_id))
+
+        self.render('unit.html')
+
 class UnitHandler(BaseHandler):
     """Handler for generating unit page."""
 
@@ -157,7 +248,7 @@ class UnitHandler(BaseHandler):
         # If the unit is not currently available, and the user is not an admin,
         # redirect to the main page.
         if (not unit.now_available and
-            not Roles.is_course_admin(self.app_context)):
+                not Roles.is_course_admin(self.app_context)):
             self.redirect('/')
             return
 
@@ -220,6 +311,11 @@ class UnitHandler(BaseHandler):
 
         self.render('unit.html')
 
+def get_unit_lesson_from_playlist(course, playlist, index):
+    unit, lesson = playlist[index].split(".")
+
+    unit = course.find_unit_by_id(unit)
+    return unit, course.find_lesson_by_id(unit, int(lesson))
 
 class ActivityHandler(BaseHandler):
     """Handler for generating activity page and receiving submissions."""
@@ -277,6 +373,92 @@ class ActivityHandler(BaseHandler):
             self.template_value['next_button_url'] = (
                 'unit?unit=%s&lesson=%s' % (
                     unit_id, next_lesson.lesson_id))
+
+        # Set template value for event recording
+        self.template_value['record_events'] = CAN_PERSIST_ACTIVITY_EVENTS.value
+
+        # Set template values for student progress
+        self.template_value['is_progress_recorded'] = (
+            CAN_PERSIST_ACTIVITY_EVENTS.value)
+        if CAN_PERSIST_ACTIVITY_EVENTS.value:
+            self.template_value['progress'] = (
+                self.get_progress_tracker().get_lesson_progress(
+                    student, unit_id))
+
+        self.template_value['event_xsrf_token'] = (
+            XsrfTokenManager.create_xsrf_token('event-post'))
+
+        # Mark this page as accessed. This is done after setting the student
+        # progress template value, so that the mark only shows up after the
+        # student visits the page for the first time.
+        self.get_course().get_progress_tracker().put_activity_accessed(
+            student, unit_id, lesson_id)
+
+        self.render('activity.html')
+
+class PlayListActivityHandler(BaseHandler):
+    """Handler for generating activity page and receiving submissions."""
+
+    def get(self):
+        """Handles GET requests."""
+        student = self.personalize_page_and_get_enrolled()
+        if not student:
+            return
+
+        if student.playList is None or len(student.playList) == 0:
+            return
+
+        index = self.request.get('index')
+
+        if not index:
+            index = 0
+        index = int(index)
+
+        if index >= len(student.playList):
+            index = 0
+
+        unit, lesson = get_unit_lesson_from_playlist(self.get_course(), student.playList, index)
+        unit_id = unit.unit_id
+
+        # If the unit is not currently available, and the user is not an admin,
+        # redirect to the main page.
+        if (not unit.now_available and
+                not Roles.is_course_admin(self.app_context)):
+            self.redirect('/')
+            return
+
+        # Set template values for nav bar and page type.
+        self.template_value['navbar'] = {'course': True}
+        self.template_value['page_type'] = ACTIVITY_PAGE_TYPE
+
+        lessons = self.get_lessons(unit_id)
+
+        # Set template values for a unit and its lesson entities
+        self.template_value['unit'] = unit
+        self.template_value['unit_id'] = unit_id
+        self.template_value['lesson'] = lesson
+        self.template_value['lessons'] = lessons
+
+        # If this unit contains no lessons, return.
+        if not lesson:
+            self.render('activity.html')
+            return
+
+        lesson_id = lesson.lesson_id
+        self.template_value['lesson_id'] = lesson_id
+        self.template_value['activity_script_src'] = (
+            self.get_course().get_activity_filename(unit_id, lesson_id))
+
+        # Format back button.
+        self.template_value['back_button_url'] = (
+            'unitplaylist?index=%s' % (index))
+
+        # Format next button.
+        if not index < len(student.playList) - 1:
+            self.template_value['next_button_url'] = ''
+        else:
+            self.template_value['next_button_url'] = (
+                'unitplaylist?index=%s' % (index + 1))
 
         # Set template value for event recording
         self.template_value['record_events'] = CAN_PERSIST_ACTIVITY_EVENTS.value
@@ -402,8 +584,8 @@ class PlayListHandler(BaseHandler):
             lesson = self.request.get('lesson.' + str(i))
             playList.append(lesson)
 
-        student.playList= playList
-        student.playListIndex = -1
+        student.playList = playList
+        student.playListIndex = 0
         student.put()
 
         if student.playList is not None:

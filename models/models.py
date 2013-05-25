@@ -106,7 +106,7 @@ class Student(BaseEntity):
     name = db.StringProperty(indexed=False)
     is_enrolled = db.BooleanProperty(indexed=False)
     playList = db.StringListProperty(indexed=False)
-    playListIndex = db.IntegerProperty(indexed=False)
+    playListIndex = db.IntegerProperty(indexed=False, default=0)
 
     # Each of the following is a string representation of a JSON dict.
     scores = db.TextProperty(indexed=False)

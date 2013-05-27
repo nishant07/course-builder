@@ -138,7 +138,7 @@ class CourseNewHandler(BaseHandler):
         self.template_value['is_progress_recorded'] = (
             CAN_PERSIST_ACTIVITY_EVENTS.value)
         self.template_value['navbar'] = {'course': True}
-        self.render('course_new.html')
+        self.render('course_playlist.html')
 
 
 class PlayListUnitHandler(BaseHandler):
@@ -153,7 +153,11 @@ class PlayListUnitHandler(BaseHandler):
         if student.playList is None or len(student.playList) == 0:
             return
 
-        index = self.request.get('index')
+        resume = self.request.get('resume')
+        if resume:
+            index = student.playListIndex
+        else:
+            index = self.request.get('index')
 
         if not index:
             index = 0
@@ -161,8 +165,6 @@ class PlayListUnitHandler(BaseHandler):
 
         if index >= len(student.playList):
             index = 0
-
-        print 'unit index ' + str(index)
 
         unit, lesson = get_unit_lesson_from_playlist(self.get_course(), student.playList, index)
         # Extract incoming args
@@ -221,6 +223,8 @@ class PlayListUnitHandler(BaseHandler):
                 self.template_value['next_button_url'] = (
                     'unitplaylist?index=%s' % (
                         index + 1))
+        student.playListIndex = index
+        student.put()
 
             # Set template values for student progress
         self.template_value['is_progress_recorded'] = (

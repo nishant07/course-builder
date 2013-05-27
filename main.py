@@ -44,7 +44,7 @@ urls = [
     ('/unit', lessons.UnitHandler),
     ('/homework', lessons.HomeWorkHandler),
     ('/playlist', lessons.PlayListHandler),
-    ('/coursen', lessons.CourseNewHandler),
+    ('/course_playlist', lessons.CourseNewHandler),
     ('/unitplaylist', lessons.PlayListUnitHandler),
     ('/activityplaylist', lessons.PlayListActivityHandler)]
 

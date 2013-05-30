@@ -57,10 +57,6 @@ a {
   text-decoration: none;
 }
 
-a:visited {
-  color: #7847b2;
-}
-
 a:focus, a:hover, a:active {
   text-decoration: underline;
 }
@@ -837,5 +833,9 @@ span.progress-empty {
 
 .grayed-active {
   font-weight: bold;
+}
+
+#star_img {
+	margin-left:.5px;
 }
 

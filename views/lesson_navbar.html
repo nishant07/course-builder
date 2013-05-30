@@ -8,14 +8,20 @@
 
         {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
           <li class="active">
-            {{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
+           	{{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
         {% else %}
           <li>
-            <a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
-              {{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
+          {% if lesson.description and lesson.description != ' ' %} 
+            <a class="tipbox" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
+             {{ unit.index }}.{{ lesson.index }} {{ lesson.title }} <span class="classic gradient"> <em>Description</em> {{ lesson.description }} 
+     			</span>
             </a>
+          {% else %}
+          	<a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
+          		{{ unit.index }}.{{ lesson.index }} {{ lesson.title }} 
+          	</a>
+          {% endif %}
         {% endif %}
-
         {% if not lesson.now_available and is_course_admin %}
           <span class="grayed">
             (Private)

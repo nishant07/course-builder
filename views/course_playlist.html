@@ -53,13 +53,26 @@
                          class="progress"
                          id="progress-notstarted-{{unit.unit_id}}">
                     {% endif %}
-                    {% else %}
+                    {% else %}                                                 
                     <span class="progress-empty"></span>
-                    {% endif %}
-
-                    <a href="unit?unit={{ unit.unit_id }}">
-                        {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
-                    </a>
+                    {% endif %}  
+                    
+                    {% if unit.description and unit.description != ' ' %} 
+                    	<a class="tipbox" href="unit?unit={{ unit.unit_id }}">
+                        	{{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }} <span class="classic gradient"> <em>Description</em> {{ unit.description }} </span>
+                    	</a>                        	
+                    {% else %} 
+                    	<a href="unit?unit={{ unit.unit_id }}">
+                        	{{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
+                    	</a>
+                    {% endif %} 
+                    </br>                                      
+                    <div align="center">
+	                    {% for number in range(unit.difficulty) %} 
+	      					<img src="assets/img/star_small.gif" height="10" width="10">
+	      				{% endfor %}
+      				</div> 
+      				
                     {% elif unit.type == 'O' %}
                     <li>
                         <p class="top_content">

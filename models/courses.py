@@ -164,7 +164,7 @@ def index_units_and_lessons(course):
 
             lesson_index = 1
             for lesson in course.get_lessons(unit.unit_id):
-                lesson._index = (  # pylint: disable-msg=protected-access
+                lesson._index = (# pylint: disable-msg=protected-access
                     lesson_index)
                 lesson_index += 1
 
@@ -250,6 +250,8 @@ class Unit12(object):
         self.title = ''
         self.release_date = ''
         self.now_available = False
+        self.difficulty = None
+        self.description = ''
 
         # Units of 'U' types have 1-based index. An index is automatically
         # computed.
@@ -279,6 +281,7 @@ class Lesson12(object):
         self.duration = ''
         self.activity = ''
         self.activity_title = ''
+        self.description = ''
 
         # Lessons have 1-based index inside the unit they belong to. An index
         # is automatically computed.

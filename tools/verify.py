@@ -99,10 +99,10 @@ UNIT_TYPE_NAMES = {
     UNIT_TYPE_ASSESSMENT: 'Assessment'}
 
 UNITS_HEADER = (
-    'id,type,unit_id,title,release_date,now_available')
+    'id,type,unit_id,title,release_date,now_available,difficulty,unit_description')
 LESSONS_HEADER = (
     'unit_id,unit_title,lesson_id,lesson_title,lesson_activity,'
-    'lesson_activity_name,lesson_notes,lesson_video_id,lesson_objectives')
+    'lesson_activity_name,lesson_notes,lesson_video_id,lesson_objectives,lesson_description')
 HOME_WORKS_HEADER = (
     'id,homework_id,title,filename')
 
@@ -112,7 +112,9 @@ UNIT_CSV_TO_DB_CONVERTER = {
     'unit_id': ('unit_id', unicode),
     'title': ('title', unicode),
     'release_date': ('release_date', unicode),
-    'now_available': ('now_available', lambda value: value == 'True')
+    'now_available': ('now_available', lambda value: value == 'True'),
+    'difficulty': ('difficulty', int),
+    'unit_description': ('description', unicode)
 }
 LESSON_CSV_TO_DB_CONVERTER = {
     'unit_id': ('unit_id', int),
@@ -126,7 +128,8 @@ LESSON_CSV_TO_DB_CONVERTER = {
     'lesson_activity_name': ('activity_title', unicode),
     'lesson_video_id': ('video', unicode),
     'lesson_objectives': ('objectives', unicode),
-    'lesson_notes': ('notes', unicode)
+    'lesson_notes': ('notes', unicode),
+    'lesson_description': ('description', unicode)
 }
 
 HOME_WORK_CSV_TO_DB_CONVERTER = {
@@ -655,6 +658,7 @@ class Unit(object):
         self.title = ''
         self.release_date = ''
         self.now_available = False
+        self.difficulty = ''
 
     def list_properties(self, name, output):
         """Outputs all properties of the unit."""
@@ -670,6 +674,8 @@ class Unit(object):
             name, escape_quote(self.release_date)))
         output.append('%s[\'now_available\'] = %s;' % (
             name, str(self.now_available).lower()))
+        output.append('%s[\'difficulty\'] = \'%s\';' % (
+            name, escape_quote(self.difficulty)))
 
 
 class Lesson(object):
@@ -685,6 +691,7 @@ class Lesson(object):
         self.lesson_notes = ''
         self.lesson_video_id = ''
         self.lesson_objectives = ''
+        self.difficulty = ''
 
     def list_properties(self, name, output):
         """Outputs all properties of the lesson."""
@@ -1152,7 +1159,7 @@ class Verifier(object):
         assert final_slash_index > 0
 
         base = regex_str[1:final_slash_index]
-        modifiers = regex_str[final_slash_index+1:]
+        modifiers = regex_str[final_slash_index + 1:]
         func_str = 'gcb_regex(' + repr(base) + ', ' + repr(modifiers) + ')'
         return func_str
 
@@ -1252,8 +1259,8 @@ class Verifier(object):
 
         if 'noverify' in assessment_dict:
             self.export.append('')
-            noverify_code_str = ('assessments[\'' + assessment_name +
-                                 '\'] = ' + repr(assessment_dict['noverify']) +
+            noverify_code_str = ('assessments[\'' + assessment_name + 
+                                 '\'] = ' + repr(assessment_dict['noverify']) + 
                                  ';')
             self.export.append(noverify_code_str)
 
@@ -1377,13 +1384,13 @@ def run_all_regex_unit_tests():
     # pylint: enable-msg=anomalous-backslash-in-string
 
     assert Verifier.encode_regex('/white?/i') == """gcb_regex('white?', 'i')"""
-    assert (Verifier.encode_regex('/jane austen (book|books) \\-price/i') ==
+    assert (Verifier.encode_regex('/jane austen (book|books) \\-price/i') == 
             r"""gcb_regex('jane austen (book|books) \\-price', 'i')""")
-    assert (Verifier.encode_regex('/Kozanji|Kozan-ji|Kosanji|Kosan-ji/i') ==
+    assert (Verifier.encode_regex('/Kozanji|Kozan-ji|Kosanji|Kosan-ji/i') == 
             r"""gcb_regex('Kozanji|Kozan-ji|Kosanji|Kosan-ji', 'i')""")
-    assert (Verifier.encode_regex('/Big Time College Sport?/i') ==
+    assert (Verifier.encode_regex('/Big Time College Sport?/i') == 
             "gcb_regex('Big Time College Sport?', 'i')")
-    assert (Verifier.encode_regex('/354\\s*[+]\\s*651/') ==
+    assert (Verifier.encode_regex('/354\\s*[+]\\s*651/') == 
             r"""gcb_regex('354\\s*[+]\\s*651', '')""")
 
 

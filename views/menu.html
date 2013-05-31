@@ -12,6 +12,7 @@
 				<ul class="nav">
 					<li><a id="homelink" href="preview">Home</a></li>
 					<li><a id="announcements" href="announcements">Announcements</a></li>
+                    {% if enrolled %}
 					<li class="dropdown"><a class="dropdown-toggle" id="course" href="course_playlist">Course</a>
 						<ul class="dropdown-menu">
 							<li><a href="course_playlist">All</a></li>
@@ -37,7 +38,6 @@
                             {% endfor %}
 						</ul>
                     </li>
-                    {% if logoutUrl %}
                     <li>
                         <a class="dropdown-toggle" id="homework" href="homework">Homework</a>
                     </li>
@@ -55,6 +55,9 @@
 				</ul>
 				{% if logoutUrl %}
 				<ul class="nav pull-right">
+                    {% if not enrolled %}
+                        <li id="register"><a href="register">Register</a></li>
+                    {% endif %}
 					<li id="emailLink"><a href="student/home">{{email}}</a></li>
 					<li id="logOutLink"><a href="{{ logoutUrl }}">Logout</a></li>
 				</ul>

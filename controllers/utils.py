@@ -249,6 +249,10 @@ class BaseHandler(ApplicationHandler):
                 ls[unit.unit_id] = 'None'
         self.template_value['units_lessons'] = ls
 
+        user = users.get_current_user()
+        if user and Student.get_enrolled_student_by_email(user.email()):
+            self.template_value['enrolled'] = True
+
         template = self.get_template(template_file)
         self.response.out.write(template.render(self.template_value))
 

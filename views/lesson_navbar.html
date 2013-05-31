@@ -63,7 +63,7 @@
                   {% trans %} Activity {% endtrans %}
                 {% else %}
                   <a href="activity?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
-                    {% trans %} Activity {% endtrans %}
+                    {{lesson.activity_title}}
                   </a>
                 {% endif %}
               </li>

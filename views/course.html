@@ -15,18 +15,18 @@
     <div style="margin-top: 20px;" class="gcb-cols">
       <div class="gcb-col-1">
       </div>
-      <div class="gcb-col-9">
+      <div class="gcb-col-9" style="margin: 0 -4% 1px">
 
         <h1 class="schedule-headers">
           {% trans %} Schedule {% endtrans %}
         </h1>
         <div class="gcb-main">
           <div style="width: 100%;" class="gcb-nav" id="gcb-nav-y">
-            <ul>
+            <table><tbody>
               {% for unit in units %}
                 {% if unit.now_available or is_course_admin %}
                   {% if unit.type == 'A' %}
-                    <li><p class="top_content">
+                    <tr><td><p class="top_content">
                       {% if progress[unit.unit_id] > 0 %}
                         <img src="assets/lib/completed.png"
                              alt="{% trans %} Completed {% endtrans %}"
@@ -42,7 +42,7 @@
                       {% endif %}
                       <a href="assessment?name={{ unit.unit_id }}">{{ unit.title }}</a>
                   {% elif unit.type == 'U' %}
-                    <li><p class="top_content">
+                    <tr><td><p class="top_content">
                       {% if is_progress_recorded %}
                         {% if progress[unit.unit_id] == 2 %}
                           <img src="assets/lib/completed.png"
@@ -71,12 +71,12 @@
                         {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
                       </a>
                   {% elif unit.type == 'O' %}
-                    <li>
+                    <tr><td>
                       <p class="top_content">
                         <span class="progress-empty"></span>
                         <a href="{{ unit.href }}"> {{ unit.title }} </a>
                   {% else %}
-                    <li>
+                    <tr><td>
                       <p class="top_content">
                         <span class="progress-empty"></span>
                         Error: unit type not recognized.
@@ -85,17 +85,17 @@
                         (Private)
                       {% endif %}
                       </p>
-                    </li>
+                    </td></tr>
                 {% else %}
                   {% if unit.type == 'A' %}
-                    <li>
+                    <tr><td>
                       <p class="top_content">
                         <span class="progress-empty"></span>
                         {{ unit.title }}
                       </p>
-                    </li>
+                    </td></tr>
                 {% elif unit.type == 'U' %}
-                    <li>
+                    <tr><td>
                       <p class="top_content">
                         <span class="progress-empty"></span>
                         {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
@@ -103,26 +103,26 @@
                           {{ unit.release_date }}
                         </span>
                       </p>
-                    </li>
+                    </td></tr>
                   {% elif unit.type == 'O' %}
-                    <li>
+                    <tr><td>
                       <p class="top_content">
                         <span class="progress-empty"></span>
                         {{ unit.title }}
                       </p>
-                    </li>
+                    </td></tr>
                   {% else %}
-                    <li>
+                    <tr><td>
                       <p class="top_content">
                         <span class="progress-empty"></span>
                         Error: unit type not recognized.
                       </p>
-                    </li>
+                    </td></tr>
                   {% endif %}
                 {% endif %}
 
               {% endfor %}
-            </ul>
+            </tbody></table>
           </div>
         </div>
 

@@ -132,6 +132,9 @@ class CourseNewHandler(BaseHandler):
         if not student:
             return
 
+        if len(student.playList) == 0:
+            self.template_value['empty'] = True
+
         self.template_value['units'] = self.get_units()
         self.template_value['progress'] = (
             self.get_progress_tracker().get_unit_progress(student))

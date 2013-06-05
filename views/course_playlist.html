@@ -134,15 +134,27 @@
                 <tbody>
                 <tr><td>
                     <div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
+                        {% if not empty %}
                     <a href="unitplaylist">
                         {% trans %} Start {% endtrans %}
                     </a>
+                        {% else %}
+                        <a href="unitplaylist" style="pointer-events:none">
+                            {% trans %} Start {% endtrans %}
+                        </a>
+                        {% endif %}
                     </div>
                 </td>
                     <td><div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
+                        {% if not empty %}
                         <a href="unitplaylist?resume=yes">
                             {% trans %} Resume {% endtrans %}
                         </a>
+                        {% else %}
+                        <a href="unitplaylist?resume=yes" style="pointer-events:none">
+                            {% trans %} Resume {% endtrans %}
+                        </a>
+                        {% endif %}
                     </div>
                     </td>
                 </tr>

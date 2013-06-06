@@ -1,0 +1,222 @@
+<div id="accordion">
+
+
+    <h2>1. <a name="overview">Overview</a></h2>
+
+    <div>
+
+        <p>Toward this hands on, you will learn to write your own  SalsaDPI configuration file and run it locally on your laptop machine. Noted that, the same java executable will be use to run on Cloud environment of Hands on 2.</p>
+        <p>Prerequisite: </p>
+        <ul>
+          <li>Make sure all the following software  have been installed and configured.</li>
+          <li>Install and use the prepackaged Virtualbox VM Image, <a href="http://cloudmooc.soic.indiana.edu/tools">installation instruction</a></li>
+          <li>Your compiled Hadoop/Twister binary, program inputs and related dependencies downloaded and put under a working directory, e.g. ~/ . </li>
+        </ul>
+        <p>Gudieline:</p>
+        <ul>
+          <li>Learn and modify your own configuration file refering to the provide template</li>
+          <li>Execute SalsaDPI java executable with passing the configuration file</li>
+        </ul>
+
+    </div>
+
+    <h2>2. <a name="chef-solo">Test the chef-solo command</a></h2>
+
+    <div>
+        <p>If you are using the VirtualBox pre-packaged image, first of all, you will have to check the SalsaDPI package are located under /root/salsaDPI/</p>
+
+
+      <div class="dp-highlighter">
+        <div class="bar">
+          
+          <pre xml:space="preserve">
+cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/salsaDPI.jar" title="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/salsaDPI.jar">http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/salsaDPI.jar</a>
+<br />root@ubuntu:~/salsaDPI# ls -l<br />total 1688<br />drwx------ 2 727168 4002 4096 2012-07-16 22:27 apps<br />drwx------ 4 727168 4002 4096 2012-07-16 23:14 cloud<br />drwxr-xr-x 3 root root 4096 2012-07-19 20:39 hadoopCloud-0.0.1<br />drwx------ 2 727168 4002 4096 2012-07-16 22:30 input<br />-rw------- 1 727168 4002 0 2012-07-16 23:43 README<br />-rwxrwxr-x 1 root root 1689558 2012-07-21 22:38 salsaDPI.jar<br />drwx------ 4 727168 4002 4096 2012-07-16 22:59 sandbox<br />-rwxrwxr-x 1 root root 251 2012-07-19 20:40 solo.rb<br />drwxr-xr-x 3 root root 4096 2012-07-19 20:39 twisterCloud-0.0.1</pre>
+
+          <p>Secondly, within the SalsaDPI package, you need to check a solo.rb file which stores the Chef related caches and cookbooks/recipes. Noted that you will need to change the string /u/johnny/ to your customized location. In this example, Linux vi editor is used.</p>
+          <pre xml:space="preserve">root@ubuntu:~/salsaDPI# cat solo.rb<br />cache_type &quot;BasicFile&quot;<br />cache_options({ :path =&gt; &quot;/root/.chef/cache/checksums&quot;, :skip_expires =&gt; true })<br />cookbook_path [ &quot;/root/.chef/cookbooks/&quot;]<br />role_path &quot;/root/.chef/roles&quot;<br />data_bag_path &quot;/root/.chef/data_bags&quot;<br />file_cache_path &quot;/root/.chef/cache&quot;</pre>
+          <p>Make sure you have same content in the /root/salsaDPI/solo.rb file. Then, you can test it with running chef-solo command along with a test recipe sandboxTest. It will generate a file to /tmp/&lt;username&gt;_test:</p>
+          <p>&nbsp;</p>
+          <pre xml:space="preserve">root@ubuntu:~$ chef-solo -c solo.rb -r http://129.79.49.248/chef-solo.tar.gz -o recipe[sandboxTest]<br />[2012-07-17T03:01:57-04:00] INFO: *** Chef 0.10.10 ***<br />[2012-07-17T03:01:58-04:00] WARN: Run List override has been provided.<br />[2012-07-17T03:01:58-04:00] WARN: Original Run List: []<br />[2012-07-17T03:01:58-04:00] WARN: Overridden Run List: [recipe[sandboxTest]]<br />[2012-07-17T03:01:58-04:00] INFO: Run List is [recipe[sandboxTest]]<br />[2012-07-17T03:01:58-04:00] INFO: Run List expands to [sandboxTest]<br />[2012-07-17T03:01:58-04:00] INFO: Starting Chef Run for salsahpc.indiana.edu<br />[2012-07-17T03:01:58-04:00] INFO: Running start handlers<br />[2012-07-17T03:01:58-04:00] INFO: Start handlers complete.<br />[2012-07-17T03:01:58-04:00] INFO: Processing file[/tmp/root_test] action create (sandboxTest::default line 12)<br />[2012-07-17T03:01:58-04:00] INFO: Chef Run complete in 0.023855 seconds<br />[2012-07-17T03:01:58-04:00] INFO: Running report handlers<br />[2012-07-17T03:01:58-04:00] INFO: Report handlers complete<br /><br /># check the /tmp/&lt;username&gt;_test file<br />root@ubuntu:~$ cat /tmp/root_test<br />This is a test of using chef-solo command with the permission of root.
+          </pre>
+          <p>If there is any error messages such as ssh error, chef-solo.tar.gz cannot be downloaded, ~/.chef/ directory isn't existed or other error messages, please see the FAQ section of this page.</p>
+          
+        </div>
+        </div>
+        
+
+  </div>
+    <h2>3. <a name="conf">Write your SalsaDPI configuration file for Hadoop/Twister applications</a></h2>
+
+    <div>
+        <p>Once chef-solo command is working, you could modify the SalsaDPI configuration to run your complied Hadoop and Twister applications. For this section, we use and modify a a json format template file <em>sandbox_hadoopTemplate.json</em>. This configuation must be correctly filled with full path of your compiled jar executable, your program inputs and your general program arguements.        </p>
+        <pre xml:space="preserve">root@ubuntu:~$ vi salsaDPI/sandbox/templates/sandbox_hadoopTemplate.json</pre>
+        <p><strong><em>Example of Hadoop WordCount program</em></strong></p>
+        <p>Before modifying the <em>sandbox_hadoopTemplate.json</em>, the <strong>Bold</strong> fields in this example will be replaced by user.</p>
+        <ul>
+          <li><strong>#_Full_Path_to_Program_Jar_File_#</strong></li>
+          <li><strong>#_Full_Path_to_Program_Input_#<br />
+          </strong></li>
+          <li><strong>#_Full_Path_to_Program_Dependency_#<br />
+          </strong></li>
+          <li><strong>#_Path_to_Execution_Bin_Dir_#<br />
+          </strong></li>
+          <li><strong>#_Program_Args_#</strong></li>
+        </ul>
+        <p><strong>NOTED THAT</strong> this is an unfinished template need to be filled:</p>
+        <pre>{ // Useful general variables of programArgs for applicationParameters object<br />// #_JAR_#, #_JOB_ID_#, <br />// #_HDFS_INPUTDIR_#, #_HDFS_OUTPUTDIR_#,<br />// #_TWISTER_INPUTDIR_#, #_TWISTER_OUTPUTDIR_#, #_TWISTER_PARTITION_FILE_#, #_BINARY_DEPENDENCY_#<br /><br />// 'mode':'sandbox', | 'mode':'cloud',<br />'mode':'sandbox',<br />// chef-solo related parameters<br />'chef':{'chefSoloRecipeUrls':'http://129.79.49.248/chef-solo.tar.gz', <br />'chefSoloConfFilePath':'/root/salsaDPI/solo.rb'}, <br /><br />// ssh passwordless related parameters<br />'ssh':{'SSHLoginUsername':'root', <br />'SSHPrivateKeyPath':'/root/.ssh/id_rsa' }, <br /><br />// runtime softwares such as recipe[hadoopSandbox] or recipe[twisterSandbox]<br />'softwareRecipes':['recipe[hadoopSandbox]'], // please don't change this line<br /><br />// user-defined application related parameters<br />'applicationParameters':{'applicationType':'Hadoop',<br />'localPathOfProgramBinary':'<strong>#_Full_Path_to_Program_Jar_File_#</strong>', <br />'localPathOfProgramInput':'<strong>#_Full_Path_to_Program_Input_#</strong>', <br />'localPathOfBinaryDependency':'<strong>#_Full_Path_to_Program_Dependency_#</strong>', <br />'programExecuteLocation':'<strong>#_Path_to_Execution_Bin_Dir_#</strong>',<br />'programArgs':'<strong>#_Program_Args_#</strong>'} <br />}<br />
+        </pre>
+        <p>Description of sandbox configuration file:</p>
+      <table width="966" border="1">
+          <tbody>
+            <tr>
+              <th width="234">Parameter</th>
+              <th width="511">Description</th>
+            </tr>
+            <tr>
+              <td>mode</td>
+              <td>Execution mode, options: sandbox or cloud</td>
+            </tr>
+            <tr>
+              <td>chef</td>
+              <td>A json object that contains sandbox mode information, chefSoloRecipeUrls and chefSoloConfFilePath</td>
+            </tr>
+            <tr>
+              <td>chefSoloRecipeUrls</td>
+              <td>Chef online recipe package url, e.g. http://129.79.49.248/chef-solo.tar.gz</td>
+            </tr>
+            <tr>
+              <td>chefSoloConfFilePath</td>
+              <td>Sandbox mode configuration file which contains user-level cache location, cookbooks location information and others. e.g. /root/salsaDPI/sandbox/solo.rb</td>
+            </tr>
+            <tr>
+              <td>ssh</td>
+              <td>A json object that contains ssh information, SSHLoginUsername and SSHPrivateKeyPath</td>
+            </tr>
+            <tr>
+              <td>SSHLoginUsername</td>
+              <td>Ssh login username, normally, it's the same working username for sandbox mode.</td>
+            </tr>
+            <tr>
+              <td>SSHPrivateKeyPath</td>
+              <td>Full path to ssh private key.</td>
+            </tr>
+            <tr>
+              <td>softwareRecipes</td>
+              <td>Runtime softwares such as Hadoop and Twister that will be installed to the working machine(s). Current options: recipe[hadoopSandbox], recipe[twisterSandbox], recipe[hadoopCloud], and recipe[twisterCloud]</td>
+            </tr>
+            <tr>
+              <td>applicationParameters</td>
+              <td>A json object that contains user-defined application's information</td>
+            </tr>
+            <tr>
+              <td>applicationType</td>
+              <td>Type of user-defined application, options: Hadoop or Twister</td>
+            </tr>
+            <tr>
+              <td>localPathOfProgramBinary</td>
+              <td>Full path of user-defined Hadoop or Twister compiled jar executable on the working machine</td>
+            </tr>
+            <tr>
+              <td>localPathOfProgramInput</td>
+              <td>Full path of user-defined input file on the working machine, normally, a plaintext or a *.tar.gz file</td>
+            </tr>
+            <tr>
+              <td>localPathOfBinaryDependency</td>
+              <td>Full path of user-defined program dependency file on the working machine, such as Twister Kmeans initial cluster file</td>
+            </tr>
+            <tr>
+              <td>programExecuteLocation</td>
+              <td>Path to Twister program execution script refer to Twister package, such as samples/wordcount/bin or samples/kmeans/bin</td>
+            </tr>
+            <tr>
+              <td>twisterInputFilesPreFix</td>
+              <td>Twister Input files prefix. Refer to the provided package, for Twister WordCount, the file prefixed is wc_data, for Twister Kmeans is km_data.</td>
+            </tr>
+            <tr>
+              <td>programArgs</td>
+              <td>User-defined program execution command</td>
+            </tr>
+          </tbody>
+        </table>
+      <p>In addition, in order to generate a general user program arguement to be executed in a dynamic environment , SalsaDPI framework provides general variables interface for user to fill the <em>programArgs. </em>Detail description could be seen in the following table.</p>
+        <p>Description of general variables for <em>programArgs </em>of <em>applicationParameters</em> objects, it will be replaced by the SalsaDPI when the program is scheduled on the working node:</p>
+        <table width="966" border="1">
+          <tbody>
+            <tr>
+              <th width="234">Variables</th>
+              <th width="511">Description</th>
+            </tr>
+            <tr>
+              <td>#_JAR_#</td>
+              <td>The user-defined jar file name</td>
+            </tr>
+            <tr>
+              <td>#_JOB_ID_#</td>
+              <td>The job id, normally, it is default program output directory name on the remote worker node.</td>
+            </tr>
+            <tr>
+              <td>#_HDFS_INPUTDIR_#</td>
+              <td>Hadoop type application's HDFS input directory name</td>
+            </tr>
+            <tr>
+              <td>#_HDFS_OUTPUTDIR_#</td>
+              <td>Hadoop type application's HDFS output directory name</td>
+            </tr>
+            <tr>
+              <td>#_TWISTER_INPUTDIR_#</td>
+              <td>Twister type application's Input directory on the working node</td>
+            </tr>
+            <tr>
+              <td>#_TWISTER_OUTPUTDIR_#</td>
+              <td>Twister type application's output directory on the working node</td>
+            </tr>
+            <tr>
+              <td>#_TWISTER_PARTITION_FILE_#</td>
+              <td>Twister type application's partition file</td>
+            </tr>
+            <tr>
+              <td>#_BINARY_DEPENDENCY_#</td>
+              <td>Full Path to twister type program dependency. Mainly, it is used for Twister Kmeans init cluster file.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>After modifying the <em>sandbox_hadoopTemplate.json</em>, we will have the following configuration file for Sandbox Hadoop WordCount.</p>
+        <pre>{ // Useful general variables of programArgs for applicationParameters object<br />// #_JAR_#, #_JOB_ID_#, <br />// #_HDFS_INPUTDIR_#, #_HDFS_OUTPUTDIR_#,<br />// #_TWISTER_INPUTDIR_#, #_TWISTER_OUTPUTDIR_#, #_TWISTER_PARTITION_FILE_#, #_BINARY_DEPENDENCY_#<br /><br />// 'mode':'sandbox', | 'mode':'cloud',<br />'mode':'sandbox',<br />// chef-solo related parameters<br />'chef':{'chefSoloRecipeUrls':'http://129.79.49.248/chef-solo.tar.gz', <br />'chefSoloConfFilePath':'/root/salsaDPI/solo.rb'}, <br /><br />// ssh passwordless related parameters<br />'ssh':{'SSHLoginUsername':'root', <br />'SSHPrivateKeyPath':'/root/.ssh/id_rsa' }, <br /><br />// runtime softwares such as recipe[hadoopSandbox] or recipe[twisterSandbox]<br />'softwareRecipes':['recipe[hadoopSandbox]'], // please don't change this line<br /><br />// user-defined application related parameters<br />'applicationParameters':{'applicationType':'Hadoop',<br />'localPathOfProgramBinary':'<strong>/root/salsaDPI/apps/hadoopWordCount.jar</strong>', <br />'localPathOfProgramInput':'<strong>/root/salsaDPI/input/hadoopWordCountInput.txt</strong>', <br />'localPathOfBinaryDependency':'', <br />'programExecuteLocation':'', <br />'programArgs':'<strong>bin/hadoop jar #_JAR_# #_HDFS_INPUTDIR_# #_HDFS_OUTPUTDIR_#</strong>'} 
+        </pre>
+
+    </div>
+    <h2>4. <a name="execute">Execute SalsaDPI with a user-defined application</a></h2>
+
+    <div>
+
+        <p><br>
+        Execute the salsaDPI jar executable with running sandbox Hadoop WordCount:</p>
+      <pre xml:space="preserve">root@ubuntu:~$ cd salsaDPI<br />root@ubuntu:salsaDPI$ cp sandbox/templates/sandbox_hadoopTemplate.json sandbox/templates/sandbox_hadoopWordCount.json 
+root@ubuntu:salsaDPI$ java -cp salsaDPI.jar cgl.salsa.salsadpi.Driver sandbox/templates/sandbox_hadoopWordCount.json</pre>
+        <p>After the program finishes running, the output will copy to the working directory under &lt;workingDir&gt;/salsaDPI_output/&lt;job_uuid&gt;/output/*:</p>
+      <pre xml:space="preserve">root@ubuntu:salsaDPI$ ls -l salsaDPI_output/1322fb55-650e-4f6b-8f90-45f7418bda08/output/ <br />-rw-r--r-- 1 root root 1396 Jul 12 20:00 1322fb55-650e-4f6b-8f90-45f7418bda08.txt</pre>
+<script src="http://pastebin.com/embed_js.php?i=qcUxNQYH"></script>
+  </div>
+    <h2>5. <a name="compile">Compile the program</a></h2>
+
+    <div>
+        <p>Please enter the following commands where the “WordCount.java " located in the bash mode: </p>
+				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
+cat WordCount.java<br>
+cat build.sh<br>
+./build.sh </pre>
+        <p>Here please make sure the JAVA_HOME path is correctly set in both “conf/hadoop-env.sh” and ".bashrc". </p>
+    </div>
+    <!-- content area -->
+    <h2>6. <a name="ref">Reference</a></h2>
+
+    <div>
+        <ul>
+          <li><a href="http://json.org/example.html">Json metadata format example</a></li>
+          <li>Hadoop tutorial</li>
+          <li>Twister tutorial</li>
+        </ul>
+    </div>
+    <div>    </div>
+</div>

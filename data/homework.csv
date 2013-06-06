@@ -1,3 +1,4 @@
 id,homework_id,title,filename
 0,tools,Tools,hw/tools.html
 1,wc,Hadoop Word Count,hw/wordcount.html
+2,solo_wc,Run Hadoop Word Count with salsaDPI,hw/salsadpi-solo-wordcount.html

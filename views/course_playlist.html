@@ -71,6 +71,9 @@
 	                    {% for number in range(unit.difficulty) %} 
 	      					<img src="assets/img/star_small.gif" height="10" width="10">
 	      				{% endfor %}
+                        {% for number in range(5-unit.difficulty) %} 
+                            <img src="assets/img/unstar_small.gif" height="10" width="10" opacity="0.5">
+                        {% endfor %}
       				</div> 
       				
                     {% elif unit.type == 'O' %}
@@ -134,27 +137,15 @@
                 <tbody>
                 <tr><td>
                     <div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
-                        {% if not empty %}
                     <a href="unitplaylist">
                         {% trans %} Start {% endtrans %}
                     </a>
-                        {% else %}
-                        <a href="unitplaylist" style="pointer-events:none">
-                            {% trans %} Start {% endtrans %}
-                        </a>
-                        {% endif %}
                     </div>
                 </td>
                     <td><div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
-                        {% if not empty %}
                         <a href="unitplaylist?resume=yes">
                             {% trans %} Resume {% endtrans %}
                         </a>
-                        {% else %}
-                        <a href="unitplaylist?resume=yes" style="pointer-events:none">
-                            {% trans %} Resume {% endtrans %}
-                        </a>
-                        {% endif %}
                     </div>
                     </td>
                 </tr>

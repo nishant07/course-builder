@@ -30,11 +30,16 @@ $(document).ready(function(){
             var href = ui.draggable.find('a').attr('href');
             var unit = ui.draggable.find('input[name="unit"]').attr('value');
             var lesson = ui.draggable.find('input[name="lesson"]').attr('value');
+
+            var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
+
             var tr = $('<tr></tr>').append($('<td></td>').append($('<a></a>').text(a).attr('href', href))).
                     append($('<td></td>').append($('<a></a>').attr('type', 'button').addClass('removeButton').text('Remove')).
                             append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
 
-            $( "#droppedItems tbody" ).append(tr);
+            if (lessonFind.length == 0) {
+                $( "#droppedItems tbody" ).append(tr);
+            }
         }
     });
 

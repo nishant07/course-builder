@@ -1,0 +1,354 @@
+<div id="accordion">
+	<h1>1. Goal</h1>
+	<div>
+		<p>To implement a system that monitors and visualizes the resource
+			utilization in a distributed set of nodes using message broker
+			middleware.</p>
+	</div>
+
+	<h1>
+		2. Deliverables (Due Oct 15<sup>th</sup>)
+	</h1>
+	<div>
+		<p>
+			You are required to turn in following items in a zip file <strong>groupID_Project2.zip</strong>
+			in this assignment via Oncourse, where <strong>groupID</strong> (e.g.
+			01) is the two digital number of your group.
+		</p>
+		<p>1) The source code of the Monitoring Daemon and Monitoring
+			front-end.</p>
+		<p>1) The executable class file, MakeFile (if any), and the README
+			file that describe its usage. Try to keep the steps simple by using
+			scripts for building and running the programs.</p>
+		<p>
+			2) Technical report (<strong>groupID_p2report.docx</strong>) that
+			contains:
+		</p>
+		<p>a. The description about the main steps and program data flow
+			in your program.</p>
+		<p>b. Snapshots (Photos) about your program Interface with
+			explanations .</p>
+		<p>3) Demo in class</p>
+		<p>Points will be reduced (maximum 0.5 point) if the filename or
+			directory structure are different from instructed above.</p>
+	</div>
+	<h1>3. Evaluation</h1>
+	<div>
+		<p>The total points of project #2 is 10, where the distribution is
+			as following</p>
+		<div style="padding-left: 2em;">
+			<p>a. Completeness of your monitoring system (6 point)</p>
+			<p>b. Correctness and Completeness of written report (3 point)</p>
+			<p>c. Readability and clarity of README.txt (1 point)</p>
+		</div>
+	</div>
+
+	<h1>4. Introduction</h1>
+	<div>
+		<p>Distributed resource monitoring is an important part of
+			distributed systems. In large-scale computing environments, it is
+			essential to understand the system behavior and resource utilization
+			in order to manage the resources efficiently, to detect failures as
+			well as to optimize the distributed application performance. There
+			exist several distributed monitoring solutions, such as Ganglia [1]
+			and Nagios [2], to apply into wide variety of distributed computing
+			environments. Another example would be Amazon Cloudwatch [3], which
+			allows the users to monitor the resource utilization of their EC2
+			cloud resources. While these systems need to be comprehensive, care
+			must be taken to ensure that they don&#8217;t disrupt or hamper the
+			resources they are monitoring.</p>
+		<p>For this part of the project, you need to implement a system
+			that monitors the CPU and memory utilization in a distributed set of
+			nodes (two or more nodes which runs on CS Machines). The system
+			should support resource monitoring of Computer Science Linux
+			Machines. Monitoring information needs to be collected and aggregated
+			through the message broker and needs to be summarized to display the
+			overall CPU and memory utilization percentages using graphs.</p>
+	</div>
+
+	<h1>5. System architecture</h1>
+	<div>
+		<p>
+			There are three main components of this monitoring system: a <strong>Message
+				Broker</strong>, <strong>Monitoring Daemons running on nodes</strong> and a <strong>Monitoring
+				UI</strong>.
+		</p>
+		<ul>
+			<li><strong>Message Broker: </strong> a middleware that holds
+				series of messages with specific topics, and waits for a Front-End
+				Subscriber to pick the messages. i.e. NaradaBrokering[4],
+				ActiveMQ[5], etc. AIs will setup instances of NaradaBrokering and
+				ActiveMQ to be used by the students. Students are advised to prefix
+				their topics with the group number (eg: G01_xyz) to avoid conflicts
+				when sharing the same brokers.
+				<ul>
+					<li><strong>For NaradaBrokering, please use</strong> <strong>machine</strong>
+					&#8220;129.79.49.181&#8221;, port number &#8220;3045&#8221;. </li>
+					<li><strong>For ActiveMQ, please use machine </strong>&#8220;129.79.49.181&#8221;,
+					port number &#8220;61616&#8221;.</li>
+				</ul>
+			<li><strong>Monitoring Daemon: </strong> a background process
+				that runs on each compute node which captures and publishes the
+				system resource utilization information (CPU and Memory utilization
+				required) and other important usage information, to the Message
+				Broker periodically. This daemon should not interfere with the other
+				running processes in the compute node. You need to implement this
+				part.</li>
+			<li><strong>Summarizer and Monitoring UI: </strong> Summarizer
+				should listen to the messages with a specific topic(s) from Message
+				Broker and should summarize the collected information. These
+				summarized information (overall CPU and Memory utilization) needs to
+				be displayed using a cumulative graph of the targeted computing
+				environment. The summarizer and the UI can be separate applications
+				that communicate with each other or can be a single application. You
+				need to implement this part.</li>
+		</ul>
+		<div style="text-align: center; border: 2px solid gray">
+			<img src="assets/img/hw/resource_ms/image001.png" width="600"
+				height="415" style="display: block; margin: auto">
+			<p align="center">
+				<i>Fig 1. Overview Architecture</i>
+			</p>
+		</div>
+
+		<p><br><br>
+			The following sections provide some instructions about implementing
+			the <strong>Monitoring Daemon and Front-End</strong> <strong>Subscriber</strong>.
+		</p>
+
+		<br><h2>Monitoring Daemon</h2>
+		<p>You can write the Monitoring Daemon in any language as long as
+			your program provides the following functions:</p>
+		<p>1. Capture the system resource utilization information such as
+			CPU and Memory utilization. If you are using Java, Sigar [6] can be
+			used to capture that information.</p>
+		<p>2. Communicate and publish messages to the Message Broker. The
+			message format must be &#8220;GXX_topic/&#8230;.&#8221;, where XX is
+			your group number and topic can be any string.</p>
+		<p>
+			<strong>Pseudocode</strong>
+		</p>
+		
+		<pre>
+//Run this in a daemon thread
+While(!done){
+	perf = getSystemPerf();
+	Message msg = new message();
+	msg.NodeId = nodeID;
+	msg.CPUPercentage = perf.AvgCPUUtilization;
+	msg.MemoryPercentage = perf.MemUtilization;
+	&#8230;&#8230;.
+	broker.publish(msg, topic)
+}		
+		</pre>
+		<p>
+			The daemon should be able to run continuously utilizing very low CPU
+			and memory. Make sure to avoid any memory leaks.<strong></strong>
+		</p>
+		<br><h2>Monitoring Front-End.</h2>
+		<p>This can be written in any language as long as your program
+			provides the following functions:</p>
+		<p>1. Subscribe to the relevant topic in the Message Broker and
+			receive the messages with monitoring information from the daemons
+			running on the nodes.</p>
+		<p>2. Summarize the statistics from all the compute nodes (&gt;2)
+			that run the MPI Pagerank application from project #1. Calculate the
+			overall CPU and Memory utilization percentages.</p>
+		<p>3. Draw real-time cumulative performance graphs with summarized
+			resource utilization information. This must be GUI based. (No table
+			or command-line text). If you use Java, JFreeChart [4] is a good
+			option to draw the graphs. Figure 2 is an example UI developed using
+			JFreeChart by SalsaHPC Team. The Blue area is the CPU usage, and the
+			Green area is the memory usage.</p>
+		<p>
+			<strong>Pseudocode</strong>
+		</p>
+		<pre>
+Messages[] nodePerfMessages;
+broker.subscribe(topic)
+// this gets called by the broker when a new message arrives
+onEvent(Message msg){
+	nodePerfMessages[msg.NodeId] = msg;
+}
+UIUpdateThread{
+	While(done){
+		totalMem =0; totalCPU=0
+		foreach(perfMsg  in nodePerfMessages){
+			totalCPU += perfMsg.CPUPercentage;
+			totalMem += perfMsg.MemPercentage;
+		}
+		updateGraph(totalCPU/numNodes, totalMem/numNodes)
+		sleep (500)
+	}
+}
+	
+		</pre>
+		<div>
+			<img src="assets/img/hw/resource_ms/image002.jpg">
+			<p align="center">
+				<i>Fig 2. Real-Time cumulative performance interface with using
+					JFreeChart</i>
+			</p>
+		</div>
+	</div>
+
+	<h1>6. Run MPI/MPJ PageRank on CS machines in multi-nodes mode</h1>
+	<div>
+		<p>In this project, you must run your MPI/MPJ PageRank program on
+			CS Machines with at least two nodes. Then, your resource monitoring
+			daemons have to capture the computing performance of the specified
+			MPI/MPJ processes on each node, and show a live aggregated
+			performance chart on monitoring UI.</p>
+		<p>Here, we provide the instruction to run MPI/MPJ PageRank with
+			multi-nodes mode under CS environment.</p>
+		<br><h2>Run MPI with multi-nodes mode</h2>
+		<p>Before running any MPI (MPICH2) [8] job under CS Linux
+			environment, you need to create a configuration file located at
+			&#8220;~/.mpd.conf&#8221; written with one line
+			&#8220;MPD_SECRETWORD=&lt;secretword&gt;&#8221;.</p>
+		<pre>
+[taklwu@polaris B534Project2]$ vim ~/.mpd.conf
+MPD_SECRETWORD=mr45-j9z
+[taklwu@polaris B534Project2]$ chmod 600 ~/.mpd.conf		
+		</pre>
+		<p>Then, you create a &#8220;nodes&#8221; file contains
+			workers&#8217; hostnames. Here, as this example is running with a
+			total of 4 mpi processes (-np 4). Within the &#8220;nodes&#8221;
+			file, we have four lines which actually represent two CS physical
+			nodes, polaris.cs.indiana.edu and iceman.cs.indiana.edu.</p>
+		<pre>
+[taklwu@polaris B534Project2]$ vim nodes
+polaris.cs.indiana.edu
+polaris.cs.indiana.edu
+iceman.cs.indiana.edu
+iceman.cs.indiana.edu
+		</pre>
+		<p>Once these configuration files have been setup, you could start
+			MPD daemons with command &#8220;mpdboot
+			&#8211;totalnum=&lt;num_of_worker_nodes&gt; -f
+			&lt;node_file&gt;&#8221;. Here, IU passphrase may be asked as you are
+			starting the MPD daemons remotely. Before submitting the job, you
+			could check if all mpd daemons has been started correctly with using
+			command &#8220;mpdtrace&#8221;.</p>
+		<pre>
+[taklwu@polaris B534Project2]$ mpdboot --totalnum=2 -f nodes
+taklwu@iceman.cs.indiana.edu's password:
+[taklwu@polaris B534Project2]$ mpdtrace
+polaris
+iceman
+		</pre>
+		<p>Then, you can run your MPI PageRank application with adding
+			parameters &#8220;-machinefile &lt;node_file&gt; -np
+			&lt;num_of_mpi_procresses&gt;&#8221;.</p>
+		<pre>
+[taklwu@polaris B534Project2] mpiexec -machinefile nodes -np 4 mpi_main -i pagerank.input.1000.0 -n 10 -t 0.000001
+Proc:0 of 4 running on polaris.cs.indiana.edu
+Proc:1 of 4 running on polaris.cs.indiana.edu
+Proc:2 of 4 running on iceman.cs.indiana.edu
+Proc:3 of 4 running on iceman.cs.indiana.edu
+File pagerank.input.1000.0 total_num_urls: 1000
+File pagerank.input.1000.0 total_num_web_pages: 3851
+....
+
+		</pre>
+		<p>Finally, you have to stop these MPD daemons with command
+			mpdallexit to release the resources. Otherwise, you or your
+			classmates may not be able to run their program.</p>
+		<pre>
+[taklwu@polaris B534Project2] mpdallexit
+		</pre>
+		<br><h2>Run MPJ with multi-nodes mode</h2>
+		<p>Before running any MPJ [9] job under CS Linux environment, you
+			will need to make a &#8220;machines&#8221; file which has the worker
+			hostname written line by line, e.g., polaris.cs.indiana.edu and
+			iceman.cs.indiana.edu. Noted that the filename must be
+			&#8220;machines&#8221;.</p>
+		<pre>
+[taklwu@polaris MPJ]$ vim machines
+polaris.cs.indiana.edu
+iceman.cs.indiana.edu
+		</pre>
+		<p>
+			<br /> Once you have setup &#8220;machines&#8221; file, you could
+			use mpjboot to start MPJ daemons on worker nodes. Here, IU passphrase
+			may be asked as you are starting the mpj daemons remotely.
+		</p>
+		<pre>
+[taklwu@polaris MPJ]$ mpjboot machines
+Starting mpjd...
+Removed stale pid file: /nfs/nfs4/home/taklwu/mpj-v0_38/bin/./MPJ-Daemonpolaris.cs.indiana.edu.pid
+wrapper  | Spawning intermediate process...
+taklwu@iceman.cs.indiana.edu's password:
+Starting mpjd...
+wrapper  | Spawning intermediate process...
+		</pre>
+		<p>Then, you can run MPJ PageRank with adding &#8220;-dev
+			niodev&#8221; parameters to start your application across worker
+			nodes.</p>
+		<pre>
+[taklwu@polaris MPJ]$ mpjrun.sh -np 8 -dev niodev MPIMain pagerank.input.1000.0 output.txt 20 0.01
+MPJ Express (0.38) is started in the cluster configuration
+Starting process <5> on <iceman.cs.indiana.edu>
+Starting process <1> on <polaris.cs.indiana.edu>
+Starting process <0> on <polaris.cs.indiana.edu>
+Starting process <4> on <iceman.cs.indiana.edu>
+Starting process <6> on <iceman.cs.indiana.edu>
+Starting process <2> on <polaris.cs.indiana.edu>
+Starting process <3> on <polaris.cs.indiana.edu>
+Starting process <7> on <iceman.cs.indiana.edu>
+PageRanks are calculated
+IO time:0.105 sec.
+Job turn around time:0.049 sec.
+Stopping process <2> on <polaris.cs.indiana.edu>
+Stopping process <6> on <iceman.cs.indiana.edu>
+Stopping process <0> on <polaris.cs.indiana.edu>
+Stopping process <3> on <polaris.cs.indiana.edu>
+Stopping process <5> on <iceman.cs.indiana.edu>
+Stopping process <1> on <polaris.cs.indiana.edu>
+Stopping process <4> on <iceman.cs.indiana.edu>
+Stopping process <7> on <iceman.cs.indiana.edu>
+		</pre>
+		<p>At the end, you have to stop these MPJ daemons with command
+			mpjhalt to release the resources. Otherwise, you or your classmates
+			may not be able to run their program.</p>
+		<pre>
+[taklwu@polaris MPJ]$ mpjhalt machines
+Stopping mpjd...
+Stopped mpjd.
+Stopping mpjd...
+Stopped mpjd.
+
+		</pre>
+	</div>
+	<h1>References</h1>
+	<div>
+		<p>
+			[1] Ganglia, <a href="http://ganglia.sourceforge.net/">http://ganglia.sourceforge.net/</a>
+		</p>
+		<p>
+			[2] Nagios, <a href="http://www.nagios.org/">http://www.nagios.org/</a>
+		</p>
+		<p>
+			[3] Amazon Cloudwatch <a href="http://aws.amazon.com/cloudwatch/">http://aws.amazon.com/cloudwatch/</a>
+		</p>
+		<p>
+			[4] NaradaBrokering, <a href="http://www.naradabrokering.org/">http://www.naradabrokering.org/</a>
+		</p>
+		<p>
+			[5] ActiveMQ, <a href="http://activemq.apache.org/">http://activemq.apache.org/</a>
+		</p>
+		<p>
+			[6] Sigar Resource monitoring API,
+			http://www.hyperic.com/products/sigar <a
+				href="http://sourceforge.net/projects/sigar/">http://sourceforge.net/projects/sigar/</a>
+		</p>
+		<p>
+			[7] JFreeChart, <a href="http://www.jfree.org/jfreechart/">http://www.jfree.org/jfreechart/</a>
+		</p>
+		<p>
+			[8] MPICH2, <a href="http://wiki.bath.ac.uk/display/HPC/MPICH2">http://wiki.bath.ac.uk/display/HPC/MPICH2</a>
+		</p>
+		<p>[9] MPJ Linux user guide,
+			http://mpj-express.org/docs/guides/linuxguide.pdf</p>
+	</div>
+</div>

@@ -1,0 +1,570 @@
+<div id="accordion">
+	<h1>1. Introduction</h1>
+	<div>
+		<p>Academic Cloud provides a great environment to run applications
+			with higher availability to researchers and students, where users
+			have more control and flexibility to run their own applications.
+			FutureGrid is a nationwide and NSF funded project which provides
+			distributed, high performance test-bed to allow scientists to
+			collaboratively develop and test innovative approaches to parallel,
+			grid, and cloud computing. Here, in this assignment, you will hand in
+			a performance analysis report by running MPIPageRank program in two
+			different modes &#8212; bare metal nodes and Eucalyptus VMs on
+			FutureGrid. Please reuse your MPIPageRank program developed in
+			Project #1 for this project. The following sections of this document
+			provide detailed instructions on how to access FutureGrid.</p>
+		<p>
+			You must have your FutureGrid account and your generated ssh private
+			key ready for this project. If you haven&#8217;t applied one, please
+			sign up at <a href="http://portal.futuregrid.org">FutureGrid
+				Portal</a> [1] as soon as possible.
+		</p>
+	</div>
+
+	<h1>2. Deliverables (Due Nov. 5)</h1>
+	<div>
+		<p>Each team is required to turn in a report to OnCourse with
+			following items for this project:</p>
+		<p>
+			1. <strong>Experiments with various numbers of urls</strong> (scale
+			up to 1M urls at least) and following numbers in a table, then draw a
+			human readable graph chart
+		</p>
+		<p>a. Instance class, number of worker nodes, number of
+			core/cpu/process per worker node, size of dataset (# of urls, # of
+			groups), number of MPI process (set with argument -np), MPI error
+			threshold, and number of iteration, etc.</p>
+		<p>b. A speed up performance analysis chart (graph).</p>
+		<p>c. Each execution time (of your test) must be taken as average
+			of three runs</p>
+		<p>2. Finding, description and explanation about your result</p>
+		<p>3. Feedback about using FutureGrid Bare Metal and Eucalyptus</p>
+		<p>4. You need to Write a torque/PBS scripts which runs MPI/MPJ
+			PageRank automatically only on Bare Metal mode.</p>
+		<p>5. Please provide your scripts if you use any, and zip in a
+			package with filename &#8220;taklwu_proj2.zip&#8221; where
+			&#8220;taklwu&#8221; should be replaced with your IU username.</p>
+		<p>Points will be reduced (maximum 0.5 point) if the filename or
+			directory structure are different from instructed above.</p>
+	</div>
+
+	<h1>3. Project Evaluation</h1>
+	<div>
+		<p>The total points of project #3 is 10, where the distribution is
+			as following</p>
+		<p>a. Experiments: design quality, accurate measurements, amount
+			of work involved (5 points)</p>
+		<p>b. Report (3 points)</p>
+		<p>c. Review/Demo (2 points)</p>
+	</div>
+
+	<h1>4. Performance Analysis and Write a Report</h1>
+	<div>
+		<p>In this project, you are going to use FutureGrid as your test
+			environment. You will need to copy your Project 1 back to these two
+			environments, and then test MPIPagerank program on a very small (old)
+			dataset to make sure everything is working correctly. Finally, run
+			the program with the generated dataset(s) and analyze the
+			performance. Please make notes on any interesting findings with
+			descriptions and explanations about your result, this information are
+			required to show on your report.</p>
+		<p>Noted that, you must be testing your program with scaling up to
+			at least 100k of urls, and use at most 16 cores of computing
+			resources. In other words, each team can only use at most 2 Bare
+			Metal nodes (8 cores/processes per node) in India-HPC environment and
+			8 VMs (2 cores per m1.large VM) in India-Eucalyptus.</p>
+		<h2>Important Experiment Factors</h2>
+		<p>When designing the test cases, you may configure the following
+			the factors and build your own the combination:</p>
+		<ul>
+			<li>VM Instance class (m1.large)</li>
+			<li>Number of worker nodes,</li>
+			<li>Total number of cores/cpus/processes</li>
+			<li>Size of dataset (# of urls, # of groups)</li>
+			<li>Number of MPI process (set with argument -np)</li>
+			<li>MPI PageRank delta threshold:</li>
+			<li>number of iteration</li>
+			<li>others if any</li>
+		</ul>
+		<h2>Execution time and Speedup</h2>
+		<p>Each test case should execute three times and take the average
+			of that three runs. In order to calculate speedup, you may need to
+			change the amount of work nodes and total number of cores. In
+			addition, you may also increase or decrease the data size to have
+			more understanding about the program and system behaviors.</p>
+		<p>The definition of speedup is:</p>
+		<p>
+			<img src="assets/img/hw/pr_cloud_analysis/eq1.png" height="400"
+				width="150">
+		</p>
+		<ul>
+			<li><em>p</em> is the total number of cores/processes</li>
+			<li><i>T</i><sub>1</sub> is the execution time of the sequential
+				<a href="http://en.wikipedia.org/wiki/Algorithm" title="Algorithm">algorithm</a>
+			</li>
+			<li><i>T</i><sub>p</sub> is the execution time of the <a
+				href="http://en.wikipedia.org/wiki/Parallel_algorithm"
+				title="Parallel algorithm">parallel algorithm</a> with p cores/ <a
+				href="http://en.wikipedia.org/wiki/Central_processing_unit"
+				title="Central processing unit">processors</a></li>
+		</ul>
+		<h2>PageRank Dataset Generation</h2>
+		<p>We have provided a java class
+			&#8220;PageRankDataGen.java&#8221; in order to generate a 10k dataset
+			to run the performance test, please compile and execute this
+			generator as following:</p>
+		<pre>
+[taklwu@i136 ~]$ javac PageRankDataGen.java
+[taklwu@i136 ~]$ java PageRankDataGen pagerank.lginput 10000 1
+[taklwu@i136 ~]$ ls &#8211;l 
+
+-rw-r--r-- 1 taklwu users 240160 Feb 20 16:56 pagerank.lginput0
+		</pre>
+	</div>
+
+	<h1>5. FutureGrid Bare Metal</h1>
+	<div>
+		<p>For the bare metal test, you need to obtain an independent node
+			from the FutureGrid India headnode (i136):</p>
+		<p>1. Access to FutureGrid India</p>
+		<pre>
+ssh &#8211;i [ssh private key] [username]@india.futuregrid.org
+Enter passphrase for key 'ssh_id_rsa':
+[taklwu@i136 ~]$
+		</pre>
+		<p>2. Load Torque job queue package and submit a node request</p>
+		<pre>
+[taklwu@i136 ~]$ module load torque	
+[taklwu@i136 ~]$ qsub &#8211;I	
+qsub: waiting for job 43809.i136 to start
+qsub: job 43809.i136 ready
+[taklwu@i55 ~]$
+		</pre>
+		<p>Here &#8220;i55&#8221; is the assigned node number, then load
+			the openmpi module. If you are using MPJ Express, please download
+			install the MPJ package under your home directory and set the
+			environment parameter to &#8220;~/.bashrc&#8221;.</p>
+		<h2>* Setting MPJ_HOME and add it to the PATH</h2>
+		<pre>
+[taklwu@i136 ~]$ unzip mpj-v0_38.zip
+[taklwu@i136 ~]$ echo &#8220;export MPJ_HOME=/N/u/taklwu/mpj-v0_38&#8221; &gt;&gt; ~/.bashrc
+[taklwu@i136 ~]$ echo &#8220;export PATH=$MPJ_HOME/bin:$PATH:.&#8221; &gt;&gt; ~/.bashrc
+[taklwu@i136 ~]$ source ~/.bashrc
+[taklwu@i136 ~]$ echo $MPJ_HOME
+/N/u/taklwu/mpj-v0_38
+		</pre>
+		<p>3. load openmpi module after obtained a node</p>
+		<pre>
+[taklwu@i55 ~]$ module load openmpi
+Intel compiler suite version 11.1/072 loaded
+OpenMPI version 1.4.2 loaded
+		</pre>
+		<h2>Setup MPI multi-nodes environment on Bare Metal mode</h2>
+		<p>First, get a set of work nodes with using the following
+			command:</p>
+		<p>command: qsub -I -l
+			nodes=[numOfNode]:ppn=[CpuPerNode],walltime=[hh]:[mm]:[ss]</p>
+		<pre>
+[taklwu@i136 ~]$ qsub -I -l nodes=2:ppn=8,walltime=12:00:00
+qsub: waiting for job 44418.i136 to start
+qsub: job 44420.i136 ready
+[taklwu@i55 ~]$ cat $PBS_NODEFILE
+i55
+i55
+i55
+i55
+i55
+i55
+i55
+i55
+i56
+i56
+i56
+i56
+i56
+i56
+i56
+i56
+		</pre>
+		<p>Here, &#8220;i55&#8221; and &#8220;i56&#8221; are the assigned
+			nodes. Then, load the openmpi module and run the program, please see
+			the detail optional argument for running in a multi-nodes mode (add
+			argument &#8220;-hostfile $PBS_NODEFILE&#8221;):</p>
+		<pre>
+[taklwu@i55 ~]$ module load openmpi
+[taklwu@i55 ~]$ mpirun --mca btl_tcp_if_exclude lo,eth1 -hostfile $PBS_NODEFILE -np 6 mpi_main -i pagerank.input -n 10 -t 0.000001
+
+max_iterations=10, threshold=0.000001000
+  -&gt;cur_iteration=0 delta=0.042619476
+  -&gt;cur_iteration=1 delta=0.008099583
+  -&gt;cur_iteration=2 delta=0.002703766
+  -&gt;cur_iteration=3 delta=0.001191630
+  -&gt;cur_iteration=4 delta=0.000519276
+		</pre>
+		<h2>Setup MPJ multi-nodes environment on Bare Metal mode</h2>
+		<p>First, make a &#8220;machines&#8221; file included the unique
+			hostnames from $PBS_NODEFILE</p>
+		<pre>
+[taklwu@i55 ~]$ cat machines
+i55
+i56
+		</pre>
+		<p>Then, you must start MPJ daemon (mpjdaemon_linux_x86_64 start)
+			on each node first, then run the MPJ program</p>
+		<pre>
+<strong>[taklwu@i55 ~]$ </strong> <strong>mpjdaemon_linux_x86_64 start</strong>
+<strong>[taklwu@i55 ~]$ </strong><strong>ssh i56</strong>
+<strong>[taklwu@i56 ~]$ </strong><strong> exit</strong> 
+<strong>[taklwu@i55 ~]$ </strong><strong>mpjrun.sh -np 2 -dev niodev MPIMain pagerank.input output.txt 20 0.01</strong>
+		</pre>
+	</div>
+
+	<h1>6. Write an automatic batch job scripts</h1>
+	<div>
+		<p>With batch jobs, you&#8217;ll need to submit a PBS job script,
+			which will wait in the queue and get executed when the resources are
+			available. Refer to [6] for more information on job submissions.
+			Inside the job script, you can obtain a list of compute resources
+			that are assigned to you, using $PBS_NODEFILE. Refer to section 2.1.6
+			in [6] to find out the other information you can obtain from PBS.
+			With these information, you can execute your commands accordingly,
+			similar to a shell script. However, you&#8217;ll have to add several
+			PBS job directives to your job script to inform your requirements to
+			the PBS job scheduler. Following is an example job script. Lines
+			starting with #PBS are the job directives. &#8220;-l nodes&#8221; let
+			you specify the type and number of compute resources you require,
+			&#8220;-l walltime&#8221; specify the estimated upper bound duration
+			for your job. &#8220;-o&#8221; specify the file to write the output
+			of the job screen printing. There is another error screen printing
+			file generated by the torque service at the directory you submitted
+			the job, which has a filename of ScriptsFileName.e$PBS_JOBID. These
+			two files will help you to debug your scripts.</p>
+		<pre>
+#!/bin/bash
+#PBS -l nodes=2:ppn=8
+#PBS -l walltime=01:00:00
+#PBS -o run_pagerank_bm$PBS_JOBID.out
+
+cat $PBS_NODEFILE
+# run the MPI pagerank and monitoring application in Bare Metal Cluster
+# ========= 
+# your code here
+# =========
+echo "Bare Metal job Finished"
+		</pre>
+		<p align="center">
+			<strong>Script 1. Request 2 nodes without caring the specify
+				resources</strong> <strong></strong>
+		</p>
+		<h2>Submit a job with a batch job script</h2>
+		<p>Once you have written the batch script, you could submit an
+			automatic job with the following commands:</p>
+		<pre>
+[taklwu@i136 ~]$ vim job1.pl
+// edit your own job script
+
+[taklwu@i136 ~]$ qsub job1.pl
+487313.i136
+		</pre>
+	</div>
+		<h1>7. FutureGrid Eucalyptus</h1>
+		<div>
+			<p>As mentioned above, virtual cluster provides more power to run
+				applications on a shared environment. Eucalyptus is a virtual
+				infrastructure management tool that provides the functions to manage
+				and to access those virtual resources. With the help of Eucalyptus,
+				we can easily obtain a private virtual cluster (Cloud) on a set of
+				machines. FutureGrid has deployed Eucalyptus and provides service to
+				its users for years. Figure 1 shows the compute resource provided by
+				FutureGrid project. We will obtain VMs and run applications on
+				India-Eucalyptus in the following section.</p>
+			<p align="center">
+				<img src="assets/img/hw/pr_cloud_analysis/image006.png" border="0"
+					height="250" width="625" />
+			</p>
+			<p align="center">
+				<i>Fig. 1 Overview of FutureGrid Compute Resources</i>
+			</p>
+			<p>This section shows the steps to create FutureGrid
+				India-Eucalyptus accounts, to access India Cluster HeadNode on
+				FutureGrid, and from there, we obtains a set of VM nodes as virtual
+				cluster.</p>
+			<p>1. Access to FutureGrid India with your ssh private key</p>
+			<pre>
+ssh &#8211;i [ssh private key] [username]@india.futuregrid.org
+Enter passphrase for key 'ssh_id_rsa':
+[taklwu@i136 ~]$</pre>
+			<p>
+				Here, &#8220;i136&#8221; is the headnode (first login node) of India
+				cluster. We will obtain a Eucalyptus Virtual Cluster from this node,
+				and <strong>DO NOT</strong> run your mpi program on the
+				&#8220;i136&#8221; headnode. If you are interested in running bare
+				metal mode, see Appendix B for detail.
+			</p>
+			<p>2. Locate security credentials from India under
+				$Home/.futuregrid/eucalyptus/fg251 .</p>
+			<pre>
+[taklwu@i136 ~]$ cd ~/.futuregrid/eucalyptus/fg251
+[taklwu@i136 fg251]$ ls &#8211;l 
+-rwxr-xr-x 1 taklwu users 5133 Feb 20 22:30 euca3-taklwu-india-fg251.zip
+			</pre>
+			<p>3. Unzip and list the credentials.</p>
+			<pre>
+[taklwu@i136 ~]$ mkdir ~/taklwu-euca
+[taklwu@i136 fg251]$ unzip euca3-taklwu-india-fg251.zip &#8211;d ~/taklwu-euca
+[taklwu@i136 fg251]$ cd ~/taklwu-euca
+[taklwu@i136 taklwu-euca]$ ls &#8211;l 
+
+-rw------- 1 taklwu users 1147 Jul 30 14:40 cloud-cert.pem
+-rw------- 1 taklwu users 1135 Jul 30 14:40 euca2-taklwu-b6e8377c-cert.pem
+-rw------- 1 taklwu users 1675 Jul 30 14:40 euca2-taklwu-b6e8377c-pk.pem
+-rw------- 1 taklwu users 5107 Jul 30 14:40 euca3-taklwu-india-fg251.zip
+-rw------- 1 taklwu users 1030 Jul 30 14:40 eucarc
+-rw------- 1 taklwu users   90 Jul 30 14:40 iamrc
+-rw------- 1 taklwu users  873 Jul 30 14:40 jssecacerts
+			</pre>
+			<p>4. Load the euca2ools module and setup the environment.</p>
+			<pre>
+[taklwu@i136 ~]$ cd taklwu-euca
+[taklwu@i136 taklwu-euca]$ module load euca2ools
+[taklwu@i136 taklwu-euca]$ source eucarc
+			</pre>
+			<p>5. Test the euca2ools :</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-describe-availability-zones
+AVAILABILITYZONE        euca3india      149.165.146.135 arn:euca:eucalyptus:euca3india:cluster:euca3indiaCC/
+			</pre>
+			
+			<h2>Setup the VM keypair and allow ssh access to VM:</h2>
+			<p>After tested the euca2ools, you need to add a ssh keypair with
+				using euca-add-keypair for future access to the VM. Note that,
+				without setting this correctly, you will not able to ssh in to your
+				VMs:</p>
+			<p>Command: euca-add-keypair [new public key name]&gt; [new
+				private key name]</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-add-keypair taklwu &gt; taklwu.private
+[taklwu@i136 taklwu-euca]$ chmod 600 taklwu.private
+			</pre>
+			<p>Then, create a security group to allow SSH access to the VM.
+				Same as above, without setting this correctly, you will not able to
+				ssh in to your VMs:</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-authorize -P tcp -p 22 &#8211;s 0.0.0.0/0 default 
+[taklwu@i136 taklwu-euca]$ euca-describe-groups
+GROUP   taklwu  default default group
+PERMISSION      taklwu  default ALLOWS  tcp     22      22      FROM    CIDR    0.0.0.0/0
+			</pre>
+			
+			<h2>Start and login to a Eucalyptus VM</h2>
+			<p>Finally, we start two m1.large Eucalyptus VMs and contruct our
+				cluster. For MPI and MPJ, please use image
+				&#8220;emi-2C2937BB&#8221;.</p>
+			<p>command: euca-run-instances -k [public key] -t [instance
+				class] &#8211;n [# of nodes to be started] [image emi #]</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-run-instances -k taklwu -t m1.large &#8211;n 2 emi-2C2937BB
+RESERVATION     r-45F607A9      taklwu  taklwu-default
+INSTANCE        i-55CE091E      emi-2C2937BB    0.0.0.0 0.0.0.0 pending taklwu        2011-02-20T03:59:20.572Z        eki-78EF12D2      eri-5BB61255
+RESERVATION     r-45F607B1      taklwu  taklwu-default
+INSTANCE        i-55CE091G      emi-2C2937BB    0.0.0.0 0.0.0.0 pending taklwu        2011-02-20T03:59:20.572Z        eki-78EF12D2      eri-5BB61255
+			</pre>
+			<p>
+				Here, please refer to <a
+					href="https://portal.futuregrid.org/tutorials/euca-hadoop">FutureGrid
+					Eucalyptus tutorial</a> [2-3] for details about the available instance
+				class. Please check and wait the instance status become
+				&#8220;running&#8221;.
+			</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-describe-instances
+RESERVATION     r-442E080F      taklwu  default
+INSTANCE        i-46B007AE      emi-2C2937BB    149.165.146.207 10.0.5.66       running         taklwu        0       m1.large 2011-02-18T22:37:36.772Z        india   eki-78EF12D2    eri-5BB61255
+RESERVATION     r-45F607A9      taklwu default
+INSTANCE        i-55CE091E      emi-2C2937BB    149.165.146.195 10.0.5.68       running         taklwu 0        m1.large       2011-02-21T03:59:20.572Z        india   eki-78EF12D2    eri-5BB61255
+			</pre>
+			<p>Above, &#8220;149.165.146.207&#8221; and
+				&#8220;149.165.146.195&#8221; are the assigned public IPs to your
+				Virtual Cluster. At the end, you can login as root user with your
+				created ssh private key (i.e. taklwu.private).</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ ssh -i taklwu.private root@149.165.146.207
+
+Warning: Permanently added '149.165.146.207' (RSA) to the list of known hosts.
+Linux localhost 2.6.27.21-0.1-xen #1 SMP 2009-03-31 14:50:44 +0200 x86_64 GNU/Linux
+Ubuntu 10.04 LTS
+
+Welcome to Ubuntu!
+ * Documentation:  https://help.ubuntu.com/
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+root@localhost:~#
+			</pre>
+			
+			<h2>Setup MPI cluster environment on Eucalyptus VMs</h2>
+			<p>
+				Before running the MPI PageRank in multiple nodes environment on
+				FutureGrid Eucalyptus, you need to make sure the Eucalyptus ssh
+				private key and the MPI program are uploaded to each of the created
+				VM. <strong>Do Not copy the Eucalyptus ssh key and MPI
+					program to each node in Bare Metal mode.</strong>
+			</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ scp -i taklwu.private taklwu.private root@149.165.146.207:~/.ssh/id_rsa
+[taklwu@i136 taklwu-euca]$ scp -i taklwu.private MpiPageRank.zip  root@149.165.146.207:~/
+
+			</pre>
+			<p>
+				On the headnode of your Eucalyptus VM or bare metal node (i.e.
+				149.165.146.207), create a file includes all the <strong>internal
+					IP</strong> address of each worker (use the IP started with 10.x.x.x).
+			</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-describe-instances
+RESERVATION     r-4356080F      taklwu default
+INSTANCE        i-44600903      emi-4A051306    149.165.146.207 10.0.5.67       running         taklwu 0        m1.large       2011-02-18T22:38:35.181Z        india   eki-78EF12D2    eri-5BB61255
+RESERVATION     r-45F607A9      taklwu default
+INSTANCE        i-55CE091E      emi-2C2937BB    149.165.146.195 10.0.5.68       running         taklwu 0        m1.large       2011-02-21T03:59:20.572Z        india   eki-78EF12D2    eri-5BB61255
+
+[taklwu@i136 taklwu-euca]$ ssh -i taklwu.private root@149.165.146.207
+Linux localhost 2.6.27.21-0.1-xen #1 SMP 2009-03-31 14:50:44 +0200 x86_64 GNU/Linux
+Ubuntu 10.04 LTS
+
+Welcome to Ubuntu!
+ * Documentation:  https://help.ubuntu.com/
+Last login: Mon Feb 21 20:12:52 2011 from i136r.idp.iu.futuregrid.org
+root@localhost:~# vi nodes
+
+10.0.5.67
+10.0.5.68
+			</pre>
+			<p>
+				When running your MPIPagerank program on the headnode, simply add an
+				optional argument &#8220;-hostfile&#8221; to run as a cluster mode.
+				(For MPJ, please include the IPs within a file named
+				&#8220;machines&#8221; and use the optional argument &#8220;-dev
+				niodev&#8221;, see the detail for <a
+					href="http://mpj-express.org/docs/guides/linuxguide.pdf">MPJ
+					Cluster Configuration</a> [4])
+			</p>
+			<h2>Execution command For MPI</h2>
+			<pre>
+root@localhost:~# mpirun -hostfile nodes -np 6 mpi_main -i pagerank.input -n 10 -t 0.000001
+			</pre>
+			<h2>Execution command For MPJ</h2>
+			<p>You must start MPJ daemon (mpjdaemon_linux_x86_64 start) on
+				each node first, then run the MPJ program</p>
+			<pre>
+root@localhost:~# vi machines
+root@localhost:~# mpjboot machines
+root@localhost:~# mpjrun.sh -np 2 -dev niodev MPIMain pagerank.input output.txt 20 0.01
+			</pre>
+			<h2>Terminate your instance(s) after finish your task</h2>
+			<p>Due to the FutureGrid Eucalyptus capacity, there are limited
+				resource shares all a large amount of users. Therefore, please shut
+				down the VM when finish running your test in order to let others run
+				their test.</p>
+			<p>Command: euca-terminate-instances [instance ID]</p>
+			<pre>
+[taklwu@i136 taklwu-euca]$ euca-describe-instances
+RESERVATION     r-4356080F      taklwu default
+INSTANCE        i-44600903      emi-4A051306    149.165.146.207 10.0.5.67       running         taklwu 0        m1.large       2011-02-18T22:38:35.181Z        india   eki-78EF12D2    eri-5BB61255
+
+[taklwu@i136 taklwu-euca]$ euca-terminate-instances i-44600903      
+INSTANCE        i-44600903      
+			</pre>
+			<h4>Important notes:</h4>
+			<p>1. Upload ssh key and MPIPagerank program to each worker VM
+				correctly, unzip the program at the same location on each VM</p>
+			<p>2. Make a node file (nodes or machines) which includes all the
+				internal IP addresses on your headnode VM.</p>
+			<p>3. Run the program with cluster argument &#8220;-hostfile
+				[nodes IP addresses file]&#8221; or &#8220;-dev niodev&#8221;</p>
+		</div>
+
+		<h1>8. Acknowledgement</h1>
+		<div>
+			<p>FutureGrid is a national scale, NSF funded project which
+				provides a capability that makes it possible for researchers to
+				tackle complex research challenges in computer science related to
+				the use and security of grids and clouds.</p>
+		</div>
+		<h1>9. References</h1>
+		<div>
+			<p>
+				1. <a href="http://portal.futuregrid.org">http://portal.futuregrid.org</a>
+			</p>
+			<p>
+				2. <a href="https://portal.futuregrid.org/tutorials/euca-hadoop">https://portal.futuregrid.org/tutorials/euca-hadoop</a>
+			</p>
+			<p>
+				3. <a href="http://mpj-express.org/docs/guides/linuxguide.pdf">http://mpj-express.org/docs/guides/linuxguide.pdf</a>
+			</p>
+			<p>
+				4. <a href="http://en.wikipedia.org/wiki/PageRank">http://en.wikipedia.org/wiki/PageRank</a>
+			</p>
+			<p>
+				5. Torque Job submission: <a
+					href="http://www.clusterresources.com/torquedocs/2.1jobsubmission.shtml">http://www.clusterresources.com/torquedocs/2.1jobsubmission.shtml</a>
+			</p>
+			<p>
+				6. TORQUE Resource Manager <a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">http</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">://</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">www</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">.</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">clusterresources</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">.</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">com</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">/</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">products</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">/</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">torque</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">-</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">resource</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">-</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">manager</a><a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">.</a>
+				<a
+					href="http://www.clusterresources.com/products/torque-resource-manager.php">php</a>
+			</p>
+			<p>
+				7. KVM Hypervisor <a href="http://www.linux-kvm.org/page/Main_Page">http</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">://</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">www</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">.</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">linux</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">-</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">kvm</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">.</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">org</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">/</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">page</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">/</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">Main</a><a
+					href="http://www.linux-kvm.org/page/Main_Page">_</a> <a
+					href="http://www.linux-kvm.org/page/Main_Page">Page</a>
+			</p>
+			<p>
+				8. libvirt: The virtualization API <a href="http://www.libvirt.org/">http</a><a
+					href="http://www.libvirt.org/">://</a><a
+					href="http://www.libvirt.org/">www</a><a
+					href="http://www.libvirt.org/">.</a><a
+					href="http://www.libvirt.org/">libvirt</a> <a
+					href="http://www.libvirt.org/">.</a><a
+					href="http://www.libvirt.org/">org</a><a
+					href="http://www.libvirt.org/">/</a>
+			</p>
+			<p>
+				9. Torque Qsub: <a
+					href="http://www.clusterresources.com/torquedocs21/commands/qsub.shtml#I">http://www.clusterresources.com/torquedocs21/commands/qsub.shtml#I</a>
+			</p>
+		</div>
+
+	</div>

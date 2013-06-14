@@ -68,12 +68,13 @@
                     {% endif %} 
                     </br>                                      
                     <div align="center">
-	                    {% for number in range(unit.difficulty) %} 
-	      					<img src="assets/img/star_small.gif" height="10" width="10">
-	      				{% endfor %}
-                        {% for number in range(5-unit.difficulty) %} 
-                            <img src="assets/img/unstar_small.gif" height="10" width="10" opacity="0.5">
-                        {% endfor %}
+                        {% if unit.difficulty == 1 %}
+                        <span title="Easy" class="badge badge-success pull-right">E</span>
+                        {% elif unit.difficulty == 2 %}
+                        <span title="Easy" class="badge badge-warning pull-right">M</span>
+                        {% else %}
+                        <span title="Easy" class="badge badge-important pull-right">H</span>
+                        {% endif %}
       				</div> 
       				
                     {% elif unit.type == 'O' %}

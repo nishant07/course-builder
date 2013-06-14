@@ -13,16 +13,14 @@
 
 {% block main_content %}
     <div style="margin-top: 20px;" class="gcb-cols">
-      <div class="gcb-col-1">
-      </div>
-      <div class="gcb-col-9" style="margin: 0 -4% 1px">
+      <div class="gcb-col-9" style="margin-left: 5%;">
 
         <h1 class="schedule-headers">
           {% trans %} Schedule {% endtrans %}
         </h1>
         <div class="gcb-main">
           <div style="width: 100%;" class="gcb-nav" id="gcb-nav-y">
-            <table style="width: 100%; border-color: #ffffff"><tbody>
+            <table style="width: 100%;" class="datagrid"><tbody>
               {% for unit in units %}
                 {% if unit.now_available or is_course_admin %}
                     <tr>
@@ -36,7 +34,7 @@
                             {% endif %}
                         </td>
 
-                        <td style="width: 80%;">
+                        <td style="width: 75%;">
                             {% if unit.type == 'A' %}
                                 <a href="assessment?name={{ unit.unit_id }}">{{ unit.title }}</a>
                             {% elif unit.type == 'U' %}
@@ -50,44 +48,47 @@
                             {% endif %}
                         </td>
 
-                        <td style="width: 15%">
+                        <td style="width: 20%">
                             {% if unit.type == 'A' %}
                                 {% if progress[unit.unit_id] > 0 %}
-                                <img src="assets/lib/completed.png"
+                                <img src="assets/img/finished.png"
                                      alt="{% trans %} Completed {% endtrans %}"
                                      title="{% trans %} Completed {% endtrans %}"
                                      class="progress"
                                      id="progress-completed-{{unit.unit_id}}">
+                                <span style="font-size: 75%">Finished</span>
                                 {% else %}
-                                <img src="assets/lib/not_started.png"
+                                <img src="assets/img/start.png"
                                      alt="{% trans %} Not yet submitted {% endtrans %}"
                                      title="{% trans %} Not yet submitted {% endtrans %}"
                                      class="progress"
                                      id="progress-notstarted-{{unit.unit_id}}">
+                                <span style="font-size: 75%">Not Started</span>
                                 {% endif %}
                             {% elif unit.type == 'U' %}
                                 {% if is_progress_recorded %}
                                     {% if progress[unit.unit_id] == 2 %}
-                                    <img src="assets/lib/completed.png"
+                                    <img src="assets/img/finished.png"
                                          alt="{% trans %} Completed {% endtrans %}"
                                          title="{% trans %} Completed {% endtrans %}"
                                          class="progress"
                                          id="progress-completed-{{unit.unit_id}}">
+                                    <span style="font-size: 75%">Finished</span>
                                     {% elif progress[unit.unit_id] == 1 %}
-                                    <img src="assets/lib/in_progress.png"
+                                    <img src="assets/img/in_progress.png"
                                          alt="{% trans %} In progress {% endtrans %}"
                                          title="{% trans %} In progress {% endtrans %}"
                                          class="progress"
                                          id="progress-inprogress-{{unit.unit_id}}">
+                                    <span style="font-size: 75%">In Progress</span>
                                     {% else %}
-                                    <img src="assets/lib/not_started.png"
+                                    <img src="assets/img/start.png"
                                          alt="{% trans %} Not yet started {% endtrans %}"
                                          title="{% trans %} Not yet started {% endtrans %}"
                                          class="progress"
                                          id="progress-notstarted-{{reunit.unit_id}}">
+                                    <span style="font-size: 75%">Not Started</span>
                                     {% endif %}
-                                {% else %}
-                                <span class="progress-empty"></span>
                                 {% endif %}
                             {% endif %}
                         </td>
@@ -105,7 +106,7 @@
                             {% endif %}
                         </td>
 
-                        <td style="width: 80%;">
+                        <td style="width: 75%;">
                             {% if unit.type == 'A' %}
                                 {{ unit.title }}
                             {% elif unit.type == 'U' %}
@@ -123,8 +124,8 @@
                             {% endif %}
                         </td>
 
-                        <td style="width: 15%">
-                            Not Available
+                        <td style="width: 20%">
+
                         </td>
                     </tr>
                 {% endif %}

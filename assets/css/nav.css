@@ -179,11 +179,43 @@ table.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padd
 table.tftable tr {background-color:#ffffff;}
 table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
 
-.datagrid table { border-collapse: collapse; text-align: left; width: 100%; } .datagrid {font: normal 12px/150% Arial, Helvetica, sans-serif; background: #fff; overflow: hidden; border: 1px solid #ffffff; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }.datagrid table td, .datagrid table th { padding: 3px 10px; }.datagrid table tbody td { color: #00496B; border-left: 1px solid #E1EEF4;font-size: 12px;font-weight: normal; }.datagrid table tbody td:first-child { border-left: none; }.datagrid table tbody tr:last-child td { border-bottom: none; }
+table.datagrid {
+    border-collapse: collapse; text-align: left; width: 100%;
+    border-width: 1px;
+    border-color: #729ea5;
+    -webkit-border-radius: 1px; -moz-border-radius: 1px; border-radius: 1px;
+    border: 1px solid #729ea5;
+}
+
+table.datagrid td, .datagrid table th {
+    padding: 5px 10px;
+}
+
+table.datagrid tbody tr td {
+    color: #7D7D7D;
+    border-left: none;
+    border-right: none;
+}
+
+table.datagrid tbody .alt tr td {
+    background: #EBEBEB; color: #7D7D7D;
+    border-left: none;
+    border-right: none;
+}
+
+table.datagrid tbody tr td:first-child {
+    border-left: none;
+}
+
+.datagrid table tbody tr:last-child td {
+    border-bottom: none;
+}
+
 
 /* tooltip classes */
 .tipbox { /*1px dotted #000000;*/
-	border-bottom: color:  #000000;
+	border-bottom: 1px;
+    color:  #000000;
 	outline: none;
 	position: relative;
 }

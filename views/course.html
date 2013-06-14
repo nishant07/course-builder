@@ -22,80 +22,68 @@
         </h1>
         <div class="gcb-main">
           <div style="width: 100%;" class="gcb-nav" id="gcb-nav-y">
-            <table><tbody>
+            <table style="width: 100%"><tbody>
               {% for unit in units %}
                 {% if unit.now_available or is_course_admin %}
                     <tr>
-                        <td>
-                            <p class="top_content">
-                                {% if unit.type == 'A' %}
+                        <td style="width: 80%">
+                            {% if unit.type == 'A' %}
+                                {% if progress[unit.unit_id] > 0 %}
+                                    <img src="assets/lib/completed.png"
+                                         alt="{% trans %} Completed {% endtrans %}"
+                                         title="{% trans %} Completed {% endtrans %}"
+                                         class="progress"
+                                         id="progress-completed-{{unit.unit_id}}">
+                                {% else %}
+                                    <img src="assets/lib/not_started.png"
+                                         alt="{% trans %} Not yet submitted {% endtrans %}"
+                                         title="{% trans %} Not yet submitted {% endtrans %}"
+                                         class="progress"
+                                         id="progress-notstarted-{{unit.unit_id}}">
+                                {% endif %}
+                                <a href="assessment?name={{ unit.unit_id }}">{{ unit.title }}</a>
 
-                                    {% if progress[unit.unit_id] > 0 %}
+                            {% elif unit.type == 'U' %}
+                                {% if is_progress_recorded %}
+                                    {% if progress[unit.unit_id] == 2 %}
                                         <img src="assets/lib/completed.png"
-                                             alt="{% trans %} Completed {% endtrans %}"
-                                             title="{% trans %} Completed {% endtrans %}"
-                                             class="progress"
-                                             id="progress-completed-{{unit.unit_id}}">
-                                    {% else %}
-                                        <img src="assets/lib/not_started.png"
-                                             alt="{% trans %} Not yet submitted {% endtrans %}"
-                                             title="{% trans %} Not yet submitted {% endtrans %}"
-                                             class="progress"
-                                             id="progress-notstarted-{{unit.unit_id}}">
-                                    {% endif %}
-                                    <a href="assessment?name={{ unit.unit_id }}">{{ unit.title }}</a>
-
-                                {% elif unit.type == 'U' %}
-
-                                    {# PROGRESS #}
-                                    {% if is_progress_recorded %}
-                                        {% if progress[unit.unit_id] == 2 %}
-                                            <img src="assets/lib/completed.png"
-                                               alt="{% trans %} Completed {% endtrans %}"
-                                               title="{% trans %} Completed {% endtrans %}"
+                                           alt="{% trans %} Completed {% endtrans %}"
+                                           title="{% trans %} Completed {% endtrans %}"
+                                           class="progress"
+                                           id="progress-completed-{{unit.unit_id}}">
+                                    {% elif progress[unit.unit_id] == 1 %}
+                                          <img src="assets/lib/in_progress.png"
+                                               alt="{% trans %} In progress {% endtrans %}"
+                                               title="{% trans %} In progress {% endtrans %}"
                                                class="progress"
-                                               id="progress-completed-{{unit.unit_id}}">
-                                        {% elif progress[unit.unit_id] == 1 %}
-                                              <img src="assets/lib/in_progress.png"
-                                                   alt="{% trans %} In progress {% endtrans %}"
-                                                   title="{% trans %} In progress {% endtrans %}"
-                                                   class="progress"
-                                                   id="progress-inprogress-{{unit.unit_id}}">
-                                        {% else %}
-                                              <img src="assets/lib/not_started.png"
-                                                   alt="{% trans %} Not yet started {% endtrans %}"
-                                                   title="{% trans %} Not yet started {% endtrans %}"
-                                                   class="progress"
-                                                   id="progress-notstarted-{{reunit.unit_id}}">
-                                        {% endif %}
+                                               id="progress-inprogress-{{unit.unit_id}}">
                                     {% else %}
-                                        <span class="progress-empty"></span>
+                                          <img src="assets/lib/not_started.png"
+                                               alt="{% trans %} Not yet started {% endtrans %}"
+                                               title="{% trans %} Not yet started {% endtrans %}"
+                                               class="progress"
+                                               id="progress-notstarted-{{reunit.unit_id}}">
                                     {% endif %}
-
-                                    {# LINK #}
-                                    <a href="unit?unit={{ unit.unit_id }}">
-                                        {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
-                                    </a>
-
-                                {% elif unit.type == 'O' %}
-                                    <span class="progress-empty"></span>
-                                    <a href="{{ unit.href }}"> {{ unit.title }} </a>
                                 {% else %}
                                     <span class="progress-empty"></span>
-                                    Error: unit type not recognized.
                                 {% endif %}
-                            </p>
+
+                                {# LINK #}
+                                <a href="unit?unit={{ unit.unit_id }}">
+                                    {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
+                                </a>
+
+                            {% elif unit.type == 'O' %}
+                                <span class="progress-empty"></span>
+                                <a href="{{ unit.href }}"> {{ unit.title }} </a>
+                            {% else %}
+                                <span class="progress-empty"></span>
+                                Error: unit type not recognized.
+                            {% endif %}
                         </td>
 
-                        {% if unit.type == 'U' %}
-                        {# STARS #}
-                        <td style="float: right">
-                            {#{% for number in range(unit.difficulty) %}
-                            <img src="assets/img/star_small.gif" height="10" width="10">
-                            {% endfor %}
-                            {% for number in range(5-unit.difficulty) %}
-                            <img src="assets/img/unstar_small.gif" height="10" width="10">
-                            {% endfor %}#}
+                        {#{% if unit.type == 'U' %} #}
+                        <td>
                             {% if unit.difficulty == 1 %}
                             <span title="Easy" class="badge badge-success pull-right">E</span>
                             {% elif unit.difficulty == 2 %}
@@ -104,47 +92,51 @@
                             <span title="Easy" class="badge badge-important pull-right">H</span>
                             {% endif %}
                         </td>
-                        {% else %}
-                        <td>
+                        {#{% else %}
+                        <td >
 
                         </td>
-                        {% endif %}
+                        {% endif %}#}
                     </tr>
-					{# What's this for? #}
-                    {% if not unit.now_available and is_course_admin %}
-                        (Private)
-                    {% endif %}
-
                 {% else %}
-
                     <tr>
-                        <td>
-                            <p class="top_content">
-                                {% if unit.type == 'A' %}
-                                        <span class="progress-empty"></span>
-                                        {{ unit.title }}
-                                {% elif unit.type == 'U' %}
-                                        <span class="progress-empty"></span>
-                                        {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }} <br>
-                                        <span style="padding-left: 27px; font-size: 12px; color: #5e94ff">
-                                            {{ unit.release_date }}
-                                        </span>
-                                        <!-- <td style="text-align:center"> <span style="padding-left: 20px; font-size: 12px; color: #5e94ff;">
-                                            {{ unit.release_date }}
-                                        </span></td> -->                                                                      
-                                {% elif unit.type == 'O' %}
-                                        <span class="progress-empty"></span>
-                                        {{ unit.title }} <br>
-                                        <span style="padding-left: 27px; font-size: 12px; color: #5e94ff">
-                                            {{ unit.release_date }}
-                                        </span>
-                                {% else %}
-                                        <span class="progress-empty"></span>
-                                        Error: unit type not recognized.
-                                {% endif %}
-                            </p>
-
+                        <td style="width: 80%">
+                            {% if unit.type == 'A' %}
+                                <span class="progress-empty"></span>
+                                {{ unit.title }}
+                            {% elif unit.type == 'U' %}
+                                <span class="progress-empty"></span>
+                                {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }} <br>
+                                <span style="padding-left: 27px; font-size: 12px; color: #5e94ff">
+                                    {{ unit.release_date }}
+                                </span>
+                            {% elif unit.type == 'O' %}
+                                <span class="progress-empty"></span>
+                                {{ unit.title }} <br>
+                                <span style="padding-left: 27px; font-size: 12px; color: #5e94ff">
+                                    {{ unit.release_date }}
+                                </span>
+                            {% else %}
+                                <span class="progress-empty"></span>
+                                Error: unit type not recognized.
+                            {% endif %}
                         </td>
+
+                        {#{% if unit.type == 'U' %}#}
+                        {# STARS #}
+                        <td style="width: 80%">
+                            {% if unit.difficulty == 1 %}
+                            <span title="Easy" class="badge badge-success pull-right">E</span>
+                            {% elif unit.difficulty == 2 %}
+                            <span title="Easy" class="badge badge-warning pull-right">M</span>
+                            {% else %}
+                            <span title="Easy" class="badge badge-important pull-right">H</span>
+                            {% endif %}
+                        </td>
+                        {#{% else %}
+                        <td>
+                        </td>
+                        {% endif %}#}
                     </tr>
 
                 {% endif %}

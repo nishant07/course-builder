@@ -103,7 +103,7 @@
                         </td>
                         {% endif %}
                     </tr>
-
+					{# What's this for? #}
                     {% if not unit.now_available and is_course_admin %}
                         (Private)
                     {% endif %}
@@ -118,21 +118,24 @@
                                         {{ unit.title }}
                                 {% elif unit.type == 'U' %}
                                         <span class="progress-empty"></span>
-                                        {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
-                                        <span style="padding-left: 20px; font-size: 12px; color: #5e94ff;">
+                                        {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }} <br>
+                                        <span style="padding-left: 27px; font-size: 12px; color: #5e94ff">
                                             {{ unit.release_date }}
                                         </span>
+                                        <!-- <td style="text-align:center"> <span style="padding-left: 20px; font-size: 12px; color: #5e94ff;">
+                                            {{ unit.release_date }}
+                                        </span></td> -->                                                                      
                                 {% elif unit.type == 'O' %}
                                         <span class="progress-empty"></span>
-                                        {{ unit.title }}
+                                        {{ unit.title }} <br>
+                                        <span style="padding-left: 27px; font-size: 12px; color: #5e94ff">
+                                            {{ unit.release_date }}
+                                        </span>
                                 {% else %}
                                         <span class="progress-empty"></span>
                                         Error: unit type not recognized.
                                 {% endif %}
                             </p>
-                        </td>
-
-                        <td>
 
                         </td>
                     </tr>

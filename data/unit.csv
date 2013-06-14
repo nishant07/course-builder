@@ -1,13 +1,15 @@
 id,type,unit_id,title,release_date,now_available,difficulty,unit_description
-1,A,Pre,Pre-course assessment,,True,0,
-2,U,1,Introduction,available July 10,True,1,The indictment unsealed on Tuesday said Liberty Reserve had more than a million users worldwide
-3,U,2,Interpreting results,available July 11,True,2,including at least 200000 in the United States and virtually all of its business was related to suspected criminal activity.
-4,U,3,Advanced techniques,available July 12,True,2,
-5,A,Mid,Mid-course assessment,,True,0,
-6,U,4,Find facts faster,available July 17,True,3,Liberty Reserve has emerged as one of the principal means by which cyber-criminals around the world distribute
-7,U,5,Checking your facts,available July 18,True,4,
-8,U,6,Putting it all together,available July 19,True,5,
-9,A,Fin,Post-course assessment,,True,0,
-10,O,http://www.youtube.com/watch?v=ZhhiXxiAVtM&feature=player_embedded,Power Searching with Search Experts Video,,True,0,
-11,O,http://www.youtube.com/watch?v=dwlpViuIYgU&feature=player_embedded,Hang Out with Search Experts Video,,True,0,
+1,O,https://docs.google.com/forms/d/1qm6NZ50RvJtNNV_t-GUEQHfpMSAo-FPYM0dkLAFVYX0/viewform,Welcome Survey,,True,0,
+2,A,Pre,Pre-course assessment,,True,0,
+3,U,1,Introduction,available July 10,True,1,The indictment unsealed on Tuesday said Liberty Reserve had more than a million users worldwide
+4,U,2,Interpreting results,available July 11,True,2,including at least 200000 in the United States and virtually all of its business was related to suspected criminal activity.
+5,U,3,Advanced techniques,available July 12,True,2,
+6,A,Mid,Mid-course assessment,,True,0,
+7,U,4,Find facts faster,available July 17,True,3,Liberty Reserve has emerged as one of the principal means by which cyber-criminals around the world distribute
+8,U,5,Checking your facts,available July 18,True,4,
+9,U,6,Putting it all together,available July 19,False,5,
+10,A,Fin,Post-course assessment,,True,0,
+11,O,http://www.youtube.com/watch?v=ZhhiXxiAVtM&feature=player_embedded,Power Searching with Search Experts Video,,True,0,
+12,O,http://www.youtube.com/watch?v=dwlpViuIYgU&feature=player_embedded,Hang Out with Search Experts Video,,True,0,
+13,O,https://docs.google.com/forms/d/1FEj8HMwRaW5gtxdjz1aA-VdW5hHvkztF5bqkpyfeTLU/viewform,Post-course Survey,available July 20,False,0,
 

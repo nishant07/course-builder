@@ -1,5 +1,5 @@
 id,type,unit_id,title,release_date,now_available,difficulty,unit_description
-1,O,https://docs.google.com/forms/d/1qm6NZ50RvJtNNV_t-GUEQHfpMSAo-FPYM0dkLAFVYX0/viewform,Welcome Survey,,True,1,
+1,O,https://docs.google.com/forms/d/1qm6NZ50RvJtNNV_t-GUEQHfpMSAo-FPYM0dkLAFVYX0/viewform,Welcome Survey,,True,0,
 2,A,Pre,Pre-course assessment,,True,1,
 3,U,1,Introduction,available July 10,True,1,The indictment unsealed on Tuesday said Liberty Reserve had more than a million users worldwide
 4,U,2,Interpreting results,available July 11,True,2,including at least 200000 in the United States and virtually all of its business was related to suspected criminal activity.
@@ -11,5 +11,5 @@ id,type,unit_id,title,release_date,now_available,difficulty,unit_description
 10,A,Fin,Post-course assessment,,True,2,
 11,O,http://www.youtube.com/watch?v=ZhhiXxiAVtM&feature=player_embedded,Power Searching with Search Experts Video,,True,1,
 12,O,http://www.youtube.com/watch?v=dwlpViuIYgU&feature=player_embedded,Hang Out with Search Experts Video,,True,1,
-13,O,https://docs.google.com/forms/d/1FEj8HMwRaW5gtxdjz1aA-VdW5hHvkztF5bqkpyfeTLU/viewform,Post-course Survey,available July 20,False,1,
+13,O,https://docs.google.com/forms/d/1FEj8HMwRaW5gtxdjz1aA-VdW5hHvkztF5bqkpyfeTLU/viewform,Post-course Survey,available July 20,False,0,
 

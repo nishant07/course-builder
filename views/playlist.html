@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     $( "#gcb-nav-y" ).accordion();
 
-    $("#gcb-nav-y tr").draggable({
+    $("#gcb-nav-y li").draggable({
         appendTo: "body",
         helper: "clone"
     });
@@ -89,18 +89,15 @@ $(document).ready(function(){
             <h3>{{ unit.unit_id }}. {{ unit.title }}</h3>
             <div>
             {% if units_lessons[unit.unit_id] != 'None' %}
-                <table class='datagrid'>
-                    <tbody>
+                <ul>
                     {% for v in units_lessons[unit.unit_id] %}
-                    <tr><td>
+                    <li>
                         <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
                         <input type='hidden' name='unit' value="{{unit.unit_id}}">
                         <input type='hidden' name='lesson' value="{{v.lesson_id}}">
-                        </td>
-                    </tr>
+                    </li>
                     {% endfor %}
-                    </tbody>
-                </table>
+                </ul>
             {% endif %}
             </div>
         {% endif %}

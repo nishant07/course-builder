@@ -7,6 +7,14 @@
 {% block header_content %}
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+<style>
+    #gcb-nav-y ul li:hover {
+        background-color: rgba(139, 148, 155, 0.17);
+        font-weight: bold;
+    }
+</style>
+
 <script>
 
 $(document).ready(function(){
@@ -91,7 +99,7 @@ $(document).ready(function(){
             {% if units_lessons[unit.unit_id] != 'None' %}
                 <ul>
                     {% for v in units_lessons[unit.unit_id] %}
-                    <li>
+                    <li style="border-bottom: none;">
                         <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
                         <input type='hidden' name='unit' value="{{unit.unit_id}}">
                         <input type='hidden' name='lesson' value="{{v.lesson_id}}">

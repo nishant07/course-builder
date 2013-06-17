@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
 
+{% block header_content %}
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="assets/lib/jstree/jquery.jstree.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#gcb-nav-y")
+                .jstree({
+                    "themes" : {
+                    "dots" : false,
+                    "icons" : false
+                }, "plugins" : ["themes","html_data","ui"] });
+    });
+</script>
+{% endblock %}
 {% block top_content %}
 
 {% endblock %}
@@ -11,128 +26,30 @@
             {{course_info.course.title}}
         </h1>
     </div>
-    <div style="width: 30%;" class="gcb-nav" id="gcb-nav-y">
-        <ul>
-            {% for unit in units %}
-            {% if unit.now_available or is_course_admin %}
-            {% if unit.type == 'A' %}
-            <li><p class="top_content">
-                {% if progress[unit.unit_id] > 0 %}
-                <img src="assets/lib/completed.png"
-                     alt="{% trans %} Completed {% endtrans %}"
-                     title="{% trans %} Completed {% endtrans %}"
-                     class="progress"
-                     id="progress-completed-{{unit.unit_id}}">
-                {% else %}
-                <img src="assets/lib/not_started.png"
-                     alt="{% trans %} Not yet submitted {% endtrans %}"
-                     title="{% trans %} Not yet submitted {% endtrans %}"
-                     class="progress"
-                     id="progress-notstarted-{{unit.unit_id}}">
+    <div style="width: 20%;" class="gcb-nav" id="gcb-nav-y">
+        <ul style="border-bottom: none">
+        {% for unit in units %}
+        {% if unit.type != 'A' and unit.type != 'O' %}
+            <li style="overflow-wrap: break-word; border-bottom: none">
+                <a href="#">{{ unit.unit_id }}. {{ unit.title }}</a>
+                {% if units_lessons[unit.unit_id] != 'None' %}
+                <ul>
+                    {% for v in units_lessons[unit.unit_id] %}
+                    <li style="border-bottom: none">
+                        <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}"><span style="overflow: inherit; word-wrap: break-word">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</span></a>
+                        <input type='hidden' name='unit' value="{{unit.unit_id}}">
+                        <input type='hidden' name='lesson' value="{{v.lesson_id}}">
+                    </li>
+                    {% endfor %}
+                </ul>
                 {% endif %}
-                <a href="assessment?name={{ unit.unit_id }}">{{ unit.title }}</a>
-                {% elif unit.type == 'U' %}
-                <li><p class="top_content">
-                    {% if is_progress_recorded %}
-                    {% if progress[unit.unit_id] == 2 %}
-                    <img src="assets/lib/completed.png"
-                         alt="{% trans %} Completed {% endtrans %}"
-                         title="{% trans %} Completed {% endtrans %}"
-                         class="progress"
-                         id="progress-completed-{{unit.unit_id}}">
-                    {% elif progress[unit.unit_id] == 1 %}
-                    <img src="assets/lib/in_progress.png"
-                         alt="{% trans %} In progress {% endtrans %}"
-                         title="{% trans %} In progress {% endtrans %}"
-                         class="progress"
-                         id="progress-inprogress-{{unit.unit_id}}">
-                    {% else %}
-                    <img src="assets/lib/not_started.png"
-                         alt="{% trans %} Not yet started {% endtrans %}"
-                         title="{% trans %} Not yet started {% endtrans %}"
-                         class="progress"
-                         id="progress-notstarted-{{unit.unit_id}}">
-                    {% endif %}
-                    {% else %}                                                 
-                    <span class="progress-empty"></span>
-                    {% endif %}  
-                    
-                    {% if unit.description and unit.description != ' ' %} 
-                    	<a class="tipbox" href="unit?unit={{ unit.unit_id }}">
-                        	{{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }} <span class="classic gradient"> <em>Description</em> {{ unit.description }} </span>
-                    	</a>                        	
-                    {% else %} 
-                    	<a href="unit?unit={{ unit.unit_id }}">
-                        	{{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
-                    	</a>
-                    {% endif %} 
-                    </br>                                      
-                    <div align="center">
-                        {% if unit.difficulty == 1 %}
-                        <span title="Easy" class="badge badge-success pull-right">E</span>
-                        {% elif unit.difficulty == 2 %}
-                        <span title="Easy" class="badge badge-warning pull-right">M</span>
-                        {% else %}
-                        <span title="Easy" class="badge badge-important pull-right">H</span>
-                        {% endif %}
-      				</div> 
-      				
-                    {% elif unit.type == 'O' %}
-                    <li>
-                        <p class="top_content">
-                            <span class="progress-empty"></span>
-                            <a href="{{ unit.href }}"> {{ unit.title }} </a>
-                            {% else %}
-                            <li>
-                <p class="top_content">
-                    <span class="progress-empty"></span>
-                    Error: unit type not recognized.
-                    {% endif %}
-                    {% if not unit.now_available and is_course_admin %}
-                    (Private)
-                    {% endif %}
-                </p>
             </li>
-            {% else %}
-            {% if unit.type == 'A' %}
-            <li>
-                <p class="top_content">
-                    <span class="progress-empty"></span>
-                    {{ unit.title }}
-                </p>
-            </li>
-            {% elif unit.type == 'U' %}
-            <li>
-                <p class="top_content">
-                    <span class="progress-empty"></span>
-                    {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
-                <span style="padding-left: 20px; font-size: 12px; color: #5e94ff;">
-                  {{ unit.release_date }}
-                </span>
-                </p>
-            </li>
-            {% elif unit.type == 'O' %}
-            <li>
-                <p class="top_content">
-                    <span class="progress-empty"></span>
-                    {{ unit.title }}
-                </p>
-            </li>
-            {% else %}
-            <li>
-                <p class="top_content">
-                    <span class="progress-empty"></span>
-                    Error: unit type not recognized.
-                </p>
-            </li>
-            {% endif %}
-            {% endif %}
-
-            {% endfor %}
+        {% endif %}
+        {% endfor %}
         </ul>
     </div>
 
-    <div class="gcb-article tab-content" style="width: 68%;" role="main">
+    <div class="gcb-article tab-content" style="width: 78%;" role="main">
         <div>
             <table>
                 <tbody>

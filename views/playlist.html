@@ -13,6 +13,11 @@
         background-color: rgba(139, 148, 155, 0.17);
         font-weight: bold;
     }
+
+    .root li { line-height: 40px; list-style: none; }
+    .root li { padding-left: 0px; }
+    .root li.branch { padding-left: 0; }
+    .root a { text-decoration: none; color: inherit; }
 </style>
 
 <script>
@@ -22,9 +27,9 @@ $(document).ready(function(){
         $(this).closest ('tr').remove ();
     });
 
-    $( "#gcb-nav-y" ).accordion();
+    $( "#accordian" ).accordion();
 
-    $("#gcb-nav-y li").draggable({
+    $("#.root li ul li").draggable({
         appendTo: "body",
         helper: "clone"
     });
@@ -72,8 +77,31 @@ $(document).ready(function(){
             $(this).remove();
         });
     });
+
+    $('#myCollapsible').collapse({
+        toggle: false
+    })
 });
 
+$(document).ready(function(){
+    $( '.root ul' ).hide();
+    $( 'li.branch > a' ).append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
+
+    $( 'li.branch > a' ).click( function ( event ) {
+        event.preventDefault();
+
+        var leaves = $( this ).parent( 'li' ).children( 'ul' );
+
+        if ( leaves.is( ':visible' ) ) {
+            $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
+            leaves.slideUp();
+        }
+        else {
+            $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
+            leaves.slideDown();
+        }
+    } );
+});
 
 
 </script>
@@ -84,42 +112,44 @@ $(document).ready(function(){
 
 {% block main_content %}
 
-<div class="gcb-main">
-    <div>
-        <h3 class="class_header">
-            Customize the lesson order
-        </h3>
-    </div>
-
-    <div style="width: 25%;" class="gcb-nav" id="gcb-nav-y">
-        {% for unit in units %}
-        {% if unit.type != 'A' and unit.type != 'O' %}
-            <h3>{{ unit.unit_id }}. {{ unit.title }}</h3>
-            <div>
-            {% if units_lessons[unit.unit_id] != 'None' %}
-                <ul>
-                    {% for v in units_lessons[unit.unit_id] %}
-                    <li style="border-bottom: none;">
-                        <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
-                        <input type='hidden' name='unit' value="{{unit.unit_id}}">
-                        <input type='hidden' name='lesson' value="{{v.lesson_id}}">
-                    </li>
-                    {% endfor %}
-                </ul>
+<div class="row">
+    <h4>
+        Customize the lesson order
+    </h4>
+</div>
+<div class="row-fluid">
+    <div class="span3">
+        <ul class="root nav nav-list">
+            {% for unit in units %}
+            {% if unit.type != 'A' and unit.type != 'O' %}
+                <li class="branch"><a>{{ unit.unit_id }}. {{ unit.title }}</a>
+                {% if units_lessons[unit.unit_id] != 'None' %}
+                    <ul style="margin-left: 10px">
+                        {% for v in units_lessons[unit.unit_id] %}
+                        <li>
+                            <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}" style="padding-left: 0px;">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
+                            <input type='hidden' name='unit' value="{{unit.unit_id}}">
+                            <input type='hidden' name='lesson' value="{{v.lesson_id}}">
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                </li>
             {% endif %}
-            </div>
-        {% endif %}
-        {% endfor %}
+            {% endfor %}
+        </ul>
+
     </div>
 
-    <div class="gcb-article tab-content" style="width: 70%;" role="main">
+    <div class="span9" role="main">
         <form method="post" action="playlist">
             <div >
                 <div id="submitForm">
                     <table>
                         <tbody>
                             <tr>
-                                <td><input id='save' type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' ><input type='button' id='clear' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
+                                <td><input class="btn btn-link" id='save' type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' >
+                                    <input class="btn btn-link" type='button' id='clear' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
                             </tr>
                         </tbody>
                     </table>
@@ -127,7 +157,7 @@ $(document).ready(function(){
             </div>
             <div>
                 <div id="droppedItems" style='height: 100%'>
-                    <table class="tftable" id='dropTable'>
+                    <table class="table-striped" id='dropTable'>
                         <thead>
                             <tr >
                                 <td style="width: 100%">Drag and Drop lessons here</td>

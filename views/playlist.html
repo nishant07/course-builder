@@ -23,7 +23,7 @@
         /*width: 228px;*/
         margin: 0px 0 0;
         padding: 0;
-        background-color: #fff;
+        background-color: #fcfcfc;
         -webkit-border-radius: 6px;
         -moz-border-radius: 6px;
         border-radius: 6px;
@@ -35,7 +35,7 @@
         display: block;
         /*width: 190px \9;*/
         margin: 0 0 -1px;
-        padding: 8px 14px;
+        padding: 8px 10px;
         border: 1px solid #e5e5e5;
     }
     .bs-docs-sidenav > li:first-child > a {
@@ -89,18 +89,45 @@
         top: auto;
         bottom: 270px;
     }
+    .inner_a {
+        display: block; margin: 0 0 -1px; padding-left: 20px; padding-right: 10px; padding-bottom: 10px; padding-top: 10px; border: 1px solid #e5e5e5;
+    }
+
+    .check_icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-top: 5px;
+        *margin-right: .3em;
+        line-height: 14px;
+        vertical-align: text-top;
+        background-image: url("assets/img/un_checked.png");
+        background-repeat: no-repeat;
+    }
+
+    .checked_icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-top: 5px;
+        *margin-right: .3em;
+        line-height: 14px;
+        vertical-align: text-top;
+        background-image: url("assets/img/checked.png");
+        background-repeat: no-repeat;
+    }
 </style>
 
 <script>
 
 $(document).ready(function(){
-    $('#droppedItems').on('click', '.removeButton', function(){
+    $('#droppedItems').on('click', '.icon-remove', function(){
         $(this).closest ('tr').remove ();
     });
 
     $( "#accordian" ).accordion();
 
-    $("#.root li ul li").draggable({
+    $("#.root li ul li a").draggable({
         appendTo: "body",
         helper: "clone"
     });
@@ -110,19 +137,20 @@ $(document).ready(function(){
         hoverClass:"ui-state-hover",
         accept:":not(.ui-sortable-helper)",
         drop: function(event, ui) {
-            var a = ui.draggable.find('a').text();
-            var href = ui.draggable.find('a').attr('href');
-            var unit = ui.draggable.find('input[name="unit"]').attr('value');
-            var lesson = ui.draggable.find('input[name="lesson"]').attr('value');
-
+            var a = ui.draggable.text();
+            var href = ui.draggable.attr('href');
+//            var unit = ui.draggable.find('input[name="unit"]').attr('value');
+//            var lesson = ui.draggable.find('input[name="lesson"]').attr('value');
+            var unit = ui.draggable.attr('unit');
+            var lesson = ui.draggable.attr('lesson');
             var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
 
-            var tr = $('<tr></tr>').append($('<td></td>').append($('<a></a>').text(a).attr('href', href))).
-                    append($('<td></td>').append($('<a></a>').attr('type', 'button').addClass('removeButton').text('Remove')).
+            var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
+                    append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
                             append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
 
             if (lessonFind.length == 0) {
-                $( "#droppedItems tbody" ).append(tr);
+                $( "#dropTable tbody" ).append(tr);
             }
         }
     });
@@ -130,6 +158,7 @@ $(document).ready(function(){
     $("#droppedItems tbody").sortable();
 
     $('#submitForm').submit(function() {
+        alert('submit form');
         var count = 0;
         $('#dropTable > tbody  > tr').each(function() {
             $(this).find('input[name="lesson"]').attr('name', 'lesson.' + count);
@@ -140,6 +169,7 @@ $(document).ready(function(){
     });
 
     $('#save').click(function() {
+        alert('submit');
         $('#submitForm').submit();
     });
 
@@ -172,6 +202,16 @@ $(document).ready(function(){
             leaves.slideDown();
         }
     } );
+
+    $( '.inner_a' ).click( function ( event ) {
+        event.preventDefault();
+        var leaves = $( this ).parent( 'li' ).find( 'i' );
+        if (leaves.hasClass('check_icon')) {
+            leaves.removeClass( 'check_icon' ).addClass('checked_icon');
+        } else {
+            leaves.removeClass( 'checked_icon' ).addClass('check_icon');
+        }
+    } );
 });
 
 
@@ -183,22 +223,29 @@ $(document).ready(function(){
 
 {% block main_content %}
 
-<div class="row">
-    <h4>
-        Customize the lesson order
-    </h4>
-</div>
 <div class="row-fluid">
-    <div class="span3">
+    <div class=span4>
+
+    </div>
+    <div class="span3 offset5 ">
+        <input class="btn btn-link pull-right" type='button' id='clear' value="Clear" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>
+        <input class="btn btn-link pull-right" id='save' type="button" value="Save" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px' >
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span5">
         <ul class="bs-docs-sidenav root nav nav-list">
             {% for unit in units %}
             {% if unit.type != 'A' and unit.type != 'O' %}
                 <li class="branch"><a>{{ unit.unit_id }}. {{ unit.title }}</a>
                 {% if units_lessons[unit.unit_id] != 'None' %}
-                    <ul style="margin-left: 10px">
+                    <ul style="margin-left: 0px">
                         {% for v in units_lessons[unit.unit_id] %}
                         <li>
-                            <a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}" style="padding-left: 0px; width: 100%;">{{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
+                            <i class="check_icon pull-left" style="margin-top: 20px; margin-left: 15px;margin-right: 10px"></i>
+                            <a class="inner_a" unit="{{unit.unit_id}}" lesson={{v.lesson_id}} style="cursor: hand">
+                                {{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
                             <input type='hidden' name='unit' value="{{unit.unit_id}}">
                             <input type='hidden' name='lesson' value="{{v.lesson_id}}">
                         </li>
@@ -209,42 +256,28 @@ $(document).ready(function(){
             {% endif %}
             {% endfor %}
         </ul>
-
     </div>
 
-    <div class="span9" role="main">
-        <form method="post" action="playlist">
-            <div >
-                <div id="submitForm">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><input class="btn btn-link" id='save' type='submit' value="Save" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px' >
-                                    <input class="btn btn-link" type='button' id='clear' value="Clear" style='margin: 5px 20px 5px 5px;padding: 2px 10px 2px 10px'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="span7" role="main">
+        <form method="post" action="playlist" id=submitForm>
             <div>
                 <div id="droppedItems" style='height: 100%'>
                     <table class="table-striped" id='dropTable'>
                         <thead>
                             <tr >
-                                <td style="width: 100%">Drag and Drop lessons here</td>
-                                <td>Action</td>
+                                <td style="width: 100%; border-right: none">Drag and Drop lessons here</td>
+                                <td style="border-left: none"></td>
                             </tr>
                         </thead>
                         <tbody>
                         {% if playList != 'None' %}
-
                         {% for p in playList %}
                             {% for v in units_lessons[p['unit']] %}
                                 {% if v.lesson_id == p['lesson'] %}
                                     <tr>
-                                        <td><a href="playlist">{{p['unit']}}.{{p['lesson']}} {{v.title}}</a></td>
-                                        <td>
-                                            <a type='button' class='removeButton'>Remove</a>
+                                        <td style="border-right: none"><a href="playlist">{{p['unit']}}.{{p['lesson']}} {{v.title}}</a></td>
+                                        <td style="border-left: none">
+                                            <a type='button' class='icon-remove pull-right'></a>
                                             <input type="hidden" value="{{p['unit']}}.{{p['lesson']}}" name="lesson">
                                         </td>
                                     </tr>

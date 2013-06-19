@@ -297,7 +297,7 @@ $(document).ready(function(){
 <div class="row-fluid">
     <div class="span5">
         <ul class="bs-docs-sidenav root nav nav-list">
-            <li class="branch"><i class="grey_arrow_icon pull-right" style="margin-top: 20px; margin-left: 15px;margin-right: 20px"></i><a href="#">Lessons</a></li>
+            <li class="branch"><i class="grey_arrow_icon pull-right" style="margin-top: 20px; margin-left: 15px;margin-right: 10px"></i><a href="#">Lessons</a></li>
             {% for unit in units %}
             {% if unit.type != 'A' and unit.type != 'O' %}
                 <li class="branch"><a>{{ unit.unit_id }}. {{ unit.title }}</a>

@@ -116,6 +116,30 @@
         background-image: url("assets/img/checked.png");
         background-repeat: no-repeat;
     }
+
+    .green_arrow_icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-top: 5px;
+        *margin-right: .3em;
+        line-height: 14px;
+        vertical-align: text-top;
+        background-image: url("assets/img/green_arrow.png");
+        background-repeat: no-repeat;
+    }
+
+    .grey_arrow_icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-top: 5px;
+        *margin-right: .3em;
+        line-height: 14px;
+        vertical-align: text-top;
+        background-image: url("assets/img/grey_arrow.png");
+        background-repeat: no-repeat;
+    }
 </style>
 
 <script>
@@ -186,7 +210,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $( '.root ul' ).hide();
-    $( 'li.branch > a' ).append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
+    $( 'li.branch > a:not(:first)' ).append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
 
     $( 'li.branch > a' ).click( function ( event ) {
         event.preventDefault();
@@ -201,7 +225,7 @@ $(document).ready(function(){
             $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
             leaves.slideDown();
         }
-    } );
+    });
 
     $( '.inner_a' ).click( function ( event ) {
         event.preventDefault();
@@ -211,7 +235,51 @@ $(document).ready(function(){
         } else {
             leaves.removeClass( 'checked_icon' ).addClass('check_icon');
         }
+
+        if ($('.checked_icon').length > 0) {
+            $('.grey_arrow_icon').removeClass('grey_arrow_icon').addClass('green_arrow_icon');
+        } else {
+            $('.green_arrow_icon').removeClass('green_arrow_icon').addClass('grey_arrow_icon');
+        }
+
+        $('.green_arrow_icon').click(function(event) {
+            $('.checked_icon').each(function(index) {
+                var a = $(this).parent('li').find('a').text();
+                var href = $(this).parent('li').find('a').attr('href');
+                var unit = $(this).parent('li').find('a').attr('unit');
+                var lesson = $(this).parent('li').find('a').attr('lesson');
+
+                var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
+
+                var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
+                        append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
+                                append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
+
+                if (lessonFind.length == 0) {
+                    $( "#dropTable tbody" ).append(tr);
+                }
+            });
+        });
     } );
+
+    $('.green_arrow_icon').click(function(event) {
+        $('.checked_icon').each(function(index) {
+            var a = $(this).parent('li').find('a').text();
+            var href = $(this).parent('li').find('a').attr('href');
+            var unit = $(this).parent('li').find('a').attr('unit');
+            var lesson = $(this).parent('li').find('a').attr('lesson');
+
+            var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
+
+            var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
+                    append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
+                            append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
+
+            if (lessonFind.length == 0) {
+                $( "#dropTable tbody" ).append(tr);
+            }
+        });
+    });
 });
 
 
@@ -236,6 +304,7 @@ $(document).ready(function(){
 <div class="row-fluid">
     <div class="span5">
         <ul class="bs-docs-sidenav root nav nav-list">
+            <li class="branch"><i class="grey_arrow_icon pull-right" style="margin-top: 20px; margin-left: 15px;margin-right: 20px"></i><a href="#">Lessons</a></li>
             {% for unit in units %}
             {% if unit.type != 'A' and unit.type != 'O' %}
                 <li class="branch"><a>{{ unit.unit_id }}. {{ unit.title }}</a>
@@ -262,7 +331,7 @@ $(document).ready(function(){
         <form method="post" action="playlist" id=submitForm>
             <div>
                 <div id="droppedItems" style='height: 100%'>
-                    <table class="table-striped" id='dropTable'>
+                    <table class="table-striped" id='dropTable' style='border-radius: 6px;box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1)'>
                         <thead>
                             <tr >
                                 <td style="width: 100%; border-right: none">Drag and Drop lessons here</td>

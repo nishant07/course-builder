@@ -144,6 +144,18 @@
 
 <script>
 
+function dropItem(a, href, unit, lesson) {
+    var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
+
+    var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
+            append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
+                    append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
+
+    if (lessonFind.length == 0) {
+        $( "#dropTable tbody" ).append(tr);
+    }
+}
+
 $(document).ready(function(){
     $('#droppedItems').on('click', '.icon-remove', function(){
         $(this).closest ('tr').remove ();
@@ -163,26 +175,24 @@ $(document).ready(function(){
         drop: function(event, ui) {
             var a = ui.draggable.text();
             var href = ui.draggable.attr('href');
-//            var unit = ui.draggable.find('input[name="unit"]').attr('value');
-//            var lesson = ui.draggable.find('input[name="lesson"]').attr('value');
             var unit = ui.draggable.attr('unit');
             var lesson = ui.draggable.attr('lesson');
-            var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
+            dropItem(a, href, unit, lesson);
 
-            var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
-                    append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
-                            append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
+            $('.checked_icon').each(function(index) {
+                var a = $(this).parent('li').find('a').text();
+                var href = $(this).parent('li').find('a').attr('href');
+                var unit = $(this).parent('li').find('a').attr('unit');
+                var lesson = $(this).parent('li').find('a').attr('lesson');
 
-            if (lessonFind.length == 0) {
-                $( "#dropTable tbody" ).append(tr);
-            }
+                dropItem(a, href, unit, lesson);
+            });
         }
     });
 
     $("#droppedItems tbody").sortable();
 
     $('#submitForm').submit(function() {
-        alert('submit form');
         var count = 0;
         $('#dropTable > tbody  > tr').each(function() {
             $(this).find('input[name="lesson"]').attr('name', 'lesson.' + count);
@@ -193,7 +203,6 @@ $(document).ready(function(){
     });
 
     $('#save').click(function() {
-        alert('submit');
         $('#submitForm').submit();
     });
 
@@ -249,15 +258,7 @@ $(document).ready(function(){
                 var unit = $(this).parent('li').find('a').attr('unit');
                 var lesson = $(this).parent('li').find('a').attr('lesson');
 
-                var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
-
-                var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
-                        append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
-                                append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
-
-                if (lessonFind.length == 0) {
-                    $( "#dropTable tbody" ).append(tr);
-                }
+                dropItem(a, href, unit, lesson);
             });
         });
     } );
@@ -269,15 +270,7 @@ $(document).ready(function(){
             var unit = $(this).parent('li').find('a').attr('unit');
             var lesson = $(this).parent('li').find('a').attr('lesson');
 
-            var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
-
-            var tr = $('<tr></tr>').append($('<td></td>').attr('style', "border-right: none").append($('<a></a>').text(a).attr('href', href))).
-                    append($('<td></td>').attr('style', "border-left: none").append($('<a></a>').attr('type', 'button').addClass('icon-remove pull-right')).
-                            append($('<input>').attr('type', 'hidden').attr('name', 'lesson').attr('value', unit + "." + lesson)));
-
-            if (lessonFind.length == 0) {
-                $( "#dropTable tbody" ).append(tr);
-            }
+            dropItem(a, href, unit, lesson);
         });
     });
 });

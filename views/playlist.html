@@ -103,7 +103,7 @@ $(document).ready(function(){
         }
     });
 
-    $( '.inner_a' ).click( function ( event ) {
+    $( '.inner_a, .checked_icon, .check_icon' ).click( function ( event ) {
         event.preventDefault();
         var leaves = $( this ).parent( 'li' ).find( 'i' );
         if (leaves.hasClass('check_icon')) {

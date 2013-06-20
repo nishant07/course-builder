@@ -10,6 +10,7 @@
 {% block header_content %}
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 <script>
     $(document).ready(function(){
         $( "#accordion" ).accordion({
@@ -17,28 +18,31 @@
             heightStyle: "content"
         });
     });
+
+    $(document).ready(function(){
+        $( '.root ul' ).hide();
+    });
 </script>
 {% endblock %}
 
 {% block main_content %}
 
 <div class="gcb-main">
-  <ul class="gcb-breadcrumb">
-    <li><a href="course">{% trans %} Course {% endtrans %}</a></li>
-    <li><a href="homework?unit={{ homework.index }}">
-      {% trans %} Homework {% endtrans %}{{ homework.id }}</a></li>
-  </ul>
-  <div>
-    <h1 class="class_header">
-      {{ gettext('Homework %(id)s - %(title)s', id=homework.id, title=homework.title) }}
-    </h1>
-  </div>
+    <div class="row-fluid">
+        <h3>
+            {{ gettext('Homework - %(title)s', title=homework.title) }}
+        </h3>
+    </div>
 
-  {% include 'homework_navbar.html' %}
 
-  <div class="gcb-article tab-content" role="main">
-      {% include homework.filename %}
-  </div>
+    <div class="row-fluid">
+        <div class="span3">
+            {% include 'homework_navbar.html' %}
+        </div>
+        <div class="span9">
+            {% include homework.filename %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}

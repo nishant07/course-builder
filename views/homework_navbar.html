@@ -1,11 +1,11 @@
-<div class="gcb-nav" id="gcb-nav-y">
-    <ul>
+<div>
+    <ul class="bs-docs-sidenav root nav nav-list">
         {% for homework in homeworks %}
         {% if homework.id == homework_id %}
-        <li class="active">
-            {{ homework.id }}. {{ homework.title }}
+        <li class="branch" style="font-weight: bold">
+            <a href="homework?unit={{ homework.id }}">{{ homework.id }}. {{ homework.title }}</a>
         {% else %}
-        <li>
+        <li class="branch">
             <a href="homework?unit={{ homework.id }}">
                 {{ homework.id }}. {{ homework.title }}
             </a>

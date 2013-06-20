@@ -24,7 +24,7 @@
     display: block;
     /*width: 190px \9;*/
     margin: 0 0 -1px;
-    padding: 8px 10px;
+    padding: 4px 10px;
     border: 1px solid #e5e5e5;
 }
 .bs-docs-sidenav > li:first-child > a {
@@ -79,7 +79,7 @@
     bottom: 270px;
 }
 .inner_a {
-    display: block; margin: 0 0 -1px; padding-left: 20px; padding-right: 10px; padding-bottom: 10px; padding-top: 10px; border: 1px solid #e5e5e5;
+    display: block; margin: 0 0 -1px; padding-left: 20px; padding-right: 10px; padding-bottom: 6px; padding-top: 6px; border: 1px solid #e5e5e5;
 }
 
 .check_icon {

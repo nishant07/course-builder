@@ -475,8 +475,17 @@ function renderAssessment(assessment, domRoot) {
   domRoot.append('<ol></ol>');
 
   var questionsOL = domRoot.find('ol');
+  
+  if (assessment.questionGroups && assessment.questionGroups.length) {
+	  $.each(assessment.questionGroups, function(i, grp) {
+		  questionsOL.append('<li>' + grp.groupDescription + '<ol type="a" id="' + grp.id + '"></ol></li>');
+	  });
+  }
 
   $.each(assessment.questionsList, function(questionNum, q) {
+  	if (assessment.questionGroups && assessment.questionGroups.length) {
+  		questionsOL = domRoot.find('#' + q.groupID);
+  	}
     questionsOL.append('<li></li>');
 
     var curLI = questionsOL.find('li:last');

@@ -22,6 +22,9 @@
 
         <div style="text-align:left;">
           <ul>
+          	<li>
+          		Please take a few minutes to fill out the course's welcome survey <a href="https://docs.google.com/forms/d/1qm6NZ50RvJtNNV_t-GUEQHfpMSAo-FPYM0dkLAFVYX0/viewform"><strong>here</strong></a> or access it from the <a href="course"><strong>course page</strong></a> at later date.
+          	</li>
             {% if course_info.course.forum_url %}
               <li>
                 {% trans %} To participate in community discussions about this course, register for the web forum at {% endtrans %}
@@ -33,7 +36,7 @@
             {% endif %}
 
             {% if course_info.course.announcement_list_url %}
-              <li>
+              <li oncanplaythrough="oncanplaythrough	">
                 {% trans %} To receive announcements about this course, register for the announcements-only email list at {% endtrans %}
                 <a href="{{course_info.course.announcement_list_url}}">
                   {{course_info.course.announcement_list_url}}

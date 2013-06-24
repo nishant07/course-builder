@@ -24,7 +24,7 @@
             {% for unit in units %}
             {% if unit.now_available or is_course_admin %}
             <tr>
-                <td >
+                <td style="width: 15%;">
                     {% if unit.difficulty == 1 %}
                     <span title="Easy" class="badge badge-success">Easy</span>
                     {% elif unit.difficulty == 2 %}
@@ -36,7 +36,7 @@
                     {% endif %}
                 </td>
 
-                <td >
+                <td style="width: 70%;">
                     {% if unit.type == 'A' %}
                     <a href="assessment?name={{ unit.unit_id }}">{{ unit.title }}</a>
                     {% elif unit.type == 'U' %}
@@ -50,7 +50,7 @@
                     {% endif %}
                 </td>
 
-                <td >
+                <td style="width: 15%;">
                     {% if unit.type == 'A' %}
                     {% if progress[unit.unit_id] > 0 %}
                         <i class="icon-ok"></i>
@@ -79,7 +79,7 @@
             </tr>
             {% else %}
             <tr>
-                <td >
+                <td style="width: 15%;">
                     {% if unit.difficulty == 1 %}
                     <span title="Easy" class="badge badge-success">Basic</span>
                     {% elif unit.difficulty == 2 %}
@@ -91,7 +91,7 @@
                     {% endif %}
                 </td>
 
-                <td >
+                <td style="width: 70%;">
                     {% if unit.type == 'A' %}
                         {{ unit.title }}
                     {% elif unit.type == 'U' %}
@@ -109,7 +109,7 @@
                     {% endif %}
                 </td>
 
-                <td >
+                <td style="width: 15%;">
 
                 </td>
             </tr>

@@ -107,6 +107,21 @@ class CourseHandler(BaseHandler):
         self.template_value['units'] = self.get_units()
         self.template_value['progress'] = (
             self.get_progress_tracker().get_unit_progress(student))
+
+        #total progress
+        progressList = (self.get_progress_tracker().get_unit_progress(student))
+        progress = 0.0;
+        for i in progressList.values():
+            if i == True:
+                progress += 1
+            elif i == 2:
+                progress += 1
+            elif i == 1:
+                progress += 0.5
+
+        progress = progress/len(progressList)
+        self.template_value['progress_total'] = progress
+
         self.template_value['is_progress_recorded'] = (
             CAN_PERSIST_ACTIVITY_EVENTS.value)
         self.template_value['navbar'] = {'course': True}

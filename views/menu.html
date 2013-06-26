@@ -25,9 +25,10 @@
 
         <div class="nav-collapse collapse navbar-responsive-collapse">
             <ul class="nav">
-                <li><a class="brand" id="homelink" href="preview">{{course_info.base.nav_header}}</a></li>
+                <li><a class="brand" id="homelink" href="home">{{course_info.base.nav_header}}</a></li>
                 <li><a id="announcements" href="announcements">Announcements</a></li>
                 {% if enrolled %}
+                <li><a id="courselink" href="course">Course</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="course" href="course_playlist">
                         Lessons

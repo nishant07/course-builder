@@ -46,7 +46,8 @@ urls = [
     ('/playlist', lessons.PlayListHandler),
     ('/course_playlist', lessons.CourseNewHandler),
     ('/unitplaylist', lessons.PlayListUnitHandler),
-    ('/activityplaylist', lessons.PlayListActivityHandler)]
+    ('/activityplaylist', lessons.PlayListActivityHandler),
+    ('/home', utils.HomeHandler)]
 
 sites.ApplicationRequestHandler.bind(urls)
 

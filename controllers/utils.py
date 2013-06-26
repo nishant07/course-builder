@@ -294,6 +294,30 @@ class PreviewHandler(BaseHandler):
             self.render('preview.html')
 
 
+class HomeHandler(BaseHandler):
+    """Handler for generating course page."""
+
+    def get(self):
+        """Handles GET requests."""
+        user = self.personalize_page_and_get_user()
+        if not user:
+            self.redirect('/preview')
+            return None
+
+        student = self.personalize_page_and_get_enrolled()
+        if not student:
+            return
+
+        self.template_value['units'] = self.get_units()
+        self.template_value['progress'] = (
+            self.get_progress_tracker().get_unit_progress(student))
+
+        self.template_value['navbar'] = {'course': True}
+        if user and Student.get_enrolled_student_by_email(user.email()):
+            self.render('preview.html')
+        else:
+            self.redirect('/preview')
+
 class RegisterHandler(BaseHandler):
     """Handler for course registration."""
 

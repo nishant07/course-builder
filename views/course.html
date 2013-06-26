@@ -19,18 +19,28 @@
     <div class="span12">
         <table>
             <tbody>
-            <tr><td>
+            <tr><td style="border-right: none">
                 <div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
+                    {% if not playListEmpty %}
                     <a href="unitplaylist">
                         {% trans %} Start {% endtrans %}
                     </a>
+
+                    {% else %}
+                    <a href="unit">
+                        {% trans %} Start {% endtrans %}
+                    </a>
+                    {% endif %}
                 </div>
             </td>
-                <td><div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
-                    <a href="unitplaylist?resume=yes">
-                        {% trans %} Resume {% endtrans %}
-                    </a>
-                </div>
+                <td style="border-left: none">
+                    {% if not playListEmpty %}
+                    <div class="next-button" style="float:left; margin-top: 0px; margin-right: 40px;">
+                        <a href="unitplaylist?resume=yes">
+                            {% trans %} Resume {% endtrans %}
+                        </a>
+                    </div>
+                    {% endif %}
                 </td>
             </tr>
             </tbody>

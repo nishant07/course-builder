@@ -119,6 +119,9 @@ class CourseHandler(BaseHandler):
             elif i == 1:
                 progress += 0.5
 
+        if len(student.playList) == 0:
+            self.template_value['playListEmpty'] = True
+
         progress = progress/len(progressList)
         self.template_value['progress_total'] = progress
 

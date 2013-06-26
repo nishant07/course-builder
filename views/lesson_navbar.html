@@ -1,5 +1,5 @@
-<div class="gcb-nav" id="gcb-nav-y">
-  <ul>
+<div class="span3">
+  <ul class="bs-docs-sidenav root nav nav-list">
     {{course_info.unit.after_leftnav_begins | safe}}
 
     {% for lesson in lessons %}
@@ -7,10 +7,10 @@
       {% if lesson.now_available or is_course_admin %}
 
         {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
-          <li class="active">
-           	{{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
+          <li class="branch">
+           	<a>{{ unit.index }}.{{ lesson.index }} {{ lesson.title }}</a>
         {% else %}
-          <li>
+          <li class="branch">
           {% if lesson.description and lesson.description != ' ' %} 
             <a class="tipbox" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
              {{ unit.index }}.{{ lesson.index }} {{ lesson.title }} <span class="classic gradient"> <em>Description</em> {{ lesson.description }} 
@@ -29,7 +29,7 @@
         {% endif %}
 
         {% if lesson.activity %}
-          <ul>
+          <ul style="margin-left: 0px">
             {% if page_type == 'activity' and lesson.lesson_id == lesson_id %}
               <li class="active">
             {% else %}
@@ -73,18 +73,18 @@
         </li>
 
       {% else %}
-        <li>
+        <li class="branch">
           {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
-            <span class="grayed-active">
+            <a class="grayed-active">
           {% else %}
-            <span class="grayed">
+            <a class="grayed">
           {% endif %}
 
             {{ unit.index}}.{{ lesson.index }} {{ lesson.title }}
-          </span>
+          </a>
 
           {% if lesson.activity %}
-            <ul>
+            <ul style="margin-left: 0px">
               <li>
                 <span class="progress-empty"></span>
                 {% if page_type == 'activity' and lesson.lesson_id == lesson_id %}

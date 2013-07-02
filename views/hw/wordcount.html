@@ -113,15 +113,28 @@
         </ol>
         <script src="http://pastebin.com/embed_js.php?i=qcUxNQYH"></script>
     </div>
-    <h2>5. <a name="compile">Compile the program</a></h2>
+    <h2>5. <a name="compile">Setup Java JDK and Compile the program</a></h2>
 
     <div>
+        <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
+        <p>Installing the java jdk 1.6.0 if you don't have one. we are setting up a JDK 64 bit version.</p>
+      <pre xml:space="preserve">cd ~/<br />
+wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br /> 
+chmod 755 jdk-6u33-linux-x64.bin<br /> 
+./jdk-6u33-linux-x64.bin<br />
+pwd </pre>
+        <p>Setup the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
+        <pre xml:space="preserve">
+echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />
+echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />
+source ~/.bashrc
+        </pre>
         <p>Please enter the following commands where the “WordCount.java " located in the bash mode: </p>
 				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
 cat WordCount.java<br>
 cat build.sh<br>
 ./build.sh </pre>
-        <p>Here please make sure the JAVA_HOME path is correctly set in both “conf/hadoop-env.sh” and ".bashrc". </p>
+        <p>&nbsp;</p>
     </div>
     <!-- content area -->
     <h2>6. <a name="run">Execute Standalone Hadoop-WordCount</a></h2>
@@ -130,7 +143,7 @@ cat build.sh<br>
         <p>The simplest way is to run a standalone WordCount. First, an <a
                 href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone version of
             Hadoop</a> (without any environment setting) is required, then, download the <a
-                href="source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.
+                href="http://salsahpc.indiana.edu/tutorial/source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.
             If you are using FutureGrid machine, all the packages has been pre-installed in your home directory. </p>
 
         <p>Assume that:</p>
@@ -179,10 +192,11 @@ cp ~/Hadoop-WordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br /><br />
     <h2>8. <a name="combiner">Check the Result and Submit</a></h2>
 
     <div>
-        # Check the result<br/>
-        cd ~/Hadoop-WordCount/<br/>
-        cat output-combiner/part-r-00000<br/>
-
+<pre xml:space="preserve">    
+# Check the result<br/>
+cd ~/Hadoop-WordCount/<br/>
+cat output-combiner/part-r-00000<br/>
+</pre>
         <p> To submit, answer the following question: What are the top 10 words to appear in the complete works of
             William Shakespeare? http://www.gutenberg.org/cache/epub/100/pg100.txt </p>
     </div>

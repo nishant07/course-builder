@@ -14,8 +14,6 @@
             <span class="icon-bar"></span>
         </a>
 
-        <!-- LOGO -->
-
         <span class="nav">
             <a href="{{course_info.institution.url}}">
                 <img src="{{course_info.institution.logo.url}}"
@@ -38,23 +36,26 @@
                         <li><a href="playlist">Customize</a></li>
                         <li class="divider"></li>
                         {% for unit in units %}
-                        {% if unit.type != 'A' %}
-                        {% if units_lessons[unit.unit_id] == 'None' %}
-                        <li><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
-                            {% else %}
-                        <li class="dropdown-submenu"><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
-                            {% endif %}
-                            {% for lu, les in units_lessons.iteritems() %}
-                            {% if lu == unit.unit_id %}
-                            <ul class="dropdown-menu">
-                                {% for v in les %}
-                                <li><a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{v.title}}</a></li>
+                            {% if unit.type == 'U' %}
+                            {% if units_lessons[unit.unit_id] == 'None' %}
+                            <li><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
+                                {% else %}
+                            <li class="dropdown-submenu"><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
+                                {% endif %}
+                                {% for lu, les in units_lessons.iteritems() %}
+                                {% if lu == unit.unit_id %}
+                                <ul class="dropdown-menu">
+                                    {% for v in les %}
+                                    <li><a href="unit?unit={{unit.unit_id}}&lesson={{v.lesson_id}}">{{v.title}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                                 {% endfor %}
-                            </ul>
+
+                            {% elif unit.type == 'O' %}
+                                <li><a class="dropdown-toggle" href="{{ unit.href }}">{{ unit.title }}</a>
                             {% endif %}
-                            {% endfor %}
-                        </li>
-                        {% endif %}
+                            </li>
                         {% endfor %}
                     </ul>
                 </li>

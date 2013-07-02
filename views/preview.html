@@ -58,6 +58,10 @@
         max-width: 100%;
     }
 
+    .navbar {
+        margin-bottom: 5px !important;
+    }
+
 </style>
 
 <script>
@@ -75,7 +79,7 @@
 {% endblock %}
 
 {% block top_content %}
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide" style="margin-top: 0px !important;">
     <ol class="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1" class=""></li>
@@ -83,24 +87,24 @@
     </ol>
     <div class="carousel-inner">
         <div class="item active">
-            <img src="assets/img/preview/carousel-clouds.jpg" alt="">
-            <div class="carousel-caption">
-                <h4>First Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <img src="assets/img/preview/banner_1.png" alt="">
+            <div class="carousel-caption" style="height: 30px">
+                <!--<h4>First Thumbnail label</h4>-->
+                <p>Cras justo odio, dapibus ac facilisis in, </p>
             </div>
         </div>
         <div class="item">
-            <img src="assets/img/preview/carousel-datacenter.jpg" alt="">
-            <div class="carousel-caption">
-                <h4>Second Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <img src="assets/img/preview/banner_2.png" alt="">
+            <div class="carousel-caption" style="height: 30px">
+                <!--<h4>Second Thumbnail label</h4>-->
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non</p>
             </div>
         </div>
         <div class="item">
-            <img src="assets/img/preview/carousel-code.jpg" alt="">
-            <div class="carousel-caption">
-                <h4>Third Thumbnail label</h4>
-                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+            <img src="assets/img/preview/banner_3.png" alt="">
+            <div class="carousel-caption" style="height: 30px">
+                <!--<h4>Third Thumbnail label</h4>-->
+                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit</p>
             </div>
         </div>
     </div>

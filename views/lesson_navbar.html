@@ -8,16 +8,15 @@
 
         {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
           <li class="branch">
-           	<a>{{ unit.index }}.{{ lesson.index }} {{ lesson.title }}</a>
+           	<a data-toggle="tooltip" title="{{ lesson.description }} ">{{ unit.index }}.{{ lesson.index }} {{ lesson.title }}</a>
         {% else %}
           <li class="branch">
           {% if lesson.description and lesson.description != ' ' %} 
-            <a class="tipbox" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
-             {{ unit.index }}.{{ lesson.index }} {{ lesson.title }} <span class="classic gradient"> <em>Description</em> {{ lesson.description }} 
-     			</span>
+            <a class="tipbox" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}" data-toggle="tooltip" title="{{ lesson.description }} ">
+             {{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
             </a>
           {% else %}
-          	<a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
+          	<a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}" data-toggle="tooltip" title="{{ lesson.description }} ">
           		{{ unit.index }}.{{ lesson.index }} {{ lesson.title }} 
           	</a>
           {% endif %}
@@ -75,9 +74,9 @@
       {% else %}
         <li class="branch">
           {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
-            <a class="grayed-active">
+            <a class="grayed-active" data-toggle="tooltip" title="{{ lesson.description }} ">
           {% else %}
-            <a class="grayed">
+            <a class="grayed" data-toggle="tooltip" title="{{ lesson.description }} ">
           {% endif %}
 
             {{ unit.index}}.{{ lesson.index }} {{ lesson.title }}

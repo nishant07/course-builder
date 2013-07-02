@@ -16,7 +16,7 @@
              {{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
             </a>
           {% else %}
-          	<a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}" data-toggle="tooltip" title="{{ lesson.description }} ">
+          	<a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
           		{{ unit.index }}.{{ lesson.index }} {{ lesson.title }} 
           	</a>
           {% endif %}
@@ -74,7 +74,11 @@
       {% else %}
         <li class="branch">
           {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
+            {% if lesson.description and lesson.description != ' ' %}
             <a class="grayed-active" data-toggle="tooltip" title="{{ lesson.description }} ">
+            {% else %}
+            <a class="grayed-active">
+            {% endif %}
           {% else %}
             <a class="grayed" data-toggle="tooltip" title="{{ lesson.description }} ">
           {% endif %}

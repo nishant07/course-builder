@@ -8,11 +8,11 @@
   padding-right: 0px;
   padding-left: 0px;
   background-color: #274257;
-  background-image: -moz-linear-gradient(top, #2A75A9, #274257);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2A75A9), to(#274257));
-  background-image: -webkit-linear-gradient(top, #2A75A9, #274257);
-  background-image: -o-linear-gradient(top, #2A75A9, #274257);
-  background-image: linear-gradient(to bottom, #2A75A9, #274257);
+  background-image: -moz-linear-gradient(top, #274257, #274257);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#274257), to(#274257));
+  background-image: -webkit-linear-gradient(top, #274257, #274257);
+  background-image: -o-linear-gradient(top, #274257, #274257);
+  background-image: linear-gradient(to bottom, #274257, #274257);
   background-repeat: repeat-x;
   border: 1px solid #d4d4d4;
   -webkit-border-radius: 4px;

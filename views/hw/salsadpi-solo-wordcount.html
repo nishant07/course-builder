@@ -19,10 +19,17 @@
         </ul>
 
     </div>
-
-    <h2>2. <a name="chef-solo">Test the chef-solo command</a></h2>
-
+    
+  <h2>2. <a name="salsaDPI"></a>What is salsaDPI?</h2>
     <div>
+    <p>On-demand private cloud environment has become popular due to its flexibility and scalability. However, the complicated setup and installation process to obtain the computing resource has deterred users away. Inspired by the batch job model, salsaDPI,  a dynamic provisioning software, to simplify these complications which allows domain scientists to focus on their scientific problems and run their applications on clouds with dynamic and automated installation and configurations. </p>
+    <p>In this homework, we use the java command-line interface of salsaDPI and modify a configuration file which help us to execute Hadoop WordCount within the VirtualBox.</p>
+    <p>Official project webpage is <a href="http://salsahpc.indiana.edu/salsadpi/">here</a>.</p>
+    </div>
+
+    <h2>3. <a name="chef-solo">Test the chef-solo command</a></h2>
+
+  <div>
         <p>If you are using the VirtualBox pre-packaged image, first of all, you will have to check the SalsaDPI package are located under /root/salsaDPI/</p>
 
 
@@ -46,7 +53,7 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
         
 
   </div>
-    <h2>3. <a name="conf">Write your SalsaDPI configuration file for Hadoop/Twister applications</a></h2>
+    <h2>4. <a name="conf">Write your SalsaDPI configuration file for Hadoop/Twister applications</a></h2>
 
     <div>
         <p>Once chef-solo command is working, you could modify the SalsaDPI configuration to run your complied Hadoop and Twister applications. For this section, we use and modify a a json format template file <em>sandbox_hadoopTemplate.json</em>. This configuation must be correctly filled with full path of your compiled jar executable, your program inputs and your general program arguements.        </p>
@@ -67,11 +74,11 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
         <pre>{ // Useful general variables of programArgs for applicationParameters object<br />// #_JAR_#, #_JOB_ID_#, <br />// #_HDFS_INPUTDIR_#, #_HDFS_OUTPUTDIR_#,<br />// #_TWISTER_INPUTDIR_#, #_TWISTER_OUTPUTDIR_#, #_TWISTER_PARTITION_FILE_#, #_BINARY_DEPENDENCY_#<br /><br />// 'mode':'sandbox', | 'mode':'cloud',<br />'mode':'sandbox',<br />// chef-solo related parameters<br />'chef':{'chefSoloRecipeUrls':'http://129.79.49.248/chef-solo.tar.gz', <br />'chefSoloConfFilePath':'/root/salsaDPI/solo.rb'}, <br /><br />// ssh passwordless related parameters<br />'ssh':{'SSHLoginUsername':'root', <br />'SSHPrivateKeyPath':'/root/.ssh/id_rsa' }, <br /><br />// runtime softwares such as recipe[hadoopSandbox] or recipe[twisterSandbox]<br />'softwareRecipes':['recipe[hadoopSandbox]'], // please don't change this line<br /><br />// user-defined application related parameters<br />'applicationParameters':{'applicationType':'Hadoop',<br />'localPathOfProgramBinary':'<strong>#_Full_Path_to_Program_Jar_File_#</strong>', <br />'localPathOfProgramInput':'<strong>#_Full_Path_to_Program_Input_#</strong>', <br />'localPathOfBinaryDependency':'<strong>#_Full_Path_to_Program_Dependency_#</strong>', <br />'programExecuteLocation':'<strong>#_Path_to_Execution_Bin_Dir_#</strong>',<br />'programArgs':'<strong>#_Program_Args_#</strong>'} <br />}<br />
         </pre>
         <p>Description of sandbox configuration file:</p>
-      <table width="966" border="1">
+      <table border="1">
           <tbody>
             <tr>
-              <th width="234">Parameter</th>
-              <th width="511">Description</th>
+              <th>Parameter</th>
+              <th>Description</th>
             </tr>
             <tr>
               <td>mode</td>
@@ -141,11 +148,11 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
         </table>
       <p>In addition, in order to generate a general user program arguement to be executed in a dynamic environment , SalsaDPI framework provides general variables interface for user to fill the <em>programArgs. </em>Detail description could be seen in the following table.</p>
         <p>Description of general variables for <em>programArgs </em>of <em>applicationParameters</em> objects, it will be replaced by the SalsaDPI when the program is scheduled on the working node:</p>
-        <table width="966" border="1">
+        <table border="1">
           <tbody>
             <tr>
-              <th width="234">Variables</th>
-              <th width="511">Description</th>
+              <th>Variables</th>
+              <th>Description</th>
             </tr>
             <tr>
               <td>#_JAR_#</td>
@@ -186,7 +193,7 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
         </pre>
 
     </div>
-    <h2>4. <a name="execute">Execute SalsaDPI with a user-defined application</a></h2>
+    <h2>5. <a name="execute">Execute SalsaDPI with a user-defined application</a></h2>
 
     <div>
 
@@ -198,7 +205,7 @@ root@ubuntu:salsaDPI$ java -cp salsaDPI.jar cgl.salsa.salsadpi.Driver sandbox/te
       <pre xml:space="preserve">root@ubuntu:salsaDPI$ ls -l salsaDPI_output/1322fb55-650e-4f6b-8f90-45f7418bda08/output/ <br />-rw-r--r-- 1 root root 1396 Jul 12 20:00 1322fb55-650e-4f6b-8f90-45f7418bda08.txt</pre>
 <script src="http://pastebin.com/embed_js.php?i=qcUxNQYH"></script>
   </div>
-    <h2>5. <a name="compile">Compile the program</a></h2>
+    <h2>6. <a name="compile">Compile the program</a></h2>
 
     <div>
         <p>Please enter the following commands where the “WordCount.java " located in the bash mode: </p>
@@ -209,13 +216,14 @@ cat build.sh<br>
         <p>Here please make sure the JAVA_HOME path is correctly set in both “conf/hadoop-env.sh” and ".bashrc". </p>
     </div>
     <!-- content area -->
-    <h2>6. <a name="ref">Reference</a></h2>
+    <h2>7. <a name="ref">Reference</a></h2>
 
     <div>
         <ul>
           <li><a href="http://json.org/example.html">Json metadata format example</a></li>
-          <li>Hadoop tutorial</li>
-          <li>Twister tutorial</li>
+          <li><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoop.html">Hadoop tutorial</a></li>
+          <li><a href="http://salsahpc.indiana.edu/ScienceCloud/twister_hydra_intro.htm">Twister tutorial</a></li>
+          <li><a href="http://salsahpc.indiana.edu/salsadpi/">salsaDPI project website</a></li>
         </ul>
     </div>
     <div>    </div>

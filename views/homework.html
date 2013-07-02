@@ -12,17 +12,26 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 <script>
-    $(document).ready(function(){
-        $( "#accordion" ).accordion({
-            collapsible: true,
-            heightStyle: "content"
-        });
-    });
+//    $(document).ready(function(){
+//        $( "#accordion" ).accordion({
+//            collapsible: true,
+//            heightStyle: "content"
+//        });
+//    });
 
     $(document).ready(function(){
         $( '.root ul' ).hide();
     });
 </script>
+<style>
+    h1, h2, h3 {
+        font-size: 18px;
+        /*display: block;*/
+        /*background-color: #f49955;*/
+        color: #f49955;
+        /*padding-left: 10px;*/
+    }
+</style>
 {% endblock %}
 
 {% block main_content %}

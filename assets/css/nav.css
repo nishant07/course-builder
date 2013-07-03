@@ -1,5 +1,13 @@
-body {
+html {
  background-color: rgba(245, 245, 245, 0.9);
+}
+
+body {
+    background-color: rgba(245, 245, 245, 0.9);
+}
+
+.hero-unit {
+    background-color: rgb(221, 221, 221);
 }
 
 .navbar-mooc

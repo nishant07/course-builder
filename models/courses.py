@@ -93,7 +93,7 @@ course:
 """
 
 # Here are the default assessment weights corresponding to the sample course.
-DEFAULT_LEGACY_ASSESSMENT_WEIGHTS = {'Pre': 0, 'Mid': 30, 'Fin': 70}
+DEFAULT_LEGACY_ASSESSMENT_WEIGHTS = {'Pre': 10, 'Mid': 10, 'Fin': 10, 'Test': 70}
 
 
 def is_editable_fs(app_context):
@@ -135,6 +135,7 @@ def load_csv_course(app_context):
     verifier.verify_unit_fields(units)
     verifier.verify_lesson_fields(lessons)
     verifier.verify_unit_lesson_relationships(units, lessons)
+    print verifier.errors
     assert verifier.errors == 0
     assert verifier.warnings == 0
 

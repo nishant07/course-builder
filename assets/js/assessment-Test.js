@@ -22,12 +22,13 @@
 
 var assessment = {
   // HTML to display at the start of the page
-	preamble: '<b>This assessment addresses content in units 1-6. You can try it as many times as you like. When you click "Check Answers," we will give you your score and give you a list of lessons to review.</b><br><br>', 
+	preamble: '<b>This assessment contains selected problems from <i>Distributed and Cloud Computing</i>. When you are finished answering all the questions, click "Submit" and we will give you your score. Although you can retake the assessment it is only graded once, so on your first attempt make sure you\'ve attempted all the questions before submitting!</b><br><br>', 
 
-	//optional list for grouping questions together (to create sub-questions) 
+	//optional list for grouping questions together (to create sub-questions)
 	questionGroups: [
-	    {id: 1, groupDescription: '<p>Characterize the following three cloud computing models:</p>'},
-	    {id: 2, groupDescription: '<p>Briefly explain each of the following cloud computing services. Identify two cloud providers by company name in each service category:</p>'}
+	    {id: 1, type: 'list', groupDescription: '<p>Characterize the following three cloud computing models:</p>'},
+	    {id: 2, type: 'list', groupDescription: '<p>Briefly explain each of the following cloud computing services. Identify two cloud providers by company name in each service category:</p>'}, 	 
+	    {id: 4, type: 'matching', groupDescription: '<p>Map the following names or abbreviated terms on the left column with the best-match definitions or descriptions on the right column. Just enter the description (a, b, c, ...) in the blank spaces in the front of hte terms being matched to. This is a 1-to-1 correspondence.</p>'}
 	],
 	
   // An ordered list of questions, with each question's type implicitly determined by the fields it possesses:
@@ -37,15 +38,15 @@ var assessment = {
   //   correctAnswerNumeric - freetext numeric match
   questionsList: [
     {groupID: 1, questionHTML: 'What is an IaaS (Infrastructre-as-a-Service cloud? Give one example system.',
-     choices: ["A and B", "D and B", correct("A and C"), "C and D", "I don't know"]
+     choices: ["Macbook Pro", "Microsoft Word", correct("Amazon EC2"), "Splay tree", "Khan Academy"]
     },
 
     {groupID: 1, questionHTML: 'What is a PaaS (Platform-as-a-Service cloud? Give one example system.',
-     choices: [correct("True"), "False", "I don't know"]
+     choices: [correct("Google App Engine"), "Paypal", "Windows 8", "None of the above"]
     },
 
     {groupID: 1, questionHTML: 'What is a SaaS (Software-as-a-Service cloud? Give one example system.',
-     correctAnswerString: 'sunrise'
+     correctAnswerString: 'Salesforce'
     },
     
     {groupID: 2, questionHTML: 'Application cloud services.',
@@ -66,7 +67,16 @@ var assessment = {
     
     {groupID: 2, questionHTML: 'Network cloud services.',
         correctAnswerString: 'sunrise'
-    }
+    },
+    
+    {questionHTML: 'List one example of a VM:', correctAnswerString: 'sunrise'}, 
+    
+    {groupID: 4, termHTML: 'GAE', matchingDescription: '<strong>a</strong>) The agreement signed between users and providers in cloud computing', correctAnswerString: 'a'},
+    {groupID: 4, termHTML: 'CRM', matchingDescription: '<strong>b</strong>) A public cloud that must run from WIndows 7 based host', correctAnswerString: 'b'},
+    {groupID: 4, termHTML: 'AWS', matchingDescription: '<strong>c</strong>) A public cloud used mainly for PaaS applications', correctAnswerString: 'c'}, 
+    {groupID: 4, termHTML: 'SLA', matchingDescription: '<strong>d</strong>) A public compute cloud used in scalable business computing application', correctAnswerString: 'd'}, 
+    {groupID: 4, termHTML: 'Azure', matchingDescription: '<strong>e</strong>) A cloud platform built by SalesForce.com', correctAnswerString: 'e'}
+    
   ],
 
   // The assessmentName key is deprecated in v1.3 of Course Builder, and no

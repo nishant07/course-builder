@@ -476,25 +476,43 @@ function renderAssessment(assessment, domRoot) {
 
   var questionsOL = domRoot.find('ol');
   
+  //handler for questions groups; turns groups -> HTML elements 
+  //minor issue: all the questions with groups come before questions without group, regardless of initial ordering
   if (assessment.questionGroups && assessment.questionGroups.length) {
 	  $.each(assessment.questionGroups, function(i, grp) {
-		  questionsOL.append('<li>' + grp.groupDescription + '<ol type="a" id="' + grp.id + '"></ol></li>');
+		  if (grp.type === 'matching') {
+			  questionsOL.append('<li>' + grp.groupDescription + '<table class="table" id="' + grp.id + '" style="background:#f9f9f9"></table></li>');
+			  domRoot.find('table:last').append('<thead><tr><th>Answer</th><th>Term</th><th>Description</th></tr></thead>');
+		  } else if (grp.type === 'list'){
+			  questionsOL.append('<li>' + grp.groupDescription + '<ol type="a" id="' + grp.id + '"></ol></li>');
+		  } else {
+			  alert('invalid group type');
+		  }
 	  });
   }
 
   $.each(assessment.questionsList, function(questionNum, q) {
-  	if (assessment.questionGroups && assessment.questionGroups.length) {
-  		questionsOL = domRoot.find('#' + q.groupID);
-  	}
-    questionsOL.append('<li></li>');
-
-    var curLI = questionsOL.find('li:last');
-    curLI.append(q.questionHTML);
-    curLI.append('<p/>');
-
+	  var appendTo;
+	  if (q.groupID) {
+	  	appendTo = domRoot.find('#' + q.groupID);
+	  } else {
+		  appendTo = questionsOL;
+	  }
+	  if (q.matchingDescription) {
+		  appendTo.append('<tr></tr>')	
+		  var curRow = domRoot.find('tr:last');
+	      curRow.append('<td>' + q.termHTML + '</td>' + '<td>' + q.matchingDescription + '</td>');
+	  } else {
+		  appendTo.append('<li></li>');
+		  var curLI = appendTo.find('li:last');
+		  curLI.append(q.questionHTML);
+		  curLI.append('<p/>');
+	  }
+  	
     // Dispatch to specialized handler depending on the existence of particular fields:
     //   choices              - multiple choice question (with exactly one correct answer)
     //   correctAnswerString  - case-insensitive substring match
+	//   matchingDescription  - same as correctAnswerString, but different HTML treatment
     //   correctAnswerRegex   - freetext regular expression match
     //   correctAnswerNumeric - freetext numeric match
     if (q.choices) {
@@ -502,8 +520,8 @@ function renderAssessment(assessment, domRoot) {
         var buttonId = 'q' + questionNum + '-' + i;
         if (typeof c == 'string') {
           // incorrect choice
-          curLI.append('<input type="radio" name="q' + questionNum + '" id="' +
-              buttonId + '">&nbsp;<label for="' + buttonId + '">' + c + '</label><br>');
+          curLI.append('<input type="radio" style="margin: 0px 0px 0px;" name="q' + questionNum + '" id="' +
+              buttonId + '">&nbsp;<label style="display:inline;" for="' + buttonId + '">' + c + '</label><br><br>');
         }
         else {
           // wrapped in correct() ...
@@ -511,20 +529,25 @@ function renderAssessment(assessment, domRoot) {
             alert('Error: Malformed question.');
           }
           // correct choice
-          curLI.append('<input type="radio" name="q' + questionNum + '" id="' +
-              buttonId + '" value="correct">&nbsp;<label for="' + buttonId + '">' +
-              c[1] + '</label><br>');
+          curLI.append('<input type="radio" style="margin: 0px 0px 0px;" name="q' + questionNum + '" id="' +
+              buttonId + '" value="correct">&nbsp;<label style="display:inline;" for="' + buttonId + '">' +
+              c[1] + '</label><br><br>');
         }
       });
+    } else if (q.matchingDescription) { // handle matching question
+    	var curRow = domRoot.find('tr:last');
+    	curRow.prepend('<td><input type="text" style="width: 25%" placeholder="letter" class="alphanumericOnly" ' +
+    	          'style="border-style: solid; border-color: black; border-width: 1px;" ' +
+    	          'id="q' + questionNum + '"></td>');
+    	return true; //same effect as "continue" 
     } else if (q.correctAnswerString || q.correctAnswerRegex || q.correctAnswerNumeric) {
-      curLI.append('Answer:&nbsp;&nbsp;<input type="text" class="alphanumericOnly" ' +
+      curLI.append('Answer:&nbsp;&nbsp;<input type="text" placeholder="Text input" class="alphanumericOnly " ' +
           'style="border-style: solid; border-color: black; border-width: 1px;" ' +
           'id="q' + questionNum + '">');
     } else {
       alert('Error: Invalid question type.');
     }
-
-    curLI.append('<br><br>');
+    curLI.append('<br><br>'); //only if dealing with a list item 
   });
 
 

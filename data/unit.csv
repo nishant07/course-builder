@@ -12,4 +12,4 @@ id,type,unit_id,title,release_date,now_available,difficulty,unit_description
 11,O,http://www.youtube.com/watch?v=ZhhiXxiAVtM&feature=player_embedded,Power Searching with Search Experts Video,,True,1,
 12,O,http://www.youtube.com/watch?v=dwlpViuIYgU&feature=player_embedded,Hang Out with Search Experts Video,,True,1,
 13,O,https://docs.google.com/forms/d/1FEj8HMwRaW5gtxdjz1aA-VdW5hHvkztF5bqkpyfeTLU/viewform,Post-course Survey,available July 20,False,0,
-
+14,A,Test,Test-course assessment,,True,2,

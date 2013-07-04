@@ -739,6 +739,7 @@ class Activity(object):
 
 
 def silent_echo(unused_message):
+    print unused_message
     pass
 
 
@@ -1004,7 +1005,7 @@ class Verifier(object):
                     'expected: %s.' % (unit.type, unit.id, UNIT_TYPES))
 
             if unit.type == 'A':
-                if not is_one_of(unit.unit_id, ('Pre', 'Mid', 'Fin')):
+                if not is_one_of(unit.unit_id, ('Pre', 'Mid', 'Fin', 'Test')):
                     self.error(
                         'Bad unit_id \'%s\'; expected \'Pre\', \'Mid\' or '
                         '\'Fin\' for unit id %s' % (unit.unit_id, unit.id))

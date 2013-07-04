@@ -88,14 +88,14 @@ function generateMultipleChoiceQuestion(params, domRoot, index) {
     if (isCorrect) {
       domRoot.append(
           '<span class="correct_' + tag + '">' +
-          '<input type="radio" name="' + radioButtonGroupName + '" ' +
+          '<input type="radio" style="margin-right:5px; padding-right: 8px" name="' + radioButtonGroupName + '" ' +
           'id="' + buttonId + '" value="correct"> ' +
-          '<label for="' + buttonId + '">' + label + '</label></span>');
+          '<label for="' + buttonId + '" style="display:inline; margin-top: 15px">' + label + '</label></span>');
     }
     else {
-      domRoot.append('<input type="radio" name="' + radioButtonGroupName + '" ' +
+      domRoot.append('<input type="radio" style="margin-right:5px; padding-right: 8px" name="' + radioButtonGroupName + '" ' +
           'id="' + buttonId + '"> ' +
-          '<label for="' + buttonId + '">' + label + '</label>');
+          '<label for="' + buttonId + '" style="display:inline">' + label + '</label>');
     }
     domRoot.append('<br>');
   });

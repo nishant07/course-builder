@@ -12,7 +12,7 @@
     /*width: 228px;*/
     margin: 0px 0 0;
     padding: 0;
-    font-size: 80%;
+    /*font-size: 80%;*/
     background-color: #F1F1F1;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -131,3 +131,4 @@
     background-image: url("../img/grey_arrow.png");
     background-repeat: no-repeat;
 }
+

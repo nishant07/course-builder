@@ -125,6 +125,10 @@
         <p style="margin-left: 0">
             {{course_info.course.instructor_details | safe}}
         </p>
+
+        {% if not enrolled %}
+        <a href="register" class="gcb-button register-button">Register</a>
+        {% endif %}
     </div>
     <div class="span6">
         {% if course_info.course.main_video %}

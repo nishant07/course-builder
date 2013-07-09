@@ -56,17 +56,7 @@
             {% for unit in units %}
             {% if unit.now_available or is_course_admin %}
             <tr>
-                <td style="width: 15%;">
-                    {% if unit.difficulty == 1 %}
-                    <span title="Easy" class="badge badge-success">Easy</span>
-                    {% elif unit.difficulty == 2 %}
-                    <span title="Easy" class="badge badge-warning">Intermediate</span>
-                    {% elif unit.difficulty == 3%}
-                    <span title="Easy" class="badge badge-important">Advanced</span>
-                    {% else %}
-                    <span title="None" class="badge badge-none">---</span>
-                    {% endif %}
-                </td>
+
 
                 <td style="width: 70%;">
                     {% if unit.type == 'A' %}
@@ -79,6 +69,18 @@
                     <a href="{{ unit.href }}"> {{ unit.title }} </a>
                     {% else %}
                     Error: unit type not recognized.
+                    {% endif %}
+                </td>
+
+                <td style="width: 15%;">
+                    {% if unit.difficulty == 1 %}
+                    <span title="Easy" class="badge badge-success">Easy</span>
+                    {% elif unit.difficulty == 2 %}
+                    <span title="Easy" class="badge badge-warning">Intermediate</span>
+                    {% elif unit.difficulty == 3%}
+                    <span title="Easy" class="badge badge-important">Advanced</span>
+                    {% else %}
+                    <span title="None" class="badge badge-none">---</span>
                     {% endif %}
                 </td>
 
@@ -108,20 +110,11 @@
                     {% endif %}
                 </td>
 
+
+
             </tr>
             {% else %}
             <tr>
-                <td style="width: 15%;">
-                    {% if unit.difficulty == 1 %}
-                    <span title="Easy" class="badge badge-success">Basic</span>
-                    {% elif unit.difficulty == 2 %}
-                    <span title="Easy" class="badge badge-warning">Intermediate</span>
-                    {% elif unit.difficulty == 3%}
-                    <span title="Easy" class="badge badge-important">Advanced</span>
-                    {% else %}
-                    <span title="None" class="badge badge-none">---</span>
-                    {% endif %}
-                </td>
 
                 <td style="width: 70%;">
                     {% if unit.type == 'A' %}
@@ -138,6 +131,18 @@
                         </em>
                     {% else %}
                         Error: unit type not recognized.
+                    {% endif %}
+                </td>
+
+                <td style="width: 15%;">
+                    {% if unit.difficulty == 1 %}
+                    <span title="Easy" class="badge badge-success">Basic</span>
+                    {% elif unit.difficulty == 2 %}
+                    <span title="Easy" class="badge badge-warning">Intermediate</span>
+                    {% elif unit.difficulty == 3%}
+                    <span title="Easy" class="badge badge-important">Advanced</span>
+                    {% else %}
+                    <span title="None" class="badge badge-none">---</span>
                     {% endif %}
                 </td>
 

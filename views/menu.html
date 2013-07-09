@@ -2,6 +2,14 @@
     .navbar{
         margin-bottom: 30px;
     }
+
+    a.disabled-link,
+    a.disabled-link:visited ,
+    a.disabled-link:active,
+    a.disabled-link:hover {
+        background-color:#d9d9d9 !important;
+        color:#aaa !important;
+    }
 </style>
 
 <div class="navbar navbar-mooc navbar-static-top">
@@ -36,6 +44,7 @@
                         <li><a href="playlist">Customize</a></li>
                         <li class="divider"></li>
                         {% for unit in units %}
+                            {% if unit.now_available or is_course_admin %}
                             {% if unit.type == 'U' %}
                             {% if units_lessons[unit.unit_id] == 'None' %}
                             <li><a class="dropdown-toggle" href="unit?unit={{unit.unit_id}}">{{ unit.title }}</a>
@@ -54,6 +63,10 @@
 
                             {% elif unit.type == 'O' %}
                                 <li><a class="dropdown-toggle" href="{{ unit.href }}">{{ unit.title }}</a>
+                            {% endif %}
+
+                            {% else %}
+                                <li><a class="dropdown-toggle disabled-link" href="#">{{ unit.title }}</a>
                             {% endif %}
                             </li>
                         {% endfor %}

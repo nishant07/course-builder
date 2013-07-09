@@ -37,15 +37,15 @@ var assessment = {
   //   correctAnswerRegex   - freetext regular expression match
   //   correctAnswerNumeric - freetext numeric match
   questionsList: [
-    {groupID: 1, questionHTML: 'What is an IaaS (Infrastructre-as-a-Service cloud? Give one example system.',
+    {groupID: 1, questionHTML: 'What is an example of IaaS (Infrastructure-as-a-Service) cloud?',
      choices: ["Macbook Pro", "Microsoft Word", correct("Amazon EC2"), "Splay tree", "Khan Academy"]
     },
 
-    {groupID: 1, questionHTML: 'What is a PaaS (Platform-as-a-Service cloud? Give one example system.',
+    {groupID: 1, questionHTML: 'What is an example of PaaS (Platform-as-a-Service) cloud?',
      choices: [correct("Google App Engine"), "Paypal", "Windows 8", "None of the above"]
     },
 
-    {groupID: 1, questionHTML: 'What is a SaaS (Software-as-a-Service cloud? Give one example system.',
+    {groupID: 1, questionHTML: 'What is an example of SaaS (Software-as-a-Service) cloud?',
      correctAnswerString: 'Salesforce'
     },
     

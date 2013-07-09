@@ -33,9 +33,9 @@ course:
 
   # Main page blurb. (The '|' at the beginning enables multi-line input.)
   blurb: |
-    Google Search makes it amazingly easy to find information. Come learn about
-    the powerful advanced tools we provide to help you find just the right
-    information when the stakes are high.
+    Cloud computing relies on sharing of resources to achieve coherence and economies of
+    scale similar to a utility (like the electricity grid) over a network. At the foundation
+    of cloud computing is the broader concept of converged infrastructure and shared services.
 
   # Information about the instructor to display on the main page.
   instructor_details: 'Judy Qiu <br> Assistant Professor of Computer Science and Informatics <br> Indiana University'

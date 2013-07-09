@@ -8,16 +8,23 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="gcb-main">
-  <div class="gcb-article tab-content">
-    <div class="gcb-aside">
-      <h2>
-        {% trans %} Student Profile for {% endtrans %}
-        {{ student.key().name() }}
-      </h2>
+<div class="row-fluid marketing">
+    <div class="span6">
+      <h3>
+        {% trans %} Student Profile {% endtrans %}
+      </h3>
+    </div>
+    <div class="span6">
+        <p class="pull-right" style="margin-top: 20px">
+            {{ student.key().name() }}
+        </p>
+    </div>
+</div>
 
+<div class="row-fluid">
+    <div class="span12 marketing">
       {% if student %}
-      <table style="border-collapse:collapse;">
+      <table style="border-collapse:collapse;" class="table table-striped">
         <colgroup>
           <col style="width: 10%">
           <col>
@@ -63,35 +70,43 @@
           </tr>
         {% endif %}
       </table>
-
-      <form action='student/editstudent' method='post'>
-        <input type="hidden" name="xsrf_token" value="{{ student_edit_xsrf_token|escape }}">
-        <h2><label for="name">{% trans %} New Name {% endtrans %}</label></h2>
-        <fieldset style="border: none;">
-          <p><input name="name" id="name" type="text" size="40">
-            <input type="hidden" name="email" value="{{ student.key().name() }}"></p>
-        </fieldset>
-
-        <p><button class="gcb-button" type="submit">
-          {% trans %} Save Changes {% endtrans %}
-        </button> &nbsp;&nbsp;&nbsp;
-          <a href="student/home" class="gcb-button" role="button">
-            {% trans %} Cancel {% endtrans %}
-          </a>
-        </p>
-      </form>
-
-      <h2>{% trans %} To leave the course permanently, click on Unenroll {% endtrans %}</h2>
-
-      <p><a role="button" href="student/unenroll" class="gcb-button">
-        {% trans %} Unenroll {% endtrans %}
-      </a></p>
-
-      {% else %}
-      <p>Student profile not found ...</p>
-      {% endif %}
     </div>
-  </div>
+</div>
+
+<div class="row-fluid marketing">
+    <div class="span12">
+        <div class="row-fluid">
+            <div class="span12">
+                <form action='student/editstudent' method='post'>
+                    <input type="hidden" name="xsrf_token" value="{{ student_edit_xsrf_token|escape }}">
+                    <h2><label for="name">{% trans %} New Name {% endtrans %}</label></h2>
+                    <fieldset style="border: none;">
+                      <p><input name="name" id="name" type="text" size="40">
+                        <input type="hidden" name="email" value="{{ student.key().name() }}"></p>
+                    </fieldset>
+
+                    <p><button class="gcb-button" type="submit">
+                      {% trans %} Save Changes {% endtrans %}
+                    </button> &nbsp;&nbsp;&nbsp;
+                      <a href="student/home" class="gcb-button" role="button">
+                        {% trans %} Cancel {% endtrans %}
+                      </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+              <p>{% trans %} To leave the course permanently, click on Unenroll {% endtrans %}</p>
+              <p><a role="button" href="student/unenroll" class="btn btn-danger">
+                {% trans %} Unenroll {% endtrans %}
+              </a></p>
+              {% else %}
+              <p>Student profile not found ...</p>
+              {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

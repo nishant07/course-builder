@@ -69,18 +69,23 @@ $(document).ready(function(){
         $('#total').attr('value', count);
     });
 
-    $('#save').click(function() {
+    $('#save').click(function(event) {
+        event.preventDefault();
         $('#submitForm').submit();
     });
 
     $('#start').click(function() {
-        window.location = "unitplaylist";
+        if (!$(this).hasClass('disabled'))
+            window.location = "unitplaylist";
     });
 
-    $('#clear').click(function() {
+    $('#clear').click(function(event) {
+        event.preventDefault();
+        $('#start').addClass('disabled');
         $('#dropTable > tbody  > tr').each(function() {
             $(this).remove();
         });
+
     });
 
     $('#myCollapsible').collapse({
@@ -160,11 +165,21 @@ $(document).ready(function(){
 
     </div>
     <div class="span3 offset5 ">
+
+        <!--<a class="btn pull-right" href="#" id='clear' style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>Clear</a>-->
+        <!--<a class="btn pull-right" id='save' href="#" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px' >Save</a>-->
+        <a role="btn" class="btn" id='save' href="#" style='display: inline' >Save</a>
+        <a role="btn" class="btn" id='clear' style='display: inline'>Clear</a>
         {% if playList != 'None' %}
-            <input class="btn btn-success pull-right" type='button' id='start' value="Start" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>
+        <!--<input class="btn btn-success pull-right" type='button' id='start' value="Start" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>-->
+        <a role="btn" class="btn btn-success" style='display: inline' id='start'>
+            <i class="icon-play icon-white"></i>Start
+        </a>
+        {% else %}
+        <a role="btn" class="btn btn-success disabled" style='display: inline' id='start'>
+            <i class="icon-play icon-white"></i>Start
+        </a>
         {% endif %}
-        <input class="btn btn-inverse pull-right" type='button' id='clear' value="Clear" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>
-        <input class="btn btn-inverse pull-right" id='save' type="button" value="Save" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px' >
     </div>
 </div>
 

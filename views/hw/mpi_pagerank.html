@@ -4,8 +4,8 @@
 	</h1>
 	<div>
 		<p>
-			You are required to turn in following items in a zip file (<strong>groupID_Project1P2.zip</strong>)
-			in this assignment
+			You are required to turn in the following items in a zip file (<strong>groupID_Project1P2.zip</strong>)
+			in this assignment.
 		</p>
 		<ol>
 			<li>The source code of parallel PageRank you implemented.</li>
@@ -23,9 +23,9 @@
 			</li>
 		</ol>
 		<p>
-			Note that, this document only provides MPI C/C++ instruction. If you
+			Note that this document only provides MPI C/C++ instructions. If you
 			prefer or know MPJExpress <a href="http://mpj-express.org/">http://mpj-express.org/</a>,
-			please free feel to implement with it
+			please free feel to implement it.
 		</p>
 		<p>Points will be reduced (maximum 0.5 point) if the filename or
 			directory structure are different from instructed above.</p>
@@ -33,18 +33,18 @@
 
 	<h1>2. Evaluation</h1>
 	<div>
-		<p>The total points of project #1 Part 1 is 5, where the
-			distribution is as following:</p>
+		<p>The point total for project #1, Part 1, is 5, where the
+			distribution is as follows:</p>
 		<ol type="a">
-			<li>Completeness of your code and output (3 point)</li>
-			<li>Correctness of written report (1.5 point)</li>
-			<li>Readability and clarity of README.txt (0.5 point)</li>
+			<li>Completeness of your code and output (3 points)</li>
+			<li>Correctness of written report (1.5 points)</li>
+			<li>Readability and clarity of README.txt (0.5 points)</li>
 		</ol>
 	</div>
 
 	<h1>3. Introduction</h1>
 	<div>
-		<p>As the second part of Project #1, you will implement a parallel
+		<p>In the second part of Project #1, you will implement a parallel
 			version of PageRank by using MPI programming interface. We provide a
 			pseudo code for MPI PageRank and you need to complete the
 			implementation based on the pseudo code to make a working version of
@@ -56,13 +56,13 @@
 			<strong>Parallel PageRank</strong>
 		</p>
 		<p>Developing parallel PageRank is an active research area for
-			both in industry and academia and numerous algorithms have been
+			both industry and academia, and numerous algorithms have been
 			proposed. The key idea in developing parallel PageRank is to
-			partition PageRank problem into N sub problems so that N processes
-			solve each sub-problem concurrently. One of simple approaches in
-			partitioning is a vertex-centric approach. The graph of PageRank can
-			be divided into groups of vertices and each group will be processed
-			by a process. We take this approach for our MPI PageRank
+			partition PageRank problems into N sub-problems so that N processors
+			solve each sub-problem concurrently. One of the simplest approaches in
+			partitioning is vertex-centric. The graph of PageRank can
+			be divided into groups of vertices and each group will be handled
+			by a processor. We take this approach for our MPI PageRank
 			implementation.</p>
 	</div>
 
@@ -233,8 +233,8 @@
 
 	<h1>5. FILE IO functions</h1>
 	<div>
-		<p>Besides pseudo codes, we provide two MPI functions (mpi_read
-			and mpi_write) for file reading and writing, so that you can simply
+		<p>Besides pseudo-codes, we provide two MPI functions (mpi_read
+			and mpi_write) for file reading and writing. This is so you can simply
 			call them without re-implementation.</p>
 		<p>
 			<strong>mpi_read </strong>
@@ -242,7 +242,7 @@
 		<p>This function is to read an adjacency matrix file and assign a
 			local matrix to each process. After this call each process will have
 			its own adjacency matrix. Thus, each process should call this
-			function altogether. Following is a signature of mpi_read function.</p>
+			function altogether. The following is a signature of mpi_read function.</p>
 
 		<!-- HTML generated using hilite.me -->
 		<div
@@ -277,9 +277,9 @@
 			<strong>mpi_write </strong>
 		</p>
 		<p>This function is for saving rank values to a file. We assume
-			rank values are synchronized through all processes. Thus, it
-			doesn&#8217;t matter which process to write. In this function, simply
-			we have root (rank 0) process to write rank values to a file.</p>
+			rank values are synchronized through all processes. Therefore it
+			doesn&#8217;t matter which process you choose to write. In this function, 
+			we simply have root (rank 0) processes to write rank values to a file.</p>
 
 		<!-- HTML generated using hilite.me -->
 		<div
@@ -308,14 +308,14 @@
 
 	<h1>6. Compile guide</h1>
 	<div>
-		<p>Instructions for compiling and recommended execution guide are
-			as follows (We assume that you will compile and run on machines of CS
-			department, such as burrow cluster).</p>
+		<p>Instructions for compiling and a recommended execution guide are
+			as follows (we assume that you will compile and run on machines of the CS
+			department, such as burrow cluster):</p>
 		<p>
 			<strong>Step one: Compile </strong>
 		</p>
 		<p>To compile MPI code, you need to set up correct MPI development
-			environments. You can do that by using &#8220;mpi-selector&#8221;
+			environments. You can do that by using an &#8220;mpi-selector&#8221;
 			command:</p>
 		<p>First, check which MPI versions are available:</p>
 		<pre>$ mpi-selector &#8211;list</pre>
@@ -325,14 +325,14 @@ lam-x86_64
 openmpi-1.4-gcc-i386 
 openmpi-1.4-gcc-x86_64 
 </pre>
-		<p>Second, you choose one of MPI versions in the list by executing
+		<p>Second, choose one of the MPI versions in the list by executing
 			the following command:</p>
 		<pre>$ mpi-selector --set openmpi-1.4-gcc-i386</pre>
 		<p>You may see a warning for overwriting your previous setting.
-			You can answer &#8220;yes&#8221;</p>
-		<p>Defaults already exist; overwrite them? (y/N) y</p>
-		<p>Now you are ready to compile the sample simply by using
-			&#8220;make&#8221; command (We provide Makefile)</p>
+			You can answer &#8220;yes&#8221;.</p>
+		<p>Next you will see 'Defaults already exist; overwrite them? (Y/N)' Choose 'Yes'.</p>
+		<p>Now you are ready to compile the sample simply by using the
+			&#8220;make&#8221; command (we provide Makefile for you).</p>
 		<pre>
 $ make clean
 $ make 
@@ -360,14 +360,14 @@ Usage: mpi_main -i filename -n num_iterations
 
 		<p>
 			To run &#8220;mpi_main&#8221;, you need to use a MPI command called
-			&#8220;mpirun&#8221;. For an example, to process
+			&#8220;mpirun&#8221;. For example, to process
 			&#8220;pagerank.input&#8221; file (included as a sample input) by
 			using 2 processes concurrently, you can type the following commands:
 			<br /> <br />
 		</p>
 		<pre>$ mpirun -np 2 mpi_main -i pagerank.input -n 10 -t 0.001</pre>
 		<p>
-			<br /> The following is an example of execution of MPI PageRank. <br />
+			<br /> The following is an example of MPI PageRank execution. <br />
 			<br />
 		</p>
 		<pre>

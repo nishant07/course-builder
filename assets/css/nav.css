@@ -193,3 +193,10 @@ a.menu:after, .dropdown-toggle:after {
     background-image: linear-gradient(top,#1391c2, #136a90);
 }
 
+.content-box {
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,.065);
+    padding: 20px;
+}
+

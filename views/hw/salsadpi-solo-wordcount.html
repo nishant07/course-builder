@@ -5,32 +5,32 @@
 
     <div>
 
-        <p>Toward this hands on, you will learn to write your own  SalsaDPI configuration file and run it locally on your laptop machine. Noted that, the same java executable will be use to run on Cloud environment of Hands on 2.</p>
+        <p>Through this hands-on, you will learn to write your own  salsaDPI configuration file and run it locally on your laptop machine. Note that the same java executable will be used to run on the Cloud environment of hands-on #2.</p>
         <p>Prerequisite: </p>
         <ul>
           <li>Make sure all the following software  have been installed and configured.</li>
           <li>Install and use the prepackaged Virtualbox VM Image, <a href="http://cloudmooc.soic.indiana.edu/tools">installation instruction</a></li>
-          <li>Your compiled Hadoop/Twister binary, program inputs and related dependencies downloaded and put under a working directory, e.g. ~/ . </li>
+          <li>Your compiled Hadoop/Twister binary, program inputs and related dependencies have been downloaded and put under a working directory, e.g. ~/ . </li>
         </ul>
-        <p>Gudieline:</p>
+        <p>Guideline:</p>
         <ul>
-          <li>Learn and modify your own configuration file refering to the provide template</li>
-          <li>Execute SalsaDPI java executable with passing the configuration file</li>
+          <li>Learn how to modify your own configuration file, refering to the provided template.</li>
+          <li>Execute salsaDPI java executable with passing the configuration file</li>
         </ul>
 
     </div>
     
   <h2>2. What is salsaDPI?</h2>
     <div>
-    <p>On-demand private cloud environment has become popular due to its flexibility and scalability. However, the complicated setup and installation process to obtain the computing resource has deterred users away. Inspired by the batch job model, salsaDPI,  a dynamic provisioning software, to simplify these complications which allows domain scientists to focus on their scientific problems and run their applications on clouds with dynamic and automated installation and configurations. </p>
-    <p>In this homework, we use the java command-line interface of salsaDPI and modify a configuration file which help us to execute Hadoop WordCount within the VirtualBox.</p>
-    <p>Official project webpage is <a href="http://salsahpc.indiana.edu/salsadpi/">here</a>.</p>
+    <p>The on-demand private cloud environment has become popular due to its flexibility and scalability. However, the complicated setup and installation process has deterred some users from employing it.  salsaDPI, a dynamic provisioning software inspired by the batch job model, serves to simplify these complications. It allows domain scientists to focus on their scientific problems and run their applications on clouds with dynamic and automated installation and configuration. </p>
+    <p>In this homework, we use the java command-line interface of salsaDPI and modify a configuration file which helps us to execute Hadoop WordCount within the VirtualBox.</p>
+    <p>Official project webpage can be found <a href="http://salsahpc.indiana.edu/salsadpi/">here</a>.</p>
     </div>
 
     <h2>3. Test the chef-solo command</h2>
 
   <div>
-        <p>If you are using the VirtualBox pre-packaged image, first of all, you will have to check the SalsaDPI package are located under /root/salsaDPI/</p>
+        <p>If you are using the VirtualBox pre-packaged image, you will first have to check and make sure the salsaDPI package is located under /root/salsaDPI/</p>
 
 
       <div class="dp-highlighter">
@@ -40,26 +40,26 @@
 cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/salsaDPI.jar" title="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/salsaDPI.jar">http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/salsaDPI.jar</a>
 <br />root@ubuntu:~/salsaDPI# ls -l<br />total 1688<br />drwx------ 2 727168 4002 4096 2012-07-16 22:27 apps<br />drwx------ 4 727168 4002 4096 2012-07-16 23:14 cloud<br />drwxr-xr-x 3 root root 4096 2012-07-19 20:39 hadoopCloud-0.0.1<br />drwx------ 2 727168 4002 4096 2012-07-16 22:30 input<br />-rw------- 1 727168 4002 0 2012-07-16 23:43 README<br />-rwxrwxr-x 1 root root 1689558 2012-07-21 22:38 salsaDPI.jar<br />drwx------ 4 727168 4002 4096 2012-07-16 22:59 sandbox<br />-rwxrwxr-x 1 root root 251 2012-07-19 20:40 solo.rb<br />drwxr-xr-x 3 root root 4096 2012-07-19 20:39 twisterCloud-0.0.1</pre>
 
-          <p>Secondly, within the SalsaDPI package, you need to check a solo.rb file which stores the Chef related caches and cookbooks/recipes. Noted that you will need to change the string /u/johnny/ to your customized location. In this example, Linux vi editor is used.</p>
+          <p>Secondly, within the salsaDPI package, you need to find a solo.rb file which stores the chef-related caches and cookbooks/recipes. Note that you will need to change the string /u/johnny/ to your customized location. In this example, Linux vi editor is used.</p>
           <pre xml:space="preserve">root@ubuntu:~/salsaDPI# cat solo.rb<br />cache_type &quot;BasicFile&quot;<br />cache_options({ :path =&gt; &quot;/root/.chef/cache/checksums&quot;, :skip_expires =&gt; true })<br />cookbook_path [ &quot;/root/.chef/cookbooks/&quot;]<br />role_path &quot;/root/.chef/roles&quot;<br />data_bag_path &quot;/root/.chef/data_bags&quot;<br />file_cache_path &quot;/root/.chef/cache&quot;</pre>
-          <p>Make sure you have same content in the /root/salsaDPI/solo.rb file. Then, you can test it with running chef-solo command along with a test recipe sandboxTest. It will generate a file to /tmp/&lt;username&gt;_test:</p>
+          <p>Make sure you have the same content in the /root/salsaDPI/solo.rb file. You can test it by running the chef-solo command along with a test recipe sandboxTest. It will generate a file to /tmp/&lt;username&gt;_test:</p>
           <p>&nbsp;</p>
           <pre xml:space="preserve">root@ubuntu:~$ chef-solo -c solo.rb -r http://129.79.49.248/chef-solo.tar.gz -o recipe[sandboxTest]<br />[2012-07-17T03:01:57-04:00] INFO: *** Chef 0.10.10 ***<br />[2012-07-17T03:01:58-04:00] WARN: Run List override has been provided.<br />[2012-07-17T03:01:58-04:00] WARN: Original Run List: []<br />[2012-07-17T03:01:58-04:00] WARN: Overridden Run List: [recipe[sandboxTest]]<br />[2012-07-17T03:01:58-04:00] INFO: Run List is [recipe[sandboxTest]]<br />[2012-07-17T03:01:58-04:00] INFO: Run List expands to [sandboxTest]<br />[2012-07-17T03:01:58-04:00] INFO: Starting Chef Run for salsahpc.indiana.edu<br />[2012-07-17T03:01:58-04:00] INFO: Running start handlers<br />[2012-07-17T03:01:58-04:00] INFO: Start handlers complete.<br />[2012-07-17T03:01:58-04:00] INFO: Processing file[/tmp/root_test] action create (sandboxTest::default line 12)<br />[2012-07-17T03:01:58-04:00] INFO: Chef Run complete in 0.023855 seconds<br />[2012-07-17T03:01:58-04:00] INFO: Running report handlers<br />[2012-07-17T03:01:58-04:00] INFO: Report handlers complete<br /><br /># check the /tmp/&lt;username&gt;_test file<br />root@ubuntu:~$ cat /tmp/root_test<br />This is a test of using chef-solo command with the permission of root.
           </pre>
-          <p>If there is any error messages such as ssh error, chef-solo.tar.gz cannot be downloaded, ~/.chef/ directory isn't existed or other error messages, please see the FAQ section of this page.</p>
+          <p>If there are any error messages ("ssh error", "chef-solo.tar.gz cannot be downloaded"), please see the FAQ section of this page.</p>
           
         </div>
         </div>
         
 
   </div>
-    <h2>4. Write your SalsaDPI configuration file for Hadoop/Twister applications</h2>
+    <h2>4. Write your salsaDPI configuration file for Hadoop/Twister applications</h2>
 
     <div>
-        <p>Once chef-solo command is working, you could modify the SalsaDPI configuration to run your complied Hadoop and Twister applications. For this section, we use and modify a a json format template file <em>sandbox_hadoopTemplate.json</em>. This configuation must be correctly filled with full path of your compiled jar executable, your program inputs and your general program arguements.        </p>
+        <p>Once your chef-solo command is working, you can modify the salsaDPI configuration to run your compiled Hadoop and Twister applications. For this section, we use and modify a json format template file <em>sandbox_hadoopTemplate.json</em>. This configuration must be correctly filled with the full path of your compiled jar executable, your program inputs, and your general program arguments.        </p>
         <pre xml:space="preserve">root@ubuntu:~$ vi salsaDPI/sandbox/templates/sandbox_hadoopTemplate.json</pre>
         <p><strong><em>Example of Hadoop WordCount program</em></strong></p>
-        <p>Before modifying the <em>sandbox_hadoopTemplate.json</em>, the <strong>Bold</strong> fields in this example will be replaced by user.</p>
+        <p>Before modifying the <em>sandbox_hadoopTemplate.json</em>, the <strong>Bold</strong> fields in this example will be replaced by the user.</p>
         <ul>
           <li><strong>#_Full_Path_to_Program_Jar_File_#</strong></li>
           <li><strong>#_Full_Path_to_Program_Input_#<br />
@@ -70,7 +70,7 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
           </strong></li>
           <li><strong>#_Program_Args_#</strong></li>
         </ul>
-        <p><strong>NOTED THAT</strong> this is an unfinished template need to be filled:</p>
+        <p><strong>NOTE THAT</strong> this is an unfinished template; certain areas need to be filled:</p>
         <pre>{ // Useful general variables of programArgs for applicationParameters object<br />// #_JAR_#, #_JOB_ID_#, <br />// #_HDFS_INPUTDIR_#, #_HDFS_OUTPUTDIR_#,<br />// #_TWISTER_INPUTDIR_#, #_TWISTER_OUTPUTDIR_#, #_TWISTER_PARTITION_FILE_#, #_BINARY_DEPENDENCY_#<br /><br />// 'mode':'sandbox', | 'mode':'cloud',<br />'mode':'sandbox',<br />// chef-solo related parameters<br />'chef':{'chefSoloRecipeUrls':'http://129.79.49.248/chef-solo.tar.gz', <br />'chefSoloConfFilePath':'/root/salsaDPI/solo.rb'}, <br /><br />// ssh passwordless related parameters<br />'ssh':{'SSHLoginUsername':'root', <br />'SSHPrivateKeyPath':'/root/.ssh/id_rsa' }, <br /><br />// runtime softwares such as recipe[hadoopSandbox] or recipe[twisterSandbox]<br />'softwareRecipes':['recipe[hadoopSandbox]'], // please don't change this line<br /><br />// user-defined application related parameters<br />'applicationParameters':{'applicationType':'Hadoop',<br />'localPathOfProgramBinary':'<strong>#_Full_Path_to_Program_Jar_File_#</strong>', <br />'localPathOfProgramInput':'<strong>#_Full_Path_to_Program_Input_#</strong>', <br />'localPathOfBinaryDependency':'<strong>#_Full_Path_to_Program_Dependency_#</strong>', <br />'programExecuteLocation':'<strong>#_Path_to_Execution_Bin_Dir_#</strong>',<br />'programArgs':'<strong>#_Program_Args_#</strong>'} <br />}<br />
         </pre>
         <p>Description of sandbox configuration file:</p>
@@ -193,12 +193,12 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
         </pre>
 
     </div>
-    <h2>5. Execute SalsaDPI with a user-defined application</h2>
+    <h2>5. Execute salsaDPI with a user-defined application</h2>
 
     <div>
 
         <p><br>
-        Execute the salsaDPI jar executable with running sandbox Hadoop WordCount:</p>
+        Execute the salsaDPI jar executable while running sandbox Hadoop WordCount:</p>
       <pre xml:space="preserve">root@ubuntu:~$ cd salsaDPI<br />root@ubuntu:salsaDPI$ cp sandbox/templates/sandbox_hadoopTemplate.json sandbox/templates/sandbox_hadoopWordCount.json 
 root@ubuntu:salsaDPI$ java -cp salsaDPI.jar cgl.salsa.salsadpi.Driver sandbox/templates/sandbox_hadoopWordCount.json</pre>
         <p>After the program finishes running, the output will copy to the working directory under &lt;workingDir&gt;/salsaDPI_output/&lt;job_uuid&gt;/output/*:</p>
@@ -208,12 +208,12 @@ root@ubuntu:salsaDPI$ java -cp salsaDPI.jar cgl.salsa.salsadpi.Driver sandbox/te
     <h2>6. Compile the program</h2>
 
     <div>
-        <p>Please enter the following commands where the “WordCount.java " located in the bash mode: </p>
+        <p>Enter the following commands where the “WordCount.java" is located in the bash mode: </p>
 				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
 cat WordCount.java<br>
 cat build.sh<br>
 ./build.sh </pre>
-        <p>Here please make sure the JAVA_HOME path is correctly set in both “conf/hadoop-env.sh” and ".bashrc". </p>
+        <p>Make sure the JAVA_HOME path is correctly set in both “conf/hadoop-env.sh” and ".bashrc". </p>
     </div>
     <!-- content area -->
     <h2>7. Reference</h2>

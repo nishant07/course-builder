@@ -30,16 +30,16 @@
 			up to 1M urls at least) and the following numbers in a table, then draw a
 			human readable graph chart.
 		</p>
-		<p> a. Instance class, number of worker nodes, number of
+		<p> &nbsp; a. Instance class, number of worker nodes, number of
 			core/cpu/process per worker node, size of dataset (# of urls, # of
 			groups), number of MPI process (set with argument -np), MPI error
-			threshold, and number of iteration, etc.</p>
-		<p> b. A speed-up performance analysis chart (graph).</p>
-		<p> c. Each execution time must be taken as an average
-			of three runs</p>
-		<p>2. Findings, description and explanation of your result</p>
-		<p>3. Feedback about using FutureGrid Bare Metal and Eucalyptus</p>
-		<p>4. You need to Write a torque/PBS script which runs MPI/MPJ
+			threshold, and number of iterations, etc.</p>
+		<p> &nbsp; b. A speed-up performance analysis chart (graph).</p>
+		<p> &nbsp; c. Each execution time must be taken as an average
+			of three runs.</p>
+		<p>2. Findings, description and explanation of your results.</p>
+		<p>3. Feedback about using FutureGrid Bare Metal and Eucalyptus.</p>
+		<p>4. You need to write a torque/PBS script which runs MPI/MPJ
 			PageRank automatically only in Bare Metal mode.</p>
 		<p>5. Provide your scripts (if you used any) in a zip file and
 			package with filename &#8220;taklwu_proj2.zip&#8221; where
@@ -71,7 +71,7 @@
 		<p>Note that you must test your program with scaling up to
 			at least 100k urls, using at most 16 cores of computing
 			resources. In other words, each team can only use at most 2 Bare
-			Metal nodes (8 cores/processes per node) in India-HPC environment and
+			Metal nodes (8 cores/processors per node) in India-HPC environment and
 			8 VMs (2 cores per m1.large VM) in India-Eucalyptus.</p>
 		<h2>Important Experiment Factors</h2>
 		<p>When designing the test cases, you may consider the following
@@ -90,8 +90,8 @@
 		<p>Each test case should execute three times and take the average
 			of those three runs. In order to calculate speedup, you may need to
 			change the amount of work nodes and total number of cores. In
-			addition, you may also increase or decrease the data size to have
-			more understanding about the program and system behavior.</p>
+			addition, you may also increase or decrease the data size to achieve 
+			a greater understanding of the program and system behavior.</p>
 		<p>The definition of speedup is:</p>
 		<p>
 			<img src="assets/img/hw/pr_cloud_analysis/eq1.png" height="400"

@@ -1,110 +1,112 @@
 {% extends 'base.html' %}
 
 {% block subtitle %}
-  {% trans %} My Profile {% endtrans %}
+{% trans %} My Profile {% endtrans %}
 {% endblock subtitle %}
+
+{% block header_content %}
+<style>
+    .content-box {
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,.065);
+        padding: 20px;
+    }
+    .box-narrow {
+        max-width: 800px;
+    }
+</style>
+{% endblock %}
 
 {% block top_content %}
 {% endblock %}
 
 {% block main_content %}
-<div class="row-fluid marketing">
-    <div class="span6">
-      <h3>
-        {% trans %} Student Profile {% endtrans %}
-      </h3>
-    </div>
-    <div class="span6">
-        <p class="pull-right" style="margin-top: 20px">
-            {{ student.key().name() }}
-        </p>
-    </div>
-</div>
+<div class="content-box box-narrow">
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>
+                {% trans %} Student Profile {% endtrans %}
+            </h2>
 
-<div class="row-fluid">
-    <div class="span12 marketing">
-      {% if student %}
-      <table style="border-collapse:collapse;" class="table table-striped">
-        <colgroup>
-          <col style="width: 10%">
-          <col>
-        </colgroup>
-        <tr>
-          <th align="left">{% trans %} Currently enrolled {% endtrans %}</th>
-          <td>{{ student.is_enrolled }}</td>
-        </tr>
-        <tr>
-          <th align="left">{% trans %} Date enrolled {% endtrans %}</th>
-          <td>{{ student.enrolled_on }}</td>
-        </tr>
-        <tr>
-          <th align="left">{% trans %} Email {% endtrans %}</th>
-          <td>{{ student.key().name() }}</td>
-        </tr>
-        <tr>
-          <th align="left">{% trans %} Name {% endtrans %}</th>
-          <td>{{ student.name }}</td>
-        </tr>
+            {% if student %}
+            <table class="table table-striped">
+                <tr>
+                    <th width="5%">{% trans %} Currently enrolled {% endtrans %}</th>
+                    <td>{{ student.is_enrolled }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans %} Date enrolled {% endtrans %}</th>
+                    <td>{{ student.enrolled_on }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans %} Email {% endtrans %}</th>
+                    <td>{{ student.key().name() }}</td>
+                </tr>
+                <tr>
+                    <th>{% trans %} Name {% endtrans %}</th>
+                    <td>{{ student.name }}</td>
+                </tr>
+            </table>
 
-        <tr>
-          <th align="left" colspan=2>{% trans %} Assessment scores {% endtrans %}</th>
-        </tr>
+            <h2>
+                {% trans %} Assessment scores {% endtrans %}
+            </h2>
+            <table class="table table-striped">
 
-        {% for assessment in score_list %}
-          <tr>
-            <th align="left">&nbsp;&nbsp;&nbsp;{{ assessment['title'] }}</th>
-            <td>
-              {% if 'score' in assessment and assessment['score'] is defined %}
-                <span id="assessment-score-{{assessment['title']}}">{{ assessment['score'] }}</span>
-              {% endif %}
-            </td>
-          </tr>
-        {% endfor %}
+                {% for assessment in score_list %}
+                <tr>
+                    <th width="5%">{{ assessment['title'] }}</th>
+                    <td>
+                        {% if 'score' in assessment and assessment['score'] is defined %}
+                        <span id="assessment-score-{{assessment['title']}}">{{ assessment['score'] }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
 
-        {% if overall_score != None %}
-          <tr>
-            <th align="left">{% trans %} Overall course score {% endtrans %}</th>
-            <td>
-              <span id="assessment-score-overall">{{ overall_score }}</span>
-            </td>
-          </tr>
-        {% endif %}
-      </table>
-    </div>
-</div>
+                {% if overall_score != None %}
+                <tr>
+                    <th>{% trans %} Overall course score {% endtrans %}</th>
+                    <td>
+                        <span id="assessment-score-overall">{{ overall_score }}</span>
+                    </td>
+                </tr>
+                {% endif %}
+            </table>
 
-<div class="row-fluid marketing">
-    <div class="span12">
-        <div class="row-fluid">
-            <div class="span12">
-                <form action='student/editstudent' method='post'>
-                    <input type="hidden" name="xsrf_token" value="{{ student_edit_xsrf_token|escape }}">
-                    <h2><label for="name">{% trans %} New Name {% endtrans %}</label></h2>
-                    <fieldset style="border: none;">
-                      <p><input name="name" id="name" type="text" size="40">
-                        <input type="hidden" name="email" value="{{ student.key().name() }}"></p>
-                    </fieldset>
+            <hr>
+            <h2>{% trans %} Change your information {% endtrans %}</h2>
+            <form action='student/editstudent' method='post'>
+                <input type="hidden" name="xsrf_token" value="{{ student_edit_xsrf_token|escape }}">
+                <fieldset>
+                    <input name="name" id="name" type="text" size="40">
+                    <input type="hidden" name="email" value="{{ student.key().name() }}">
+                </fieldset>
 
-                    <p><button class="gcb-button" type="submit">
-                      {% trans %} Save Changes {% endtrans %}
-                    </button> &nbsp;&nbsp;&nbsp;
-                      <a href="student/home" class="gcb-button" role="button">
-                        {% trans %} Cancel {% endtrans %}
-                      </a>
-                    </p>
-                </form>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span12">
-              <p>{% trans %} To leave the course permanently, click on Unenroll {% endtrans %}</p>
-              <p><a role="button" href="student/unenroll" class="btn btn-danger">
-                {% trans %} Unenroll {% endtrans %}
-              </a></p>
-              {% else %}
-              <p>Student profile not found ...</p>
-              {% endif %}
-            </div>
+                <button class="btn" type="submit">
+                    {% trans %} Save Changes {% endtrans %}
+                </button> &nbsp;&nbsp;&nbsp;
+
+                <a href="student/home" class="btn" role="button">
+                    {% trans %} Cancel {% endtrans %}
+                </a>
+            </form>
+
+            <hr>
+
+            <p>
+                {% trans %} To leave the course permanently, click on Unenroll {% endtrans %}
+            </p>
+            <p>
+                <a role="button" href="student/unenroll" class="btn">
+                    {% trans %} Unenroll {% endtrans %}
+                </a>
+            </p>
+
+            {% else %}
+            <p>Student profile not found ...</p>
+            {% endif %}
         </div>
     </div>
 </div>

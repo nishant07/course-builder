@@ -4,33 +4,51 @@
   {% trans %} Forum {% endtrans %}
 {% endblock subtitle %}
 
+{% block header_content %}
+<style>
+    .content-box {
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0px 0px 4px rgba(0,0,0,.065);
+        padding: 20px;
+    }
+</style>
+{% endblock %}
+
 {% block top_content %}
 
-  <div>
-    <div class="gcb-aux">
-      <div class="gcb-cols">
-        <div class="gcb-col-6">
-          <iframe id="forum_embed"
-            src="javascript:void(0)"
-            scrolling="no"
-            title="Forum"
-            frameborder="0"
-            width="900"
-            height="700">
-          </iframe>
+<div class="content-box">
+    <div class="row-fluid">
+        <div class="spam12">
+            <iframe id="forum_embed"
+                    src="javascript:void(0)"
+                    scrolling="no"
+                    title="Forum"
+                    frameborder="0"
+                    width="900"
+                    height="700">
+            </iframe>
 
-          {% if course_info.course.forum_embed_url %}
+            {% if course_info.course.forum_embed_url %}
             <script type="text/javascript">
-              document.getElementById("forum_embed").src =
-              "{{course_info.course.forum_embed_url}}"
-              + "&showsearch=true&showpopout=true&showtabs=false"
-              + "&parenturl=" + encodeURIComponent(window.location.href);
+                document.getElementById("forum_embed").src =
+                "{{course_info.course.forum_embed_url}}"
+                + "&showsearch=true&showpopout=true&showtabs=false"
+                + "&parenturl=" + encodeURIComponent(window.location.href);
             </script>
-          {% endif %}
+            {% endif %}
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
+
+<!-- base.after_top_content_ends -->
+
+<!-- main section -->
+
+
+
+<!-- base.after_main_content_ends -->
 
 {% endblock %}
 

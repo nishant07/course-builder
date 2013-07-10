@@ -11,31 +11,30 @@
 	</h1>
 	<div>
 		<p>
-			You are required to turn in following items in a zip file <strong>groupID_Project2.zip</strong>
+			You are required to turn in the following items in a zip file, <strong>groupID_Project2.zip</strong>,
 			in this assignment via Oncourse, where <strong>groupID</strong> (e.g.
-			01) is the two digital number of your group.
+			01) is the two-digit number of your group.
 		</p>
 		<p>1) The source code of the Monitoring Daemon and Monitoring
 			front-end.</p>
-		<p>1) The executable class file, MakeFile (if any), and the README
+		<p>2) The executable class file, MakeFile (if any), and the README
 			file that describe its usage. Try to keep the steps simple by using
 			scripts for building and running the programs.</p>
-		<p>
-			2) Technical report (<strong>groupID_p2report.docx</strong>) that
+		<p>3) Technical report, (<strong>groupID_p2report.docx</strong>), that
 			contains:
 		</p>
-		<p>a. The description about the main steps and program data flow
+		<p>a. A description of the main steps and program data flow
 			in your program.</p>
 		<p>b. Snapshots (Photos) about your program Interface with
 			explanations .</p>
-		<p>3) Demo in class</p>
-		<p>Points will be reduced (maximum 0.5 point) if the filename or
+		<p>4) Demo in class</p>
+		<p>Points will be reduced (maximum 0.5 points) if the filename or
 			directory structure are different from instructed above.</p>
 	</div>
 	<h1>3. Evaluation</h1>
 	<div>
-		<p>The total points of project #2 is 10, where the distribution is
-			as following</p>
+		<p>The point total of project #2 is 10, where the distribution is
+			as follows:</p>
 		<div style="padding-left: 2em;">
 			<p>a. Completeness of your monitoring system (6 point)</p>
 			<p>b. Correctness and Completeness of written report (3 point)</p>
@@ -48,10 +47,10 @@
 		<p>Distributed resource monitoring is an important part of
 			distributed systems. In large-scale computing environments, it is
 			essential to understand the system behavior and resource utilization
-			in order to manage the resources efficiently, to detect failures as
+			in order to manage the resources efficiently and to detect failures, as
 			well as to optimize the distributed application performance. There
 			exist several distributed monitoring solutions, such as Ganglia [1]
-			and Nagios [2], to apply into wide variety of distributed computing
+			and Nagios [2], to apply into a wide variety of distributed computing
 			environments. Another example would be Amazon Cloudwatch [3], which
 			allows the users to monitor the resource utilization of their EC2
 			cloud resources. While these systems need to be comprehensive, care
@@ -59,24 +58,24 @@
 			resources they are monitoring.</p>
 		<p>For this part of the project, you need to implement a system
 			that monitors the CPU and memory utilization in a distributed set of
-			nodes (two or more nodes which runs on CS Machines). The system
+			nodes (two or more nodes which run on CS Machines). The system
 			should support resource monitoring of Computer Science Linux
 			Machines. Monitoring information needs to be collected and aggregated
-			through the message broker and needs to be summarized to display the
-			overall CPU and memory utilization percentages using graphs.</p>
+			through the message broker and must be summarized using graphs to display the
+			overall CPU and memory utilization percentages.</p>
 	</div>
 
 	<h1>5. System architecture</h1>
 	<div>
 		<p>
 			There are three main components of this monitoring system: a <strong>Message
-				Broker</strong>, <strong>Monitoring Daemons running on nodes</strong> and a <strong>Monitoring
+				Broker</strong>, <strong>Monitoring Daemons running on nodes</strong>, and a <strong>Monitoring
 				UI</strong>.
 		</p>
 		<ul>
 			<li><strong>Message Broker: </strong> a middleware that holds
 				series of messages with specific topics, and waits for a Front-End
-				Subscriber to pick the messages. i.e. NaradaBrokering[4],
+				Subscriber to pick the messages, i.e. NaradaBrokering[4],
 				ActiveMQ[5], etc. AIs will setup instances of NaradaBrokering and
 				ActiveMQ to be used by the students. Students are advised to prefix
 				their topics with the group number (eg: G01_xyz) to avoid conflicts
@@ -88,7 +87,7 @@
 					port number &#8220;61616&#8221;.</li>
 				</ul>
 			<li><strong>Monitoring Daemon: </strong> a background process
-				that runs on each compute node which captures and publishes the
+				running on each compute node which captures and publishes the
 				system resource utilization information (CPU and Memory utilization
 				required) and other important usage information, to the Message
 				Broker periodically. This daemon should not interfere with the other
@@ -96,12 +95,12 @@
 				part.</li>
 			<li><strong>Summarizer and Monitoring UI: </strong> Summarizer
 				should listen to the messages with a specific topic(s) from Message
-				Broker and should summarize the collected information. These
+				Broker and summarize the collected information. This
 				summarized information (overall CPU and Memory utilization) needs to
 				be displayed using a cumulative graph of the targeted computing
 				environment. The summarizer and the UI can be separate applications
 				that communicate with each other or can be a single application. You
-				need to implement this part.</li>
+				are required to implement this part.</li>
 		</ul>
 		<div style="text-align: center; border: 2px solid gray">
 			<img src="assets/img/hw/resource_ms/image001.png" width="600"
@@ -155,11 +154,11 @@ While(!done){
 			that run the MPI Pagerank application from project #1. Calculate the
 			overall CPU and Memory utilization percentages.</p>
 		<p>3. Draw real-time cumulative performance graphs with summarized
-			resource utilization information. This must be GUI based. (No table
+			resource utilization information. This must be GUI-based (no table
 			or command-line text). If you use Java, JFreeChart [4] is a good
-			option to draw the graphs. Figure 2 is an example UI developed using
-			JFreeChart by SalsaHPC Team. The Blue area is the CPU usage, and the
-			Green area is the memory usage.</p>
+			option to draw the graphs. Figure 2 is an example UI, developed by the SalsaHPC Team using
+			JFreeChart. The blue area is the CPU usage, and the
+			green area is the memory usage.</p>
 		<p>
 			<strong>Pseudocode</strong>
 		</p>
@@ -195,7 +194,7 @@ UIUpdateThread{
 	<h1>6. Run MPI/MPJ PageRank on CS machines in multi-nodes mode</h1>
 	<div>
 		<p>In this project, you must run your MPI/MPJ PageRank program on
-			CS Machines with at least two nodes. Then, your resource monitoring
+			CS Machines with at least two nodes. Then your resource monitoring
 			daemons have to capture the computing performance of the specified
 			MPI/MPJ processes on each node, and show a live aggregated
 			performance chart on monitoring UI.</p>
@@ -211,8 +210,8 @@ UIUpdateThread{
 MPD_SECRETWORD=mr45-j9z
 [taklwu@polaris B534Project2]$ chmod 600 ~/.mpd.conf		
 		</pre>
-		<p>Then, you create a &#8220;nodes&#8221; file contains
-			workers&#8217; hostnames. Here, as this example is running with a
+		<p>Then you create a &#8220;nodes&#8221; file that contains
+			workers&#8217; hostnames. Here this example is running with a
 			total of 4 mpi processes (-np 4). Within the &#8220;nodes&#8221;
 			file, we have four lines which actually represent two CS physical
 			nodes, polaris.cs.indiana.edu and iceman.cs.indiana.edu.</p>
@@ -223,13 +222,13 @@ polaris.cs.indiana.edu
 iceman.cs.indiana.edu
 iceman.cs.indiana.edu
 		</pre>
-		<p>Once these configuration files have been setup, you could start
-			MPD daemons with command &#8220;mpdboot
+		<p>Once these configuration files have been set up, you can start the
+			MPD daemons with the command &#8220;mpdboot
 			&#8211;totalnum=&lt;num_of_worker_nodes&gt; -f
-			&lt;node_file&gt;&#8221;. Here, IU passphrase may be asked as you are
+			&lt;node_file&gt;&#8221;. An IU passphrase may be required, as you are
 			starting the MPD daemons remotely. Before submitting the job, you
-			could check if all mpd daemons has been started correctly with using
-			command &#8220;mpdtrace&#8221;.</p>
+			should check to see if all mpd daemons have been started correctly by using
+			the command &#8220;mpdtrace&#8221;.</p>
 		<pre>
 [taklwu@polaris B534Project2]$ mpdboot --totalnum=2 -f nodes
 taklwu@iceman.cs.indiana.edu's password:
@@ -237,9 +236,9 @@ taklwu@iceman.cs.indiana.edu's password:
 polaris
 iceman
 		</pre>
-		<p>Then, you can run your MPI PageRank application with adding
+		<p>You can run your MPI PageRank application by adding
 			parameters &#8220;-machinefile &lt;node_file&gt; -np
-			&lt;num_of_mpi_procresses&gt;&#8221;.</p>
+			&lt;num_of_mpi_processes&gt;&#8221;.</p>
 		<pre>
 [taklwu@polaris B534Project2] mpiexec -machinefile nodes -np 4 mpi_main -i pagerank.input.1000.0 -n 10 -t 0.000001
 Proc:0 of 4 running on polaris.cs.indiana.edu
@@ -251,9 +250,9 @@ File pagerank.input.1000.0 total_num_web_pages: 3851
 ....
 
 		</pre>
-		<p>Finally, you have to stop these MPD daemons with command
-			mpdallexit to release the resources. Otherwise, you or your
-			classmates may not be able to run their program.</p>
+		<p>Finally, you have to stop these MPD daemons with the command
+			mpdallexit to release the resources. Otherwise you or your
+			classmates may not be able to run their programs.</p>
 		<pre>
 [taklwu@polaris B534Project2] mpdallexit
 		</pre>
@@ -261,7 +260,7 @@ File pagerank.input.1000.0 total_num_web_pages: 3851
 		<p>Before running any MPJ [9] job under CS Linux environment, you
 			will need to make a &#8220;machines&#8221; file which has the worker
 			hostname written line by line, e.g., polaris.cs.indiana.edu and
-			iceman.cs.indiana.edu. Noted that the filename must be
+			iceman.cs.indiana.edu. Note that the filename must be
 			&#8220;machines&#8221;.</p>
 		<pre>
 [taklwu@polaris MPJ]$ vim machines
@@ -269,9 +268,9 @@ polaris.cs.indiana.edu
 iceman.cs.indiana.edu
 		</pre>
 		<p>
-			<br /> Once you have setup &#8220;machines&#8221; file, you could
-			use mpjboot to start MPJ daemons on worker nodes. Here, IU passphrase
-			may be asked as you are starting the mpj daemons remotely.
+			<br /> Once you have set up the &#8220;machines&#8221; file, you can
+			use mpjboot to start MPJ daemons on worker nodes. An IU passphrase
+			may be required, as you are starting the mpj daemons remotely.
 		</p>
 		<pre>
 [taklwu@polaris MPJ]$ mpjboot machines
@@ -282,7 +281,7 @@ taklwu@iceman.cs.indiana.edu's password:
 Starting mpjd...
 wrapper  | Spawning intermediate process...
 		</pre>
-		<p>Then, you can run MPJ PageRank with adding &#8220;-dev
+		<p>Now you can run MPJ PageRank by adding &#8220;-dev
 			niodev&#8221; parameters to start your application across worker
 			nodes.</p>
 		<pre>
@@ -309,8 +308,8 @@ Stopping process <4> on <iceman.cs.indiana.edu>
 Stopping process <7> on <iceman.cs.indiana.edu>
 		</pre>
 		<p>At the end, you have to stop these MPJ daemons with command
-			mpjhalt to release the resources. Otherwise, you or your classmates
-			may not be able to run their program.</p>
+			mpjhalt to release the resources. Otherwise you or your classmates
+			may not be able to run their programs.</p>
 		<pre>
 [taklwu@polaris MPJ]$ mpjhalt machines
 Stopping mpjd...

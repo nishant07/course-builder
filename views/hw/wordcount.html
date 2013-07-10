@@ -22,7 +22,7 @@
     <div>
         <p>A Mapper overrides the “map” function from the Class "org.apache.hadoop.mapreduce.Mapper" which provides &lt;key,
             value&gt; pairs as the input. A Mapper implementation may output &lt;key,value&gt; pairs using the provided
-            Context . </p>
+            Context. </p>
 
         <p>Input value of the WordCount Map task will be a line of text from the input data file and the key would be
             the line number &lt;line_number, line_of_text&gt; . Map task outputs &lt;word, one&gt; for each word in the
@@ -60,7 +60,7 @@
 
     <div>
         <p>A Reducer collects the intermediate &lt;key,value&gt; output from multiple map tasks and assemble a single
-            result. Here, the WordCount program will sum up the occurrence of each word to pairs as &lt;word, occurrence&gt;.</p>
+            result. Here, the WordCount program will sum up the occurrence of each word into pairs as &lt;word, occurrence&gt;.</p>
 
         <p>
             <em><u>Pseudo-code</u></em></p>
@@ -92,19 +92,19 @@
         <iframe src="http://pastebin.com/embed_iframe.php?i=s0th1tJc"
                 style="border:none;width:100%;height:400px"></iframe>
     </div>
-    <h2>4. Setup the Main Program</h2>
+    <h2>4. Set up the Main Program</h2>
 
     <div>
 
         <p><br>
-            The Main program configures and run the MapReduce job. We use the main program to perform basic
-            configurations such as:</p>
+            The Main program configures and runs the MapReduce job. We use the main program to perform basic
+            configurations, such as:</p>
         <ol>
             <li><strong>Job Name</strong> : name of this Job</li>
             <li><strong>Executable (Jar) Class</strong>: the main executable class. For here, WordCount.</li>
             <li><strong>Mapper Class</strong>: class which overrides the "map" function. For here, Map.</li>
 
-            <li><strong>Reducer</strong>: class which override the "reduce" function. For here , Reduce.</li>
+            <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here , Reduce.</li>
             <li><strong>Output Key</strong>: type of output key. For here, Text.</li>
             <li><strong>Output Value</strong>: type of output value. For here, IntWritable.</li>
             <li><strong>File Input Path</strong></li>
@@ -113,23 +113,23 @@
         </ol>
         <script src="http://pastebin.com/embed_js.php?i=ZcR2Wu3Q"></script>
     </div>
-    <h2>5. Setup Java JDK and Compile the program</h2>
+    <h2>5. Setup Java JDK and Compile the Program</h2>
 
     <div>
         <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
-        <p>Installing the java jdk 1.6.0 if you don't have one. we are setting up a JDK 64 bit version.</p>
+        <p>Install the java jdk 1.6.0 if you don't have one. we are setting up a JDK 64 bit version.</p>
       <pre xml:space="preserve">cd ~/<br />
 wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br /> 
 chmod 755 jdk-6u33-linux-x64.bin<br /> 
 ./jdk-6u33-linux-x64.bin<br />
 pwd </pre>
-        <p>Setup the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
+        <p>Set up the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
         <pre xml:space="preserve">
 echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />
 echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />
 source ~/.bashrc
         </pre>
-        <p>Please enter the following commands where the “WordCount.java " located in the bash mode: </p>
+        <p>Enter the following commands where the “WordCount.java" is located in the bash mode: </p>
 				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
 cat WordCount.java<br>
 cat build.sh<br>
@@ -140,11 +140,11 @@ cat build.sh<br>
     <h2>6. Execute Standalone Hadoop-WordCount</h2>
 
     <div>
-        <p>The simplest way is to run a standalone WordCount. First, an <a
+        <p>This section details the simplest way to run a standalone WordCount. First a <a
                 href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone version of
-            Hadoop</a> (without any environment setting) is required, then, download the <a
+            Hadoop</a> (without any environment setting) is required. Then download the <a
                 href="http://salsahpc.indiana.edu/tutorial/source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.
-            If you are using FutureGrid machine, all the packages has been pre-installed in your home directory. </p>
+            If you are using a FutureGrid machine, all the packages have been pre-installed in your home directory. </p>
 
         <p>Assume that:</p>
         <ol>
@@ -164,9 +164,9 @@ cat output/part-r-00000<br />
     <h2>7. Adding a Combiner</h2>
 
     <div>
-        <p>A combiner is a reduce-type function to be used when there are map key-value pairs are not immediately
+        <p>A combiner is a reduce-type function to be used when there are map key-value pairs that are not immediately
             written to the output. It will collect those pairs in lists and perform local aggregation of the
-            intermediate outputs. It speeds up the process which cuts down the amount of data transferred from the
+            intermediate outputs. It speeds up the process, which cuts down the amount of data transferred from the
             Mapper to the Reducer.</p>
         <pre name="code"
              class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>
@@ -202,6 +202,6 @@ cat output-combiner/part-r-00000<br/>
     </div>
     <h2>9. Hands on Lab</h2>
     <div>
-        <p>You can run a Hadoop Word count job on a real Hadoop deployment by using the <a href="http://salsahpc.indiana.edu/salsadpi/submit.php">salsaDPI Portal</a>.</p>
+        <p>You can run a Hadoop WordCount job on a real Hadoop deployment by using the <a href="http://salsahpc.indiana.edu/salsadpi/submit.php">salsaDPI Portal</a>.</p>
     </div>
 </div>

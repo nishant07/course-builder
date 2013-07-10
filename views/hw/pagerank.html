@@ -3,11 +3,11 @@
     <h2>1. Overview</h2>
 
     <div>
-		<p>The web search engine is one of typical distributed system in
-			the Internet. It is designed to search for information on the World
-			Wide Web. The search results are generally presented in a list of
-			results and are often called hits. The PageRank is a well know web
-			graph ranking algorithm that help the Internet user sort the hits by
+		<p>One example of a typical distributed system on
+			the Internet is the web search engine. It is designed to search for information on the World
+			Wide Web. Search results are generally presented in a list of
+			results and are often called hits. PageRank is a well-known web
+			graph ranking algorithm that helps the Internet user sort hits by
 			their importance. PageRank calculates numerical value to each element
 			of a hyperlinked set of web pages, which reflects the probability
 			that the random surfer will access that page. The process of PageRank
@@ -16,57 +16,57 @@
 			access probability for each web page based on values calculated in
 			the previous iteration. The iterating will not stop until the number
 			of current iterations is bigger than predefined maximum iterations,
-			or the Euclidian distance between rank values in subsequent two
+			or the Euclidian distance between rank values in two subsequent
 			iterations is less than a predefined threshold that controls the
 			accuracy of the output results.</p>
 		<div style="text-align:center"> 
 			<img src="assets/img/hw/pagerank/webgraph.png">
 			<p>Fig.1  Mathematical PageRank for a simple network in Wikipedia</p>
 		</div><br>
-		<p>Fig.1 shows the web graph consist of 11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to unique web page, and the directed edge 
-			means there is one link from source web page to target web page. The percentage of each vertex presents the rank value of each web page.</p>
+		<p>Fig.1 consists of 11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to a unique web page, and the directed edge 
+			means there is one link from the source web page to a target web page. The percentage of each vertex presents the rank value of each web page.</p>
 
 		<p><strong>Notes:</strong></p>
-		<p>You can implement the sequential PageRank that can run on
-			desktop or laptop. But, when processing larger input data, like web
-			graph contains more than millions web pages, you need run the
+		<p>You can implement a sequential PageRank that can run on
+			desktops or laptops. But when processing larger amounts of input data, like web
+			graphs containing more than a million web pages, you need to run the
 			PageRank application in parallel so that it can aggregate the
 			computing power of multiple compute nodes. Currently, in both
-			industry and academic, the study of large scale web or social graphs
-			becomes increasingly popular. In published paper, the jobs execution
-			engines that claim to support large scale PageRank include: MPI,
+			industry and academia, the study of large-scale web or social graphs has
+			become increasingly popular. In one published paper, the job execution
+			engines that claim to support large scale PageRank applications include: MPI,
 			Hadoop, Dryad, Twister, Pregel. Project #1 is divided into two parts.
-			In first part, you need implement the sequential version of PageRank.
-			In second part, you will implement a parallel version of PageRank by
+			In the first part, you need to implement the sequential version of PageRank.
+			In the second part, you will implement a parallel version of PageRank by
 			using the programming interfaces of Hadoop MapReduce job execution
 			engine.</p>
 		
 		<p><strong>Formula:</strong></p>
-		<p>Equ.1 is the formula to calculate the rank value for each web page. We will learn this formula by applying it to the case in Fig.1. There are 11 web pages in Fig.1 which include: {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Assume the probability distribution for a web surfer accessing all these 11 Page in current iteration is {PR(A), PR(B), PR(C),  … PR(G5)}, then the probability for the surfer to access Page B in next iteration is:   
+		<p>Eqn.1 is the formula to calculate the rank value for each web page. We will learn this formula by applying it to the case in Fig.1. There are 11 web pages in Fig.1 which include: {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Assuming the probability distribution for a web surfer accessing all these 11 pages in the current iteration is {PR(A), PR(B), PR(C),  … PR(G5)}, then the probability for the surfer to access Page B in the next iteration is:   
 			<pre>PR(B)  =  PR(D)/2 + PR(E)/3 + PR(F)/2 + PR(C) + PR(G1)/2 + PR(G2)/2 + PR(G3)/2</pre>
 			In the general case, the PageRank value for any page u can be expressed as:
 			<br> Equ.1:   <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20"></p>
-		<p> The vertices set in the right of formula contain all the web pages that point to target web page ‘u’. The L(v) refers to the out degree of each web page in the vertices set. The initial rank values of each web page, like PR’(u), can be randomized double. After several iteration calculations, the rank values converge to the stationary distribution regardless of what their initial values are. Markov Chain [2]</p>
+		<p> The vertices seen in the right of the formula contain all the web pages that point to target web page ‘u’. The L(v) refers to the out degree of each web page in the vertices set. The initial rank values of each web page, like PR’(u), can be a randomized double. After several iteration calculations, the rank values converge to the stationary distribution regardless of what their initial values are. Markov Chain [2]</p>
 
 		<p><strong>Damping factor</strong></p>
 		<p>
-		The PageRank theory holds that even an imaginary surfer who is randomly clicking on links will eventually stop clicking. The probability, at any step, that the person will continue is a damping factor d. Various studies have tested differed damping factors, but it is generally assumed that damping factor will be around 0.85. The formula considering damping factor is shown at Equ.2. N refers to the total number of the unique urls. 
+		The PageRank theory holds that even an imaginary surfer who is randomly clicking on links will eventually stop clicking. The probability, at any step, that the person will continue is a damping factor d. Various studies have tested different damping factors, but it is generally assumed that the damping factor will be around 0.85. The formula considering damping factor is shown at Eqn.2. N refers to the total number of the unique urls. 
 		<br> Equ.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37"></p>
 	</div>
 
     <h2>2. <a>Execution guide for sample PageRank code</a></h2>
     <div>
-        <p>To help you understand the process of PageRank computation better, we offer an executable PageRank java class file in assignment package. Its usage is:  </p>
+        <p>To help you understand the process of PageRank computation better, we offer an executable PageRank java class file in the assignment package. Its usage is:  </p>
 		<p><strong>Java SequentialPageRank [input file name] [output file name] [iteration count] [damping factor]</strong></p>
         <p>We also provide a small PageRank input file which is built based the web graph showed in Fig.1. You can evaluate the rank values in Fig. 1 by running SequentialPageRank with following parameters. </p>
         <br><pre><strong>Java  SequentialPageRank    pagerank.input   pagerank.output   10  0.85</strong></pre> 
-        <p>To check the rightness of output rank values, you can open pagerank.output file and see whether the output results are the same as rank values in Fig. 1. Generally speaking, the larger the number of iterations, the more accurate the computed rank values will be. </p>
+        <p>To check the accuracy of these output rank values, you can open pagerank.output file and see whether the output results are the same as rank values in Fig. 1. Generally speaking, the larger the number of iterations, the more accurate the computed rank values will be. </p>
     </div>
     <h2>3. <a>Programming guide for PageRank</a></h2>
 
     <div>
     	<p><strong>Input Data format</strong></p>
-        <p>The input data for PageRank application is the web graph in adjacency matrix format [3]. In our sample program, it transfers the web graph into a simplified adjacency matrix. Following is the steps we constructed adjacency matrix for web graph in Fig.1: </p>
+        <p>The input data for PageRank application is the web graph in adjacency matrix format [3]. In our sample program, it transfers the web graph into a simplified adjacency matrix. The following are the steps we performed to construct an adjacency matrix for the web graph in Fig.1: </p>
 		<ol>
 			<li>Construct a set of tuples that describe the web graph
 				structure: WebG = {(A,null), (B, C), (C, B) (D, A, B), (E, B D F),

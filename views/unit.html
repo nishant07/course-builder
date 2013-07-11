@@ -31,8 +31,23 @@ $(document).ready(function(){
 //            leaves.slideDown();
 //        }
 //    });
+    $('.icon-list-alt').click(function(event){
+        event.preventDefault();
+        var val = $(this).siblings('input').attr('value');
+        window.location = val;
+    });
 });
 </script>
+
+<style>
+    .badge {
+        margin-top: 10px;
+    }
+
+    .hidden_unit {
+
+    }
+</style>
 
 {% endblock %}
 
@@ -48,7 +63,17 @@ $(document).ready(function(){
     {% endif %}
 
     <div class="span3">
-        <h4>
+        {% if unit.difficulty == 1 %}
+        <span title="Easy" class="badge badge-success">E</span>
+        {% elif unit.difficulty == 2 %}
+        <span title="Easy" class="badge badge-warning">I</span>
+        {% elif unit.difficulty == 3%}
+        <span title="Easy" class="badge badge-important">A</span>
+        {% else %}
+        <span title="None" class="badge badge-none">-</span>
+        {% endif %}
+
+        <h4 style="display: inline; margin-top: 10px; padding-left: 15px">
             {{ gettext('Unit %(id)s', id=unit.index) }}
         </h4>
     </div>

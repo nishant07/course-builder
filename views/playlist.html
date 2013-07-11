@@ -9,7 +9,10 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 
+
+
 <script>
+
 
 function dropItem(a, href, unit, lesson) {
     var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
@@ -186,7 +189,7 @@ $(document).ready(function(){
 <div class="row-fluid">
     <div class="span5">
         <ul class="bs-docs-sidenav root nav nav-list">
-            <li class="branch" ><i class="grey_arrow_icon pull-right" style="margin-top: 20px; margin-left: 15px;margin-right: 10px"></i><a href="#" style="background-color: rgb(207, 207, 207)">Lessons</a></li>
+            <li class="branch" ><i class="grey_arrow_icon pull-right" style="margin-top: 12px; margin-left: 15px;margin-right: 10px"></i><a href="#" style="background-color: rgb(207, 207, 207)">Lessons</a></li>
             {% for unit in units %}
             {% if unit.type != 'A' and unit.type != 'O' %}
                 <li class="branch"><a>{{ unit.unit_id }}. {{ unit.title }}</a>
@@ -212,8 +215,8 @@ $(document).ready(function(){
     <div class="span7" role="main">
         <form method="post" action="playlist" id=submitForm>
             <div>
-                <div id="droppedItems" style='min-height: 200px; border: #006699; border: 1px solid #e5e5e5; border-radius: 6px;display: block'>
-                    <table class="table-striped" id='dropTable' style='border-radius: 6px;box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1); border-top: none; border-right: none; border-left: none'>
+                <div id="droppedItems" style='min-height: 200px; border: #006699; border: 1px solid #e5e5e5; border-radius: 0;display: block'>
+                    <table class="table-striped" id='dropTable' style='border-radius: 0;box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1); border-top: none; border-right: none; border-left: none'>
                         <thead>
                             <tr style="border-top: none; border-right: none; border-left: none; background-color: rgb(207, 207, 207)">
                                 <td style="width: 100%; border-right: none; ">Drag and Drop lessons here</td>

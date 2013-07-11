@@ -13,6 +13,16 @@
     border-left: 0;
 }
 
+.unit_a {
+    display: block;
+    margin: 0 0 -1px;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border: 0;
+}
+
 .branch li:first-child {
     border-top: 1px solid #e5e5e5;
 }
@@ -52,6 +62,21 @@
 
 .bs-docs-sidenav li {
     padding-left: 0px;
+}
+
+.bs-docs-sidenav > li > span {
+    /*display: block;*/
+    /*width: 190px \9;*/
+    margin: 0 0 -1px;
+    border: 0;
+}
+
+.bs-docs-sidenav > li > span > a {
+    /*display: block;*/
+    /*width: 190px \9;*/
+    margin: 0 0 -1px;
+    padding: 4px 10px;
+    border: 0;
 }
 
 .bs-docs-sidenav > li > a {
@@ -123,6 +148,7 @@
     padding-top: 6px;
     border: 0;
 }
+
 
 .check_icon {
     display: inline-block;

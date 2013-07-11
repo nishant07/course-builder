@@ -1,17 +1,17 @@
-<div class="span3">
+<div class="span3" id="lesson_nav">
   <ul class="bs-docs-sidenav root nav nav-list">
     {{course_info.unit.after_leftnav_begins | safe}}
 
     {% for lesson in lessons %}
       {% if lesson.now_available or is_course_admin %}
           <li class="branch">
-            <a class="tipbox" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}" data-toggle="tooltip" title="{{ lesson.description }} ">
+            <a class="unit_a" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}" data-toggle="tooltip" title="{{ lesson.description }} ">
              {{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
                 {% if lesson.activity %}
                 <i class="icon-list-alt pull-right" style="margin-top: 10px"></i>
+                <input type="hidden" class="hidden_unit" value="activity?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
                 {% endif %}
             </a>
-
         {#{% if lesson.activity %}
           <ul>
             {% if page_type == 'activity' and lesson.lesson_id == lesson_id %}

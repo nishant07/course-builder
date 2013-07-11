@@ -9,10 +9,7 @@
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 
-
-
 <script>
-
 
 function dropItem(a, href, unit, lesson) {
     var lessonFind = $("#dropTable").find('[name="lesson"][value="'+ unit + '.' + lesson +'"]');
@@ -162,27 +159,33 @@ $(document).ready(function(){
 {% endblock %}
 
 {% block main_content %}
-<div class="content-box">
+<div class="content-box visible-phone">
+    <div class="row-fluid">
+        <p>This page does not work in a small screen</p>
+    </div>
+</div>
+<div class="content-box hidden-phone">
 <div class="row-fluid">
-    <div class=span4>
+    <div class=span5>
 
     </div>
-    <div class="span3 offset5 ">
-
-        <!--<a class="btn pull-right" href="#" id='clear' style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>Clear</a>-->
-        <!--<a class="btn pull-right" id='save' href="#" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px' >Save</a>-->
-        <a role="btn" class="btn" id='save' href="#" style='display: inline' >Save</a>
-        <a role="btn" class="btn" id='clear' style='display: inline'>Clear</a>
-        {% if playList != 'None' %}
-        <!--<input class="btn btn-success pull-right" type='button' id='start' value="Start" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>-->
-        <a role="btn" class="btn btn-success" style='display: inline' id='start'>
-            <i class="icon-play icon-white"></i>Start
-        </a>
-        {% else %}
-        <a role="btn" class="btn btn-success disabled" style='display: inline' id='start'>
-            <i class="icon-play icon-white"></i>Start
-        </a>
-        {% endif %}
+    <div class="span7">
+        <div class="pull-right">
+            <!--<a class="btn pull-right" href="#" id='clear' style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>Clear</a>-->
+            <!--<a class="btn pull-right" id='save' href="#" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px' >Save</a>-->
+            <a role="btn" class="btn" id='save' href="#" style='display: inline' >Save</a>
+            <a role="btn" class="btn" id='clear' style='display: inline'>Clear</a>
+            {% if playList != 'None' %}
+            <!--<input class="btn btn-success pull-right" type='button' id='start' value="Start" style='margin: 5px 10px 5px 5px;padding: 2px 10px 2px 10px'>-->
+            <a role="btn" class="btn btn-success" style='display: inline' id='start'>
+                <i class="icon-play icon-white"></i>Start
+            </a>
+            {% else %}
+            <a role="btn" class="btn btn-success disabled" style='display: inline' id='start'>
+                <i class="icon-play icon-white"></i>Start
+            </a>
+            {% endif %}
+        </div>
     </div>
 </div>
 
@@ -219,7 +222,8 @@ $(document).ready(function(){
                     <table class="table-striped" id='dropTable' style='border-radius: 0;box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1); border-top: none; border-right: none; border-left: none'>
                         <thead>
                             <tr style="border-top: none; border-right: none; border-left: none; background-color: rgb(207, 207, 207)">
-                                <td style="width: 100%; border-right: none; ">Drag and Drop lessons here</td>
+                                <td class="visible-desktop" style="width: 100%; border-right: none; ">Drag and Drop lessons here</td>
+                                <td class="visible-tablet" style="width: 100%; border-right: none; ">Select lessons</td>
                                 <td style="border-left: none"></td>
                             </tr>
                         </thead>

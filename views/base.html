@@ -58,7 +58,6 @@
 
 <!-- Responsive Design -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
 {% block header_content %}{% endblock %}
 
@@ -85,22 +84,14 @@
 	</div>
 
 	<!-- footer section -->
-	<div style="margin-top: 50px;" id="gcb-signature"></div>
-	<div class="gcb-footer" id="gcb-footer">
-		<div id="gcb-footer-local">
-			<div class="gcb-aux"></div>
-		</div>
-		<div id="gcb-footer-global">
-			<div class="gcb-aux">
-				<ul>
-					<li><a href="{{course_info.institution.url}}">{{course_info.institution.name}}</a>
-					</li>
-					<li><a href="{{course_info.base.privacy_terms_url}}"> {%
-							trans %} Privacy &amp; Terms {% endtrans %} </a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <hr>
+    <footer>
+        <div class="container">
+            <p><a href="{{course_info.institution.url}}">{{course_info.institution.name}}</a></p>
+            <p><a href="{{course_info.base.privacy_terms_url}}"> {%trans %} Privacy &amp; Terms {% endtrans %} </a></p>
+        </div>
+    </footer>
+
 	{{course_info.base.before_body_tag_ends | safe}}
 </body>
 

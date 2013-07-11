@@ -28,7 +28,7 @@
             </a>
             {% endif %}
 
-            <a role="btn" href="playlist" class="btn ">
+            <a role="btn" href="playlist" class="btn hidden-phone">
                 <i class="icon-pencil"></i>
             </a>
         </div>
@@ -97,7 +97,7 @@
                             <i class="icon-ok"></i>
                             Finished
                         {% elif progress[unit.unit_id] == 1 %}
-                        <img src="assets/img/in_progress.png"
+                        <img src="assets/img/in_progress.png">
                             <i class="icon-adjust"></i>
                             In Progress
                         {% else %}

@@ -14,23 +14,23 @@
 
 <script>
 $(document).ready(function(){
-    $( '.root ul' ).hide();
-    $( 'li.branch > a').append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
+//    $( '.root ul' ).hide();
+//    $( 'li.branch > a').append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
 
-    $( '.icon-chevron-up, .icon-chevron-down' ).click( function ( event ) {
-        event.preventDefault();
-
-        var leaves = $( this ).parent( 'a').parent('li').children( 'ul' );
-
-        if ( leaves.is( ':visible' ) ) {
-            $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
-            leaves.slideUp();
-
-        } else {
-            $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
-            leaves.slideDown();
-        }
-    });
+//    $( '.icon-chevron-up, .icon-chevron-down' ).click( function ( event ) {
+//        event.preventDefault();
+//
+//        var leaves = $( this ).parent( 'a').parent('li').children( 'ul' );
+//
+//        if ( leaves.is( ':visible' ) ) {
+//            $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
+//            leaves.slideUp();
+//
+//        } else {
+//            $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
+//            leaves.slideDown();
+//        }
+//    });
 });
 </script>
 
@@ -38,6 +38,7 @@ $(document).ready(function(){
 
 {% block main_content %}
 
+<div class="content-box box-narrow">
 <div class="row-fluid">
     {% if is_read_write_course and is_course_admin %}
     <a href="dashboard?action=edit_unit&key={{ unit_id }}"
@@ -48,7 +49,7 @@ $(document).ready(function(){
 
     <div class="span3">
         <h4>
-            {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
+            {{ gettext('Unit %(id)s', id=unit.index) }}
         </h4>
     </div>
 
@@ -151,5 +152,5 @@ $(document).ready(function(){
     {{course_info.unit.before_content_ends | safe}}
   </div>
 </div>
-
+</div>
 {% endblock %}

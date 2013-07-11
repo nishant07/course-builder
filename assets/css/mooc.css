@@ -3,10 +3,19 @@
     font-weight: bold;
 }
 
-.root li { line-height: 40px; list-style: none; }
-.root li { padding-left: 0px; }
-.root li.branch { padding-left: 0; }
-.root a { text-decoration: none; color: inherit; }
+.branch {
+    display: block;
+    line-height: 30px;
+    list-style: none;
+    border-top: 0;
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 0;
+    border-left: 0;
+}
+
+.branch li:first-child {
+    border-top: 1px solid #e5e5e5;
+}
 
 .bs-docs-sidenav {
     /*width: 228px;*/
@@ -14,24 +23,48 @@
     padding: 0;
     /*font-size: 80%;*/
     background-color: #F1F1F1;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
     -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
     box-shadow: 0 1px 4px rgba(0,0,0,.065);
 }
-.bs-docs-sidenav > li > a {
+
+.bs-docs-sidenav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.second_branch {
     display: block;
+    line-height: 30px;
+    list-style: none;
+    border-top: 0;
+    border-bottom: 1px solid #e5e5e5;
+    border-right: 0;
+    border-left: 0;
+}
+
+.branch li:last-child {
+    border-bottom: 0;
+}
+
+.bs-docs-sidenav li {
+    padding-left: 0px;
+}
+
+.bs-docs-sidenav > li > a {
+    /*display: block;*/
     /*width: 190px \9;*/
     margin: 0 0 -1px;
     padding: 4px 10px;
-    border: 1px solid #e5e5e5;
+    border: 0;
 }
 .bs-docs-sidenav > li:first-child > a {
-    -webkit-border-radius: 6px 6px 0 0;
-    -moz-border-radius: 6px 6px 0 0;
-    border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
 }
 
 .bs-docs-sidenav > li:last-child > a {
@@ -39,6 +72,7 @@
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
 }
+
 .bs-docs-sidenav > .active > a {
     position: relative;
     z-index: 2;
@@ -81,7 +115,13 @@
     bottom: 270px;
 }
 .inner_a {
-    display: block; margin: 0 0 -1px; padding-left: 20px; padding-right: 10px; padding-bottom: 6px; padding-top: 6px; border: 1px solid #e5e5e5;
+    display: block;
+    margin: 0 0 -1px;
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border: 0;
 }
 
 .check_icon {

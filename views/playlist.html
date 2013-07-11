@@ -193,8 +193,8 @@ $(document).ready(function(){
                 {% if units_lessons[unit.unit_id] != 'None' %}
                     <ul style="margin-left: 0px">
                         {% for v in units_lessons[unit.unit_id] %}
-                        <li>
-                            <i class="check_icon pull-left" style="margin-top: 20px; margin-left: 15px;margin-right: 10px"></i>
+                        <li class="second_branch">
+                            <i class="check_icon pull-left" style="margin-top: 12px; margin-left: 15px;margin-right: 10px"></i>
                             <a class="inner_a" unit="{{unit.unit_id}}" lesson={{v.lesson_id}} style="cursor: hand">
                                 {{ unit.unit_id }}.{{v.lesson_id}}. {{v.title}}</a>
                             <input type='hidden' name='unit' value="{{unit.unit_id}}">

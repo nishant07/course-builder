@@ -3,104 +3,28 @@
     {{course_info.unit.after_leftnav_begins | safe}}
 
     {% for lesson in lessons %}
-
       {% if lesson.now_available or is_course_admin %}
-
-        {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
           <li class="branch">
-           	<a data-toggle="tooltip" title="{{ lesson.description }} ">{{ unit.index }}.{{ lesson.index }} {{ lesson.title }}</a>
-        {% else %}
-          <li class="branch">
-          {% if lesson.description and lesson.description != ' ' %} 
             <a class="tipbox" href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}" data-toggle="tooltip" title="{{ lesson.description }} ">
              {{ unit.index }}.{{ lesson.index }} {{ lesson.title }}
+                {% if lesson.activity %}
+                <i class="icon-list-alt pull-right" style="margin-top: 10px"></i>
+                {% endif %}
             </a>
-          {% else %}
-          	<a href="unit?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
-          		{{ unit.index }}.{{ lesson.index }} {{ lesson.title }} 
-          	</a>
-          {% endif %}
-        {% endif %}
-        {% if not lesson.now_available and is_course_admin %}
-          <span class="grayed">
-            (Private)
-          </span>
-        {% endif %}
 
-        {% if lesson.activity %}
-          <ul style="margin-left: 0px">
+        {#{% if lesson.activity %}
+          <ul>
             {% if page_type == 'activity' and lesson.lesson_id == lesson_id %}
               <li class="active">
             {% else %}
               <li>
             {% endif %}
-                {% if is_progress_recorded %}
-                  {% if progress[lesson.lesson_id] == 2 %}
-                    <img src="assets/lib/completed.png"
-                         alt="{% trans %} Completed {% endtrans %}"
-                         title="{% trans %} Completed {% endtrans %}"
-                         class="progress"
-                         id="progress-completed-{{lesson.lesson_id}}">
-                  {% elif progress[lesson.lesson_id] == 1 %}
-                    <img src="assets/lib/in_progress.png"
-                         alt="{% trans %} In progress {% endtrans %}"
-                         title="{% trans %} In progress {% endtrans %}"
-                         class="progress"
-                         id="progress-inprogress-{{lesson.lesson_id}}">
-                  {% else %}
-                    <img src="assets/lib/not_started.png"
-                         alt="{% trans %} Not yet started {% endtrans %}"
-                         title="{% trans %} Not yet started {% endtrans %}"
-                         class="progress"
-                         id="progress-notstarted-{{lesson.lesson_id}}">
-                  {% endif %}
-                {% else %}
-                  <span class="progress-empty"></span>
-                {% endif %}
-
-                {% if page_type == 'activity' and lesson.lesson_id == lesson_id %}
-                  {% trans %} Activity {% endtrans %}
-                {% else %}
-                  <a href="activity?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
-                    {{lesson.activity_title}}
-                  </a>
-                {% endif %}
+              <a href="activity?unit={{ unit_id }}&lesson={{ lesson.lesson_id }}">
+                {{lesson.activity_title}}
+              </a>
               </li>
           </ul>
-        {% endif %}
-
-        </li>
-
-      {% else %}
-        <li class="branch">
-          {% if page_type == 'unit' and lesson.lesson_id == lesson_id %}
-            {% if lesson.description and lesson.description != ' ' %}
-            <a class="grayed-active" data-toggle="tooltip" title="{{ lesson.description }} ">
-            {% else %}
-            <a class="grayed-active">
-            {% endif %}
-          {% else %}
-            <a class="grayed" data-toggle="tooltip" title="{{ lesson.description }} ">
-          {% endif %}
-
-            {{ unit.index}}.{{ lesson.index }} {{ lesson.title }}
-          </a>
-
-          {% if lesson.activity %}
-            <ul style="margin-left: 0px">
-              <li>
-                <span class="progress-empty"></span>
-                {% if page_type == 'activity' and lesson.lesson_id == lesson_id %}
-                  <span class="grayed-active">
-                {% else %}
-                  <span class="grayed">
-                {% endif %}
-
-                  {% trans %} Activity {% endtrans %}
-                </span>
-              </li>
-            </ul>
-          {% endif %}
+        {% endif %}#}
         </li>
       {% endif %}
 

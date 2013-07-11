@@ -13,25 +13,25 @@
 <link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 
 <script>
-    $(document).ready(function(){
-        $( '.root ul' ).hide();
-        $( 'li.branch > a').append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
-
-        $( 'i.icon-chevron-up, i.icon-chevron-down' ).click( function ( event ) {
-            event.preventDefault();
-
-            var leaves = $( this ).parent( 'a').parent('li').children( 'ul' );
-
-            if ( leaves.is( ':visible' ) ) {
-                $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
-                leaves.slideUp();
-
-            } else {
-                $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
-                leaves.slideDown();
-            }
-        });
-    });
+//    $(document).ready(function(){
+//        $( '.root ul' ).hide();
+//        $( 'li.branch > a').append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
+//
+//        $( 'i.icon-chevron-up, i.icon-chevron-down' ).click( function ( event ) {
+//            event.preventDefault();
+//
+//            var leaves = $( this ).parent( 'a').parent('li').children( 'ul' );
+//
+//            if ( leaves.is( ':visible' ) ) {
+//                $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
+//                leaves.slideUp();
+//
+//            } else {
+//                $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
+//                leaves.slideDown();
+//            }
+//        });
+//    });
 </script>
 
 {% if record_events %}
@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block main_content %}
-
+<div class="content-box box-narrow">
 <div class="row-fluid">
     {% if is_read_write_course and is_course_admin %}
     <a href="dashboard?action=edit_unit&key={{ unit_id }}"
@@ -142,5 +142,5 @@
         {{course_info.unit.before_content_ends | safe}}
     </div>
 </div>
-
+</div>
 {% endblock %}

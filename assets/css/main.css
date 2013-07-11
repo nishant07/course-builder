@@ -134,7 +134,8 @@ th, td {
 
 #gcb-main, .gcb-aux {
   margin: auto;
-  max-width: 982px;
+  max-width: 1200px;
+  min-width: 1000px;
 }
 
 #gcb-main {

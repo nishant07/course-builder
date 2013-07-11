@@ -48,7 +48,7 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="content-box box-narrow">
+<div class="content-box">
 <div class="row-fluid">
     {% if is_read_write_course and is_course_admin %}
     <a href="dashboard?action=edit_unit&key={{ unit_id }}"
@@ -90,20 +90,21 @@
 
         {% if lesson.now_available or is_course_admin %}
 
+        {% if lesson.notes %}
         <div class="row-fluid">
             <div class="span12">
-                <p class="pull-right">
-                    {% if lesson.notes %}
-                    <a role="button" class="gcb-button gcb-button-primary" href="{{ lesson.notes }}" target="_blank">
-                        {% trans %} Text Version {% endtrans %}
+                <div class="btn-group pull-right">
+                    <a role="button" class="btn btn-large" href="{{ lesson.notes }}" target="_blank">
+                        <i class="icon-list-alt"></i> {% trans %} Text Version {% endtrans %}
                     </a>
-                    {% endif %}
-                </p>
+                </div>
             </div>
         </div>
+        <hr>
+        {% endif %}
 
         <div class="row-fluid">
-            <div class="span12" style="width: 785px;" id="activityContents">
+            <div class="span12" id="activityContents">
             </div>
         </div>
 
@@ -123,19 +124,21 @@
         </div>
         {% endif %}
 
+        <hr>
+
         <div class="row-fluid">
-            <div class="prev-button" style="float:left; margin-top: 0px; margin-left: 40px;">
+            <ul class="pager">
                 {% if back_button_url %}
-                <a href="{{ back_button_url }}"> {% trans %} Previous Page {% endtrans %} </a>
+                <li class="previous">
+                    <a href="{{ back_button_url }}">&larr; Previous</a>
+                </li>
                 {% endif %}
-            </div>
-            <div class="next-button" style="float:right; margin-top: 0px; margin-right: 40px;">
                 {% if next_button_url %}
-                <a href="{{ next_button_url }}"> {% trans %} Next Page {% endtrans %} </a>
-                {% else %}
-                <a href="course"> {% trans %} End {% endtrans %} </a>
+                <li class="next">
+                    <a href="{{ next_button_url }}">Next &rarr;</a>
+                </li>
                 {% endif %}
-            </div>
+            </ul>
         </div>
         {% endif %}
         {% endfor %}

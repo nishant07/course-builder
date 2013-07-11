@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block subtitle %}
-  {% trans %} Unit {% endtrans %} {{ unit.index }}
+{% trans %} Unit {% endtrans %} {{ unit.index }}
 {% endblock subtitle %}
 
 {% block top_content %}
@@ -13,169 +13,148 @@
 <link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 
 <script>
-$(document).ready(function(){
-//    $( '.root ul' ).hide();
-//    $( 'li.branch > a').append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
+    $(document).ready(function(){
+    //    $( '.root ul' ).hide();
+    //    $( 'li.branch > a').append( '<i class="icon-chevron-down pull-right" style="margin-top: 10px"></i>' );
 
-//    $( '.icon-chevron-up, .icon-chevron-down' ).click( function ( event ) {
-//        event.preventDefault();
-//
-//        var leaves = $( this ).parent( 'a').parent('li').children( 'ul' );
-//
-//        if ( leaves.is( ':visible' ) ) {
-//            $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
-//            leaves.slideUp();
-//
-//        } else {
-//            $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
-//            leaves.slideDown();
-//        }
-//    });
-    $('.icon-list-alt').click(function(event){
+    //    $( '.icon-chevron-up, .icon-chevron-down' ).click( function ( event ) {
+    //        event.preventDefault();
+    //
+    //        var leaves = $( this ).parent( 'a').parent('li').children( 'ul' );
+    //
+    //        if ( leaves.is( ':visible' ) ) {
+    //            $( 'i.icon-chevron-up', this ).removeClass( 'icon-chevron-up' ).addClass( 'icon-chevron-down' );
+    //            leaves.slideUp();
+    //
+    //        } else {
+    //            $( 'i.icon-chevron-down', this ).removeClass( 'icon-chevron-down' ).addClass( 'icon-chevron-up' );
+    //            leaves.slideDown();
+    //        }
+    //    });
+$('.icon-list-alt').click(function(event){
         event.preventDefault();
         var val = $(this).siblings('input').attr('value');
         window.location = val;
     });
-});
+    });
 </script>
-
-<style>
-    .badge {
-        margin-top: 10px;
-    }
-
-    .hidden_unit {
-
-    }
-</style>
 
 {% endblock %}
 
 {% block main_content %}
 
-<div class="content-box box-narrow">
-<div class="row-fluid">
-    {% if is_read_write_course and is_course_admin %}
-    <a href="dashboard?action=edit_unit&key={{ unit_id }}"
-       class="gcb-button gcb-button-action">Edit unit</a>
-    <a href="dashboard?action=edit_lesson&key={{ lesson_id }}"
-       class="gcb-button gcb-button-action">Edit lesson</a>
-    {% endif %}
-
-    <div class="span3">
-        {% if unit.difficulty == 1 %}
-        <span title="Easy" class="badge badge-success">E</span>
-        {% elif unit.difficulty == 2 %}
-        <span title="Easy" class="badge badge-warning">I</span>
-        {% elif unit.difficulty == 3%}
-        <span title="Easy" class="badge badge-important">A</span>
-        {% else %}
-        <span title="None" class="badge badge-none">-</span>
+<div class="content-box">
+    <div class="row-fluid">
+        {% if is_read_write_course and is_course_admin %}
+        <a href="dashboard?action=edit_unit&key={{ unit_id }}"
+           class="gcb-button gcb-button-action">Edit unit</a>
+        <a href="dashboard?action=edit_lesson&key={{ lesson_id }}"
+           class="gcb-button gcb-button-action">Edit lesson</a>
         {% endif %}
 
-        <h4 style="display: inline; margin-top: 10px; padding-left: 15px">
-            {{ gettext('Unit %(id)s', id=unit.index) }}
-        </h4>
-    </div>
-
-    <div class="span9">
-        <h4>
-            {{ lesson.title }}
-        </h4>
-    </div>
-</div>
-<div class="row-fluid">
-  {% if lessons %}
-    {% include 'lesson_navbar.html' %}
-  {% endif %}
-
-  <div class="span9">
-    {{course_info.unit.after_content_begins | safe}}
-
-    {% if not lesson %}
-      <div class="row-fluid">
-        <div class="gcb-aside gcb-button-box">
-          {% trans %} This unit does not contain any lessons. {% endtrans %}
+        <div class="span3">
+            <h4>
+                {{ gettext('Unit %(id)s', id=unit.index) }}
+            </h4>
         </div>
-      </div>
-    {% endif %}
 
-    {% for lesson in lessons %}
-      {% if lesson.lesson_id == lesson_id %}
+        <div class="span9">
+            <h4>
+                {{ lesson.title }}
+            </h4>
+        </div>
+    </div>
+    <div class="row-fluid">
+        {% if lessons %}
+            {% include 'lesson_navbar.html' %}
+        {% endif %}
 
-            {% if lesson.now_available or is_course_admin %}
-              <div class="row-fluid">
-                <div class="span12">
-                  <p style="float:right; margin-top: 0px;">
-                    {% if lesson.notes %}
-                    <a role="button" class="gcb-button gcb-button-primary" href="{{ lesson.notes }}" target="_blank">
-                      {% trans %} Text Version {% endtrans %}
-                    </a>
-                    {% endif %}
-                  </p>
+        <div class="span9">
+            {{course_info.unit.after_content_begins | safe}}
+
+            {% if not lesson %}
+            <div class="row-fluid">
+                <div class="gcb-aside gcb-button-box">
+                    {% trans %} This unit does not contain any lessons. {% endtrans %}
                 </div>
-              </div><!-- /gcb-cols -->
-              {% if lesson.objectives %}
-              <div class="row-fluid">
-                  <div class="span12">
-                      {{ lesson.objectives | safe }}
-                  </div>
-              </div>
-              {% endif %}
-
-              {% if lesson.video %}
-              <div class="row-fluid">
-                <div class="span12">
-                <p class="video-container">
-                  <iframe class="youtube-player" title="{% trans %} YouTube Video Player {% endtrans %}"
-                          type="text/html" frameborder="0" allowfullscreen
-                          src="https://www.youtube.com/embed/{{ lesson.video }}?feature=player_embedded&rel=0">
-                  </iframe>
-                </p>
-                </div>
-              </div>
-              {% endif %}
-
-            {% else %}
-              <div class="row-fluid">
-                  <div class="span12">
-                      <h1 class="lesson_title">
-                        {{ lesson.title }}
-                      </h1>
-
-                      <br><br>
-
-                      <div>
-                        {% trans %} This lesson is not available. {% endtrans %}
-                      </div>
-                  </div>
-              </div>
+            </div>
             {% endif %}
 
-          <div class="row-fluid">
-            <div class="prev-button" style="float:left; margin-top: 0px; margin-left: 40px;">
-              {% if back_button_url %}
-                <a href="{{ back_button_url }}">
-                  {% trans %} Previous Page {% endtrans %}
-                </a>
-              {% endif %}
+            {% for lesson in lessons %}
+            {% if lesson.lesson_id == lesson_id %}
+
+            {% if lesson.now_available or is_course_admin %}
+
+            {% if lesson.objectives %}
+            <div class="row-fluid">
+                <div class="span12">
+                    {{ lesson.objectives | safe }}
+                </div>
             </div>
-            <div class="next-button" style="float:right; margin-top: 0px; margin-right: 40px;">
-              {% if next_button_url %}
-                <a href="{{ next_button_url }}">
-                  {% trans %} Next Page {% endtrans %}
-                </a>
-              {% else %}
-                <a href="course">
-                  {% trans %} End {% endtrans %}
-                </a>
-              {% endif %}
+            {% endif %}
+
+            {% if lesson.video %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <p class="video-container">
+                        <iframe class="youtube-player" title="{% trans %} YouTube Video Player {% endtrans %}"
+                                type="text/html" frameborder="0" allowfullscreen
+                                src="https://www.youtube.com/embed/{{ lesson.video }}?theme=light&feature=player_embedded&rel=0">
+                        </iframe>
+                    </p>
+                </div>
             </div>
-          </div>
-      {% endif %}
-    {% endfor %}
-    {{course_info.unit.before_content_ends | safe}}
-  </div>
-</div>
+            {% endif %}
+
+            {% if lesson.notes %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="btn-group center">
+                        <a role="button" class="btn btn-large" href="{{ lesson.notes }}" target="_blank">
+                            <i class="icon-list-alt"></i> {% trans %} Text Version {% endtrans %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <hr>
+
+            {% else %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <h1 class="lesson_title">
+                        {{ lesson.title }}
+                    </h1>
+
+                    <br><br>
+
+                    <div>
+                        {% trans %} This lesson is not available. {% endtrans %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="row-fluid">
+                <ul class="pager">
+                    {% if back_button_url %}
+                    <li class="previous">
+                        <a href="{{ back_button_url }}">&larr; Previous</a>
+                    </li>
+                    {% endif %}
+                    {% if next_button_url %}
+                    <li class="next">
+                        <a href="{{ next_button_url }}">Next &rarr;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {{course_info.unit.before_content_ends | safe}}
+        </div>
+    </div>
 </div>
 {% endblock %}
+

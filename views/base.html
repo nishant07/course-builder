@@ -56,6 +56,10 @@
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 <link href="assets/css/nav.css" rel="stylesheet" type="text/css">
 
+<!-- Responsive Design -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
 {% block header_content %}{% endblock %}
 
 {% if course_info.base.show_gplus_button %}
@@ -69,8 +73,8 @@
 	{% include 'menu.html' %}
     {% block first_content %}{% endblock %}
 	<!-- top section -->
-	<div class="is-wrapper">
-		<div class="gcb-aux">
+	<div class="container">
+		<div class="row">
 			{% block top_content %}{% endblock %}
 			{{course_info.base.after_top_content_ends | safe}}
 
@@ -99,4 +103,5 @@
 	</div>
 	{{course_info.base.before_body_tag_ends | safe}}
 </body>
+
 </html>

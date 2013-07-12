@@ -73,14 +73,12 @@
     {% block first_content %}{% endblock %}
 	<!-- top section -->
 	<div class="container">
-		<div class="row">
-			{% block top_content %}{% endblock %}
-			{{course_info.base.after_top_content_ends | safe}}
+        {% block top_content %}{% endblock %}
+        {{course_info.base.after_top_content_ends | safe}}
 
-			<!-- main section -->
-			{% block main_content %}{% endblock %}
-			{{course_info.base.after_main_content_ends | safe}}
-		</div>
+        <!-- main section -->
+        {% block main_content %}{% endblock %}
+        {{course_info.base.after_main_content_ends | safe}}
 	</div>
 
 	<!-- footer section -->

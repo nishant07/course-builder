@@ -3,6 +3,14 @@
 {% block header_content %}
 <link href="assets/css/preview.css" rel="stylesheet" type="text/css">
 
+<style>
+    {% if not enrolled %}
+    body {
+        background-image: url('assets/img/cloud_background.png')
+    }
+    {% endif %}
+</style>
+
 <script>
     //TAB
     $(function () {
@@ -15,6 +23,10 @@
     $('.carousel').carousel();
     });
 </script>
+{% endblock %}
+
+{% block first_content %}
+<div style="background-image: url('assets/img/cloud_background.png'); position: absolute; left: 20px; top: 20px; z-index: 1"></div>
 {% endblock %}
 
 {% block top_content %}

@@ -68,7 +68,9 @@ $('.icon-list-alt').click(function(event){
     </div>
     <div class="row-fluid">
         {% if lessons %}
+        <div class="span3 hidden-phone" id="lesson_nav">
             {% include 'lesson_navbar.html' %}
+        </div>
         {% endif %}
 
         <div class="span9">

@@ -66,14 +66,17 @@
 			implementation.</p>
 	</div>
 
-	<h1>4. Pseudo code for MPI PageRank</h1>
+	<h1>4. Pseudocode for MPI PageRank</h1>
 
 
 
 
 	<div>
 		<p>You need to complete two files: mpi_main.c and mpi_pagerank.c.
-			Pseudo codes are as follows.</p>
+			Pseudocodes are as follows:</p>
+		<p>
+			<br> <strong>mpi_main.c </strong>
+		</p>
 
 		<!-- HTML generated using hilite.me -->
 		<div
@@ -233,7 +236,7 @@
 
 	<h1>5. FILE IO functions</h1>
 	<div>
-		<p>Besides pseudo-codes, we provide two MPI functions (mpi_read
+		<p>Besides pseudocodes, we provide two MPI functions (mpi_read
 			and mpi_write) for file reading and writing. This is so you can simply
 			call them without re-implementation.</p>
 		<p>
@@ -241,8 +244,8 @@
 		</p>
 		<p>This function is to read an adjacency matrix file and assign a
 			local matrix to each process. After this call each process will have
-			its own adjacency matrix. Thus, each process should call this
-			function altogether. The following is a signature of mpi_read function.</p>
+			its own adjacency matrix, and therefore each should call this
+			function. The following is a signature of mpi_read function:</p>
 
 		<!-- HTML generated using hilite.me -->
 		<div
@@ -329,8 +332,8 @@ openmpi-1.4-gcc-x86_64
 			the following command:</p>
 		<pre>$ mpi-selector --set openmpi-1.4-gcc-i386</pre>
 		<p>You may see a warning for overwriting your previous setting.
-			You can answer &#8220;yes&#8221;.</p>
-		<p>Next you will see 'Defaults already exist; overwrite them? (Y/N)' Choose 'Yes'.</p>
+			You can answer 'yes'.</p>
+		<p>Next you will see 'Defaults already exist; overwrite them (Y/N)?' Choose 'Yes'.</p>
 		<p>Now you are ready to compile the sample simply by using the
 			&#8220;make&#8221; command (we provide Makefile for you).</p>
 		<pre>

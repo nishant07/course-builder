@@ -9,49 +9,29 @@
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<title>{{course_info.course.title}} - {% block subtitle %} {%
-	trans %} Course {% endtrans %} {% endblock subtitle %}</title>
+<title>{{course_info.course.title}} - {% block subtitle %} {% trans %} Course {% endtrans %} {% endblock subtitle %}</title>
 
 <link rel="icon" href="assets/img/your_logo_here.png" />
 
+<!-- main CSS -->
 <link href="assets/css/main.css" rel="stylesheet" type="text/css">
 
-<link
-	href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin"
-	rel="stylesheet">
+<!-- Fonts -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
 
 <!-- jQuery should be imported first -->
 <script src="assets/lib/jquery-1.7.2.min.js"></script>
 
-
 <!-- The following translated strings are used in activity-generic.js and should be
     declared before that file is imported. -->
-<script>
-	// import JSON for older browsers like IE 7
-	if (typeof JSON == 'undefined') {
-		document
-				.write('<script src="assets/lib/json2-2012.10.08.min.js"></' + 'script>');
-	}
-
-	// inline translations
-	var trans = {};
-	trans.CHECK_ANSWER_TEXT = "{{ gettext(' Check Answer ')|replace('\"', '\\\"') }}";
-	trans.CHECK_ANSWERS_TEXT = "{{ gettext( ' Check Answers ')|replace('\"', '\\\"') }}";
-	trans.SHOW_ANSWER_TEXT = "{{ gettext(' Skip and Show Answer ')|replace('\"', '\\\"') }}";
-	trans.SAVE_ANSWERS_TEXT = "{{ gettext(' Save Answers ')|replace('\"', '\\\"') }}";
-	trans.SELECT_ANSWER_PROMPT = "{{ gettext(' Please click one of the buttons for your answer. ')|replace('\"', '\\\"') }}";
-	trans.ALL_CORRECT_TEXT = "{{ gettext(' All your answers are correct! ')|replace('\"', '\\\"') }}";
-	trans.NUM_CORRECT_TEXT = "{{ gettext(' Number of questions you answered correctly ')|replace('\"', '\\\"') }}";
-	trans.YOUR_SCORE_TEXT = "{{ gettext(' You received a score on this assessment of ')|replace('\"', '\\\"') }}";
-	trans.LESSONS_TO_REVIEW_TEXT = "{{ gettext(' Here are lessons you could review to improve your score ')|replace('\"', '\\\"') }}";
-	trans.PERFECT_SCORE_SAVE_TEXT = "{{ gettext(' Congratulations! Press the \\\'Save Answers\\\' button to submit your grade. ')|replace('\"', '\\\"') }}";
-	trans.GENERIC_SAVE_TEXT = "{{ gettext(' Press the \\\'Save Answers\\\' button below to save your scores. You can also edit your answers above before clicking \\\'Save Answers\\\'. ')|replace('\"', '\\\"') }}";
-</script>
+<script src="assets/js/inline_translations.js"></script>
 <script src="assets/lib/activity-generic-1.3.js"></script>
 
+<!-- SLIDEMAN -->
 <script type="text/javascript" src="assets/lib/sliderman.1.3.7.js"></script>
 <link rel="stylesheet" type="text/css" href="assets/css/sliderman.css" />
 
+<!-- Bootstrap -->
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
 <link href="assets/css/nav.css" rel="stylesheet" type="text/css">
@@ -83,10 +63,11 @@
 
 	<!-- footer section -->
     <hr>
-    <footer style="display: block">
+    <footer>
         <div class="container">
-            <p><a href="{{course_info.institution.url}}">{{course_info.institution.name}}</a></p>
-            <p><a href="{{course_info.base.privacy_terms_url}}"> {%trans %} Privacy &amp; Terms {% endtrans %} </a></p>
+            <a href="{{course_info.institution.url}}">{{course_info.institution.name}}</a>
+            -
+            <a href="{{course_info.base.privacy_terms_url}}"> {%trans %} Privacy &amp; Terms {% endtrans %} </a>
         </div>
     </footer>
 

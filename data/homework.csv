@@ -1,6 +1,6 @@
 id,homework_id,title,filename
 0,tools,Tools,hw/tools.html
-1,wc,Hadoop Word Count,hw/wordcount.html
+1,wc,Hadoop WordCount,hw/wordcount.html
 2,solowc,Run Hadoop WordCount with salsaDPI,hw/salsadpi-solo-wordcount.html
 3,pr,Implement PageRank,hw/pagerank.html
 4,pr2,MPI PageRank,hw/mpi_pagerank.html

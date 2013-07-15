@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block subtitle %}
-  {% trans %} Homework {% endtrans %} {{ homework.index }}
+  {% trans %} Homework {% endtrans %} {{ homework.title }}
 {% endblock subtitle %}
 
 {% block top_content %}
@@ -23,6 +23,19 @@
         $( '.root ul' ).hide();
     });
 </script>
+
+<style>
+        h1, h2, h3 {
+                font-size: 18px;
+            /*display: block;*/
+            /*background-color: #f49955;*/
+            color: rgb(44, 80, 145);
+            /*padding-left: 10px;*/
+        }
+        /*p {*/
+             /*padding-top: 10px;*/
+        /*}*/
+    </style>
 {% endblock %}
 
 {% block main_content %}

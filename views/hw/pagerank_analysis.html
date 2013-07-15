@@ -26,21 +26,21 @@
 		<p>For this project, each team is required to turn in a report to OnCourse with
 			the following items:</p>
 		<p>
-			1. Experiment with a various number of urls (scale
+			1. Experiment with a number of urls (scale
 			up to 1M urls at least) and the following numbers in a table, then draw a
 			human readable graph chart.
 		</p>
-		<p> &nbsp; a. Instance class, number of worker nodes, number of
-			core/cpu/process per worker node, size of dataset (# of urls, # of
+		<p> &nbsp;&nbsp; a. Instance class, number of worker nodes, number of
+			core/cpu/processors per worker node, size of dataset (# of urls, # of
 			groups), number of MPI process (set with argument -np), MPI error
 			threshold, and number of iterations, etc.</p>
-		<p> &nbsp; b. A speed-up performance analysis chart (graph).</p>
-		<p> &nbsp; c. Each execution time must be taken as an average
+		<p> &nbsp;&nbsp; b. A speed-up performance analysis chart (graph).</p>
+		<p> &nbsp;&nbsp; c. Each execution time must be taken as an average
 			of three runs.</p>
 		<p>2. Findings, description and explanation of your results.</p>
 		<p>3. Feedback about using FutureGrid Bare Metal and Eucalyptus.</p>
 		<p>4. You need to write a torque/PBS script which runs MPI/MPJ
-			PageRank automatically only in Bare Metal mode.</p>
+			PageRank automatically only in bare metal mode.</p>
 		<p>5. Provide your scripts (if you used any) in a zip file and
 			package with filename &#8220;taklwu_proj2.zip&#8221; where
 			&#8220;taklwu&#8221; should be replaced with your IU username.</p>
@@ -50,7 +50,7 @@
 
 	<h1>3. Project Evaluation</h1>
 	<div>
-		<p>The point total for project #3 is 10, where the distribution is
+		<p>The point total for Project #3 is 10, where the distribution is
 			as follows:</p>
 		<p>a. Experiments: design quality, accurate measurements, amount
 			of work involved (5 points)</p>
@@ -70,8 +70,8 @@
 			this information on your report.</p>
 		<p>Note that you must test your program with scaling up to
 			at least 100k urls, using at most 16 cores of computing
-			resources. In other words, each team can only use at most 2 Bare
-			Metal nodes (8 cores/processors per node) in India-HPC environment and
+			resources. In other words, each team can only use at most 2 bare
+			metal nodes (8 cores/processors per node) in India-HPC environment and
 			8 VMs (2 cores per m1.large VM) in India-Eucalyptus.</p>
 		<h2>Important Experiment Factors</h2>
 		<p>When designing the test cases, you may consider the following
@@ -84,7 +84,6 @@
 			<li>Number of MPI processes (set with argument -np)</li>
 			<li>MPI PageRank delta threshold</li>
 			<li>Number of iterations</li>
-			<li>Others, if any</li>
 		</ul>
 		<h2>Execution Time and Speedup</h2>
 		<p>Each test case should execute three times and take the average
@@ -132,7 +131,7 @@ ssh &#8211;i [ssh private key] [username]@india.futuregrid.org
 Enter passphrase for key 'ssh_id_rsa':
 [taklwu@i136 ~]$
 		</pre>
-		<p>2. Load Torque job queue package and submit a node request</p>
+		<p>2. Load Torque job queue package and submit a node request.</p>
 		<pre>
 [taklwu@i136 ~]$ module load torque	
 [taklwu@i136 ~]$ qsub &#8211;I	
@@ -144,7 +143,7 @@ qsub: job 43809.i136 ready
 			the openmpi module. If you are using MPJ Express, download and
 			install the MPJ package under your home directory and set the
 			environment parameter to &#8220;~/.bashrc&#8221;.</p>
-		<h2>* Setting MPJ_HOME and add it to the PATH</h2>
+		<h2>* Set up MPJ_HOME and add it to the PATH</h2>
 		<pre>
 [taklwu@i136 ~]$ unzip mpj-v0_38.zip
 [taklwu@i136 ~]$ echo &#8220;export MPJ_HOME=/N/u/taklwu/mpj-v0_38&#8221; &gt;&gt; ~/.bashrc
@@ -159,7 +158,7 @@ qsub: job 43809.i136 ready
 Intel compiler suite version 11.1/072 loaded
 OpenMPI version 1.4.2 loaded
 		</pre>
-		<h2>Setup MPI multi-nodes environment on Bare Metal mode</h2>
+		<h2>Set up MPI Multi-node Environment in Bare Metal Mode</h2>
 		<p>First get a set of work nodes using the following
 			command:</p>
 		<p>command: qsub -I -l
@@ -201,9 +200,9 @@ max_iterations=10, threshold=0.000001000
   -&gt;cur_iteration=3 delta=0.001191630
   -&gt;cur_iteration=4 delta=0.000519276
 		</pre>
-		<h2>Set up MPJ multi-nodes environment on Bare Metal mode</h2>
+		<h2>Set up MPJ Multi-node Environment on Bare Metal mode</h2>
 		<p>First make a &#8220;machines&#8221; file, including the unique
-			hostnames from $PBS_NODEFILE</p>
+			hostnames from $PBS_NODEFILE.</p>
 		<pre>
 [taklwu@i55 ~]$ cat machines
 i55
@@ -219,21 +218,21 @@ i56
 		</pre>
 	</div>
 
-	<h1>6. Write an automatic batch job script</h1>
+	<h1>6. Write an Automatic Batch Job Script</h1>
 	<div>
 		<p>With batch jobs, you&#8217;ll need to submit a PBS job script,
-			which will wait in the queue and get executed when the resources are
+			which will wait in the queue and execute when the resources are
 			available. Refer to [6] for more information on job submissions.
 			Inside the job script, you can obtain a list of compute resources
-			that are assigned to you, using $PBS_NODEFILE. Refer to section 2.1.6
-			in [6] to find out the other information you can obtain from PBS.
+			that are assigned to you using $PBS_NODEFILE. Refer to section 2.1.6
+			in [6] to find out further information you can obtain from PBS.
 			With this information you can execute your commands accordingly,
 			similar to a shell script. However, you&#8217;ll have to add several
 			PBS job directives to your job script to inform the PBS job scheduler about your requirements. 
 			The following is an example job script. Lines starting with #PBS are the job directives. 
 			&#8220;-l nodes&#8221; let you specify the type and number of compute resources you require,
-			&#8220;-l walltime&#8221; specify the estimated upper bound duration
-			for your job. &#8220;-o&#8221; specify the file to write the output
+			&#8220;-l walltime&#8221; specifies the estimated upper bound duration
+			for your job. &#8220;-o&#8221; specifies the file to write the output
 			of the job screen printing. There is another error screen printing
 			file generated by the torque service at the directory to which you submitted
 			the job, which has a filename of ScriptsFileName.e$PBS_JOBID. These
@@ -268,14 +267,14 @@ echo "Bare Metal job Finished"
 	</div>
 		<h1>7. FutureGrid Eucalyptus</h1>
 		<div>
-			<p>As mentioned above, virtual clusters provides more power to run
+			<p>As mentioned above, virtual clusters offer more power to run
 				applications on a shared environment. Eucalyptus is a virtual
 				infrastructure management tool that provides the functions to manage
 				and to access those virtual resources. With the help of Eucalyptus,
 				we can easily obtain a private virtual cluster (Cloud) on a set of
-				machines. FutureGrid has deployed Eucalyptus and provides service to
-				its users for years. Figure 1 shows the compute resource provided by
-				FutureGrid project. We will obtain VMs and run applications on
+				machines. FutureGrid has deployed Eucalyptus and provided service to
+				its users for years. Figure 1 shows the compute resource provided by the
+				FutureGrid Project. We will obtain VMs and run applications on
 				India-Eucalyptus in the following section.</p>
 			<p align="center">
 				<img src="assets/img/hw/pr_cloud_analysis/image006.png" border="0"
@@ -334,8 +333,8 @@ Enter passphrase for key 'ssh_id_rsa':
 AVAILABILITYZONE        euca3india      149.165.146.135 arn:euca:eucalyptus:euca3india:cluster:euca3indiaCC/
 			</pre>
 			
-			<h2>Setup the VM keypair and allow ssh access to VM:</h2>
-			<p>After testing the euca2ools, you need to add a ssh keypair with
+			<h2>Set up the VM key pair and allow ssh access to VM:</h2>
+			<p>After testing the euca2ools, you need to add a ssh keypair
 				using euca-add-keypair for future access to the VM. Note that,
 				without setting this correctly, you will not able to ssh into your
 				VMs:</p>
@@ -345,9 +344,9 @@ AVAILABILITYZONE        euca3india      149.165.146.135 arn:euca:eucalyptus:euca
 [taklwu@i136 taklwu-euca]$ euca-add-keypair taklwu &gt; taklwu.private
 [taklwu@i136 taklwu-euca]$ chmod 600 taklwu.private
 			</pre>
-			<p>Then, create a security group to allow SSH access to the VM.
-				Same as above, without setting this correctly, you will not able to
-				ssh in to your VMs:</p>
+			<p>Then create a security group to allow SSH access to the VM.
+				Same as above; without setting this correctly, you will not able to
+				ssh into your VMs:</p>
 			<pre>
 [taklwu@i136 taklwu-euca]$ euca-authorize -P tcp -p 22 &#8211;s 0.0.0.0/0 default 
 [taklwu@i136 taklwu-euca]$ euca-describe-groups
@@ -369,7 +368,7 @@ RESERVATION     r-45F607B1      taklwu  taklwu-default
 INSTANCE        i-55CE091G      emi-2C2937BB    0.0.0.0 0.0.0.0 pending taklwu        2011-02-20T03:59:20.572Z        eki-78EF12D2      eri-5BB61255
 			</pre>
 			<p>
-				Here, please refer to <a
+				Please refer to <a
 					href="https://portal.futuregrid.org/tutorials/euca-hadoop">FutureGrid
 					Eucalyptus tutorial</a> [2-3] for details about the available instance
 				class. Check and wait for the instance status to change to
@@ -412,7 +411,7 @@ root@localhost:~#
 				FutureGrid Eucalyptus, you need to make sure the Eucalyptus ssh
 				private key and the MPI program are uploaded to each of the created
 				VMs. <strong>Do Not copy the Eucalyptus ssh key and MPI
-					program to each node in Bare Metal mode.</strong>
+					program to each node in bare metal mode.</strong>
 			</p>
 			<pre>
 [taklwu@i136 taklwu-euca]$ scp -i taklwu.private taklwu.private root@149.165.146.207:~/.ssh/id_rsa
@@ -450,9 +449,9 @@ root@localhost:~# vi nodes
 				&#8220;machines&#8221; and use the optional argument &#8220;-dev
 				niodev&#8221;). See the details for <a
 					href="http://mpj-express.org/docs/guides/linuxguide.pdf">MPJ
-					Cluster Configuration</a> here.[4])
+					Cluster Configuration</a> here[4]).
 			</p>
-			<h2>Execution command For MPI</h2>
+			<h2>Execution command for MPI</h2>
 			<pre>
 root@localhost:~# mpirun -hostfile nodes -np 6 mpi_main -i pagerank.input -n 10 -t 0.000001
 			</pre>
@@ -480,16 +479,16 @@ INSTANCE        i-44600903
 			</pre>
 			<h4>Important notes:</h4>
 			<p>1. Upload ssh key and MPIPagerank program to each worker VM
-				correctly. Unzip the program at the same location on each VM</p>
+				correctly. Unzip the program at the same location on each VM.</p>
 			<p>2. Make a node file (nodes or machines) which includes all the
 				internal IP addresses on your headnode VM.</p>
 			<p>3. Run the program with cluster argument &#8220;-hostfile
-				[nodes IP addresses file]&#8221; or &#8220;-dev niodev&#8221;</p>
+				[nodes IP addresses file]&#8221; or &#8220;-dev niodev&#8221;.</p>
 		</div>
 
 		<h1>8. Acknowledgement</h1>
 		<div>
-			<p>FutureGrid is a national-scale NSF funded project which
+			<p>FutureGrid is a national-scale NSF-funded project which
 				provides a capability that makes it possible for researchers to
 				tackle complex research challenges in computer science related to
 				the use and security of grids and clouds.</p>

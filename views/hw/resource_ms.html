@@ -23,17 +23,19 @@
 		<p>3) Technical report, (<strong>groupID_p2report.docx</strong>), that
 			contains:
 		</p>
+		<div style="padding-left: 2em;">
 		<p>a. A description of the main steps and program data flow
 			in your program.</p>
-		<p>b. Snapshots (Photos) about your program Interface with
-			explanations .</p>
+		<p>b. Snapshots (photos) of your program Interface, with
+			explanations.</p>
+			</div>
 		<p>4) Demo in class</p>
 		<p>Points will be reduced (maximum 0.5 points) if the filename or
 			directory structure are different from instructed above.</p>
 	</div>
 	<h1>3. Evaluation</h1>
 	<div>
-		<p>The point total of project #2 is 10, where the distribution is
+		<p>The point total of Project #2 is 10, where the distribution is
 			as follows:</p>
 		<div style="padding-left: 2em;">
 			<p>a. Completeness of your monitoring system (6 point)</p>
@@ -74,9 +76,9 @@
 		</p>
 		<ul>
 			<li><strong>Message Broker: </strong> a middleware that holds
-				series of messages with specific topics, and waits for a Front-End
+				series of messages with specific topics and waits for a Front-End
 				Subscriber to pick the messages, i.e. NaradaBrokering[4],
-				ActiveMQ[5], etc. AIs will setup instances of NaradaBrokering and
+				ActiveMQ[5], etc. AIs will set up instances of NaradaBrokering and
 				ActiveMQ to be used by the students. Students are advised to prefix
 				their topics with the group number (eg: G01_xyz) to avoid conflicts
 				when sharing the same brokers.
@@ -89,7 +91,7 @@
 			<li><strong>Monitoring Daemon: </strong> a background process
 				running on each compute node which captures and publishes the
 				system resource utilization information (CPU and Memory utilization
-				required) and other important usage information, to the Message
+				required), and other important usage information, to the Message
 				Broker periodically. This daemon should not interfere with the other
 				running processes in the compute node. You need to implement this
 				part.</li>
@@ -118,7 +120,7 @@
 		<br><h2>Monitoring Daemon</h2>
 		<p>You can write the Monitoring Daemon in any language as long as
 			your program provides the following functions:</p>
-		<p>1. Capture the system resource utilization information such as
+		<p>1. Capture the system resource utilization information, such as
 			CPU and Memory utilization. If you are using Java, Sigar [6] can be
 			used to capture that information.</p>
 		<p>2. Communicate and publish messages to the Message Broker. The
@@ -144,19 +146,19 @@ While(!done){
 			The daemon should be able to run continuously utilizing very low CPU
 			and memory. Make sure to avoid any memory leaks.<strong></strong>
 		</p>
-		<br><h2>Monitoring Front-End.</h2>
+		<br><h2>Monitoring Front-End</h2>
 		<p>This can be written in any language as long as your program
 			provides the following functions:</p>
 		<p>1. Subscribe to the relevant topic in the Message Broker and
 			receive the messages with monitoring information from the daemons
 			running on the nodes.</p>
 		<p>2. Summarize the statistics from all the compute nodes (&gt;2)
-			that run the MPI Pagerank application from project #1. Calculate the
+			that run the MPI Pagerank application from Project #1. Calculate the
 			overall CPU and Memory utilization percentages.</p>
 		<p>3. Draw real-time cumulative performance graphs with summarized
 			resource utilization information. This must be GUI-based (no table
 			or command-line text). If you use Java, JFreeChart [4] is a good
-			option to draw the graphs. Figure 2 is an example UI, developed by the SalsaHPC Team using
+			option to draw the graphs. Figure 2 is an example UI, developed by the salsaHPC Team using
 			JFreeChart. The blue area is the CPU usage, and the
 			green area is the memory usage.</p>
 		<p>
@@ -191,7 +193,7 @@ UIUpdateThread{
 		</div>
 	</div>
 
-	<h1>6. Run MPI/MPJ PageRank on CS machines in multi-nodes mode</h1>
+	<h1>6. Run MPI/MPJ PageRank on CS machines in multi-node mode</h1>
 	<div>
 		<p>In this project, you must run your MPI/MPJ PageRank program on
 			CS Machines with at least two nodes. Then your resource monitoring
@@ -251,12 +253,12 @@ File pagerank.input.1000.0 total_num_web_pages: 3851
 
 		</pre>
 		<p>Finally, you have to stop these MPD daemons with the command
-			mpdallexit to release the resources. Otherwise you or your
+			''mpdallexit' to release the resources. Otherwise you or your
 			classmates may not be able to run their programs.</p>
 		<pre>
 [taklwu@polaris B534Project2] mpdallexit
 		</pre>
-		<br><h2>Run MPJ with multi-nodes mode</h2>
+		<br><h2>Run MPJ in multi-node mode</h2>
 		<p>Before running any MPJ [9] job under CS Linux environment, you
 			will need to make a &#8220;machines&#8221; file which has the worker
 			hostname written line by line, e.g., polaris.cs.indiana.edu and
@@ -308,7 +310,7 @@ Stopping process <4> on <iceman.cs.indiana.edu>
 Stopping process <7> on <iceman.cs.indiana.edu>
 		</pre>
 		<p>At the end, you have to stop these MPJ daemons with command
-			mpjhalt to release the resources. Otherwise you or your classmates
+			''mpjhalt' to release the resources. Otherwise you and your classmates
 			may not be able to run their programs.</p>
 		<pre>
 [taklwu@polaris MPJ]$ mpjhalt machines

@@ -33,7 +33,7 @@ course:
 
   # Main page blurb. (The '|' at the beginning enables multi-line input.)
   blurb: |
-    The course covers all aspects of the cloud architecture stack from Software as A Service: large-scale biology and graphics applications; Platform as A Service: MapReduce (Hadoop), Iterative MapReduce (Twister) and NoSQL (HBase); to Infrastructure as A Service: low-level virtualization technologies.
+    The course covers all aspects of the cloud architecture stack, from Software as a Service (large-scale biology and graphics applications), Platform as a Service (MapReduce (Hadoop)), Iterative MapReduce (Twister) and NoSQL (HBase)), to Infrastructure as a Service (low-level virtualization technologies).
 
   # Information about the instructor to display on the main page.
   instructor_details: 'Judy Qiu <br> Assistant Professor of Computer Science and Informatics <br> Indiana University'

@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="gcb-main">
-  <div class="gcb-article tab-content">
-    <div class="gcb-aside">
+<div class="content-box">
+  <div class="fluid-row">
+    <div class="spam12">
 
       <p>
         {{course_info.reg_form.header_text | safe}}
@@ -27,7 +27,7 @@
           </ol>
         </fieldset>
 
-        <button class="gcb-button" type="submit">
+        <button class="btn btn-success" type="submit">
           {% trans %} Enroll {% endtrans %}
         </button>
       </form>

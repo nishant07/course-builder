@@ -45,40 +45,41 @@ $('.icon-list-alt').click(function(event){
 
 {% block main_content %}
 
-<div class="content-box">
+<div class="content-box" id="video">
+    {% if is_read_write_course and is_course_admin %}
     <div class="row-fluid">
-        {% if is_read_write_course and is_course_admin %}
-        <a href="dashboard?action=edit_unit&key={{ unit_id }}"
-           class="gcb-button gcb-button-action">Edit unit</a>
-        <a href="dashboard?action=edit_lesson&key={{ lesson_id }}"
-           class="gcb-button gcb-button-action">Edit lesson</a>
-        {% endif %}
-
-        <div class="span3">
-            <h4>
-                {{ gettext('Unit %(id)s', id=unit.index) }}
-            </h4>
-        </div>
-
-        <div class="span9">
-            <h4>
-                {{ lesson.title }}
-            </h4>
+        <div class="span12">
+            <div class="pull-right">
+                <a href="dashboard?action=edit_unit&key={{ unit_id }}" class="btn">
+                    <i class="icon-pencil"></i> Edit unit
+                </a>
+                <a href="dashboard?action=edit_lesson&key={{ lesson_id }}" class="btn">
+                    <i class="icon-pencil"></i> Edit lesson
+                </a>
+            </div>
         </div>
     </div>
+    <hr>
+    {% endif %}
+
     <div class="row-fluid">
         {% if lessons %}
         <div class="span3 hidden-phone" id="lesson_nav">
+            <h4>
+                {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
+            </h4>
             {% include 'lesson_navbar.html' %}
         </div>
         {% endif %}
 
         <div class="span9">
             {{course_info.unit.after_content_begins | safe}}
-
+            <h4>
+                {{ lesson.title }}
+            </h4>
             {% if not lesson %}
             <div class="row-fluid">
-                <div class="gcb-aside gcb-button-box">
+                <div class="alert alert-error">
                     {% trans %} This unit does not contain any lessons. {% endtrans %}
                 </div>
             </div>
@@ -115,7 +116,7 @@ $('.icon-list-alt').click(function(event){
                 <div class="span12">
 
                     <!-- Google+ -->
-                    <div class="social-share">
+                    <div class="social-share hidden-phone">
                         <div class="g-plus" data-action="share" data-annotation="bubble"></div>
                         <!-- Place this tag after the last share tag. -->
                         <script type="text/javascript">
@@ -128,7 +129,7 @@ $('.icon-list-alt').click(function(event){
                     </div>
 
                     <!-- Facebook -->
-                    <div class="social-share">
+                    <div class="social-share hidden-phone">
                         <div id="fb-root"></div>
                         <script>(function(d, s, id) {
                             var js, fjs = d.getElementsByTagName(s)[0];
@@ -142,7 +143,7 @@ $('.icon-list-alt').click(function(event){
                     </div>
 
                     <!-- Twitter -->
-                    <div class="social-share">
+                    <div class="social-share hidden-phone">
                         <a href="https://twitter.com/share" class="twitter-share-button" data-url="" data-text="Cloud MOOC IU: {{ lesson.title }}" data-hashtags="CloudIU">Tweet</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </div>
@@ -197,7 +198,70 @@ $('.icon-list-alt').click(function(event){
     </div>
 </div>
 
-<div class="content-box hidden-phone">
+{# <div class="content-box hidden-phone" id="activity">
+    <div class="row-fluid">
+        <div class="spam12">
+
+            {{course_info.unit.after_content_begins | safe}}
+
+            {% if not lesson %}
+            <div class="row-fluid">
+                <div class="alert alert-error">
+                    {% trans %} This unit does not contain any lessons. {% endtrans %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% for lesson in lessons %}
+            {% if lesson.lesson_id == lesson_id %}
+
+            {% if lesson.now_available or is_course_admin %}
+
+            <div class="row-fluid">
+                <div class="span12" id="activityContents">
+                </div>
+            </div>
+
+            {% else %}
+            <div class="row-fluid">
+                <div class="span12">
+                    <h1 class="lesson_title">
+                        {{ lesson.title }}
+                    </h1>
+
+                    <br><br>
+
+                    <div class="alert alert-error">
+                        {% trans %} This lesson is not available. {% endtrans %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <hr>
+
+            <div class="row-fluid">
+                <ul class="pager">
+                    {% if back_button_url %}
+                    <li class="previous">
+                        <a href="{{ back_button_url }}">&larr; Previous</a>
+                    </li>
+                    {% endif %}
+                    {% if next_button_url %}
+                    <li class="next">
+                        <a href="{{ next_button_url }}">Next &rarr;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>  #}
+
+<div class="content-box hidden-phone" id="forum">
     <div class="row-fluid">
         <div class="spam12">
             <iframe id="forum_embed"
@@ -212,7 +276,7 @@ $('.icon-list-alt').click(function(event){
             {% if course_info.course.forum_embed_url %}
             <script type="text/javascript">
                 document.getElementById("forum_embed").src =
-                "{{course_info.course.forum_embed_url}}"
+                "{{course_info.course.forum_embed_url + "#!categories/b534/unit-" + gettext(unit.index)}}"
                 + "&showsearch=true&showpopout=true&showtabs=false"
                 + "&parenturl=" + encodeURIComponent(window.location.href);
             </script>

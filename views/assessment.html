@@ -9,24 +9,32 @@
 
 {% block main_content %}
 
-{% if is_read_write_course and is_course_admin %}
-  <a href="dashboard?action=edit_assessment&key={{ unit_id }}"
-    class="gcb-button gcb-button-action">Edit assessment</a>
-{% endif %}
+<div class="content-box">
+    {% if is_read_write_course and is_course_admin %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="pull-right">
+                <a href="dashboard?action=edit_unit&key={{ unit_id }}" class="btn">
+                    <i class="icon-pencil"></i> Edit Assessment
+                </a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endif %}
 
-<div class="gcb-main">
-  <div class="gcb-article">
-    <script src="{{ assessment_script_src }}"></script>
-    <script>
-      assessmentXsrfToken = '{{ assessment_xsrf_token }}';
+    <div class="row-fluid">
+        <script src="{{ assessment_script_src }}"></script>
+        <script>
+            assessmentXsrfToken = '{{ assessment_xsrf_token }}';
 
-      {% if record_events %}
-      gcbCanPostEvents = true;
-      eventXsrfToken = '{{ event_xsrf_token }}';
-      {% endif %}
-    </script>
-    <div style="width: 970px;" id="assessmentContents"></div>
-  </div>
+            {% if record_events %}
+            gcbCanPostEvents = true;
+            eventXsrfToken = '{{ event_xsrf_token }}';
+            {% endif %}
+        </script>
+        <div class="sapn12" id="assessmentContents"></div>
+    </div>
 </div>
 
 {% endblock %}

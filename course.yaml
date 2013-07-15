@@ -33,9 +33,7 @@ course:
 
   # Main page blurb. (The '|' at the beginning enables multi-line input.)
   blurb: |
-    Cloud computing relies on sharing of resources to achieve coherence and economies of
-    scale similar to a utility (like the electricity grid) over a network. At the foundation
-    of cloud computing is the broader concept of converged infrastructure and shared services.
+    The course covers all aspects of the cloud architecture stack from Software as A Service: large-scale biology and graphics applications; Platform as A Service: MapReduce (Hadoop), Iterative MapReduce (Twister) and NoSQL (HBase); to Infrastructure as A Service: low-level virtualization technologies.
 
   # Information about the instructor to display on the main page.
   instructor_details: 'Judy Qiu <br> Assistant Professor of Computer Science and Informatics <br> Indiana University'

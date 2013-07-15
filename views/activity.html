@@ -49,39 +49,40 @@
 
 {% block main_content %}
 <div class="content-box">
+{% if is_read_write_course and is_course_admin %}
 <div class="row-fluid">
-    {% if is_read_write_course and is_course_admin %}
-    <a href="dashboard?action=edit_unit&key={{ unit_id }}"
-       class="gcb-button gcb-button-action">Edit unit</a>
-    <a href="dashboard?action=edit_lesson&key={{ lesson_id }}"
-       class="gcb-button gcb-button-action">Edit lesson</a>
-    {% endif %}
-
-    <div class="span3">
-        <h4>
-            {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
-        </h4>
-    </div>
-
-    <div class="span9">
-        <h4>
-            {{ lesson.title }}
-        </h4>
+    <div class="span12">
+        <div class="pull-right">
+            <a href="dashboard?action=edit_unit&key={{ unit_id }}" class="btn">
+                <i class="icon-pencil"></i> Edit unit
+            </a>
+            <a href="dashboard?action=edit_lesson&key={{ lesson_id }}" class="btn">
+                <i class="icon-pencil"></i> Edit lesson
+            </a>
+        </div>
     </div>
 </div>
+<hr>
+{% endif %}
+
 <div class="row-fluid">
     {% if lessons %}
     <div class="span3 visible-desktop">
+        <h4>
+            {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
+        </h4>
         {% include 'lesson_navbar.html' %}
     </div>
     {% endif %}
 
     <div class="span9">
         {{course_info.unit.after_content_begins | safe}}
-
+        <h4>
+            {{ lesson.title }}
+        </h4>
         {% if not lesson %}
         <div class="row-fluid">
-            <div class="gcb-aside gcb-button-box">
+            <div class="alert alert-error">
                 {% trans %} This unit does not contain any lessons. {% endtrans %}
             </div>
         </div>
@@ -119,7 +120,7 @@
 
                 <br><br>
 
-                <div class="gcb-button-box">
+                <div class="alert alert-error">
                     {% trans %} This lesson is not available. {% endtrans %}
                 </div>
             </div>

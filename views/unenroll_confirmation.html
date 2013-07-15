@@ -4,16 +4,16 @@
 {% endblock %}
 
 {% block main_content %}
-<div class="gcb-main">
-  <div class="gcb-article tab-content">
-    <div class="gcb-aside">
+<div class="content-box">
+    <div class="fluid-row">
+        <div class="spam12">
 
       <h3>
         {% trans %} You have been unenrolled from {% endtrans %}
         {{course_info.course.title}}.
       </h3>
       <form action="preview" method='get'>
-        <button class="gcb-button" type="submit">
+        <button class="btn" type="submit">
           {% trans %} OK {% endtrans %}
         </button>
       </form>

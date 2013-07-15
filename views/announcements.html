@@ -12,45 +12,45 @@
 
 {% block main_content %}
 
-    <div class="content-box">
-        <div class="spam12">
-            {% if announcements %}
-            {% if announcements.add_action %}
-            <form class="pull-right" id='gcb-add-announcement' action='{{ announcements.add_action }}' method='POST'>
-                <input type="hidden" name="xsrf_token" value="{{ announcements.add_xsrf_token|escape }}">
-                <button class="btn btn-success pull-right" type="submit"><i class="icon-plus-sign icon-white"></i>{% trans %} Add New {% endtrans %}</button>
-            </form>
-            <h1>Announcements</h1>
+<div class="content-box">
+    <div class="spam12">
+        {% if announcements %}
+        {% if announcements.add_action %}
+        <form class="pull-right" id='gcb-add-announcement' action='{{ announcements.add_action }}' method='POST'>
+            <input type="hidden" name="xsrf_token" value="{{ announcements.add_xsrf_token|escape }}">
+            <button class="btn btn-success pull-right" type="submit"><i class="icon-plus-sign icon-white"></i>{% trans %} Add New {% endtrans %}</button>
+        </form>
+        <h1>Announcements</h1>
 
+        {% endif %}
+        {% if not announcements.children %}
+        <p>{% trans %} No announcements yet. {% endtrans %}</p>
+        {% endif %}
+        {% for item in announcements.children %}
+        <hr>
+        {% if item.delete_action %}
+        <form class="pull-right" id='gcb-delete-announcement-{{ loop.index0 }}' action='{{ item.delete_action }}' method='POST'>
+            <input type="hidden" name="xsrf_token" value="{{ item.delete_xsrf_token|escape }}">
+            {% if item.edit_action %}
+            <a role="button" href="{{ item.edit_action }}" class="btn">
+                <i class="icon-pencil"></i>
+            </a>
             {% endif %}
-            {% if not announcements.children %}
-            <p>{% trans %} No announcements yet. {% endtrans %}</p>
-            {% endif %}
-            {% for item in announcements.children %}
-            <hr>
-            {% if item.delete_action %}
-            <form class="pull-right" id='gcb-delete-announcement-{{ loop.index0 }}' action='{{ item.delete_action }}' method='POST'>
-                <input type="hidden" name="xsrf_token" value="{{ item.delete_xsrf_token|escape }}">
-                {% if item.edit_action %}
-                <a role="button" href="{{ item.edit_action }}" class="btn">
-                    <i class="icon-pencil"></i>
-                </a>
-                {% endif %}
-                <button class="btn" type="submit" onclick='return confirm("Delete this item?");'>
-                    <i class="icon-remove"></i>
-                </button>
-            </form>
-            {% endif %}
+            <button class="btn" type="submit" onclick='return confirm("Delete this item?");'>
+                <i class="icon-remove"></i>
+            </button>
+        </form>
+        {% endif %}
 
-            <h3>
-                <a name='{{ item.key }}'></a>
-                {{ item.title }}{% if item.is_draft %}{% trans %} (Draft) {% endtrans %}{% endif %}
-            </h3>
-            <p>{{ item.date }}</p>
-            {{ item.html | safe }}
-            {% endfor %}
-            {% endif %}
-        </div>
+        <h3>
+            <a name='{{ item.key }}'></a>
+            {{ item.title }}{% if item.is_draft %}{% trans %} (Draft) {% endtrans %}{% endif %}
+        </h3>
+        <p>{{ item.date }}</p>
+        {{ item.html | safe }}
+        {% endfor %}
+        {% endif %}
     </div>
+</div>
 
 {% endblock %}

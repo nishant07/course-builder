@@ -6,8 +6,8 @@
     <div>
 
         <p>WordCount is a simple program which counts the number of occurrences of each word in a given text input dataset. 
-        WordCount fits very well with the MapReduce programming model, making it a perfect example for illustrating
-            the Hadoop Map/Reduce programming style. Our implementation consists of three main parts: </p>
+        WordCount fits very well with the map/reduce programming model, making it a perfect example for illustrating
+            the Hadoop MapReduce programming style. Our implementation consists of three main parts: </p>
 
         <ol>
             <li>Mapper</li>
@@ -100,11 +100,11 @@
             The Main program configures and runs the MapReduce job. We use the main program to perform basic
             configurations, such as:</p>
         <ol>
-            <li><strong>Job Name</strong> : name of this Job</li>
+            <li><strong>Job Name</strong>: name of this Job</li>
             <li><strong>Executable (Jar) Class</strong>: the main executable class. For here, WordCount.</li>
             <li><strong>Mapper Class</strong>: class which overrides the "map" function. For here, Map.</li>
 
-            <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here , Reduce.</li>
+            <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here, Reduce.</li>
             <li><strong>Output Key</strong>: type of output key. For here, Text.</li>
             <li><strong>Output Value</strong>: type of output value. For here, IntWritable.</li>
             <li><strong>File Input Path</strong></li>
@@ -117,7 +117,7 @@
 
     <div>
         <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
-        <p>Install the java jdk 1.6.0 if you don't have one. we are setting up a JDK 64 bit version.</p>
+        <p>Install the java jdk 1.6.0 if you don't have one. We are setting up a JDK 64 bit version.</p>
       <pre xml:space="preserve">cd ~/<br />
 wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br /> 
 chmod 755 jdk-6u33-linux-x64.bin<br /> 

@@ -1,0 +1,97 @@
+<h1>Goal</h1>
+<p>Write an HBase WordCount program to count  the unique term&rsquo;s occurrences from the clueWeb09 dataset. Each row record of  columnfamily &ldquo;frequencies&rdquo; is unique, where the rowkey is the unique term  stored in byte format, column name is &ldquo;count&rdquo; and the value is the term  frequency shown in all documents. The result must be uploaded to HBase WordCountTable.  Figure 1 shows the data structure of WordCountTable.<br />
+  <br />
+  <em>Figure 1.</em> WordCount table schema for storing unique  term&rsquo;s occurrences</p>
+<h1>Deliverables </h1>
+<p>Zip your source code, library, and results in  a file named <a href="mailto:e-mailBefore@-hbase-wordcount-proj1.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj1.zip</a>, where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Please submit this file to the  MOOC submission page. </p>
+<h1>Evaluation</h1>
+<p>TBD</p>
+<h1>Introduction </h1>
+<p>WordCount is a simple program which counts  the number of occurrences of each word in a given text input dataset. It fits  very well with the map/reduce programming model, making WordCount a great example  to understand the Hadoop MapReduce programming style [citations]. Instead of  loading the data from HDFS, we will load our data directly from existing HBase  records which stores the similar content structure on HBASE and HDFS (if you  have finished practice #1 this has already been done). </p>
+<h2>HBase</h2>
+<p>For details about  HBase [2], please see practice 1.</p>
+<h2>Clueweb09 dataset</h2>
+<p>We are using the ClueWeb09 dataset, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [1].  Since the ClueWeb09 dataset is composed of webpages crawled from the Internet, the  uploaded table schemas are designed as shown in Figure 2.<br />
+  <br />
+  <em>Figure 2</em>. Data table schema for storing the  ClueWeb09 dataset<br />
+  So, similar to Hadoop WordCount [citation], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
+<h2>Mapper, Reducer and Main Program </h2>
+<p>Now we are going to implement the HBase  WordCount. Our implementation consists of three main parts:</p>
+<ul>
+  <li>Mapper</li>
+  <li>Reducer</li>
+  <li>Main  program</li>
+</ul>
+<h3>Mapper</h3>
+<p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot; which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key,value&gt; pairs using the provided  Context .<br />
+  &lt;key, value&gt; of this map function is  &lt;rowkey, content&gt;,  where the key  is the rowkey of an HBase record related to a specified URI, and the content is  the stored text of that URI. Your Map task should output &lt;word, frequency&gt;  for each word in the content of text.<br />
+  <em>Pseudocode</em></p>
+<div><br />
+  void&nbsp;Map&nbsp;(key,&nbsp;value){<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;word&nbsp;x&nbsp;in&nbsp;the  content of a hbase record:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(x,&nbsp;freq);<br />
+  } </div>
+<p><em>Detail implementation</em></p>
+<div><br />
+  static class WcMapper extends TableMapper&lt;Text, LongWritable&gt; {<br />
+  @Override<br />
+  public void  map(ImmutableBytesWritable row, Result result,   Context  context) throws IOException, InterruptedException {<br />
+  byte[]  contentBytes = result.getValue(Constants.CF_DETAILS_BYTES,  Constants.QUAL_CONTENT_BYTES);<br />
+  String content  = Bytes.toString(contentBytes);<br />
+  <br />
+  // TODO: write  your implementation for counting words in each row, and generating a &lt;word,  count&gt; pair<br />
+  // Hint: use  the &quot;getWordFreq&quot; function to count the frequencies of words in  content
+  <p>                     <strong>/* Write You code here */</strong><br />
+    <br />
+    } // end of map<br />
+    } // end of WcMapper</p>
+</div>
+<h3>Reducer </h3>
+<p>A Reducer collects the intermediate &lt;key,  value&gt; output from multiple map tasks and assembles a single result. Here,  the reducer function will sum up the occurrence of each word to pairs as  &lt;word, occurrence&gt;, then write it back to an HBase table with put operations  which contain the key-value pairs information of each word.<br />
+  <em>Pseudo-code</em></p>
+<div><br />
+  void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(rowkey(x),&nbsp;freq);
+  <p>}   </p>
+</div>
+<p><em>Detail-implementation</em></p>
+<div><br />
+  public static class WcReducer extends TableReducer&lt;Text,  LongWritable, ImmutableBytesWritable&gt; {<br />
+  @Override<br />
+  public void reduce(Text  word, Iterable&lt;LongWritable&gt; freqs, Context context)<br />
+  throws  IOException, InterruptedException {<br />
+  // TODO: write your  implementation for getting the <br />
+  // final count of each word and putting it  into the word count table<br />
+  // you may use the org.apache.hadoop.hbase.client.Put  class<br />
+  // for convenient  hbase update operation<br />
+  <strong>/* Write You code here */</strong>
+  <p>        } // end of reducer<br />
+    } // end of WcReducer</p>
+</div>
+<h3>Main program </h3>
+<p>The main function has been provided as  standard initialization, although you can modify it to your own style. Hint:  the provided code is designed for using put operations in the reducer  content.write() function. For details, please see examples of using TableMapReduceUtil.initTableReducerJob  [citations from xiaoming].</p>
+<h1>Edit, compile  and run your code</h1>
+<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You may use linux text editor vi/vim to add  your code.</p>
+<div><br />
+  $ cd /root/hbaseMoocAntProject/ <br />
+  $ vim src/iu/pti/hbaseapp/clueweb09/WordCountClueWeb09.java </div>
+<h2>Compile and run your code</h2>
+<p>For your convenience, we have provided a  one-click script complieAndExecWordCount.sh  for compiling and execution. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected to the screen. You may debug it  based on the return messages.</p>
+<div><br />
+  $ cd /root/hbaseMoocAntProject/<br />
+  $ ./complieAndExecWordCount.sh </div>
+<h2>View the result</h2>
+<p>The result is  generated as /root/hbaseMoocAntProject/output/project1.txt. </p>
+<div><br />
+  $ cd /root/hbaseMoocAntProject/<br />
+  $ cat output/project1.txt </div>
+<h1>What&rsquo;s next?</h1>
+<p>You will be ready  to program your next project: &ldquo;Parallel Inverted Index Building on HBase&rdquo;.</p>
+<h1>References</h1>
+<ul>
+  <li>Clueweb09  dataset: <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
+  <li>HBase  official website, <a href="http://hbase.apache.org/">http://hbase.apache.org/</a></li>
+  <li>Cloud  MOOC VirtualBox, http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova</li>
+</ul>

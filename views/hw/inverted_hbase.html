@@ -1,6 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<h1 align="center">Project #2 Parallel Inverted Index Building  on HBase </h1>
+<div align="center">
+  <hr size="1" width="100%" noshade="noshade" align="center" />
+</div>
 <h1>Goal</h1>
 <p>Write an HBase FreqIndexBuilder program to build  an inverted index table which has the unique term&rsquo;s occurrences in each  document from the clueWeb09 dataset. Each row record of columnfamily &ldquo;frequencies&rdquo;  is unique, where the rowkey is the unique term stored in byte format, column  name is the documentId that contains this term, and the value is the term  frequency shown in each document. Note that each row has multiple columns. The  result must be uploaded to HBase clueWeb09IndexTable. Figure 1 shows the data  structure of clueWeb09IndexTable.<br />
-  <br />
+  <img src="assets/img/hw/se3/1.png" alt="" width="624" height="108" /><br />
   <em>Figure 2.</em> clueWeb09IndexTable table schema for  storing term frequencies and their related documentId</p>
 <h1>Deliverables </h1>
 <p>Zip your source code, library, and results in  a file named <a href="mailto:e-mailBefore@-hbase-wordcount-proj2.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj2.zip</a>, where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Submit this file to MOOC  submission page. </p>
@@ -78,3 +90,5 @@
   <li>salsaHPC  IndexedHBase Project, <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>
   <li>Clueweb09  project and dataset, <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
 </ul>
+</body>
+</html>

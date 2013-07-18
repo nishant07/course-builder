@@ -1,6 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<h1 align="center">Project #1 HBase WordCount </h1>
+<div align="center">
+  <hr size="1" width="100%" noshade="noshade" align="center" />
+</div>
 <h1>Goal</h1>
 <p>Write an HBase WordCount program to count  the unique term&rsquo;s occurrences from the clueWeb09 dataset. Each row record of  columnfamily &ldquo;frequencies&rdquo; is unique, where the rowkey is the unique term  stored in byte format, column name is &ldquo;count&rdquo; and the value is the term  frequency shown in all documents. The result must be uploaded to HBase WordCountTable.  Figure 1 shows the data structure of WordCountTable.<br />
-  <br />
+  <img src="assets/img/hw/se2/1.png" alt="" width="259" height="177" /><br />
   <em>Figure 1.</em> WordCount table schema for storing unique  term&rsquo;s occurrences</p>
 <h1>Deliverables </h1>
 <p>Zip your source code, library, and results in  a file named <a href="mailto:e-mailBefore@-hbase-wordcount-proj1.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj1.zip</a>, where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Please submit this file to the  MOOC submission page. </p>
@@ -12,7 +24,7 @@
 <p>For details about  HBase [2], please see practice 1.</p>
 <h2>Clueweb09 dataset</h2>
 <p>We are using the ClueWeb09 dataset, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [1].  Since the ClueWeb09 dataset is composed of webpages crawled from the Internet, the  uploaded table schemas are designed as shown in Figure 2.<br />
-  <br />
+  <img src="assets/img/hw/se2/2.png" alt="" width="624" height="92" /><br />
   <em>Figure 2</em>. Data table schema for storing the  ClueWeb09 dataset<br />
   So, similar to Hadoop WordCount [citation], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
 <h2>Mapper, Reducer and Main Program </h2>
@@ -95,3 +107,5 @@
   <li>HBase  official website, <a href="http://hbase.apache.org/">http://hbase.apache.org/</a></li>
   <li>Cloud  MOOC VirtualBox, http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova</li>
 </ul>
+</body>
+</html>

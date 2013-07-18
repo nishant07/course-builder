@@ -1,7 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<h1 align="center">Project #3 Twister PageRank and Test the Search  Engine </h1>
+<div align="center">
+  <hr size="1" width="100%" noshade="noshade" align="center" />
+</div>
 <h1>Goal</h1>
 <p>Write a Twister program to calculate PageRank  values for the clueWeb09 dataset. These PageRank values will be written to an  HBase clueWeb09PageRankTable table by a provided java uploader.    <br />
   Each row record of columnfamily &ldquo;pagerank&rdquo;  is unique, where the rowkey is the unique documentId stored in byte format,  column name is the pagerank value of that document, and the value is NULL.  Figure 1 shows the data structure of clueWeb09PageRankTable.</p>
-<p align="center"> <br />
+<p align="center"><img src="assets/img/hw/se4/1.png" alt="" width="308" height="154" /><br />
   <em>Figure 1.</em> clueWeb09PageRankTable table schema for  storing ranks of webpages<br />
   You will also use  our provided tester to verify the search engine is working correctly. </p>
 <h1>Deliverables </h1>
@@ -14,7 +26,7 @@
 <h2>What is PageRank?</h2>
 <p>The  web search engine is a typical distributed system on the Internet. It is  designed to search for information on the World Wide Web. The search results  are generally presented in a list of results and are often called hits.  PageRank is a well-known web graph ranking algorithm that helps Internet users  sort hits by their importance. <br />
   PageRank  calculates a numerical value for each element of a hyperlinked set of webpages,  which reflects the probability that a random surfer will access that page. The  process of PageRank can be understood as a Markov  Chain [3] which requires  iterative calculation to converge. An iteration  of PageRank calculates the new access probability for each webpage based on  values calculated in the previous iteration. The process will repeat until the  number of current iterations is bigger than predefined maximum iterations, or the  Euclidian distance between rank values in two subsequent iterations is less  than a predefined threshold that controls the accuracy of the output results.  <br />
-  <br />
+  <img src="assets/img/hw/se4/2.png" alt="" width="406" height="328" /><br />
   <em>Fig</em><em>ure 2.</em>  Mathematical  PageRank for a simple network in Wikipedia<br />
   Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to a unique  webpage, and the directed edge means there is one link from the source webpage  to the target webpage. The percentage on each vertex represents the rank value  of each webpage.</p>
 <h3>Notes:</h3>
@@ -33,8 +45,8 @@
 <p>Twister MapReduce Framework [4] is a Java  implementation of the MapReduce programming model with extended features such  as supporting Iterative MapReduce computations. It can cooperate with different  messaging software, e.g. Apache ActiveMQ [5], to execute MapReduce jobs. Figure  3 shows the iterative programming model supported by Twister. Figure 4 presents  the system architecture of Twister.</p>
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td width="319"><br /></td>
-    <td width="319"><p align="center"> </p></td>
+    <td width="319"><img src="assets/img/hw/se4/3.png" alt="" width="307" height="182" /><br /></td>
+    <td width="319"><p align="center"><img src="assets/img/hw/se4/4.png" alt="" width="307" height="214" /></p></td>
   </tr>
   <tr>
     <td width="319"><p align="center"><em>Figure 3.</em> Twister Programming    Model</p></td>
@@ -62,7 +74,7 @@
   <li>Main  program</li>
 </ul>
 <p>In Twister implementations of PageRank, we  constructed web graphs with vertices where in-link degree of all pages complies  with the power law distribution. This input data is partitioned into a few  parts and stored in the format of an adjacency list. Each map function runs on  one of the partitioned datasets, which is constant over the iterations. The  variable data is the PageRank values calculated during previous iterations,  which in turn is used as the input value for the next iteration. In each  iteration, the MAP task updates the old PageRank values to the new ones by  analyzing the local partial adjacency list file. The output of each MAP task is  only a part of the PageRank values. The reduce task receives all the partial  output and produces the new PageRank values. Figure 5 shows a dataflow diagram  of this program.<br />
-  <br />
+  <img src="assets/img/hw/se4/5.png" alt="" width="344" height="258" /><br />
   <em>Figure 5</em>. Twister PageRank dataflow</p>
 <h3>Mapper</h3>
 <p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;cgl.imr.base.MapTask&lt;collector, Key, Value&gt;&quot; which  provides a collector for map task output, and &lt;key, value&gt; pairs as the map  input. A Mapper implementation outputs a new set of &lt;key,value&gt; pairs  using the provided Context.<br />
@@ -263,7 +275,7 @@
   <li>clueWeb09PageRankTable</li>
 </ul>
 <p>Using the provided  test program, the following commands search the keyword &ldquo;database&rdquo;, and the  dataflow is shown as Figure 6.<br />
-  <br />
+  <img src="assets/img/hw/se4/6.png" alt="" width="365" height="277" /><br />
   <em>Figure 6</em>. Dataflow for searching keyword &ldquo;database&rdquo;  among the constructed databases</p>
 <div><br />
   # Test search engine  functionality<br />
@@ -279,3 +291,5 @@
   <li>Twister  Iterative MapReduce, <a href="http://www.iterativemapreduce.org/">http://www.iterativemapreduce.org/</a></li>
   <li>Apache  ActiveMQ, <a href="http://activemq.apache.org/">http://activemq.apache.org/</a></li>
 </ul>
+</body>
+</html>

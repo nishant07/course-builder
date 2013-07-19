@@ -47,11 +47,16 @@
   &lt;key, value&gt; of this map function is  &lt;rowkey, content&gt;,  where the key  is the rowkey of an HBase record related to a specified URI, and the content is  the stored text of that URI. Your Map task should output &lt;word, &lt;docId, frequency&gt;&gt;  for each word in the content of text.<br />
   <em>Pseudocode</em></p>
 <div><br />
+<div class="dp-highlighter">
+        <div class="bar">
   void&nbsp;Map&nbsp;(key,&nbsp;value){<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;word&nbsp;x&nbsp;in&nbsp;the  content of a hbase record:<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(x,&nbsp;&lt;docId,  frequency&gt;);<br />
   } </div>
+  </div>
 <p><em>Detail implementation</em></p>
+<div class="dp-highlighter">
+        <div class="bar">
 <div><br />
   public static class FibMapper extends  TableMapper&lt;ImmutableBytesWritable, Writable&gt; {      <br />
   @Override<br />
@@ -67,23 +72,33 @@
     }<br />
     }</p>
 </div>
+</div>
 <h3>Main program </h3>
 <p>The main function has been provided as  standard initialization, although you can modify it to fit your own style. Hint:  the provided code is designed for using put operations in the mapper  content.write() function. For details, please see the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [citations].</p>
 <h1>Edit, compile  and run your code</h1>
 <p>The sketch code is  stored within the provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You can use linux text editor vi/vim to  add your code.</p>
 <div><br />
+<div class="dp-highlighter">
+        <div class="bar">
   $ cd /root/hbaseMoocAntProject/ <br />
   $ vim src/iu/pti/hbaseapp/clueweb09/FreqIndexBuilderClueWeb09.java </div>
+  </div>
 <h2>Compile and run your code</h2>
 <p>For your convenience, we have provided a  one-click compiling and execution script. Standard error messages such as &ldquo;compile  errors, execution errors, etc.&rdquo; will be redirected on the screen. Debug it based  on the returned messages.</p>
 <div><br />
+<div class="dp-highlighter">
+        <div class="bar">
   $ cd /root/hbaseMoocAntProject/<br />
   $ ./compileAndExecFreqIndexBuilderClueWeb.sh </div>
+  </div>
 <h2>View the result</h2>
 <p>The result is  generated as /root/hbaseMoocAntProject/output/project2.txt. </p>
 <div><br />
+<div class="dp-highlighter">
+        <div class="bar">
   $ cd /root/hbaseMoocAntProject/<br />
   $ cat output/project2.txt </div>
+  </div>
 <h1>What&rsquo;s next?</h1>
 <p>You will be ready  to program your next project: &ldquo;Twister PageRank and Test the Search Engine.&rdquo;</p>
 <h1>References</h1>

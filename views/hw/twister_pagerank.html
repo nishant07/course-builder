@@ -85,11 +85,11 @@
 <h3>Mapper</h3>
 <p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;cgl.imr.base.MapTask&lt;collector, Key, Value&gt;&quot; which  provides a collector for map task output, and &lt;key, value&gt; pairs as the map  input. A Mapper implementation outputs a new set of &lt;key,value&gt; pairs  using the provided Context.<br />
   &lt;key, value&gt; of PageRank&rsquo;s map function  is &lt;taskID, updated PageRank Values&gt;, where the key is the index of the current map  task and the value is the compressed changed PageRank values of each iteration.  Each map task will use this information along with the split data to calculate  the partial PageRank values, after which it emits the map output as &lt;taskID,  partial updated PageRank Values&gt;.<br />
-  <div class="dp-highlighter">
-        <div class="bar">
+ 
           
-          <pre xml:space="preserve">
   <em>Pseudocode</em></p>
+   <div class="dp-highlighter">
+        <div class="bar">
 <div><br />
   void&nbsp;Map&nbsp;(key,&nbsp;value){<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;url&nbsp;in  a assigned map task:<br />
@@ -97,11 +97,10 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;collector.collect(taskID,&nbsp;updated  partial PageRank Table);<br />
   } </div>
   </div>
+  <p><em>Detail implementation</em></p>
   <div class="dp-highlighter">
         <div class="bar">
           
-          <pre xml:space="preserve">
-<p><em>Detail implementation</em></p>
 <div><br />
   public class PageRankMapTask implements MapTask {<br />
   public void map(MapOutputCollector collector, Key key, Value val)<br />
@@ -154,6 +153,8 @@
 <h3>Reducer</h3>
 <p>Reducers collect the intermediate &lt;key, value&gt;  output from multiple map tasks and assemble a &ldquo;near-completed&rdquo; result. The  reason is that Twister uses multiple reducers to collect the intermediate  result and provide a faster aggregation. This &ldquo;near-completed&rdquo; will be passed  to a single combiner to yield the final output.<br />
   <em>Pseudocode</em></p>
+ <div class="dp-highlighter">
+        <div class="bar">
 <div><br />
   void&nbsp;Reduce&nbsp;(taskID,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br />
@@ -161,7 +162,10 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;collector.collect (taskID,&nbsp;updated  partial PageRank Table);
   <p>}</p>
 </div>
+</div>
 <p><em>Detail implementation</em></p>
+ <div class="dp-highlighter">
+        <div class="bar">
 <div><br />
   public void reduce(ReduceOutputCollector collector, Key key,  List&lt;Value&gt; values) throws TwisterException {<br />
   try {                  <br />
@@ -207,15 +211,19 @@
     }<br />
     }</p>
 </div>
+</div>
 <h3>Combiner</h3>
 <p>Twister Combiner generally  is the &ldquo;Single reducer&rdquo; to combine all the partial results into a single  output.<br />
   <em>Pseudocode</em></p>
+   <div class="dp-highlighter">
+        <div class="bar">
 <div><br />
   void&nbsp;Combine&nbsp;(Map&lt;Key, Value&gt; keyValues){<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;key&nbsp;in&nbsp;keyValues:<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;urlPageRank+=x;<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write the final result  to disk
   <p>}</p>
+</div>
 </div>
 <p><em>Detail implementation</em></p>
 <div><br />
@@ -258,8 +266,11 @@
     }<br />
     } // end of combiner</p>
 </div>
+</div>
 <h1>Edit, compile  and run your code</h1>
 <p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You can use linux text editor vi/vim to  add your code.</p>
+ <div class="dp-highlighter">
+        <div class="bar">
 <div><br />
   $ cd /root/twister-pagerank/
   <p># finish the map function<br />
@@ -269,16 +280,23 @@
   <p># finish the combine function<br />
     $ vim src/iu/pti/hbaseapp/clueweb09/PageRankCombiner.java</p>
 </div>
+</div>
 <h2>Compile and run your code</h2>
-<p>For your convenience, we have provided a  one-click compiling and execution script. Standard error messages such as &ldquo;compile  errors, execution errors, etc.&rdquo; will be redirected on the screen. Debug it  based on the returned messages.</p>
+<p>For your convenience, we have provided a one-click compiling and execution script. Standard error messages such as &ldquo;compile  errors, execution errors, etc.&rdquo; will be redirected on the screen. Debug it  based on the returned messages.</p>
 <div><br />
+ <div class="dp-highlighter">
+        <div class="bar">
   $ cd /root/twister-pagerank/<br />
   $ ./ compileAndExecTwisterPageRank.sh </div>
+  </div>
 <h2>View the result</h2>
 <p>The result is  generated as /root/twister-pagerank/output/project3.txt. </p>
 <div><br />
+ <div class="dp-highlighter">
+        <div class="bar">
   $ cd /root/twister-pagerank/<br />
   $ cat output/project3.txt </div>
+  </div>
 <h1>Test  the Search Engine</h1>
 <p>Before we test the search engine, we need to  write the PageRank output to the HBase clueWeb09PageRankTable Table.</p>
 <div><br />

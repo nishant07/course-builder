@@ -84,7 +84,11 @@
   <em>Figure 5</em>. Twister PageRank dataflow</p>
 <h3>Mapper</h3>
 <p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;cgl.imr.base.MapTask&lt;collector, Key, Value&gt;&quot; which  provides a collector for map task output, and &lt;key, value&gt; pairs as the map  input. A Mapper implementation outputs a new set of &lt;key,value&gt; pairs  using the provided Context.<br />
-  &lt;key, value&gt; of PageRank&rsquo;s map function  is &lt;taskID, updated PageRank Values&gt;,  where the key is the index of the current map  task and the value is the compressed changed PageRank values of each iteration.  Each map task will use this information along with the split data to calculate  the partial PageRank values, after which it emits the map output as &lt;taskID,  partial updated PageRank Values&gt;.<br />
+  &lt;key, value&gt; of PageRank&rsquo;s map function  is &lt;taskID, updated PageRank Values&gt;, where the key is the index of the current map  task and the value is the compressed changed PageRank values of each iteration.  Each map task will use this information along with the split data to calculate  the partial PageRank values, after which it emits the map output as &lt;taskID,  partial updated PageRank Values&gt;.<br />
+  <div class="dp-highlighter">
+        <div class="bar">
+          
+          <pre xml:space="preserve">
   <em>Pseudocode</em></p>
 <div><br />
   void&nbsp;Map&nbsp;(key,&nbsp;value){<br />
@@ -92,6 +96,11 @@
   calculate new pagerank for each url;<br />
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;collector.collect(taskID,&nbsp;updated  partial PageRank Table);<br />
   } </div>
+  </div>
+  <div class="dp-highlighter">
+        <div class="bar">
+          
+          <pre xml:space="preserve">
 <p><em>Detail implementation</em></p>
 <div><br />
   public class PageRankMapTask implements MapTask {<br />
@@ -140,6 +149,7 @@
     }<br />
     }// end map<br />
     } //end of </p>
+</div>
 </div>
 <h3>Reducer</h3>
 <p>Reducers collect the intermediate &lt;key, value&gt;  output from multiple map tasks and assemble a &ldquo;near-completed&rdquo; result. The  reason is that Twister uses multiple reducers to collect the intermediate  result and provide a faster aggregation. This &ldquo;near-completed&rdquo; will be passed  to a single combiner to yield the final output.<br />

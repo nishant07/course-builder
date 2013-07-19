@@ -15,7 +15,7 @@
   <li>Test  the stored HBase records with the provided java executable</li>
 </ul>
 <h1>Deliverables </h1>
-<p>Submit an output  file dataTable1.txt which contains your results by using the  provided java class iu.pti.hbaseapp.HBaseTableReader to the Google MOOC submission page. </p>
+<p>Submit an output  file dataTable1.txt which contains your results to the Google MOOC submission page by using the  provided java class iu.pti.hbaseapp.HBaseTableReader.</p>
 <h1>Evaluation</h1>
 <p>TBD</p>
 <h1>Introduction </h1>
@@ -24,19 +24,23 @@
 <h2>Hadoop  MapReduce</h2>
 <p>The Apache Hadoop MapReduce software library  is a framework that allows for the distributed processing of large datasets  across clusters of computers using simple programming models. It is designed to  scale up from single servers to thousands of machines, each offering local  computation and storage. Rather than rely on hardware to deliver  high availability, the library itself is designed to detect and handle failures  at the application layer, delivering a highly-available service on top of a  cluster of computers, each of which may be prone to failures [2].<br />
   Hadoop has an architecture consisting of a  master node with many client workers and uses a global queue for task  scheduling, thus achieving natural load balancing among the tasks. The MapReduce  model reduces the data transfer overheads by overlapping data communication  with computations when reduce steps are involved. Hadoop performs duplicate  executions of slower tasks and handles failures by rerunning the failed tasks  using different workers. Data is stored on the Hadoop Distributed File System (HDFS),  a distributed parallel file system for data storage, which stores the data  across the local disks of the computing nodes while presenting a single file  system view through the HDFS API. The architecture is shown in Figure 1.<br />
-  <img src="assets/img/hw/se1/1.png" alt="" width="211" height="206" /><br />
+  <p align="center"><img src="assets/img/hw/se1/1.png" alt="" width="211" height="206" /><br />
   <em>Figure 1</em>. Hadoop MapReduce Architecture<br />
-  This practice session  and upcoming projects mainly use Hadoop MapReduce as our programming model and  execution framework.</p>
+  </p>
+ <p>This practice session  and upcoming projects mainly use Hadoop MapReduce as our programming model and  execution framework.</p>
 <h2>HBase</h2>
 <p>HBase is an open source, distributed,  column-oriented, and sorted-map datastore modeled after Google&rsquo;s BigTable.  Figure 2 shows the data model of HBase. Data is stored in tables; each table  contains multiple rows, and a fixed number of column families. For every row,  there can be a varied amount of qualifiers within a column family, and at the intersections of rows and qualifiers are table cells. Cell contents are both uninterpreted arrays of bytes and versioned. A table can be configured to  maintain a certain number of versions for its cell contents. Rows are sorted by  row keys, which are implemented as byte arrays [3-4]. <br />
-  <img src="assets/img/hw/se1/2.png" alt="" width="576" height="221" /><br />
+  <p align="center"><img src="assets/img/hw/se1/2.png" alt="" width="576" height="221" /><br />
   <em>Figure 2</em>. An example of HBase table structure<br />
+  </p>
   This practice and  upcoming projects use HBase as a datastore which stores the raw input data and  the output results, even serving as a database for our search engine. </p>
 <h1>Exercise:  Create Tables and Load Data to HBase </h1>
 <p>This section  provides command-line steps to configure the working environment, start Hadoop  and HBase, create HBase tables, load data into HBase, and view the uploaded  records. Note that these steps must be executed under the prepared <a href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova">VirtualBox Image</a> [5].  </p>
 <h2>Start Hadoop and HBase </h2>
 <p>The following steps  direct you to the locations of Hadoop and HBase and give instructions on how to start them. For Hadoop, a  provided one-click shell script, salsaHadoop, is used to automatically start  Hadoop framework. For HBase, we use the default starter. </p>
 <div><br />
+ <div class="dp-highlighter">
+        <div class="bar">
   # start hadoop<br />
   $ cd /root/software/hadoop-1.1.2/<br />
   $ . ./MultiNodesOneClickStartUp.sh /root/software/jdk1.6.0_33/ nodes<br />
@@ -44,17 +48,23 @@
   # start hbase<br />
   $ cd /root/software/hbase-0.94.7/<br />
   $ ./bin/start-hbase.sh </div>
+  </div>
 <h2>Configure  the working environment</h2>
 <p>Once Hadoop and  HBase have started, we need to copy a configuration file hbase-site.xml to  Hadoop&rsquo;s conf directory and update the environment parameter HADOOP_CLASSPATH. </p>
 <div><br />
+ <div class="dp-highlighter">
+        <div class="bar">
   # prepare for hadoop and hbase environment<br />
   $ cp /root/software/hbase-0.94.7/conf/hbase-site.xml  /root/software/hadoop-1.1.2/conf/<br />
   $ cd /root/software/hadoop-1.1.2/<br />
   $ echo &quot;export  HADOOP_CLASSPATH=`/root/software/hbase-0.94.7/bin/hbase classpath`&quot;  &gt;&gt; ~/.bashrc<br />
   $ source ~/.bashrc </div>
+  </div>
 <h2>Load data into HBase Tables </h2>
-<p>After the working environment is ready, two  HBase Tables, WordCountTable and clueWeb09DataTable for project 1, are created  by the provided java class iu.pti.hbaseapp.clueweb09.TableCreatorClueWeb09. Then we upload the clueWeb09 data to HBase  using helper iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09.</p>
+<p>After the working environment is ready, two  HBase Tables, WordCountTable and clueWeb09DataTable for Project 1, are created  by the provided java class iu.pti.hbaseapp.clueweb09.TableCreatorClueWeb09. Then we upload the clueWeb09 data to HBase  using helper iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09.</p>
 <div><br />
+ <div class="dp-highlighter">
+        <div class="bar">
   # create hbase tables<br />
   $ ./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.TableCreatorClueWeb09<br />
   <br />
@@ -69,11 +79,15 @@
   <p># load data into HBase (takes 10-20 minutes to finish)<br />
     $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09  /cw09LoadInput </p>
 </div>
+</div>
 <h2>Verify data record from HBase output </h2>
-<p>Finally, we verify  the uploaded records with the iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09 from the clueWeb09DataTable table. The screen redirects the output to dataTable1.txt. This file is used for evaluation and must  be uploaded to the MOOC submission page.</p>
+<p>Finally, we verify  the uploaded records with the iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09 from the clueWeb09DataTable. The screen redirects the output to dataTable1.txt. This file is used for evaluation and must  be uploaded to the MOOC submission page.</p>
 <div><br />
+ <div class="dp-highlighter">
+        <div class="bar">
   $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.HBaseTableReader  clueWeb09DataTable details string string string string 1 &gt; dataTable1.txt<br />
   $ vim dataTable1.txt </div>
+  </div>
 <h1>What&rsquo;s next?</h1>
 <p>You are ready to  program your own HBase WordCount. </p>
 <h1>References</h1>

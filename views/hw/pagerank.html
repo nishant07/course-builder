@@ -1,11 +1,11 @@
 <div id="accordion">
 
-    <h2>1. Overview</h2>
+    <h2>Overview</h2>
 
     <div>
 		<p>One example of a typical distributed system is the web search engine. It is designed to search for information on the World
 			Wide Web. Search results are generally presented in a list of
-			results and are often called hits. PageRank is a well-known web
+			results and are often called hits. PageRank [1] is a well-known web
 			graph ranking algorithm that helps the Internet user sort hits by
 			their importance. PageRank calculates numerical value to each element
 			of a hyperlinked set of webpages, which reflects the probability
@@ -45,7 +45,7 @@
 			<pre>PR(B)  =  PR(D)/2 + PR(E)/3 + PR(F)/2 + PR(C) + PR(G1)/2 + PR(G2)/2 + PR(G3)/2</pre>
 			In the general case, the PageRank value for any page u can be expressed as:
 			<br> Equ.1:   <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20"></p>
-		<p> The vertices seen in the right of the formula contain all the webpages that point to target web page ‘u’. The L(v) refers to the out degree of each webpage in the vertices set. The initial rank values of each webpage, like PR’(u), can be any double value. After several iteration calculations, the rank values converge to the stationary distribution regardless of what their initial values are. Markov Chain [2]</p>
+		<p> The vertices seen in the right of the formula contain all the webpages that point to target web page ‘u’. The L(v) refers to the out degree of each webpage in the vertices set. The initial rank values of each webpage, like PR’(u), can be any double value. After several iteration calculations, the rank values converge to the stationary distribution regardless of what their initial values are [3].</p>
 
 		<p><strong>Damping factor</strong></p>
 		<p>
@@ -53,7 +53,7 @@
 		<br> Equ.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37"></p>
 	</div>
 
-    <h2>2. <a>Execution guide for sample PageRank code</a></h2>
+    <h2><a>Execution guide for sample PageRank code</a></h2>
     <div>
         <p>To help you understand the process of PageRank computation better, we offer an executable PageRank java class file in the assignment package. Its usage is:  </p>
 		<p><strong>Java SequentialPageRank [input file name] [output file name] [iteration count] [damping factor]</strong></p>
@@ -61,11 +61,11 @@
         <br><pre><strong>Java  SequentialPageRank    pagerank.input   pagerank.output   10  0.85</strong></pre> 
         <p>To check the accuracy of these output rank values, you can open pagerank.output file and see whether the output results are the same as rank values in Fig. 1. Generally speaking, the larger the number of iterations, the more accurate the computed rank values will be. </p>
     </div>
-    <h2>3. <a>Programming Guide for PageRank</a></h2>
+    <h2><a>Programming Guide for PageRank</a></h2>
 
     <div>
     	<p><strong>Input Data format</strong></p>
-        <p>The input data for PageRank application is the web graph in adjacency matrix format [3]. In our sample program, it transfers the web graph into a simplified adjacency matrix. The following steps were performed to construct an adjacency matrix for the web graph in Fig.1: </p>
+        <p>The input data for PageRank application is the web graph in adjacency matrix format [4]. In our sample program, it transfers the web graph into a simplified adjacency matrix. The following steps were performed to construct an adjacency matrix for the web graph in Fig.1: </p>
 		<ol>
 			<li>Construct a set of tuples that describe the web graph
 				structure: WebG = {(A,null), (B, C), (C, B) (D, A, B), (E, B D F),
@@ -88,11 +88,17 @@
 			</li>
 		</ol>
 	</div>
-    <h2>4. <a> References </a></h2>
+    <h2><a> References </a></h2>
 
-	<div>
+	<div>		
 		<p>
-			1. Sergey Brin and Lawrence Page, <a
+			1. <a href="http://en.wikipedia.org/wiki/PageRank">http://en.wikipedia.org/wiki/PageRank</a>
+		</p>
+		<p>
+			2. <a href="http://en.wikipedia.org/wiki/Markov_chain">http://en.wikipedia.org/wiki/Markov_chain</a>
+		</p>
+		<p>
+			3. Sergey Brin and Lawrence Page, <a
 				href="http://infolab.stanford.edu/~backrub/google.html">The
 				Anatomy of a Large-Scale </a><a
 				href="http://infolab.stanford.edu/~backrub/google.html">Hypertextual</a>
@@ -101,13 +107,8 @@
 			international conference on World Wide Web 7 , 1998
 		</p>
 		<p>
-			2. <a href="http://en.wikipedia.org/wiki/Markov_chain">http://en.wikipedia.org/wiki/Markov_chain</a>
+			4. <a href="http://en.wikipedia.org/wiki/Adjacency_matrix">http://en.wikipedia.org/wiki/Adjacency_matrix</a>
 		</p>
-		<p>
-			3. <a href="http://en.wikipedia.org/wiki/Adjacency_matrix">http://en.wikipedia.org/wiki/Adjacency_matrix</a>
-		</p>
-		<p>
-			4. <a href="http://en.wikipedia.org/wiki/PageRank">http://en.wikipedia.org/wiki/PageRank</a>
-		</p>
+	
 	</div>	
 </div>

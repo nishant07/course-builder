@@ -7,15 +7,15 @@
 <h1>Evaluation</h1>
 <p>TBD</p>
 <h1>Introduction </h1>
-<p>WordCount is a simple program which counts  the number of occurrences of each word in a given text input dataset. It fits  very well with the map/reduce programming model, making WordCount a great example  to understand the Hadoop MapReduce programming style [citations]. Instead of  loading the data from HDFS, we will load our data directly from existing HBase  records which store the similar content structures on HBASE and HDFS (if you  have finished Project #1 this has already been done). </p>
+<p>WordCount is a simple program which counts  the number of occurrences of each word in a given text input dataset. It fits  very well with the map/reduce programming model, making WordCount a great example  to understand the Hadoop MapReduce programming style [1]. Instead of  loading the data from HDFS, we will load our data directly from existing HBase  records which store the similar content structures on HBASE and HDFS (if you  have finished Project #1 this has already been done). </p>
 <h2>HBase</h2>
 <p>For details about  HBase [2], please see Project #1.</p>
 <h2>Clueweb09 dataset</h2>
-<p>We are using the ClueWeb09 dataset, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [1].  Since the ClueWeb09 dataset is composed of webpages crawled from the Internet, the  uploaded table schemas are designed as shown in Figure 2.<br />
+<p>We are using the ClueWeb09 dataset, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2].  Since the ClueWeb09 dataset is composed of webpages crawled from the Internet, the  uploaded table schemas are designed as shown in Figure 2.<br />
   </p>
   <p align="center"><img src="assets/img/hw/se2/2.png" alt="" width="624" height="92" /><br />
   <em>Figure 2</em>. Data table schema for storing the  ClueWeb09 dataset<br /></p>
-  <p>So, similar to Hadoop WordCount [citation], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
+  <p>So, similar to Hadoop WordCount [3], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
 <h2>Mapper, Reducer and Main Program </h2>
 <p>Now we are going to implement the HBase  WordCount. Our implementation consists of three main parts:</p>
 <ul>
@@ -93,9 +93,9 @@ public static class WcReducer extends TableReducer<Text, LongWritable, Immutable
 </div>
 </div>
 <h3>Main program </h3>
-<p>The main function has been provided as  standard initialization, although you can modify it to your own style. Hint:  the provided code is designed for using put operations in the reducer  content.write() function. For details, please see examples of using TableMapReduceUtil.initTableReducerJob  [citations from xiaoming].</p>
+<p>The main function has been provided as standard initialization, although you can modify it to your own style. Hint:  the provided code is designed for using put operations in the reducer  content.write() function. For details, please see examples of using TableMapReduceUtil.initTableReducerJob [4].</p>
 <h1>Edit, compile  and run your code</h1>
-<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You may use linux text editor vi/vim to add  your code.</p>
+<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a> [5]. You may use linux text editor vi/vim to add  your code.</p>
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">
@@ -106,7 +106,7 @@ $ vim src/iu/pti/hbaseapp/clueweb09/WordCountClueWeb09.java
         </div>
   </div>
 <h2>Compile and run your code</h2>
-<p>For your convenience, we have provided a  one-click script compileAndExecWordCount.sh  for compiling and execution. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected on the screen. You may debug it  based on the returned messages.</p>
+<p>For your convenience, we have provided a one-click script compileAndExecWordCount.sh for compiling and execution. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected on the screen. You may debug it  based on the returned messages.</p>
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">
@@ -130,8 +130,11 @@ $ cat output/project1.txt
 <h1>What&rsquo;s next?</h1>
 <p>You will be ready  to program your next project: &ldquo;Parallel Inverted Index Building on HBase&rdquo;.</p>
 <h1>References</h1>
-<ul>
+<ol>
+  <li>MapReduce Tutorial: <a href="http://hadoop.apache.org/docs/stable/mapred_tutorial.html">http://hadoop.apache.org/docs/stable/mapred_tutorial.html</a></li>
+  <li>HBase  official website: <a href="http://hbase.apache.org/">http://hbase.apache.org/</a></li>
   <li>Clueweb09  dataset: <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
-  <li>HBase  official website, <a href="http://hbase.apache.org/">http://hbase.apache.org/</a></li>
-  <li>Cloud  MOOC VirtualBox, http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova</li>
-</ul>
+  <li>Cloud MOOC Homework 1 - Hadoop WordCount: <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=1">http://cloudmooc.soic.indiana.edu:8080/homework?unit=1</a></li>
+  <li>HBase MapReduce Examples: <a href="http://hbase.apache.org/book/mapreduce.example.html">http://hbase.apache.org/book/mapreduce.example.html</a></li>
+  <li>Cloud  MOOC VirtualBox: http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova</li>
+</ol>

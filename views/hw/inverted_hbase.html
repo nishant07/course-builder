@@ -24,7 +24,7 @@
 <p>To build these  inverted indices, we reuse the ClueWeb09 dataset from Project #1, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
   In the clueWeb09IndexTable table each term  will have the same structure, with term as rowkey, values contained in documentId,  and the occurrence of the term within this document shown. Our goal is to write  an HBase program which generates an inverted index table by extracting the  information from the ClueWeb09 dataset. </p>
 <h2>Mapper and  Main Program </h2>
-<p>Now we are going to implement the HBase FreqIndexBuilder  program. As opposed to WordCount [citation], our implementation only consists  of two main parts:</p>
+<p>Now we are going to implement the HBase FreqIndexBuilder  program. As opposed to WordCount [3], our implementation only consists  of two main parts:</p>
 <ul>
   <li>Mapper</li>
   <li>Main  program</li>
@@ -68,7 +68,7 @@ public static class FibMapper extends TableMapper<ImmutableBytesWritable, Writab
 </div>
 </div>
 <h3>Main program </h3>
-<p>The main function has been provided as  standard initialization, although you can modify it to fit your own style. Hint:  the provided code is designed for using put operations in the mapper  content.write() function. For details, please see the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [citations].</p>
+<p>The main function has been provided as  standard initialization, although you can modify it to fit your own style. Hint:  the provided code is designed for using put operations in the mapper  content.write() function. For details, please see the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [4].</p>
 <h1>Edit, compile  and run your code</h1>
 <p>The sketch code is  stored within the provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You can use linux text editor vi/vim to  add your code.</p>
 <div><br />
@@ -105,7 +105,9 @@ $ cat output/project2.txt
 <h1>What&rsquo;s next?</h1>
 <p>You will be ready  to program your next project: &ldquo;Twister PageRank and Test the Search Engine.&rdquo;</p>
 <h1>References</h1>
-<ul>
-  <li>salsaHPC  IndexedHBase Project, <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>
-  <li>Clueweb09  project and dataset, <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
-</ul>
+<ol>
+  <li>salsaHPC  IndexedHBase Project: <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>
+  <li>Clueweb09  project and dataset: <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
+  <li>Cloud Mooc Homework 1 - Hadoop WordCount: <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=1">http://cloudmooc.soic.indiana.edu:8080/homework?unit=1</a></li>
+  <li>HBase MapReduce Examples: <a href:"http://hbase.apache.org/book/mapreduce.example.html">http://hbase.apache.org/book/mapreduce.example.html</a></li>
+</ol>

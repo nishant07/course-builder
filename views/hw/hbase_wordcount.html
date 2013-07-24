@@ -29,28 +29,33 @@
   <em>Pseudocode</em></p>
   <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  void&nbsp;Map&nbsp;(key,&nbsp;value){<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;word&nbsp;x&nbsp;in&nbsp;the  content of a hbase record:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(x,&nbsp;freq);<br />
-  } </div>
+<div>
+    <pre>
+void Map (key, value){
+    for each word x in the content of a hbase record:
+    context.write(x, freq);
+}
+    </pre>
+</div>
   </div>
 <p><em>Detail implementation</em></p>
 <div class="dp-highlighter">
         <div class="bar">
 <div><br />
-  static class WcMapper extends TableMapper&lt;Text, LongWritable&gt; {<br />
-  @Override<br />
-  public void  map(ImmutableBytesWritable row, Result result,   Context  context) throws IOException, InterruptedException {<br />
-  byte[]  contentBytes = result.getValue(Constants.CF_DETAILS_BYTES,  Constants.QUAL_CONTENT_BYTES);<br />
-  String content  = Bytes.toString(contentBytes);<br />
-  <br />
-  // TODO: write  your implementation for counting words in each row and generating a &lt;word,  count&gt; pair<br />
-  // Hint: use  the &quot;getWordFreq&quot; function to count the frequency of words in  content
-  <p>                     <strong>/* Write your code here */</strong><br />
-    <br />
-    } // end of map<br />
-    } // end of WcMapper</p>
+    <pre>
+static class WcMapper extends TableMapper<Text, LongWritable> {
+@Override
+public void map(ImmutableBytesWritable row, Result result,   Context context) throws IOException, InterruptedException {
+byte[] contentBytes = result.getValue(Constants.CF_DETAILS_BYTES, Constants.QUAL_CONTENT_BYTES);
+String content = Bytes.toString(contentBytes);
+
+// TODO: write your implementation for counting words in each row and generating a <word, count> pair
+// Hint: use the "getWordFreq" function to count the frequency of words in content
+/* Write your code here */
+
+} // end of map
+} // end of WcMapper
+</pre>
 </div>
 </div>
 <h3>Reducer </h3>
@@ -58,29 +63,33 @@
   <em>Pseudo-code</em></p>
   <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;context.write(rowkey(x),&nbsp;freq);
-  <p>}   </p>
+<div>
+    <pre>
+void Reduce (keyword, <list of value>){
+    for each x in <list of value>:
+        sum+=x;
+        context.write(rowkey(x), freq);
+}
+    </pre>
 </div>
 </div>
 <p><em>Detail-implementation</em></p>
 <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  public static class WcReducer extends TableReducer&lt;Text,  LongWritable, ImmutableBytesWritable&gt; {<br />
-  @Override<br />
-  public void reduce(Text  word, Iterable&lt;LongWritable&gt; freqs, Context context)<br />
-  throws  IOException, InterruptedException {<br />
-  // TODO: write your  implementation for getting the <br />
-  // final count of each word and putting it  into the word count table<br />
-  // you may use the org.apache.hadoop.hbase.client.Put  class<br />
-  // for convenient  hbase update operation<br />
-  <strong>/* Write your code here */</strong>
-  <p>        } // end of reducer<br />
-    } // end of WcReducer</p>
+<div>
+<pre>
+public static class WcReducer extends TableReducer<Text, LongWritable, ImmutableBytesWritable> {
+    @Override
+    public void reduce(Text word, Iterable<LongWritable> freqs, Context context)
+        throws IOException, InterruptedException {
+        // TODO: write your implementation for getting the
+        // final count of each word and putting it into the word count table
+        // you may use the org.apache.hadoop.hbase.client.Put class
+        // for convenient hbase update operation
+        /* Write your code here */
+    } // end of reducer
+} // end of WcReducer
+</pre>
 </div>
 </div>
 <h3>Main program </h3>
@@ -90,24 +99,33 @@
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">
-  $ cd /root/hbaseMoocAntProject/ <br />
-  $ vim src/iu/pti/hbaseapp/clueweb09/WordCountClueWeb09.java </div>
+<pre>
+$ cd /root/hbaseMoocAntProject/
+$ vim src/iu/pti/hbaseapp/clueweb09/WordCountClueWeb09.java
+</pre>
+        </div>
   </div>
 <h2>Compile and run your code</h2>
 <p>For your convenience, we have provided a  one-click script compileAndExecWordCount.sh  for compiling and execution. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected on the screen. You may debug it  based on the returned messages.</p>
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">
-  $ cd /root/hbaseMoocAntProject/<br />
-  $ ./complieAndExecWordCount.sh </div>
-  </div>
+<pre>
+$ cd /root/hbaseMoocAntProject/
+$ ./complieAndExecWordCount.sh
+</pre>
+        </div>
+</div>
 <h2>View the result</h2>
 <p>The result is  generated as /root/hbaseMoocAntProject/output/project1.txt. </p>
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">
-  $ cd /root/hbaseMoocAntProject/<br />
-  $ cat output/project1.txt </div>
+<pre>
+$ cd /root/hbaseMoocAntProject
+$ cat output/project1.txt
+</pre>
+        </div>
   </div>
 <h1>What&rsquo;s next?</h1>
 <p>You will be ready  to program your next project: &ldquo;Parallel Inverted Index Building on HBase&rdquo;.</p>

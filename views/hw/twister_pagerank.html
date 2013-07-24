@@ -77,64 +77,69 @@
   <em>Pseudocode</em></p>
    <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  void&nbsp;Map&nbsp;(key,&nbsp;value){<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;url&nbsp;in  a assigned map task:<br />
-  calculate new pagerank for each url;<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;collector.collect(taskID,&nbsp;updated  partial PageRank Table);<br />
-  } </div>
+<div>
+    <pre>
+void Map (key, value){
+    for each url in a assigned map task:
+        calculate new pagerank for each url;
+        collector.collect(taskID, updated partial PageRank Table);
+}
+    </pre>
+</div>
   </div>
   <p><em>Detail implementation</em></p>
   <div class="dp-highlighter">
         <div class="bar">
           
-<div><br />
-  public class PageRankMapTask implements MapTask {<br />
-  public void map(MapOutputCollector collector, Key key, Value val)<br />
-  throws  TwisterException {<br />
-  try {<br />
-  DoubleVectorData  tmpDvd = new DoubleVectorData();<br />
-  Set&lt;Integer&gt;  urlsSet = new HashSet&lt;Integer&gt;();<br />
-  double  tanglingProbSum = 0.0d;<br />
-  tmpDvd.fromBytes(val.getBytes());<br />
-  double[][]  tmpData = tmpDvd.getData();<br />
-  this.numUrls =  (int) tmpData[0][0];<br />
-  <br />
-  int fromUrl,  toUrl;<br />
-  double[][]  tmpPageRank = decompress(tmpDvd);<br />
-  double[][]  newPageRank = new double[numUrls][2];<br />
-  <br />
-  <strong>                   /* Write your code here */</strong>
-  <p><strong>                         /* End of your code */</strong><br />
-    <br />
-    int  numChangedUrls = urlsSet.size();<br />
-    double  changedPageRank[][] = new double[numChangedUrls + 1][2];<br />
-    changedPageRank[0][0]  = numUrls;<br />
-    changedPageRank[0][1]  = tanglingProbSum;<br />
-    int[]  urlsArray = new int[numChangedUrls];<br />
-    Iterator&lt;Integer&gt;  iter = urlsSet.iterator();<br />
-    for (int i =  0; i &lt; numChangedUrls; i++) {<br />
-    if (iter.hasNext())<br />
-    urlsArray[i]  = (iter.next()).intValue();<br />
-    }<br />
-    <br />
-    for (int i =  0; i &lt; numChangedUrls; i++) {<br />
-    changedPageRank[i  + 1][0] = urlsArray[i];<br />
-    changedPageRank[i  + 1][1] = newPageRank[urlsArray[i]][1];<br />
-    }<br />
-    <br />
-    DoubleVectorData  resultDvd = new DoubleVectorData(changedPageRank,<br />
-    numChangedUrls  + 1, 2);<br />
-    <br />
-    int taskNo =  key.hashCode();<br />
-    collector.collect(new  IntKey(taskNo), new BytesValue(resultDvd<br />
-    .getBytes()));<br />
-    <br />
-    } catch  (SerializationException e) {<br />
-    throw new  TwisterException(e);<br />
-    }<br />
-    }// end map<br />
-    } //end of </p>
+<div>
+    <pre>
+public class PageRankMapTask implements MapTask {
+    public void map(MapOutputCollector collector, Key key, Value val)
+            throws TwisterException {
+        try {
+            DoubleVectorData tmpDvd = new DoubleVectorData();
+            Set<Integer> urlsSet = new HashSet<Integer>();
+            double tanglingProbSum = 0.0d;
+            tmpDvd.fromBytes(val.getBytes());
+            double[][] tmpData = tmpDvd.getData();
+            this.numUrls = (int) tmpData[0][0];
+
+            int fromUrl, toUrl;
+            double[][] tmpPageRank = decompress(tmpDvd);
+            double[][] newPageRank = new double[numUrls][2];
+
+            /* Write your code here */
+            /* End of your code */
+
+            int numChangedUrls = urlsSet.size();
+            double changedPageRank[][] = new double[numChangedUrls + 1][2];
+            changedPageRank[0][0] = numUrls;
+            changedPageRank[0][1] = tanglingProbSum;
+            int[] urlsArray = new int[numChangedUrls];
+            Iterator<Integer> iter = urlsSet.iterator();
+            for (int i = 0; i < numChangedUrls; i++) {
+                if (iter.hasNext())
+                urlsArray[i] = (iter.next()).intValue();
+            }
+
+            for (int i = 0; i < numChangedUrls; i++) {
+                changedPageRank[i + 1][0] = urlsArray[i];
+                changedPageRank[i + 1][1] = newPageRank[urlsArray[i]][1];
+            }
+
+            DoubleVectorData resultDvd = new DoubleVectorData(changedPageRank,
+            numChangedUrls + 1, 2);
+
+            int taskNo = key.hashCode();
+            collector.collect(new IntKey(taskNo), new BytesValue(resultDvd.getBytes()));
+
+        } catch (SerializationException e) {
+            throw new TwisterException(e);
+        }
+    }// end map
+} //end of
+
+</pre>
 </div>
 </div>
 <h3>Reducer</h3>
@@ -142,61 +147,68 @@
   <em>Pseudocode</em></p>
  <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  void&nbsp;Reduce&nbsp;(taskID,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;urlPageRank+=x;<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;collector.collect (taskID,&nbsp;updated  partial PageRank Table);
-  <p>}</p>
+<div><pre>
+void Reduce (taskID, <list of value>){
+    for each x in <list of value>:
+        urlPageRank+=x;
+    collector.collect (taskID, updated partial PageRank Table);
+}
+</pre>
 </div>
 </div>
 <p><em>Detail implementation</em></p>
  <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  public void reduce(ReduceOutputCollector collector, Key key,  List&lt;Value&gt; values) throws TwisterException {<br />
-  try {                  <br />
-  int numUrls,  numData, lenData;<br />
-  double  tanglingProbSum = 0.0d;<br />
-  Set&lt;Integer&gt;  urlsSet = new HashSet&lt;Integer&gt;();<br />
-  BytesValue val  = (BytesValue) values.get(0);<br />
-  DoubleVectorData  tmpDvd = new DoubleVectorData();<br />
-  tmpDvd.fromBytes(val.getBytes());<br />
-  numData =  tmpDvd.getNumData();<br />
-  lenData =  tmpDvd.getVecLen();
-  <p>                     double[][]  tmpPageRank = new double[numData][lenData];<br />
-    tmpPageRank =  tmpDvd.getData();<br />
-    numUrls =  (int) (tmpPageRank[0][0]);<br />
-    double[][]  newPageRank = new double[numUrls][lenData];<br />
-    <br />
-    <strong>/* Write your code here */</strong></p>
-  <p><strong>                         /* End of your code */</strong></p>
-  <p>                     <br />
-    // compress  the page rank values by only storing the changed page rank values<br />
-    int  numChangedUrls = urlsSet.size(); // the number of urls whose rank value changed<br />
-    <br />
-    int[] urlsArray  = new int[numChangedUrls];<br />
-    Iterator&lt;Integer&gt;  iter = urlsSet.iterator();<br />
-    for (int i =  0; i &lt; numChangedUrls; i++) {<br />
-    if  (iter.hasNext())<br />
-    urlsArray[i]  = (iter.next()).intValue();<br />
-    }<br />
-    <br />
-    double[][]  resultData = new double[numChangedUrls + 1][2];<br />
-    resultData[0][0]  = numUrls;<br />
-    resultData[0][1]  = tanglingProbSum;<br />
-    for (int i =  1; i &lt;= numChangedUrls; i++) {<br />
-    resultData[i][0]  = urlsArray[i - 1];<br />
-    resultData[i][1]  = newPageRank[urlsArray[i - 1]][1];<br />
-    }<br />
-    DoubleVectorData  resultDvd = new DoubleVectorData(resultData,<br />
-    numChangedUrls  + 1, 2);<br />
-    collector.collect(new  IntKey(1), new BytesValue(resultDvd.getBytes()));<br />
-    // emit the  results to combiner<br />
-    } catch  (SerializationException e) {<br />
-    throw new  TwisterException(e);<br />
-    }<br />
-    }</p>
+<div>
+    <pre>
+public void reduce(ReduceOutputCollector collector, Key key, List<Value> values) throws TwisterException {
+    try {
+        int numUrls, numData, lenData;
+        double tanglingProbSum = 0.0d;
+        Set<Integer> urlsSet = new HashSet<Integer>();
+        BytesValue val = (BytesValue) values.get(0);
+        DoubleVectorData tmpDvd = new DoubleVectorData();
+        tmpDvd.fromBytes(val.getBytes());
+        numData = tmpDvd.getNumData();
+        lenData = tmpDvd.getVecLen();
+        double[][] tmpPageRank = new double[numData][lenData];
+        tmpPageRank = tmpDvd.getData();
+        numUrls = (int) (tmpPageRank[0][0]);
+        double[][] newPageRank = new double[numUrls][lenData];
+
+        /* Write your code here */
+
+        /* End of your code */
+
+
+        // compress the page rank values by only storing the changed page rank values
+        int numChangedUrls = urlsSet.size(); // the number of urls whose rank value changed
+
+        int[] urlsArray = new int[numChangedUrls];
+        Iterator<Integer> iter = urlsSet.iterator();
+        for (int i = 0; i < numChangedUrls; i++) {
+            if (iter.hasNext())
+            urlsArray[i] = (iter.next()).intValue();
+        }
+
+        double[][] resultData = new double[numChangedUrls + 1][2];
+        resultData[0][0] = numUrls;
+        resultData[0][1] = tanglingProbSum;
+        for (int i = 1; i <= numChangedUrls; i++) {
+            resultData[i][0] = urlsArray[i - 1];
+            resultData[i][1] = newPageRank[urlsArray[i - 1]][1];
+        }
+        DoubleVectorData resultDvd = new DoubleVectorData(resultData,
+        numChangedUrls + 1, 2);
+        collector.collect(new IntKey(1), new BytesValue(resultDvd.getBytes()));
+            // emit the results to combiner
+    } catch (SerializationException e) {
+        throw new TwisterException(e);
+    }
+}
+
+    </pre>
+
 </div>
 </div>
 <h3>Combiner</h3>
@@ -204,91 +216,107 @@
   <em>Pseudocode</em></p>
    <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  void&nbsp;Combine&nbsp;(Map&lt;Key, Value&gt; keyValues){<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;key&nbsp;in&nbsp;keyValues:<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;urlPageRank+=x;<br />
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write the final result  to disk
-  <p>}</p>
+<div>
+<pre>
+void Combine (Map<Key, Value> keyValues){
+    for each key in keyValues:
+            urlPageRank+=x;
+    write the final result to disk
+}
+</pre>
 </div>
 </div>
 <p><em>Detail implementation</em></p>
-<div><br />
-  public void combine(Map&lt;Key, Value&gt; keyValues) throws  TwisterException {<br />
-  try {<br />
-  int numData,  numUrls;<br />
-  DoubleVectorData  tmpDvd = new DoubleVectorData();<br />
-  Set&lt;Integer&gt;  urlsSet = new HashSet&lt;Integer&gt;();<br />
-  Key key =  keyValues.keySet().iterator().next();
-  <p>                     BytesValue val  = (BytesValue) keyValues.get(key);<br />
-    tmpDvd.fromBytes(val.getBytes());<br />
-    double[][]  tmpData;<br />
-    tmpData =  tmpDvd.getData();<br />
-    numUrls =  (int) tmpData[0][0];<br />
-    double[][]  newPageRank = new double[numUrls][2];<br />
-    double  tanglingProb = 0.0d;</p>
-  <p>                     int index; //  index of changed url<br />
-    <br />
-    <strong>/* Write your code here */</strong></p>
-  <p><strong>                         /* End of your code */</strong></p>
-  <p>                     int  numChangedUrls = urlsSet.size();<br />
-    int[] urlsArray  = new int[numChangedUrls];<br />
-    Iterator&lt;Integer&gt;  iter = urlsSet.iterator();<br />
-    for (int i =  0; i &lt; numChangedUrls; i++) {<br />
-    if  (iter.hasNext())<br />
-    urlsArray[i]  = (iter.next()).intValue();<br />
-    }</p>
-  <p>                     double[][]  resultData = new double[numChangedUrls + 1][2];<br />
-    resultData[0][0]  = numUrls;<br />
-    resultData[0][1]  = tanglingProb;<br />
-    for (int i =  1; i &lt;= numChangedUrls; i++) {<br />
-    resultData[i][0]  = urlsArray[i - 1];<br />
-    resultData[i][1]  = newPageRank[urlsArray[i - 1]][1];<br />
-    }<br />
-    DoubleVectorData  newPageRankDvd = new DoubleVectorData(resultData,<br />
-    numChangedUrls  + 1, 2);<br />
-    this.results.fromBytes(newPageRankDvd.getBytes());<br />
-    } catch (Exception e)  {<br />
-    throw new  TwisterException(e);<br />
-    }<br />
-    } // end of combiner</p>
+<div>
+<pre>
+public void combine(Map<Key, Value> keyValues) throws TwisterException {
+    try {
+        int numData, numUrls;
+        DoubleVectorData tmpDvd = new DoubleVectorData();
+        Set<Integer> urlsSet = new HashSet<Integer>();
+        Key key = keyValues.keySet().iterator().next();
+        BytesValue val = (BytesValue) keyValues.get(key);
+        tmpDvd.fromBytes(val.getBytes());
+        double[][] tmpData;
+        tmpData = tmpDvd.getData();
+        numUrls = (int) tmpData[0][0];
+        double[][] newPageRank = new double[numUrls][2];
+        double tanglingProb = 0.0d;
+
+        int index; // index of changed url
+
+        /* Write your code here */
+
+        /* End of your code */
+
+        int numChangedUrls = urlsSet.size();
+        int[] urlsArray = new int[numChangedUrls];
+        Iterator<Integer> iter = urlsSet.iterator();
+        for (int i = 0; i < numChangedUrls; i++) {
+            if (iter.hasNext())
+            urlsArray[i] = (iter.next()).intValue();
+        }
+
+        double[][] resultData = new double[numChangedUrls + 1][2];
+        resultData[0][0] = numUrls;
+        resultData[0][1] = tanglingProb;
+        for (int i = 1; i <= numChangedUrls; i++) {
+            resultData[i][0] = urlsArray[i - 1];
+            resultData[i][1] = newPageRank[urlsArray[i - 1]][1];
+        }
+        DoubleVectorData newPageRankDvd = new DoubleVectorData(resultData,
+        numChangedUrls + 1, 2);
+        this.results.fromBytes(newPageRankDvd.getBytes());
+    } catch (Exception e) {
+        throw new TwisterException(e);
+    }
+} // end of combiner
+</pre>
 </div>
 </div>
 <h1>Edit, compile  and run your code</h1>
 <p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You can use linux text editor vi/vim to  add your code.</p>
  <div class="dp-highlighter">
         <div class="bar">
-<div><br />
-  $ cd /root/twister-pagerank/
-  <p># finish the map function<br />
-    $ vim src/iu/pti/hbaseapp/clueweb09/PageRankMapTask.java</p>
-  <p># finish the reduce function<br />
-    $ vim src/iu/pti/hbaseapp/clueweb09/PageRankReduceTask.java</p>
-  <p># finish the combine function<br />
-    $ vim src/iu/pti/hbaseapp/clueweb09/PageRankCombiner.java</p>
+<div><pre>
+$ cd /root/twister-pagerank/
+# finish the map function
+$ vim src/iu/pti/hbaseapp/clueweb09/PageRankMapTask.java
+# finish the reduce function
+$ vim src/iu/pti/hbaseapp/clueweb09/PageRankReduceTask.java
+# finish the combine function
+$ vim src/iu/pti/hbaseapp/clueweb09/PageRankCombiner.java
+</pre>
 </div>
 </div>
 <h2>Compile and run your code</h2>
 <p>For your convenience, we have provided a one-click compiling and execution script. Standard error messages such as &ldquo;compile  errors, execution errors, etc.&rdquo; will be redirected on the screen. Debug it  based on the returned messages.</p>
 <div><br />
  <div class="dp-highlighter">
-        <div class="bar">
-  $ cd /root/twister-pagerank/<br />
-  $ ./ compileAndExecTwisterPageRank.sh </div>
+        <div class="bar"><pre>
+$ cd /root/twister-pagerank/
+$ ./ compileAndExecTwisterPageRank.sh
+ </pre>
+</div>
   </div>
 <h2>View the result</h2>
 <p>The result is  generated as /root/twister-pagerank/output/project3.txt. </p>
 <div><br />
  <div class="dp-highlighter">
         <div class="bar">
-  $ cd /root/twister-pagerank/<br />
-  $ cat output/project3.txt </div>
-  </div>
+<pre>
+$ cd /root/twister-pagerank/
+$ cat output/project3.txt
+</pre>
+</div>
+</div>
 <h1>Test  the Search Engine</h1>
 <p>Before we test the search engine, we need to  write the PageRank output to the HBase clueWeb09PageRankTable Table.</p>
-<div><br />
-  # upload the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br />
-  hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.PageRankTableLoader  /root/hbaseMoocAntProject/resources/en0000-01and02.docToNodeIdx.txt  /root/hbaseMoocAntProject/resources/en0000-01and02_reset_idx_and_square_pagerank.out </div>
+<div>
+<pre>
+# upload the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br />
+hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.PageRankTableLoader  /root/hbaseMoocAntProject/resources/en0000-01and02.docToNodeIdx.txt  /root/hbaseMoocAntProject/resources/en0000-01and02_reset_idx_and_square_pagerank.out
+</pre></div>
 <p>Now, combined with  project 2, we have built three database tables on HBase:</p>
 <ul>
   <li>clueWeb09DataTable </li>
@@ -298,10 +326,13 @@
 <p>Using the provided  test program, the following commands search the keyword &ldquo;database&rdquo;, and the  dataflow is shown as Figure 6.<br /></p>
   <p align="center"><img src="assets/img/hw/se4/6.png" alt="" width="365" height="277" /><br />
   <em>Figure 6</em>. Dataflow for searching keyword &ldquo;database&rdquo;  among the constructed databases</p>
-<div><br />
-  # Test search engine  functionality<br />
-  ./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester search-keyword snapshot<br />
-  ./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester get-page-snapshot 00000113548 |  grep snapshot </div>
+<div>
+<pre>
+# Test search engine  functionality
+./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester search-keyword snapshot
+./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester get-page-snapshot 00000113548 |  grep snapshot
+</pre>
+</div>
 <h1>What&rsquo;s next?</h1>
 <p>Congratulations,  you have finished the search engine project!</p>
 <h1>References</h1>

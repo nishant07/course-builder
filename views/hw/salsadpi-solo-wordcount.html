@@ -203,7 +203,38 @@ cd ~/salsaDPI/ <br />wget <a href="http://salsahpc.indiana.edu/ScienceCloud/ap
 root@ubuntu:salsaDPI$ java -cp salsaDPI.jar cgl.salsa.salsadpi.Driver sandbox/templates/sandbox_hadoopWordCount.json</pre>
         <p>After the program finishes running, the output will copy to the working directory under &lt;workingDir&gt;/salsaDPI_output/&lt;job_uuid&gt;/output/*:</p>
       <pre xml:space="preserve">root@ubuntu:salsaDPI$ ls -l salsaDPI_output/1322fb55-650e-4f6b-8f90-45f7418bda08/output/ <br />-rw-r--r-- 1 root root 1396 Jul 12 20:00 1322fb55-650e-4f6b-8f90-45f7418bda08.txt</pre>
-<script src="http://pastebin.com/embed_js.php?i=qcUxNQYH"></script>
+<pre>
+public static void main(String[] args) throws Exception {
+    Configuration conf = new Configuration();
+    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs(); // get all args
+    if (otherArgs.length != 2) {
+        System.err.println("Usage: WordCount <in> <out>");
+        System.exit(2);
+    }
+
+    // create a job with name "wordcount"
+    Job job = new Job(conf, "wordcount");
+    job.setJarByClass(WordCount.class);
+    job.setMapperClass(Map.class);
+    job.setReducerClass(Reduce.class);
+
+    // uncomment the following line to add the Combiner
+    job.setCombinerClass(Reduce.class);
+
+
+    // set output key type
+    job.setOutputKeyClass(Text.class);
+    // set output value type
+    job.setOutputValueClass(IntWritable.class);
+    //set the HDFS path of the input data
+    FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
+    // set the HDFS path for the output
+    FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
+
+    //Wait till job completion
+    System.exit(job.waitForCompletion(true) ? 0 : 1);
+}
+</pre>
   </div>
     <h2>6. Compile the program</h2>
 

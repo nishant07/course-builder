@@ -1,7 +1,7 @@
 <div id="accordion">
 
 
-    <h2>1. Overview</h2>
+    <h2>Overview</h2>
 
     <div>
 
@@ -17,7 +17,7 @@
 
     </div>
 
-    <h2>2. Write a Mapper</h2>
+    <h2>Write a Mapper</h2>
 
     <div>
         <p>A Mapper overrides the “map” function from the Class "org.apache.hadoop.mapreduce.Mapper" which provides &lt;key,
@@ -56,7 +56,7 @@
                 style="border:none;width:100%;height:360px"></iframe>
 
     </div>
-    <h2>3. Write a Reducer</h2>
+    <h2>Write a Reducer</h2>
 
     <div>
         <p>A Reducer collects the intermediate &lt;key,value&gt; output from multiple map tasks and assembles a single
@@ -92,7 +92,7 @@
         <iframe src="http://pastebin.com/embed_iframe.php?i=s0th1tJc"
                 style="border:none;width:100%;height:400px"></iframe>
     </div>
-    <h2>4. Set up the Main Program</h2>
+    <h2>Set up the Main Program</h2>
 
     <div>
 
@@ -113,7 +113,7 @@
         </ol>
         <script src="http://pastebin.com/embed_js.php?i=ZcR2Wu3Q"></script>
     </div>
-    <h2>5. Setup Java JDK and Compile the Program</h2>
+    <h2>Setup Java JDK and Compile the Program</h2>
 
     <div>
         <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
@@ -137,7 +137,7 @@ cat build.sh<br>
         <p>&nbsp;</p>
     </div>
     <!-- content area -->
-    <h2>6. Execute Standalone Hadoop-WordCount</h2>
+    <h2>Execute Standalone Hadoop-WordCount</h2>
 
     <div>
         <p>This section details the simplest way to run a standalone WordCount. First a <a
@@ -161,7 +161,7 @@ cd ~/Hadoop-WordCount/<br />
 cat output/part-r-00000<br />
 </pre>
     </div>
-    <h2>7. Adding a Combiner</h2>
+    <h2>Adding a Combiner</h2>
 
     <div>
         <p>A combiner is a reduce-type function to be used when there are map key-value pairs that are not immediately
@@ -189,7 +189,7 @@ cp ~/Hadoop-WordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br /><br />
 ./hadoop jar wordcount.jar WordCount ~/Hadoop-WordCount/input ~/Hadoop-WordCount/output-combiner<br /><br />
 </pre>
     </div>
-    <h2>8. Check the Result and Submit</h2>
+    <h2>Check the Result and Submit</h2>
 
     <div>
 <pre xml:space="preserve">    
@@ -200,7 +200,7 @@ cat output-combiner/part-r-00000<br/>
         <p> To submit, answer the following question: What are the Top 10 words to appear in the complete works of
             William Shakespeare? http://www.gutenberg.org/cache/epub/100/pg100.txt </p>
     </div>
-    <h2>9. Hands on Lab</h2>
+    <h2>Hands on Lab</h2>
     <div>
         <p>You can run a Hadoop WordCount job on a real Hadoop deployment by using the <a href="http://salsahpc.indiana.edu/salsadpi/submit.php">salsaDPI Portal</a>.</p>
     </div>

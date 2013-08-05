@@ -49,7 +49,7 @@
 			pseudocode for MPI PageRank and you need to complete the
 			implementation based on the pseudocode to make a working version of
 			it. We provide functions for file IO so that you can focus on main
-			implementation only. For more details of the PageRank algorithm, you can
+			implementation only. For more details on the PageRank algorithm, you can
 			refer to the previous descriptions for part 1 of Project #1.</p>
 
 		<p>
@@ -57,10 +57,10 @@
 		</p>
 		<p>Developing parallel PageRank is an active research area for
 			both industry and academia, and numerous algorithms have been
-			proposed. The key idea in developing parallel PageRank is to
+			proposed. The key idea is to
 			partition PageRank problems into N sub-problems so that N processors
 			solve each sub-problem concurrently. One of the simplest approaches in
-			partitioning is vertex-centric. The graph of PageRank can
+			partitioning is vertex-centric. The graph can
 			be divided into groups of vertices and each group will be handled
 			by a processor. We take this approach for our MPI PageRank
 			implementation.</p>

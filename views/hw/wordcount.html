@@ -32,12 +32,7 @@
 
         <div class="dp-highlighter">
             <div class="bar">
-                <div class="tools"><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                      onClick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view
-                    plain</a><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                onClick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a
-                        href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                        onClick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div>
+                <div class="tools"></div>
             </div>
             <ol class="dp-j">
                 <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Map&nbsp;(key,&nbsp;value){&nbsp;&nbsp;</span></span>
@@ -98,12 +93,7 @@ public class WordCount {
 
         <div class="dp-highlighter">
             <div class="bar">
-                <div class="tools"><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                      onClick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view
-                    plain</a><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                onClick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a
-                        href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                        onClick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div>
+                <div class="tools"></div>
             </div>
             <ol class="dp-j">
                 <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){&nbsp;&nbsp;</span></span>
@@ -195,24 +185,14 @@ public static void main(String[] args) throws Exception {
     <div>
         <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
         <p>Install the java jdk 1.6.0 if you don't have one. We are setting up a JDK 64 bit version.</p>
-      <pre xml:space="preserve">cd ~/<br />
-wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br /> 
-chmod 755 jdk-6u33-linux-x64.bin<br /> 
-./jdk-6u33-linux-x64.bin<br />
-pwd </pre>
+      <pre xml:space="preserve">cd ~/
+wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br />chmod 755 jdk-6u33-linux-x64.bin<br />./jdk-6u33-linux-x64.bin<br />pwd </pre>
         <p>Set up the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
         <pre xml:space="preserve">
-echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />
-echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />
-source ~/.bashrc
-        </pre>
-        <p>Enter the following commands where the “WordCount.java" is located in the bash mode: </p>
-				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
-cat WordCount.java<br>
-cat build.sh<br>
-./build.sh </pre>
-        <p>&nbsp;</p>
-    </div>
+echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />source ~/.bashrc
+        
+Enter the following commands where the “WordCount.java" is located in the bash mode: </pre>
+				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>cat WordCount.java<br>cat build.sh<br>./build.sh</pre></div>
     <!-- content area -->
     <h2>Execute Standalone Hadoop-WordCount</h2>
 
@@ -220,8 +200,7 @@ cat build.sh<br>
         <p>This section details the simplest way to run a standalone WordCount. First a <a
                 href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone version of
             Hadoop</a> (without any environment setting) is required. Then download the <a
-                href="http://salsahpc.indiana.edu/tutorial/source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.
-            If you are using a FutureGrid machine, all the packages have been pre-installed in your home directory. </p>
+                href="http://salsahpc.indiana.edu/tutorial/source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.            </p>
 
         <p>Assume that:</p>
         <ol>
@@ -277,8 +256,5 @@ cat output-combiner/part-r-00000<br/>
         <p> To submit, answer the following question: What are the Top 10 words to appear in the complete works of
             William Shakespeare? http://www.gutenberg.org/cache/epub/100/pg100.txt </p>
     </div>
-    <h2>Hands on Lab</h2>
-    <div>
-        <p>You can run a Hadoop WordCount job on a real Hadoop deployment by using the <a href="http://salsahpc.indiana.edu/salsadpi/submit.php">salsaDPI Portal</a>.</p>
-    </div>
+    <div>    </div>
 </div>

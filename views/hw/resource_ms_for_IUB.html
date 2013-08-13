@@ -7,7 +7,8 @@
 	</div>
 
 	<h1>
-	Deliverables</h1>
+		Deliverables (Due Oct 15<sup>th</sup>)
+	</h1>
 	<div>
 		<p>
 			You are required to turn in the following items in a zip file, <strong>username-rms.zip</strong>,
@@ -192,7 +193,7 @@ UIUpdateThread{
 		</div>
 	</div>
 
-	<h1>Run Hadoop/MPI/MPJ PageRank on provided VirtualBox Linux </h1>
+	<h1>Run MPI/MPJ PageRank on CS machines in multi-node mode</h1>
 	<div>
 		<p>In this project, you must run your Hadoop/MPI/MPJ PageRank program on
 			provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a>. Please make sure your provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a> has internet access, e.g. try to ping www.google.com, otherwise you won't be able to finish this project. Then your resource monitoring
@@ -201,31 +202,53 @@ UIUpdateThread{
 			performance chart on monitoring UI.</p>
 		<p>Here, we provide the instruction to run Hadoop/MPI/MPJ PageRank with
 			multi-nodes mode under CS environment.</p>
-		<br>
-		<h2>Configure and Run MPI PageRank</h2>
-		<p>Before running any MPI (MPICH2) [8] job under the provided Linux
-			environment, you need to start the
-			MPD daemons with the command &#8220;mpd &amp;&#8221;. Before submitting the job, you
+		<br><h2>Run MPI with multi-nodes mode</h2>
+		<p>Before running any MPI (MPICH2) [8] job under CS Linux
+			environment, you need to create a configuration file located at
+			&#8220;~/.mpd.conf&#8221; written with one line
+			&#8220;MPD_SECRETWORD=&lt;secretword&gt;&#8221;.</p>
+		<pre>
+[taklwu@polaris B534Project2]$ vim ~/.mpd.conf
+MPD_SECRETWORD=mr45-j9z
+[taklwu@polaris B534Project2]$ chmod 600 ~/.mpd.conf		
+		</pre>
+		<p>Then you create a &#8220;nodes&#8221; file that contains
+			workers&#8217; hostnames. Here this example is running with a
+			total of 4 mpi processes (-np 4). Within the &#8220;nodes&#8221;
+			file, we have four lines which actually represent two CS physical
+			nodes, polaris.cs.indiana.edu and iceman.cs.indiana.edu.</p>
+		<pre>
+[taklwu@polaris B534Project2]$ vim nodes
+polaris.cs.indiana.edu
+polaris.cs.indiana.edu
+iceman.cs.indiana.edu
+iceman.cs.indiana.edu
+		</pre>
+		<p>Once these configuration files have been set up, you can start the
+			MPD daemons with the command &#8220;mpdboot
+			&#8211;totalnum=&lt;num_of_worker_nodes&gt; -f
+			&lt;node_file&gt;&#8221;. An IU passphrase may be required, as you are
+			starting the MPD daemons remotely. Before submitting the job, you
 			should check to see if all mpd daemons have been started correctly by using
 			the command &#8220;mpdtrace&#8221;.</p>
 		<pre>
-[root@ubuntu: ~]$ mpd &amp;
-[root@ubuntu: ~]$ mpdtrace
-ubuntu
-	</pre>
-		
-	  <p>You can run your MPI PageRank application by adding
-			parameters &#8220;-np
+[taklwu@polaris B534Project2]$ mpdboot --totalnum=2 -f nodes
+taklwu@iceman.cs.indiana.edu's password:
+[taklwu@polaris B534Project2]$ mpdtrace
+polaris
+iceman
+		</pre>
+		<p>You can run your MPI PageRank application by adding
+			parameters &#8220;-machinefile &lt;node_file&gt; -np
 			&lt;num_of_mpi_processes&gt;&#8221;.</p>
 		<pre>
-[root@ubuntu: ~] cd /root/test/mpi        
-[root@ubuntu:~/test/mpi] mpirun -np 4 mpi_main -i pagerank.input -n 11 -t 0.000001
-Proc:0 of 4 running on ubuntu
-Proc:1 of 4 running on ubuntu
-Proc:2 of 4 running on ubuntu
-Proc:3 of 4 running on ubuntu
-File pagerank.input.1000.0 total_num_urls: 11
-File pagerank.input.1000.0 total_num_web_pages: 28
+[taklwu@polaris B534Project2] mpiexec -machinefile nodes -np 4 mpi_main -i pagerank.input.1000.0 -n 10 -t 0.000001
+Proc:0 of 4 running on polaris.cs.indiana.edu
+Proc:1 of 4 running on polaris.cs.indiana.edu
+Proc:2 of 4 running on iceman.cs.indiana.edu
+Proc:3 of 4 running on iceman.cs.indiana.edu
+File pagerank.input.1000.0 total_num_urls: 1000
+File pagerank.input.1000.0 total_num_web_pages: 3851
 ....
 
 		</pre>
@@ -233,47 +256,70 @@ File pagerank.input.1000.0 total_num_web_pages: 28
 			''mpdallexit' to release the resources. Otherwise you or your
 			classmates may not be able to run their programs.</p>
 		<pre>
-[root@ubuntu: B534Project2] mpdallexit<br>
+[taklwu@polaris B534Project2] mpdallexit
 		</pre>
-		<h2>Configure and Run MPJ PageRank</h2>
-		<p>Before running any MPJ [9] job under provided Linux environment, you
+		<br><h2>Run MPJ in multi-node mode</h2>
+		<p>Before running any MPJ [9] job under CS Linux environment, you
 			will need to make a &#8220;machines&#8221; file which has the worker
-			hostname written line by line, e.g., localhost. Note that the filename must be
+			hostname written line by line, e.g., polaris.cs.indiana.edu and
+			iceman.cs.indiana.edu. Note that the filename must be
 			&#8220;machines&#8221;.</p>
 		<pre>
-[root@ubuntu: ~]$ cd /root/test/MPJ_pagerank
-[root@ubuntu:~/test/MPJ_pagerank]$ vim machines
-localhost
+[taklwu@polaris MPJ]$ vim machines
+polaris.cs.indiana.edu
+iceman.cs.indiana.edu
 		</pre>
 		<p>
-			Once you have set up the &#8220;machines&#8221; file, you can
-		use mpjboot to start MPJ daemons on worker node(s). </p>
+			<br /> Once you have set up the &#8220;machines&#8221; file, you can
+			use mpjboot to start MPJ daemons on worker nodes. An IU passphrase
+			may be required, as you are starting the mpj daemons remotely.
+		</p>
 		<pre>
-[root@ubuntu:~/test/MPJ_pagerank]$ mpjboot machines
-Starting mpjd...<br />wrapper  | Spawning intermediate process...
+[taklwu@polaris MPJ]$ mpjboot machines
+Starting mpjd...
+Removed stale pid file: /nfs/nfs4/home/taklwu/mpj-v0_38/bin/./MPJ-Daemonpolaris.cs.indiana.edu.pid
+wrapper  | Spawning intermediate process...
+taklwu@iceman.cs.indiana.edu's password:
+Starting mpjd...
+wrapper  | Spawning intermediate process...
 		</pre>
 		<p>Now you can run MPJ PageRank by adding &#8220;-dev
 			niodev&#8221; parameters to start your application across worker
 			nodes.</p>
 		<pre>
-[root@ubuntu:~/test/MPJ_pagerank]$ mpjrun.sh -np 8 -dev niodev MPIMain pagerank.input output.txt 20 0.01
+[taklwu@polaris MPJ]$ mpjrun.sh -np 8 -dev niodev MPIMain pagerank.input.1000.0 output.txt 20 0.01
 MPJ Express (0.38) is started in the cluster configuration
-Starting process &lt;0&gt; on &lt;ubuntu&gt;<br />Starting process &lt;1&gt; on &lt;ubuntu&gt;<br />Starting process &lt;2&gt; on &lt;ubuntu&gt;<br />Starting process &lt;3&gt; on &lt;ubuntu&gt;<br />Starting process &lt;4&gt; on &lt;ubuntu&gt;<br />Starting process &lt;5&gt; on &lt;ubuntu&gt;<br />Starting process &lt;6&gt; on &lt;ubuntu&gt;<br />Starting process &lt;7&gt; on &lt;ubuntu&gt;<br />PageRanks are calculated<br />IO time:0.241 sec.<br />Job turn around time:0.124 sec.<br />Stopping process &lt;2&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;1&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;3&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;5&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;4&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;6&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;7&gt; on &lt;ubuntu&gt;<br />Stopping process &lt;0&gt; on &lt;ubuntu&gt; <iceman.cs.indiana.edu>
+Starting process <5> on <iceman.cs.indiana.edu>
+Starting process <1> on <polaris.cs.indiana.edu>
+Starting process <0> on <polaris.cs.indiana.edu>
+Starting process <4> on <iceman.cs.indiana.edu>
+Starting process <6> on <iceman.cs.indiana.edu>
+Starting process <2> on <polaris.cs.indiana.edu>
+Starting process <3> on <polaris.cs.indiana.edu>
+Starting process <7> on <iceman.cs.indiana.edu>
+PageRanks are calculated
+IO time:0.105 sec.
+Job turn around time:0.049 sec.
+Stopping process <2> on <polaris.cs.indiana.edu>
+Stopping process <6> on <iceman.cs.indiana.edu>
+Stopping process <0> on <polaris.cs.indiana.edu>
+Stopping process <3> on <polaris.cs.indiana.edu>
+Stopping process <5> on <iceman.cs.indiana.edu>
+Stopping process <1> on <polaris.cs.indiana.edu>
+Stopping process <4> on <iceman.cs.indiana.edu>
+Stopping process <7> on <iceman.cs.indiana.edu>
 		</pre>
 		<p>At the end, you have to stop these MPJ daemons with command
-			''mpjhalt' to release the resources. </p>
+			''mpjhalt' to release the resources. Otherwise you and your classmates
+			may not be able to run their programs.</p>
 		<pre>
-[root@ubuntu:~/test/MPJ_pagerank]$ mpjhalt machines<br />Stopping mpjd...<br />Stopped mpjd.<br /></pre>
-		<h2>Configure and Run Hadoop PageRank</h2>
-        <p>For Hadoop PageRank, the step is the same as you run Hadoop PageRank in the previous homework.</p>
-      <pre>
-$ cd /root/MoocHomeworks/HadoopPageRank/
+[taklwu@polaris MPJ]$ mpjhalt machines
+Stopping mpjd...
+Stopped mpjd.
+Stopping mpjd...
+Stopped mpjd.
 
-# usage: ./compileAndExecHadoopPageRank.sh [PageRank Input File][Number of Urls][Number Of Iterations]
-$ ./compileAndExecHadoopPageRank.sh PageRankDataGenerator/pagerank5000g50.input.0 5000 1
-</pre>
-        <p> <br />
-        </p>
+		</pre>
 	</div>
 	<h1>References</h1>
 	<ol>

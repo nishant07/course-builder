@@ -12,10 +12,7 @@
         <ol>
             <li>Mapper</li>
             <li>Reducer</li>
-            <li>Main program</li>
-        </ol>
-
-    </div>
+            <li>Main program</li></ol></div>
 
     <h2>Write a Mapper</h2>
 
@@ -28,17 +25,12 @@
             the line number &lt;line_number, line_of_text&gt; . Map task outputs &lt;word, one&gt; for each word in the
             line of text. </p>
 
-        <p><em><u>Pseudo-code</u></em></p>
+        <p><u>Pseudo-code</u></p>
 
         <div class="dp-highlighter">
             <div class="bar">
-                <div class="tools"><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                      onClick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view
-                    plain</a><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                onClick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a
-                        href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                        onClick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div>
-            </div>
+                <div class="tools"></div>
+          </div>
             <ol class="dp-j">
                 <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Map&nbsp;(key,&nbsp;value){&nbsp;&nbsp;</span></span>
                 </li>
@@ -49,8 +41,8 @@
                         class="number">1</span><span>);&nbsp;&nbsp;</span></span></li>
                 <li class=""><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
             </ol>
-        </div>
-        <p><em><u>Detail implementation</u></em></p>
+      </div>
+        <p><u>Detail implementation</u></p>
 
         <pre>
 import java.io.IOException;
@@ -94,16 +86,11 @@ public class WordCount {
             result. Here, the WordCount program will sum up the occurrence of each word into pairs as &lt;word, occurrence&gt;.</p>
 
         <p>
-            <em><u>Pseudo-code</u></em></p>
+            <u>Pseudo-code</u></p>
 
         <div class="dp-highlighter">
             <div class="bar">
-                <div class="tools"><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                      onClick="dp.sh.Toolbar.Command(&#39;ViewSource&#39;,this);return false;">view
-                    plain</a><a href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                                onClick="dp.sh.Toolbar.Command(&#39;PrintSource&#39;,this);return false;">print</a><a
-                        href="http://salsahpc.indiana.edu/ScienceCloud/hadoopwc1.html#"
-                        onClick="dp.sh.Toolbar.Command(&#39;About&#39;,this);return false;">?</a></div>
+                <div class="tools"></div>
             </div>
             <ol class="dp-j">
                 <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){&nbsp;&nbsp;</span></span>
@@ -118,8 +105,8 @@ public class WordCount {
                 <li class="alt"><span>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
             </ol>
         </div>
-        <pre name="code" class="java" style="display: none;">void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);<br>}   </pre>
-        <p><em><u>Detail implementation</u></em></p>
+      <pre name="code" class="java" style="display: none;">void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);<br>}   </pre>
+        <p><u>Detail implementation</u></p>
         <pre>
 public static class Reduce
     extends Reducer<Text,IntWritable,Text,IntWritable> {
@@ -195,46 +182,34 @@ public static void main(String[] args) throws Exception {
     <div>
         <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
         <p>Install the java jdk 1.6.0 if you don't have one. We are setting up a JDK 64 bit version.</p>
-      <pre xml:space="preserve">cd ~/<br />
-wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br /> 
-chmod 755 jdk-6u33-linux-x64.bin<br /> 
-./jdk-6u33-linux-x64.bin<br />
-pwd </pre>
+      <pre xml:space="preserve">cd ~/
+wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br />chmod 755 jdk-6u33-linux-x64.bin<br />./jdk-6u33-linux-x64.bin<br />pwd </pre>
         <p>Set up the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
         <pre xml:space="preserve">
-echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />
-echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />
-source ~/.bashrc
-        </pre>
-        <p>Enter the following commands where the “WordCount.java" is located in the bash mode: </p>
-				<pre xml:space="preserve">cd ~/Hadoop-WordCount<br>
-cat WordCount.java<br>
-cat build.sh<br>
-./build.sh </pre>
-        <p>&nbsp;</p>
-    </div>
+echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />source ~/.bashrc
+        
+Enter the following commands where the “WordCount.java" is located in the bash mode: </pre>
+				<pre xml:space="preserve">cd ~/HadoopWordCount<br>cat WordCount.java<br>cat build.sh<br>./build.sh</pre></div>
     <!-- content area -->
     <h2>Execute Standalone Hadoop-WordCount</h2>
 
     <div>
         <p>This section details the simplest way to run a standalone WordCount. First a <a
                 href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone version of
-            Hadoop</a> (without any environment setting) is required. Then download the <a
-                href="http://salsahpc.indiana.edu/tutorial/source_code/Hadoop-WordCount.zip">program</a> and unzip it to a customized location, e.g. &quot;~/Hadoop-WordCount&quot;.
-            If you are using a FutureGrid machine, all the packages have been pre-installed in your home directory. </p>
+            Hadoop</a> (without any environment setting) is required. You can find the program in the location &quot;~/HadoopWordCount&quot;.            </p>
 
         <p>Assume that:</p>
         <ol>
             <li>~/hadoop-0.20.2-standalone - Hadoop standalone framework directory</li>
-            <li>~/Hadoop-WordCount - WordCount program directory</li>
+            <li>~/HadoopWordCount - WordCount program directory</li>
         </ol>
         <p>Next, enter the following commands to run the program:</p>
 <pre xml:space="preserve">
-cd ~/hadoop-0.20.2-standalone/bin<br />
-cp ~/Hadoop-WordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br />
-# Make sure you copy the wordcount.jar in ~/hadoop-0.20.2-standalone/bin<br />
-./hadoop jar wordcount.jar WordCount ~/Hadoop-WordCount/input ~/Hadoop-WordCount/output <br />
-cd ~/Hadoop-WordCount/<br />
+cd ~/software/hadoop-1.1.2/bin<br />
+cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br />
+# Make sure you copy the wordcount.jar in ~/software/hadoop-1.1.2/bin<br />
+./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output <br />
+cd ~/HadoopWordCount/<br />
 cat output/part-r-00000<br />
 </pre>
     </div>
@@ -249,36 +224,21 @@ cat output/part-r-00000<br />
              class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>
 
 <pre xml:space="preserve">
-cd ~/Hadoop-WordCount/<br />
+cd ~/HadoopWordCount/<br />
 ./clean.sh <br />
 ls  <br />
-# you should have only build.sh clean.sh input & WordCount.java<br /><br />
-
+# you should have only build.sh clean.sh input & WordCount.java<br />
 vi WordCount.java # uncomment the above line (line number 67) & save (ESC, :wq!)<br />
-./build.sh<br /><br />
-
-cd ~/hadoop-0.20.2-standalone/bin <br />
-
-cp ~/Hadoop-WordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br /><br />
-
-# Run the WordCount Program<br />
-
-./hadoop jar wordcount.jar WordCount ~/Hadoop-WordCount/input ~/Hadoop-WordCount/output-combiner<br /><br />
-</pre>
-    </div>
+./build.sh<br />cd ~/software/hadoop-1.1.2/bin <br />cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br /><br /># Run the WordCount Program<br />./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output-combiner<br /></pre></div>
     <h2>Check the Result and Submit</h2>
 
     <div>
 <pre xml:space="preserve">    
 # Check the result<br/>
-cd ~/Hadoop-WordCount/<br/>
-cat output-combiner/part-r-00000<br/>
-</pre>
+cd ~/HadoopWordCount/<br/>
+cat output-combiner/part-r-00000</pre>
         <p> To submit, answer the following question: What are the Top 10 words to appear in the complete works of
             William Shakespeare? http://www.gutenberg.org/cache/epub/100/pg100.txt </p>
     </div>
-    <h2>Hands on Lab</h2>
-    <div>
-        <p>You can run a Hadoop WordCount job on a real Hadoop deployment by using the <a href="http://salsahpc.indiana.edu/salsadpi/submit.php">salsaDPI Portal</a>.</p>
-    </div>
+    <div>    </div>
 </div>

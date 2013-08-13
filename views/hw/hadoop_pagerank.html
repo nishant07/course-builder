@@ -3,7 +3,7 @@
 		Goal
   </h1>
 	<div>
-		<p>By this point you should have implemented concerning PageRank algorithms and Hadoop, you  are going to implement a parallel version of PageRank by using the programming  interfaces of Hadoop MapReduce framework.	</p>
+		<p>By this point you should have gone over the sections concerning PageRank algorithms and Hadoop. Now you are going to blend these applications by implementing a parallel version of PageRank using the programming  interfaces of the Hadoop MapReduce framework.	</p>
 	</div>
 	
     
@@ -45,11 +45,11 @@
 
 	<h1>Introduction</h1>
 	<div>
-	  <p>In this project, we have provided a sketch code which contains three mapreduce jobs as following:</p>
+	  <p>In this project, we have provided a sketch code which contains three mapreduce jobs for you to implement:</p>
 	  <ol>
 	    <li>CreateGraph (done): add one column, 'initial pagerank value', to the input pagerank adjacency matrix (AM). Then pass it to the PageRank program to calculate the pagerank values.</li>
 	    <li><strong>PageRank</strong> (your implementation): take the transformed AM matrix and calculate pagerank values for all pages.</li>
-	    <li>Cleanup Results: remove the targetUrls column and output &lt;sourceUrl, pagerank value&gt; as final result.</li>
+	    <li>Cleanup Results: remove the targetUrls column and output &lt;sourceUrl, pagerank value&gt; as the final result.</li>
       </ol>
 	  <p>The detail dataflow can be seen in figure 1. Part 1 and Part 3 are given as full solutions in this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
 	  <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt="" width="700" /></p>
@@ -198,7 +198,7 @@ Equ.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">
 		</div>
 	</div>
 <h1>Edit</h1>
-<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a> [5]. You may use linux text editor vi/vim to add  your code.</p>
+<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a> [5]. Use linux text editor vi/vim to add  your code.</p>
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">
@@ -210,7 +210,7 @@ $ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
         </div>
   </div>
 <h2>Compile and run your code</h2>
-<p>For your convenience, we have provided a one-click script compileAndExecHadoopPageRank.sh for compiling and execution. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected on the screen. You may debug it  based on the returned messages.</p>
+<p>Use the same one-click script compileAndExecHadoopPageRank.sh as in prior projects. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected on the screen. Debug it  based on the returned messages.</p>
 <div><br />
 <div class="dp-highlighter">
         <div class="bar">

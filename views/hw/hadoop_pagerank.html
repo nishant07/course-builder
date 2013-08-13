@@ -56,9 +56,9 @@
 	  <p align="center">Figure 1. Hadoop PageRank dataflow</p>
 	  <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key,value&gt; pairs to the mapper. Initially, the PageRank input data is stored  in the format of adjacency matrix as a file(s) in the local file system. Then it will be  uploaded to the HDFS and distributed across the compute  nodes. Hadoop framework reads the application records from HDFS with the InputFormat  interface and generates &lt;key, value&gt; pair input streams. Each Map  function produces zero or more intermediate (key, value) pairs, by consuming  one input (key, value) pair. For this PageRank program, 
       the  map function applies the calculation PR(v) / L(V) to each &lt;key,  value&gt; pair, where the key is the unique id or name of the webpage and the  value contains the current rank value of the webpage and its out link information.   Map tasks then generate  intermediate (key, value) pairs, whose value is the  partial rank value of every webpage. Each reduce task aggregates all the partial  values of specific webpages by applying the provided Eqn.2. The aggregated  global rank values are written back to HDFS, which in turn is used as input in  the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in figure 1 shows an example for the PageRank data processing.</p>
-		<p align="justify">Equ.1:   <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
+		<p align="justify">Eqn.1:   <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
   <br /> 
-Equ.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">        
+Eqn.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">        
     </p>
   </div>
 

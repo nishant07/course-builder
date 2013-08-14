@@ -6,7 +6,7 @@ id,homework_id,title,filename
 4,pr3,Hadoop PageRank,hw/hadoop_pagerank.html
 5,rms,Resource Monitoring System,hw/resource_ms.html
 6,pra,Performance Analysis,hw/pagerank_analysis.html
-7,se1,Introduction to HBase,hw/hbase_intro.html
+7,se1,Load Data into HBase,hw/hbase_intro.html
 8,se2,HBase WordCount,hw/hbase_wordcount.html
 9,se3,Building an Inverted Index,hw/inverted_hbase.html
 10,se4,Twister,hw/twister_pagerank.html

@@ -112,22 +112,8 @@
         <script src="https://gist.github.com/cloudmooc/6232408.js"></script>
         </div>
     </div>
-    <h2>Set up Java JDK and Compile the Program</h2>
-
-    <div>
-        <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH
-            variables are correctly set in &quot;~/.bashrc&quot;. </p>
-
-        <p>Install the java jdk 1.6.0 if you don't have one. We are setting up a JDK 64 bit
-            version.</p>
-      <pre xml:space="preserve">cd ~/
-wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br />chmod 755 jdk-6u33-linux-x64.bin<br />./jdk-6u33-linux-x64.bin<br />pwd </pre>
-        <p>Set up the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
-        <pre xml:space="preserve">
-echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />source ~/.bashrc
-        
-Enter the following commands where the “WordCount.java" is located in the bash mode: </pre>
-				<pre xml:space="preserve">cd ~/HadoopWordCount<br>cat WordCount.java<br>cat build.sh<br>./build.sh</pre>
+    <h2>Compile the Program</h2>
+        <pre xml:space="preserve">cd ~/HadoopWordCount<br>./build.sh</pre>
     </div>
     <!-- content area -->
     <h2>Execute Standalone Hadoop-WordCount</h2>
@@ -141,8 +127,7 @@ Enter the following commands where the “WordCount.java" is located in the bash
 
         <p>Assume that:</p>
         <ol>
-            <li>~/hadoop-0.20.2-standalone - Hadoop standalone framework directory</li>
-            <li>~/HadoopWordCount - WordCount program directory</li>
+            <li>~/software/hadoop-1.1.2 - Hadoop standalone framework directory</li>
         </ol>
         <p>Next, enter the following commands to run the program:</p>
 <pre xml:space="preserve">

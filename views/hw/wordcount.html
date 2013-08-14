@@ -130,14 +130,7 @@
             <li>~/software/hadoop-1.1.2 - Hadoop standalone framework directory</li>
         </ol>
         <p>Next, enter the following commands to run the program:</p>
-<pre xml:space="preserve">
-cd ~/software/hadoop-1.1.2/bin<br />
-cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br />
-# Make sure you copy the wordcount.jar in ~/software/hadoop-1.1.2/bin<br />
-./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output <br />
-cd ~/HadoopWordCount/<br />
-cat output/part-r-00000<br />
-</pre>
+        <script src="https://gist.github.com/cloudmooc/6233918.js"></script>
     </div>
     <h2>Adding a Combiner</h2>
 
@@ -152,13 +145,7 @@ cat output/part-r-00000<br />
         <pre name="code"
              class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>
 
-<pre xml:space="preserve">
-cd ~/HadoopWordCount/<br />
-./clean.sh <br />
-ls  <br />
-# you should have only build.sh clean.sh input & WordCount.java<br />
-vi WordCount.java # uncomment the above line (line number 67) & save (ESC, :wq!)<br />
-./build.sh<br />cd ~/software/hadoop-1.1.2/bin <br />cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br /><br /># Run the WordCount Program<br />./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output-combiner<br /></pre>
+        <script src="https://gist.github.com/cloudmooc/6233958.js"></script>
     </div>
     <h2>Check the Result and Submit</h2>
 

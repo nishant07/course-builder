@@ -1,13 +1,12 @@
 id,homework_id,title,filename
 0,tools,Tools,hw/tools.html
 1,wc,Hadoop WordCount,hw/wordcount.html
-2,solowc,Hadoop WordCount with salsaDPI,hw/salsadpi-solo-wordcount.html
-3,pr,Implement PageRank,hw/pagerank.html
-4,pr2,MPI PageRank,hw/mpi_pagerank.html
-5,pr3,Hadoop PageRank,hw/hadoop_pagerank.html
-6,rms,Resource Monitoring System,hw/resource_ms.html
-7,pra,Performance Analysis,hw/pagerank_analysis.html
-8,se1,Introduction to HBase,hw/hbase_intro.html
-9,se2,HBase WordCount,hw/hbase_wordcount.html
-10,se3,Building an Inverted Index,hw/inverted_hbase.html
-11,se4,Twister,hw/twister_pagerank.html
+2,pr,Implement PageRank,hw/pagerank.html
+3,pr2,MPI PageRank,hw/mpi_pagerank.html
+4,pr3,Hadoop PageRank,hw/hadoop_pagerank.html
+5,rms,Resource Monitoring System,hw/resource_ms.html
+6,pra,Performance Analysis,hw/pagerank_analysis.html
+7,se1,Introduction to HBase,hw/hbase_intro.html
+8,se2,HBase WordCount,hw/hbase_wordcount.html
+9,se3,Building an Inverted Index,hw/inverted_hbase.html
+10,se4,Twister,hw/twister_pagerank.html

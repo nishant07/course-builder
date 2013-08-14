@@ -205,9 +205,9 @@ Enter the following commands where the “WordCount.java" is located in the bash
         </ol>
         <p>Next, enter the following commands to run the program:</p>
 <pre xml:space="preserve">
-cd ~/hadoop-0.20.2-standalone/bin<br />
-cp ~/HadoopWordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br />
-# Make sure you copy the wordcount.jar in ~/hadoop-0.20.2-standalone/bin<br />
+cd ~/software/hadoop-1.1.2/bin<br />
+cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br />
+# Make sure you copy the wordcount.jar in ~/software/hadoop-1.1.2/bin<br />
 ./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output <br />
 cd ~/HadoopWordCount/<br />
 cat output/part-r-00000<br />
@@ -229,7 +229,7 @@ cd ~/HadoopWordCount/<br />
 ls  <br />
 # you should have only build.sh clean.sh input & WordCount.java<br />
 vi WordCount.java # uncomment the above line (line number 67) & save (ESC, :wq!)<br />
-./build.sh<br />cd ~/hadoop-0.20.2-standalone/bin <br />cp ~/HadoopWordCount/wordcount.jar ~/hadoop-0.20.2-standalone/bin<br /><br /># Run the WordCount Program<br />./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output-combiner<br /></pre></div>
+./build.sh<br />cd ~/software/hadoop-1.1.2/bin <br />cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br /><br /># Run the WordCount Program<br />./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output-combiner<br /></pre></div>
     <h2>Check the Result and Submit</h2>
 
     <div>

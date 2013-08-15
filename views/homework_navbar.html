@@ -3,11 +3,18 @@
         {% for homework in homeworks %}
         {% if homework.id == homework_id %}
         <li class="branch" style="font-weight: bold">
-            <a href="homework?unit={{ homework.id }}">{{ homework.id }}. {{ homework.title }}</a>
+            <a href="homework?unit={{ homework.id }}">{{ homework.id }}. {{ homework.title }}
+            {% if homework.type == 'L' %}
+            <i class="lab_icon pull-right"></i>
+            {% endif %}
+            </a>
         {% else %}
         <li class="branch">
             <a href="homework?unit={{ homework.id }}">
                 {{ homework.id }}. {{ homework.title }}
+                {% if homework.type == 'L' %}
+                <i class="lab_icon pull-right"></i>
+                {% endif %}
             </a>
         {% endif %}
         </li>

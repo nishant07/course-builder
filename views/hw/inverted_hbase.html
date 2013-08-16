@@ -46,27 +46,11 @@ void Map (key, value){
         </div>
   </div>
 <p><em>Detail implementation</em></p>
-<div class="dp-highlighter">
-        <div class="bar">
+
 <div>
-    <pre>
-public static class FibMapper extends TableMapper<ImmutableBytesWritable, Writable> {
-    @Override
-    protected void map(ImmutableBytesWritable rowKey, Result result, Context context) throws IOException, InterruptedException {
-        byte[] docIdBytes = rowKey.get();
-        byte[] contentBytes = result.getValue(Constants.CF_DETAILS_BYTES, Constants.QUAL_CONTENT_BYTES);
-        String content = Bytes.toString(contentBytes);
-
-        // TO DO: write your implementation for getting the term frequencies from each document, and generating put objects for
-        // clueWeb09IndexTable. Hint: use the "getWordFreqByLuceneAnalyzer" function to count the frequency of terms in content.
-                             /* Write your code here */
-
-        }
-    }
-}
-    </pre>
+    <script src="https://gist.github.com/cloudmooc/6235296.js"></script>
 </div>
-</div>
+
 <h3>Main program </h3>
 <p>Again, the main function has been provided as  standard initialization, and you may modify it to fit your own style. See the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [4].</p>
 <h1>Edit, compile  and run your code</h1>

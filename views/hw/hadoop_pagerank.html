@@ -1,206 +1,134 @@
 <div id="accordion">
 <h1>
-		Goal
-  </h1>
-	<div>
-		<p>By this point you should have gone over the sections concerning PageRank algorithms and Hadoop. Now you are going to blend these applications by implementing a parallel version of PageRank using the programming  interfaces of the Hadoop MapReduce framework.	</p>
-	</div>
-	
-    
-  <h1>
-		Deliverables
-  </h1>
-	<div>
-		<p>
-			You are required to turn in the following items in a zip file (<strong>username_HadoopPageRank.zip</strong>)
-			in this assignment:
-		</p>
-		<ol>
-			<li>The source code of Hadoop PageRank you implemented.</li>
-			<li>The executable class file and the README file that describes its
-				usage.</li>
-			<li>Technical report (<strong>username_HadoopPageRank_report.docx</strong>)
-				that contains:
-				<ol type="a">
-					<li>The description of the main steps and data flow in your
-						program.</li>
-					<li>The output file (<strong>username_HadoopPageRank_output.txt</strong>)
-						which contains the top 10 ranking url numbers.
-					</li>
-				</ol>
-			</li>
-		</ol>
-		<p>Points will be reduced (maximum 0.5 points) if the filename or
-		directory structure are different from instructed above.</p>
-	</div>
+    Goal
+</h1>
 
-	<h1>Evaluation</h1>
-	<div>
-		<p>The point total for this project is 5, where the
-			distribution is as follows:</p>
-		<ol type="a">
-			<li>Completeness of your code and output (3 points)</li>
-			<li>Correctness of written report (1.5 points)</li>
-			<li>Readability and clarity of README.txt (0.5 points)</li></ol></div>
-
-	<h1>Introduction</h1>
-	<div>
-	  <p>In this project, we have provided a sketch code which contains three mapreduce jobs for you to implement:</p>
-	  <ol>
-	    <li>CreateGraph (done): add one column, 'initial pagerank value', to the input pagerank adjacency matrix (AM). Then pass it to the PageRank program to calculate the pagerank values.</li>
-	    <li><strong>PageRank</strong> (your implementation): take the transformed AM matrix and calculate pagerank values for all pages.</li>
-	    <li>Cleanup Results: remove the targetUrls column and output &lt;sourceUrl, pagerank value&gt; as the final result.</li>
-      </ol>
-	  <p>The detail dataflow can be seen in figure 1. Part 1 and Part 3 are given as full solutions in this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
-	  <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt="" width="700" /></p>
-	  <p align="center">Figure 1. Hadoop PageRank dataflow</p>
-	  <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key,value&gt; pairs to the mapper. Initially, the PageRank input data is stored  in the format of adjacency matrix as a file(s) in the local file system. Then it will be  uploaded to the HDFS and distributed across the compute  nodes. Hadoop framework reads the application records from HDFS with the InputFormat  interface and generates &lt;key, value&gt; pair input streams. Each Map  function produces zero or more intermediate (key, value) pairs, by consuming  one input (key, value) pair. For this PageRank program, 
-      the  map function applies the calculation PR(v) / L(V) to each &lt;key,  value&gt; pair, where the key is the unique id or name of the webpage and the  value contains the current rank value of the webpage and its out link information.   Map tasks then generate  intermediate (key, value) pairs, whose value is the  partial rank value of every webpage. Each reduce task aggregates all the partial  values of specific webpages by applying the provided Eqn.2. The aggregated  global rank values are written back to HDFS, which in turn is used as input in  the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in figure 1 shows an example for the PageRank data processing.</p>
-		<p align="justify">Eqn.1:   <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
-  <br /> 
-Eqn.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">        
-    </p>
-  </div>
-
-	<h1>Pseudocode for Hadoop PageRank</h1>
-
-
-
-
-  <div>
-		<p>You need to complete two files in the provided pacakge inside &quot;indiana/cgl/hadoop/pagerank/&quot;: PageRankMap.java and PageRankReduce.java .
-			Code snapshots are shown below.</p>
-		<p>
-			<br> <strong>PageRankMap.java</strong>
-		</p>
-
-		<!-- HTML generated using hilite.me -->
-		<div style="background: #ffffff; overflow: auto; width: auto;">
-			
-<div align="left" class="java">
-<table border="0" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
-   <tr>
-   <td nowrap="nowrap" valign="top" align="left">
-     <p><code>
-       <font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">indiana.cgl.hadoop.pagerank;</font><br />
-       <font color="#ffffff"></font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.BufferedWriter;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.FileWriter;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.IOException;</font><br />
-       <font color="#ffffff"></font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.ArrayList;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.Text;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.mapreduce.Mapper;</font><br />
-       <font color="#ffffff"></font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.conf.Configuration;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.Text;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.LongWritable;</font><br />
-       <font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.mapreduce.Mapper;</font><br />
-       <font color="#ffffff">&nbsp;</font><br />
-       <font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">PageRankMap&nbsp;</font><font color="#7f0055"><b>extends&nbsp;</b></font><font color="#000000">Mapper&lt;LongWritable,&nbsp;Text,&nbsp;LongWritable,&nbsp;Text&gt;&nbsp;</font><font color="#000000">{</font><br />
-       <font color="#ffffff"></font><br />
-       <font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f7f5f">//each&nbsp;map&nbsp;task&nbsp;handles&nbsp;one&nbsp;line&nbsp;within&nbsp;an&nbsp;adjacency&nbsp;matrix&nbsp;file</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;key:&nbsp;file&nbsp;offset</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;value:&nbsp;&lt;sourceUrl&nbsp;PageRank#targetUrls&gt;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">map</font><font color="#000000">(</font><font color="#000000">LongWritable&nbsp;key,&nbsp;Text&nbsp;value,&nbsp;Context&nbsp;context</font><font color="#000000">)</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">IOException,&nbsp;InterruptedException&nbsp;</font><font color="#000000">{</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">numUrls&nbsp;=&nbsp;context.getConfiguration</font><font color="#000000">()</font><font color="#000000">.getInt</font><font color="#000000">(</font><font color="#2a00ff">&#34;numUrls&#34;</font><font color="#000000">,</font><font color="#990000">1</font><font color="#000000">)</font><font color="#000000">;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;line&nbsp;=&nbsp;value.toString</font><font color="#000000">()</font><font color="#000000">;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//instance&nbsp;an&nbsp;object&nbsp;that&nbsp;records&nbsp;the&nbsp;information&nbsp;for&nbsp;one&nbsp;webpage</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">RankRecord&nbsp;rrd&nbsp;=&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">RankRecord</font><font color="#000000">(</font><font color="#000000">line</font><font color="#000000">)</font><font color="#000000">;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">sourceUrl,&nbsp;targetUrl;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//double&nbsp;rankValueOfSrcUrl;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">rrd.targetUrlsList.size</font><font color="#000000">()</font><font color="#000000">&lt;=</font><font color="#990000">0</font><font color="#000000">){</font><font color="#3f7f5f">//there&nbsp;is&nbsp;no&nbsp;out&nbsp;degree&nbsp;for&nbsp;this&nbsp;webpage;&nbsp;scatter&nbsp;its&nbsp;rank&nbsp;value&nbsp;to&nbsp;all&nbsp;other&nbsp;urls</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>double&nbsp;</b></font><font color="#000000">rankValuePerUrl&nbsp;=&nbsp;rrd.rankValue/</font><font color="#000000">(</font><font color="#7f0055"><b>double</b></font><font color="#000000">)</font><font color="#000000">numUrls;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">i=</font><font color="#990000">0</font><font color="#000000">;i&lt;numUrls;i++</font><font color="#000000">){</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">context.write</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">LongWritable</font><font color="#000000">(</font><font color="#000000">i</font><font color="#000000">)</font><font color="#000000">,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Text</font><font color="#000000">(</font><font color="#000000">String.valueOf</font><font color="#000000">(</font><font color="#000000">rankValuePerUrl</font><font color="#000000">)))</font><font color="#000000">;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><font color="#7f0055"><b>else</b></font><font color="#000000">{&nbsp;&nbsp;</font></code></p>
-     <p><code><font color="#3f7f5f">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Write your code here</font><br />
-       <font color="#ffffff"></font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><font color="#3f7f5f">//for</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">context.write</font><font color="#000000">(</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">LongWritable</font><font color="#000000">(</font><font color="#000000">rrd.sourceUrl</font><font color="#000000">)</font><font color="#000000">,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Text</font><font color="#000000">(</font><font color="#000000">sb.toString</font><font color="#000000">()))</font><font color="#000000">;</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font><br />
-       <font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font><font color="#3f7f5f">//map</font><br />
-       <font color="#000000">}</font></code></p>
-    
-   </td>
-  <!-- end source code -->
-   </tr>
-</table>
+<div>
+    <p>By this point you should have gone over the sections concerning PageRank algorithms and
+        Hadoop. Now you are going to blend these applications by implementing a parallel version of
+        PageRank using the programming interfaces of the Hadoop MapReduce framework. </p>
 </div>
 
-		</div>
 
-		<p>
-			<br> <strong>PageRankReduce.java</strong>
-		</p>
+<h1>
+    Deliverables
+</h1>
 
-		<div
-			style="background: #ffffff; overflow: auto; width: auto;">
-			<pre style="margin: 0; line-height: 125%">
-<div align="left" class="java">
-<table border="0" cellpadding="3" cellspacing="0" bgcolor="#ffffff">
-   <tr>
-   <td nowrap="nowrap" valign="top" align="left">
-<code><font color="#7f0055"><b>package&nbsp;</b></font><font color="#000000">indiana.cgl.hadoop.pagerank;</font>
-<font color="#ffffff"></font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.BufferedWriter;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.FileWriter;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.IOException;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.io.OutputStreamWriter;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.HashMap;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.Iterator;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.util.ArrayList;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">java.lang.StringBuffer;</font>
-<font color="#ffffff"></font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.LongWritable;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.Text;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.Writable;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.io.WritableComparable;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.mapred.OutputCollector;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.mapred.Reporter;</font>
-<font color="#7f0055"><b>import&nbsp;</b></font><font color="#000000">org.apache.hadoop.mapreduce.Reducer;</font>
-<font color="#ffffff">&nbsp;</font>
-<font color="#7f0055"><b>public&nbsp;class&nbsp;</b></font><font color="#000000">PageRankReduce&nbsp;</font><font color="#7f0055"><b>extends&nbsp;</b></font><font color="#000000">Reducer&lt;LongWritable,&nbsp;Text,&nbsp;LongWritable,&nbsp;Text&gt;</font><font color="#000000">{</font>
-<font color="#ffffff">&nbsp;&nbsp;</font><font color="#7f0055"><b>public&nbsp;</b></font><font color="#7f0055"><b>void&nbsp;</b></font><font color="#000000">reduce</font><font color="#000000">(</font><font color="#000000">LongWritable&nbsp;key,&nbsp;Iterable&lt;Text&gt;&nbsp;values,</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">Context&nbsp;context</font><font color="#000000">)&nbsp;</font><font color="#7f0055"><b>throws&nbsp;</b></font><font color="#000000">IOException,&nbsp;InterruptedException&nbsp;</font><font color="#000000">{</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>double&nbsp;</b></font><font color="#000000">sumOfRankValues&nbsp;=&nbsp;</font><font color="#990000">0.0</font><font color="#000000">;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String&nbsp;targetUrlsList&nbsp;=&nbsp;</font><font color="#2a00ff">&#34;&#34;</font><font color="#000000">;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">sourceUrl&nbsp;=&nbsp;</font><font color="#000000">(</font><font color="#7f0055"><b>int</b></font><font color="#000000">)</font><font color="#000000">key.get</font><font color="#000000">()</font><font color="#000000">;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>int&nbsp;</b></font><font color="#000000">numUrls&nbsp;=&nbsp;context.getConfiguration</font><font color="#000000">()</font><font color="#000000">.getInt</font><font color="#000000">(</font><font color="#2a00ff">&#34;numUrls&#34;</font><font color="#000000">,</font><font color="#990000">1</font><font color="#000000">)</font><font color="#000000">;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//hint:&nbsp;each&nbsp;tuple&nbsp;may&nbsp;include&nbsp;rank&nbsp;value&nbsp;tuple&nbsp;or&nbsp;link&nbsp;relation&nbsp;tuple&nbsp;&nbsp;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>for&nbsp;</b></font><font color="#000000">(</font><font color="#000000">Text&nbsp;value:&nbsp;values</font><font color="#000000">){</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">String</font><font color="#000000">[]&nbsp;</font><font color="#000000">strArray&nbsp;=&nbsp;value.toString</font><font color="#000000">()</font><font color="#000000">.split</font><font color="#000000">(</font><font color="#2a00ff">&#34;#&#34;</font><font color="#000000">)</font><font color="#000000">;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>if&nbsp;</b></font><font color="#000000">(</font><font color="#000000">strArray.length&nbsp;==&nbsp;</font><font color="#990000">1</font><font color="#000000">){</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Write&nbsp;your&nbsp;code&nbsp;here</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#7f0055"><b>else</b></font><font color="#000000">{</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#3f7f5f">//&nbsp;Write&nbsp;your&nbsp;code&nbsp;here</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">}</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">sumOfRankValues&nbsp;=&nbsp;</font><font color="#990000">0.85</font><font color="#000000">*sumOfRankValues+</font><font color="#990000">0.15</font><font color="#000000">*</font><font color="#000000">(</font><font color="#990000">1.0</font><font color="#000000">)</font><font color="#000000">/</font><font color="#000000">(</font><font color="#7f0055"><b>double</b></font><font color="#000000">)</font><font color="#000000">numUrls;</font>
-<font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#000000">context.write</font><font color="#000000">(</font><font color="#000000">key,&nbsp;</font><font color="#7f0055"><b>new&nbsp;</b></font><font color="#000000">Text</font><font color="#000000">(</font><font color="#000000">sumOfRankValues+targetUrlsList</font><font color="#000000">))</font><font color="#000000">;</font>
-<font color="#ffffff">&nbsp;&nbsp;</font><font color="#000000">}</font>
-<font color="#000000">}</font></code>   
-   </td>
-   </tr>
-</table>
-</div>            
+<div>
+    <p>
+        You are required to turn in the following items in a zip file (<strong>username_HadoopPageRank.zip</strong>)
+        in this assignment:
+    </p>
+    <ol>
+        <li>The source code of Hadoop PageRank you implemented.</li>
+        <li>The executable class file and the README file that describes its
+            usage.
+        </li>
+        <li>Technical report (<strong>username_HadoopPageRank_report.docx</strong>)
+            that contains:
+            <ol type="a">
+                <li>The description of the main steps and data flow in your
+                    program.
+                </li>
+                <li>The output file (<strong>username_HadoopPageRank_output.txt</strong>)
+                    which contains the top 10 ranking url numbers.
+                </li>
+            </ol>
+        </li>
+    </ol>
+    <p>Points will be reduced (maximum 0.5 points) if the filename or
+        directory structure are different from instructed above.</p>
+</div>
 
-</pre>
-		</div>
-	</div>
+<h1>Evaluation</h1>
+
+<div>
+    <p>The point total for this project is 5, where the
+        distribution is as follows:</p>
+    <ol type="a">
+        <li>Completeness of your code and output (3 points)</li>
+        <li>Correctness of written report (1.5 points)</li>
+        <li>Readability and clarity of README.txt (0.5 points)</li>
+    </ol>
+</div>
+
+<h1>Introduction</h1>
+
+<div>
+    <p>In this project, we have provided a sketch code which contains three mapreduce jobs for you
+        to implement:</p>
+    <ol>
+        <li>CreateGraph (done): add one column, 'initial pagerank value', to the input pagerank
+            adjacency matrix (AM). Then pass it to the PageRank program to calculate the pagerank
+            values.
+        </li>
+        <li><strong>PageRank</strong> (your implementation): take the transformed AM matrix and
+            calculate pagerank values for all pages.
+        </li>
+        <li>Cleanup Results: remove the targetUrls column and output &lt;sourceUrl, pagerank value&gt;
+            as the final result.
+        </li>
+    </ol>
+    <p>The detail dataflow can be seen in figure 1. Part 1 and Part 3 are given as full solutions in
+        this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
+
+    <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt=""
+                           width="700"/></p>
+
+    <p align="center">Figure 1. Hadoop PageRank dataflow</p>
+
+    <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored
+        in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key,value&gt;
+        pairs to the mapper. Initially, the PageRank input data is stored in the format of adjacency
+        matrix as a file(s) in the local file system. Then it will be uploaded to the HDFS and
+        distributed across the compute nodes. Hadoop framework reads the application records from
+        HDFS with the InputFormat interface and generates &lt;key, value&gt; pair input streams.
+        Each Map function produces zero or more intermediate (key, value) pairs, by consuming one
+        input (key, value) pair. For this PageRank program,
+        the map function applies the calculation PR(v) / L(V) to each &lt;key, value&gt; pair, where
+        the key is the unique id or name of the webpage and the value contains the current rank
+        value of the webpage and its out link information. Map tasks then generate intermediate
+        (key, value) pairs, whose value is the partial rank value of every webpage. Each reduce task
+        aggregates all the partial values of specific webpages by applying the provided Eqn.2. The
+        aggregated global rank values are written back to HDFS, which in turn is used as input in
+        the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in figure 1 shows an
+        example for the PageRank data processing.</p>
+
+    <p align="justify">Eqn.1: <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
+        <br/>
+        Eqn.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">
+    </p>
+</div>
+
+<h1>Pseudocode for Hadoop PageRank</h1>
+
+
+<div>
+    <p>You need to complete two files in the provided pacakge inside &quot;indiana/cgl/hadoop/pagerank/&quot;:
+        PageRankMap.java and PageRankReduce.java.
+        Code snapshots are shown below.</p>
+
+    <p>
+        <br> <strong>PageRankMap.java and PageRankReducer.java</strong>
+    </p>
+
+    <!-- HTML generated using hilite.me -->
+    <div style="background: #ffffff; overflow: auto; width: auto;">
+
+        <script src="https://gist.github.com/cloudmooc/2e5c1b34e7701f5f9feb.js"></script>
+
+    </div>
+
+</div>
 <h1>Edit</h1>
-<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a> [5]. Use linux text editor vi/vim to add  your code.</p>
-<div><br />
-<div class="dp-highlighter">
+
+<p>The sketch code is stored within the provided VirtualBox image <a
+        href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>
+    [5]. Use linux text editor vi/vim to add your code.</p>
+
+<div><br/>
+
+    <div class="dp-highlighter">
         <div class="bar">
 <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
@@ -208,30 +136,41 @@ $ vim src/indiana/cgl/hadoop/pagerank/PageRankMap.java
 $ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
 </pre>
         </div>
-  </div>
-<h2>Compile and run your code</h2>
-<p>Use the same one-click script compileAndExecHadoopPageRank.sh as in prior projects. Standard error messages such as &ldquo;compile errors,  execution errors, etc.&rdquo; will be redirected on the screen. Debug it  based on the returned messages.</p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+    </div>
+    <h2>Compile and run your code</h2>
+
+    <p>Use the same one-click script compileAndExecHadoopPageRank.sh as in prior projects. Standard
+        error messages such as &ldquo;compile errors, execution errors, etc.&rdquo; will be
+        redirected on the screen. Debug it based on the returned messages.</p>
+
+    <div><br/>
+
+        <div class="dp-highlighter">
+            <div class="bar">
 <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
 
 # usage: ./compileAndExecHadoopPageRank.sh [PageRank Input File][Number of Urls][Number Of Iterations]
 $ ./compileAndExecHadoopPageRank.sh PageRankDataGenerator/pagerank5000g50.input.0 5000 1
 </pre>
+            </div>
         </div>
-</div>
-<h2>View the result</h2>
-<p>The result is  generated as /root/hbaseMoocAntProject/output/project1.txt. </p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+        <h2>View the result</h2>
+
+        <p>The result is generated as /root/hbaseMoocAntProject/output/project1.txt. </p>
+
+        <div><br/>
+
+            <div class="dp-highlighter">
+                <div class="bar">
 <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
 $ cat output/*
 </pre>
-        </div>
-  </div>
+                </div>
+            </div>
 
-	</div>
+        </div>
+</div>
+    </div>
+</div>

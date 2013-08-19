@@ -1,254 +1,55 @@
-<div id="accordion">
 <h3>Goal</h3>
 <div>
     <p>The Goal of this Lab is to prepare the environment required for all the homework assignments.
         Also this lab describes the homework environment so that the student can get familiar with it.</p>
 </div>
 
-<h3>Homework Environment</h3>
+<h3>Deliverables</h3>
+<div>
+    <p>None</p>
+</div>
+
+<h3>Introduction</h3>
 <div>
     <p>This course has homework ranging from configuration of the environment and various tools to writing advanced programs.
         The homework is packaged in a virtual machine to allow students focus on the specific tasks rather than focusing on
         things like environment setup which can be complicated in distributed systems.</p>
     <p>As mentioned above the homework is packaged in a virtual machine and the student is expected to download this virtual machine and install it on their home computers.</p>
-
 </div>
 
 <h3>Installing the Virtual Machine</h3>
 <div>
     <p>First thing is to install VirtualBox to run the virtual machine.</p>
-    <ol>
-        <li>Install VirtualBox by going to the following location: <a
+    <p>Download the latest version of the VirtualBox and install it on your local machine: <a
                 href="https://www.virtualbox.org/wiki/Downloads">VirtualBox downloads</a>.
-        </li>
-
-        <li>Download the prepackaged appliance from this <a
+    </p>
+    <p>After downloading the VirtualBox and installing it you need to download the Virtual Machine Image</p>
+    <p>Download the prepackaged appliance from this <a
                 href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova">link</a>.
             (<a href="http://149.165.146.120/salsa/chef_ubuntu.ova">mirror 1</a>,&nbsp;<a
-                    href="http://129.79.49.181/ScienceCloud/chef_ubuntu.ova">mirror 2</a>) (update
-            with new image)
-        </li>
-        <li>Download and install <a
-                href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a>
-            (for mac and linux users, please use terminal)
-        </li>
-        <li>Download and install <a href="http://winscp.net/eng/download.php">WinSCP</a> (for mac
-            users, please use <a href="http://cyberduck.ch/">Cyberduck</a>)
-        </li>
-    </ol>
-    <p>ALTERNATIVE VIDEO TUTORIAL
-
-    <p>
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/vQWzc8oUlKA" frameborder="0"
-            allowfullscreen></iframe>
+                    href="http://129.79.49.181/ScienceCloud/chef_ubuntu.ova">mirror 2</a>) (update with new image)
+    </p>
 </div>
-<h3>Import the Appliance</h3>
 
+<h3>Running the Virtual Machine</h3>
 <div>
-    <P>1. Installation Guide</P>
-
-    <DIV style="DIRECTION: ltr">
-        <P>Download the prepackaged appliance from&nbsp;<A
-                href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova">this
-            link</A>. (<A href="http://149.165.146.120/salsa/chef_ubuntu.ova">mirror
-            1</A>,&nbsp;<A
-                href="http://129.79.49.181/ScienceCloud/chef_ubuntu.ova">mirror
-            2</A>)</P>
-
-        <P>To import the appliance, select the "File &gt; Import Appliance..." menu option.</P>
-
-        <P><IMG alt="" src="assets/img/hw/mhtA380.tmp" width=576 height=432></P>
-
-        <P>Click "Open appliance…" </P>
-
-        <P><IMG alt="" src="assets/img/hw/mhtA393.tmp" width=563 height=432></P>
-
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in; padding-top: 10px">Select the
-            file from the downloaded location.</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA396.tmp"
-                width=576 height=346></P>
-
-        <P>Hit the "Next" button.</P>
-
-        <P style="MARGIN: 0in"><IMG alt="" src="assets/img/hw/mhtA3A8.tmp" width=563 height=432></P>
-
-        <P>Click "Import".</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA3AB.tmp"
-                width=563 height=432></P>
-
-        <P>Wait as
-            the appliance is imported.</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt="Machine generated alternative text:&#10;"
-                src="assets/img/hw/mhtA3AE.tmp"
-                width=395 height=151></P>
-
-    </DIV>
-    <P>&nbsp;</P>
-
-    <DIV style="DIRECTION: ltr">
-        <P>You should
-            now have an image named "Chef Ubuntu 32 Bit". You can start this image
-            by clicking the start icon at the top of VirtualBox.</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA3C1.tmp"
-                width=576 height=432></P>
-
-        <P>e this after the server boots. It is a 32-bit installation of Ubuntu 10.10 Server. </P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA3C4.tmp"
-                width=576 height=320></P>
-
-
-        <P>Proceed to log in at this screen with: </P>
-        <br>
-
-        <P>Username: root</P>
-
-        <P>Password: school2012</P>
-        <br>
-
-        <P><SPAN
-                style="mso-spacerun: yes">&nbsp;</SPAN>However, SSHing
-            into the server allows easier copy-paste, changing of the window size,
-            and scrolling to view history. To do this, we must find the IP to
-            connect via SSH.</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA3C7.tmp"
-                width=576 height=432></P></DIV>
-
-    <p><strong>NOTE THAT</strong> for <em>MAC</em> and <em>Linux</em> users, if you are using &quot;NAT&quot;
-        network setting, you will have to check the existence of virtual network adapter with
-        command ifconfig from the terminal. If you do not find any, you may need to add a virtual
-        network adapter to enable SSH connections. Otherwise use "Host Only Network" for SSH
-        connections. See the <a href="http://www.virtualbox.org/manual/ch06.html">VirtualBox
-            official manual</a> for more networking information.</p>
+    <p>Start the VirtualBox and go to menu File -> Import Appliance</p>
+    <p>Select the downloaded Virtual Machine image and import it to the VirtualBox</p>
+    <p>After the import is successful you can start the virtual machine</p>
 </div>
-<h3>Configure PuTTY (for windows users)</h3>
 
+<h3>Logging in to the Virtual Machine</h3>
 <div>
-    <P>Open the
-        Settings menu for the Chef Ubuntu VM</P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt=""
-            src="assets/img/hw/mhtA3D9.tmp"
-            width=576 height=424></P>
-
-    <P>Open the
-        Port Forwarding menu, and note the Host IP in Rule 1. </P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt=""
-            src="assets/img/hw/mhtA3DC.tmp"
-            width=576 height=317></P>
-
-    <P>Open PuTTY
-        and put the IP address from before into the Host Name field. Then Press
-        "Open"</P>
-
-    <P>&nbsp;</P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt=""
-            src="assets/img/hw/mhtA3EF.tmp"
-            width=466 height=449></P>
-
-    <P>This
-        message will appear the first time. Click Yes</P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt=""
-            src="assets/img/hw/mhtA3F2.tmp"
-            width=420 height=305></P>
-
-    <P>Login as</P>
-    <P>username: root</P>
-    <P>password: school2012</P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt="Machine generated alternative text:&#10;"
-            src="assets/img/hw/mhtA3F5.tmp"
-            width=576 height=363></P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt="Machine generated alternative text:&#10;"
-            src="assets/img/hw/mhtA408.tmp"
-            width=576 height=363></P>
-
-    <P>And you
-        will be greeted with this screen to indicate success!</P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt=""
-            src="assets/img/hw/mhtA40B.tmp"
-            width=576 height=363></P>
-
-    <P>Try typing
-        "ls" and then hit enter.</P>
-
-    <P style="MARGIN: 0in"><IMG
-            alt=""
-            src="assets/img/hw/mhtA40E.tmp"
-            width=576 height=363></P>
-
-    <h3>Configure WinSCP (for windows users)</h3>
-
-    <div>
-        <P>PuTTY is
-            great for running commands, but if you are using Windows and want to copy files
-            directly,
-            I recommend WinSCP. Open WinSCP and click the "New"
-            button.</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA420.tmp"
-                width=529 height=471></P>
-
-        <P>Enter the IP into Host name.</P>
-        <P>User name: root</P>
-        <P>Password: school2012</P>
-        <P>These are
-            the same as logging in with PuTTY.</P>
-        <P>Click
-            "Login" (In future
-            runs you may want to save).</P>
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA423.tmp"
-                width=529 height=471></P>
-
-        <P>Success!
-            Now you can drag files between the locations, and even sychronize
-            directories!</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt=""
-                src="assets/img/hw/mhtA436.tmp"
-                width=576 height=394></P>
-
-        <P>If you
-            will log in frequently to edit files, click "Save…" on the previous
-            screen. Then check the "Save password (not recommended)" box and click
-            "OK"</P>
-
-        <P style="MARGIN: 0in"><IMG
-                alt="Machine generated alternative text:&#10;I Save session as:"
-                src="assets/img/hw/mhtA439.tmp"
-                width=342 height=150></P>
-    </div>
+    <p>The virtual machine is password protected. You can log in to it using the credentials</p>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td>root</td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>school2012</td>
+        </tr>
+    </table>
+    <p>If you have trouble accessing or using the VM, please post a message to the forum so the staff or your classmates can respond.</p>
 </div>

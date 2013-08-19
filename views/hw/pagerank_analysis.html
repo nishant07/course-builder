@@ -1,4 +1,51 @@
 <div id="accordion">
+    <h1>Goal</h1>
+    <div>
+        <p>The goal of this homework to write a distributed monitoring system that will monitor
+            the statistics from different machines and collect them in a single place.</p>
+    </div>
+
+    <h1>Deliverables (Due Nov. 5)</h1>
+    <div>
+        <p>For this project, each team is required to turn in a report to OnCourse with
+            the following items:</p>
+        <ol>
+            <li> Experiment with a number of urls (scale
+                up to 1M urls at least) and the following numbers in a table, then draw a
+                human readable graph chart.</li>
+
+            <ol type="a">
+                <li>Instance class, number of worker nodes, number of
+                    core/cpu/processors per worker node, size of dataset (# of urls, # of
+                    groups), number of MPI process (set with argument -np), MPI error
+                    threshold, and number of iterations, etc.</li>
+                <li> A speed-up performance analysis chart (graph).</li>
+                <li>Each execution time must be taken as an average
+                    of three runs.</li>
+            </ol>
+            <li>Findings, description and explanation of your results.</li>
+            <li>Feedback about using FutureGrid Bare Metal and Eucalyptus.</li>
+            <li>You need to write a torque/PBS script which runs MPI/MPJ
+                PageRank automatically only in bare metal mode.</li>
+            <li>Provide your scripts (if you used any) in a zip file and
+                package with filename &#8220;taklwu_proj2.zip&#8221; where
+                &#8220;taklwu&#8221; should be replaced with your IU username.</li>
+        </ol>
+        <p>Points will be reduced (maximum 0.5 points) if the filename or
+            directory structure are different from instructed above.</p>
+
+    </div>
+
+    <h1>Project Evaluation</h1>
+    <div>
+        <p>The point total for Project #3 is 10, where the distribution is
+            as follows:</p>
+        <p>a. Experiments: design quality, accurate measurements, amount
+            of work involved (5 points)</p>
+        <p>b. Report (3 points)</p>
+        <p>c. Review/Demo (2 points)</p>
+    </div>
+
 	<h1>Introduction</h1>
 	<div>
 		<p>PLEASE NOTE: This homework requires access to a FutureGrid account, which
@@ -23,47 +70,6 @@
 			sign up at <a href="http://portal.futuregrid.org">FutureGrid
 				Portal</a> [1] as soon as possible.
 		</p>
-	</div>
-
-	<h1>Deliverables (Due Nov. 5)</h1>
-	<div>
-		<p>For this project, each team is required to turn in a report to OnCourse with
-			the following items:</p>
-		<ol>
-			<li> Experiment with a number of urls (scale
-			up to 1M urls at least) and the following numbers in a table, then draw a
-			human readable graph chart.</li>
-		
-			<ol type="a"> 
-            <li>Instance class, number of worker nodes, number of
-			core/cpu/processors per worker node, size of dataset (# of urls, # of
-			groups), number of MPI process (set with argument -np), MPI error
-			threshold, and number of iterations, etc.</li>
-			<li> A speed-up performance analysis chart (graph).</li>
-		 	<li>Each execution time must be taken as an average
-			of three runs.</li>
-            </ol>
-		<li>Findings, description and explanation of your results.</li>
-		<li>Feedback about using FutureGrid Bare Metal and Eucalyptus.</li>
-		<li>You need to write a torque/PBS script which runs MPI/MPJ
-			PageRank automatically only in bare metal mode.</li>
-		<li>Provide your scripts (if you used any) in a zip file and
-			package with filename &#8220;taklwu_proj2.zip&#8221; where
-			&#8220;taklwu&#8221; should be replaced with your IU username.</li>
-			</ol>
-		<p>Points will be reduced (maximum 0.5 points) if the filename or
-			directory structure are different from instructed above.</p>
-			
-	</div>
-
-	<h1>Project Evaluation</h1>
-	<div>
-		<p>The point total for Project #3 is 10, where the distribution is
-			as follows:</p>
-		<p>a. Experiments: design quality, accurate measurements, amount
-			of work involved (5 points)</p>
-		<p>b. Report (3 points)</p>
-		<p>c. Review/Demo (2 points)</p>
 	</div>
 
 	<h1>Performance Analysis and Writing a Report</h1>

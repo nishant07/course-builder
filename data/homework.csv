@@ -9,4 +9,4 @@ id,homework_id,type,title,filename
 7,se1,H,Load Data into HBase,hw/hbase_intro.html
 8,se2,H,HBase WordCount,hw/hbase_wordcount.html
 9,se3,H,Building an Inverted Index,hw/inverted_hbase.html
-10,se4,H,Twister,hw/twister_pagerank.html
+10,se4,H,Twister PageRank,hw/twister_pagerank.html

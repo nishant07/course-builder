@@ -2,7 +2,11 @@
     <h1>Goal</h1>
     <div>
         <p>The goal of this homework to write a distributed monitoring system that will monitor
-            the statistics from different machines and collect them in a single place.</p>
+            the statistics from different machines and collect them in a single location.</p>
+            	<p>PLEASE NOTE: This homework requires access to a FutureGrid account, which
+			is available only for those students who are enrolled at the Indiana University
+			Bloomington campus.
+		</p>
     </div>
 
     <h1>Deliverables</h1>
@@ -18,7 +22,7 @@
                 <li>Instance class, number of worker nodes, number of
                     core/cpu/processors per worker node, size of dataset (# of urls, # of
                     groups), number of MPI process (set with argument -np), MPI error
-                    threshold, and number of iterations, etc.</li>
+                    threshold, number of iterations, etc.</li>
                 <li> A speed-up performance analysis chart (graph).</li>
                 <li>Each execution time must be taken as an average
                     of three runs.</li>
@@ -38,7 +42,7 @@
 
     <h1>Project Evaluation</h1>
     <div>
-        <p>The point total for Project #3 is 10, where the distribution is
+        <p>The point total for this project is 10, where the distribution is
             as follows:</p>
         <p>a. Experiments: design quality, accurate measurements, amount
             of work involved (5 points)</p>
@@ -48,10 +52,7 @@
 
 	<h1>Introduction</h1>
 	<div>
-		<p>PLEASE NOTE: This homework requires access to a FutureGrid account, which
-			is available only for those students who are enrolled at the Indiana University
-			Bloomington campus.
-		</p>
+	
 		<p>Academic Cloud provides a great environment to run applications. Users
 			have more control and flexibility to run their own applications,
 			with higher availability to researchers and students.
@@ -61,12 +62,12 @@
 			grid, and cloud computing. In this assignment, you will hand in
 			a performance analysis report by running MPIPageRank program in two
 			different modes &#8212; bare metal nodes and Eucalyptus VMs on
-			FutureGrid. Please reuse your MPIPageRank program developed in
-			Project #1 for this project. The following sections of this document
+			FutureGrid. Please reuse your MPI PageRank program developed in
+			Homework 4 for this project. The following sections of this document
 			provide detailed instructions on how to access FutureGrid.</p>
 		<p>
 			You must have your FutureGrid account and your generated ssh private
-			key ready to proceed. If you haven&#8217;t applied for one,
+			key ready in order to proceed. If you haven&#8217;t applied for one,
 			sign up at <a href="http://portal.futuregrid.org">FutureGrid
 				Portal</a> [1] as soon as possible.
 		</p>
@@ -75,7 +76,7 @@
 	<h1>Performance Analysis and Writing a Report</h1>
 	<div>
 		<p>In this project, you are going to use FutureGrid as your test
-			environment. You will need to copy your Project 1 back to these two
+			environment. You will need to copy your Homework 4 results back to these two
 			environments. Test your MPI Pagerank program on a very small (old)
 			dataset to make sure everything is working correctly. Finally, run
 			the program with the generated dataset(s) and analyze the
@@ -83,7 +84,7 @@
 			descriptions and explanations about your results. It is required to show 
 			this information on your report.</p>
 		<p>Note that you must test your program with scaling up to
-			at least 100k urls, using at most 16 cores of computing
+			at least 100K urls, using at most 16 cores of computing
 			resources. In other words, each team can only use at most 2 bare
 			metal nodes (8 cores/processors per node) in India-HPC environment and
 			8 VMs (2 cores per m1.large VM) in India-Eucalyptus.</p>
@@ -123,7 +124,7 @@
 		</ul>
 		<h2>PageRank Dataset Generation</h2>
 		<p>We have provided a java-class
-			&#8220;PageRankDataGen.java&#8221; in order to generate a 10k dataset
+			&#8220;PageRankDataGen.java&#8221; in order to generate a 10K dataset
 			to run the performance test. Compile and execute this
 			generator as follows:</p>
 		<pre>
@@ -284,7 +285,7 @@ echo "Bare Metal job Finished"
 			<p>As mentioned above, virtual clusters offer more power to run
 				applications on a shared environment. Eucalyptus is a virtual
 				infrastructure management tool that provides the functions to manage
-				and to access those virtual resources. With the help of Eucalyptus,
+				and access those virtual resources. With the help of Eucalyptus,
 				we can easily obtain a private virtual cluster (Cloud) on a set of
 				machines. FutureGrid has deployed Eucalyptus and provided service to
 				its users for years. Figure 1 shows the compute resource provided by the
@@ -298,8 +299,8 @@ echo "Bare Metal job Finished"
 				<i>Fig. 1 Overview of FutureGrid Compute Resources</i>
 			</p>
 			<p>This section shows the steps to create FutureGrid
-				India-Eucalyptus accounts, to access India Cluster HeadNode on
-				FutureGrid, and to obtain a set of VM nodes as a virtual
+				India-Eucalyptus accounts, access India Cluster HeadNode on
+				FutureGrid, and obtain a set of VM nodes as a virtual
 				cluster.</p>
 			<p>1. Access FutureGrid India with your ssh private key</p>
 			<pre>
@@ -424,7 +425,7 @@ root@localhost:~#
 				Before running the MPI PageRank in multiple nodes environment on
 				FutureGrid Eucalyptus, you need to make sure the Eucalyptus ssh
 				private key and the MPI program are uploaded to each of the created
-				VMs. <strong>Do Not copy the Eucalyptus ssh key and MPI
+				VMs. <strong>Do not copy the Eucalyptus ssh key and MPI
 					program to each node in bare metal mode.</strong>
 			</p>
 			<pre>
@@ -463,7 +464,7 @@ root@localhost:~# vi nodes
 				&#8220;machines&#8221; and use the optional argument &#8220;-dev
 				niodev&#8221;). See the details for <a
 					href="http://mpj-express.org/docs/guides/linuxguide.pdf">MPJ
-					Cluster Configuration</a> here[4]).
+					Cluster Configuration</a> here [4]).
 			</p>
 			<h2>Execution command for MPI</h2>
 			<pre>

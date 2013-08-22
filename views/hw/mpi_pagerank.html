@@ -9,7 +9,7 @@
     </h1>
     <div>
         <p>
-            You are required to turn in the following items in a zip file in this assignment:
+            You are required to turn in the following items in a zip file:
         </p>
         <ol>
             <li>The source code of parallel PageRank you implemented.</li>
@@ -46,13 +46,13 @@
 
 	<h1>Introduction</h1>
 	<div>
-		<p>In the second part of Project #1, you will implement a parallel
+		<p>In this second part of our PageRank homework, you will implement a parallel
 			version of PageRank by using MPI programming interface. We provide a
-			pseudocode for MPI PageRank and you need to complete the
-			implementation based on the pseudocode to make a working version of
-			it. We provide functions for file IO so that you can focus on main
-			implementation only. For more details on the PageRank algorithm, you can
-			refer to the previous descriptions for part 1 of Project #1.</p>
+			pseudocode for MPI PageRank and you will have to complete the
+			implementation based on this to make a working version. We provide 
+			functions for file IO so that you can focus on main
+			implementation only. For more details on the PageRank algorithm, 
+			refer to the previous descriptions for Homework 3.</p>
 
 		<p>
 			<strong>Parallel PageRank</strong>
@@ -126,7 +126,7 @@
 			<strong>mpi_write </strong>
 		</p>
 		<p>This function is for saving rank values to a file. We assume
-			rank values are synchronized through all processes. Therefore it
+			rank values are synchronized through all processes, therefore it
 			doesn&#8217;t matter which process you choose to write. In this function, 
 			we simply have root (rank 0) processes to write rank values to a file.</p>
 
@@ -164,7 +164,7 @@
 			<strong>Step one: Compile </strong>
 		</p>
 		<p>To compile MPI code, you need to set up correct MPI development
-			environments. You can do that by using an &#8220;mpi-selector&#8221;
+			environments. You can do so by using an &#8220;mpi-selector&#8221;
 			command:</p>
 		<p>First, check which MPI versions are available:</p>
 		<pre>$ mpi-selector &#8211;list</pre>
@@ -208,7 +208,7 @@ Usage: mpi_main -i filename -n num_iterations
 		</pre>
 
 		<p>
-			To run &#8220;mpi_main&#8221;, you need to use a MPI command called
+			To run &#8220;mpi_main&#8221;, you need to use an MPI command called
 			&#8220;mpirun&#8221;. For example, to process
 			&#8220;pagerank.input&#8221; file (included as a sample input) by
 			using 2 processes concurrently, you can type the following commands:

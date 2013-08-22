@@ -1,7 +1,7 @@
 <div id="accordion">
 	<h1>Goal</h1>
 	<div>
-		<p>To implement a system that monitors and visualizes the resource
+		<p>This homework explores how to implement a system that monitors and visualizes the resource
 			utilization in a distributed set of nodes using message broker
 			middleware.</p>
 	</div>
@@ -9,9 +9,8 @@
 	<h1>Deliverables</h1>
 	<div>
 		<p>
-			You are required to turn in the following items in a zip file, <strong>username-rms.zip</strong>,
-			in this assignment via Oncourse, where<strong> username</strong>(e.g.
-			taklwu) is your e-mail username.
+			You are required to turn in the following items via Oncourse in a zip file: 
+			<strong>username-rms.zip</strong>, where<strong> username</strong> is your e-mail username.
 		</p>
 		<p>1) The source code of the Monitoring Daemon and Monitoring
 			front-end.</p>
@@ -52,7 +51,7 @@
 			exist several distributed monitoring solutions, such as Ganglia [1]
 			and Nagios [2], to apply into a wide variety of distributed computing
 			environments. Another example would be Amazon Cloudwatch [3], which
-			allows the users to monitor the resource utilization of their EC2
+			allows users to monitor the resource utilization of their EC2
 			cloud resources. While these systems need to be comprehensive, care
 			must be taken to ensure that they don&#8217;t disrupt or hamper the
 			resources they are monitoring.</p>
@@ -151,7 +150,7 @@ While(!done){
 			receive the messages with monitoring information from the daemons
 			running on the nodes.</p>
 		<p>2. Summarize the statistics from all the compute nodes (&gt;2)
-			that run the Hadoop/MPI Pagerank application from previous project. Calculate the
+			that run the Hadoop/MPI Pagerank application from Homework 4. Calculate the
 			overall CPU and Memory utilization percentages.</p>
 		<p>3. Draw real-time cumulative performance graphs with summarized
 			resource utilization information. This must be GUI-based (no table
@@ -185,7 +184,7 @@ UIUpdateThread{
 		<div>
 			<img src="assets/img/hw/resource_ms/image002.jpg">
 			<p align="center">
-				<i>Fig 2. Real-Time cumulative performance interface with using
+				<i>Fig 2. Real-Time cumulative performance interface using
 					JFreeChart</i>
 			</p>
 		</div>
@@ -196,7 +195,7 @@ UIUpdateThread{
 		<p>In this project, you must run your Hadoop/MPI/MPJ PageRank program on
 			provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a>. Please make sure your provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a> has internet access, e.g. try to ping www.google.com, otherwise you won't be able to finish this project. Then your resource monitoring
 			daemons have to capture the computing performance of the specified
-			Hadoop/MPI/MPJ processes on each node, and show a live aggregated
+			Hadoop/MPI/MPJ processes on each node and show a live aggregated
 			performance chart on monitoring UI.</p>
 		<p>Here, we provide the instruction to run Hadoop/MPI/MPJ PageRank with
 			multi-nodes mode under CS environment.</p>
@@ -237,7 +236,7 @@ File pagerank.input.1000.0 total_num_web_pages: 28
 		<h2>Configure and Run MPJ PageRank</h2>
 		<p>Before running any MPJ [9] job under provided Linux environment, you
 			will need to make a &#8220;machines&#8221; file which has the worker
-			hostname written line by line, e.g., localhost. Note that the filename must be
+			hostname written line by line, e.g. localhost. Note that the filename must be
 			&#8220;machines&#8221;.</p>
 		<pre>
 [root@ubuntu: ~]$ cd /root/test/MPJ_pagerank
@@ -264,7 +263,7 @@ Starting process &lt;0&gt; on &lt;ubuntu&gt;<br />Starting process &lt;1&gt; on 
 		<pre>
 [root@ubuntu:~/test/MPJ_pagerank]$ mpjhalt machines<br />Stopping mpjd...<br />Stopped mpjd.<br /></pre>
 		<h2>Configure and Run Hadoop PageRank</h2>
-        <p>For Hadoop PageRank, the step is the same as you run Hadoop PageRank in the previous homework.</p>
+        <p>For Hadoop PageRank, the step is the same as when you ran Hadoop PageRank in the previous homework.</p>
       <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
 

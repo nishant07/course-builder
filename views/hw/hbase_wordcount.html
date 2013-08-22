@@ -1,5 +1,5 @@
 <h1>Goal</h1>
-<p>Write an HBase WordCount program to count  the unique term&rsquo;s occurrences from the clueWeb09 dataset. Each row record of  columnfamily &ldquo;frequencies&rdquo; is unique, where the rowkey is the unique term  stored in byte format, column name is &ldquo;count&rdquo; and the value is the term  frequency shown in all documents. The result must be uploaded to HBase WordCountTable.  Figure 1 shows the data structure of WordCountTable.<br /></p>
+<p>Write an HBase WordCount program to count  the unique term&rsquo;s occurrences from the clueWeb09 dataset. Each row record of  columnfamily &ldquo;frequencies&rdquo; is unique; the rowkey is the unique term  stored in byte format, column name is &ldquo;count&rdquo; and value is the term  frequency shown in all documents. Upload the result to HBase WordCountTable.  Figure 1 shows the data structure of WordCountTable.<br /></p>
   <p align="center"><img src="assets/img/hw/se2/1.png" alt="" width="259" height="177" /><br />
   <em>Figure 1.</em> WordCount table schema for storing unique  term&rsquo;s occurrences</p>
 <h1>Deliverables </h1>
@@ -7,9 +7,9 @@
 <h1>Evaluation</h1>
 <p>TBD</p>
 <h1>Introduction </h1>
-<p>WordCount is a simple program which counts  the number of occurrences of each word in a given text input dataset. It fits  very well with the map/reduce programming model, making WordCount a great example  to understand the Hadoop MapReduce programming style [1]. Instead of  loading the data from HDFS, we will load our data directly from existing HBase  records which store the similar content structures on HBASE and HDFS (if you  have finished Project #1 this has already been done). </p>
+<p>WordCount is a simple program which counts  the number of occurrences of each word in a given text input dataset. It fits  very well with the map/reduce programming model, making WordCount a great example  to understand the Hadoop MapReduce programming style [1]. Instead of  loading the data from HDFS, we will load our data directly from existing HBase  records which store the similar content structures on HBASE and HDFS (if you finished Homework 3 and 4, this has already been done). </p>
 <h2>HBase</h2>
-<p>For details about  HBase [2], please see Project #1.</p>
+<p>For details about  HBase [2], please see Homework 2 through 4.</p>
 <h2>Clueweb09 dataset</h2>
 <p>We are using the ClueWeb09 dataset, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2].  Since the ClueWeb09 dataset is composed of webpages crawled from the Internet, the  uploaded table schemas are designed as shown in Figure 2.<br />
   </p>
@@ -89,6 +89,9 @@ $ ./compileAndExecWordCount.sh
 <div class="dp-highlighter">
         <div class="bar">
 <pre>
+Commit summary: Extended description: (optional)
+wigginst thomasbrucewiggins@gmail.com
+
 $ cd /root/hbaseMoocAntProject
 $ cat output/project1.txt
 </pre>

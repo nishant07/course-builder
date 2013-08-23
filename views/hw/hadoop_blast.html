@@ -4,9 +4,8 @@
 </h1>
 
 <div>
-    <p>By this point you should have gone over the sections concerning PageRank algorithms and
-        Hadoop. Now you are going to blend these applications by implementing a parallel version of
-        PageRank using the programming interfaces of the Hadoop MapReduce framework. </p>
+    <p>By this point you should have gone over the sections concerning Hadoop Setup and Hadoop WordCount. Now you are going to blend these applications by implementing a parallel version of
+        <a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST (Basic Local Alignment Search Tool)</a> using the programming interfaces of the Hadoop MapReduce framework. Noted that, this application is writting in &quot;Map-Only&quot; fashion.</p>
 </div>
 
 <h1>
@@ -15,7 +14,7 @@
 
 <div>
     <p>
-        You are required to turn in the following items in a zip file (<strong>username_HadoopPageRank.zip</strong>)
+        You are required to turn in the following items in a zip file (<strong>username_HadoopBlast.zip</strong>)
         in this assignment:
     </p>
     <ol>
@@ -23,15 +22,14 @@
         <li>The executable class file and the README file that describes its
             usage.
         </li>
-        <li>Technical report (<strong>username_HadoopPageRank_report.docx</strong>)
+        <li>Technical report (<strong>username_HadoopBlast_report.docx</strong>)
             that contains:
             <ol type="a">
                 <li>The description of the main steps and data flow in your
                     program.
                 </li>
-                <li>The output file (<strong>username_HadoopPageRank_output.txt</strong>)
-                    which contains the top 10 ranking url numbers.
-                </li>
+                <li>The output file (<strong>username_HadoopBlast_output.fa</strong>)
+                    which contains the result by running the provided data set.</li>
             </ol>
         </li>
     </ol>
@@ -54,67 +52,59 @@
 <h1>Introduction</h1>
 
 <div>
-    <p>In this project, we have provided a sketch code which contains three mapreduce jobs for you
-        to implement:</p>
+    <p>Hadoop-Blast is an advanced Hadoop program which helps Blast, a bioinformatics application, utilizes the Computing Capability of Hadoop. This exercise shows the detail of its implementation, and provides an example of how to handle similar approaches to other applications. <br />
+    </p>
+    <p>BLAST (Basic Local Alignment Search Tool) is one of the most widely used bioinformatics applications written in C++, and the version we are using is v2.2.23. This version considered a new version of the software with new features and better performance while BLAST is a legacy software. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/staff/tao/URLAPI/blastdb.html">nr</a>) database, its full name is Non-redundant protein sequence database. Optionally, for more detail to run the blast binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation</a>.</p>
+    <p>In this project, we have provided a sketch code which contains two java classes/files for you
+    to implement:</p>
     <ol>
-        <li>CreateGraph (done): add one column, 'initial pagerank value', to the input pagerank
-            adjacency matrix (AM). Then pass it to the PageRank program to calculate the pagerank
-            values.
-        </li>
-        <li><strong>PageRank</strong> (your implementation): take the transformed AM matrix and
-            calculate pagerank values for all pages.
-        </li>
-        <li>Cleanup Results: remove the targetUrls column and output &lt;sourceUrl, pagerank value&gt;
-            as the final result.
-        </li>
+        <li>DataAnalysis.java (Done): The main program which sets the Hadoop MapReduce job configuration. </li>
+        <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> as Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. The  assigned FASTA files are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
     </ol>
-    <p>The detail dataflow can be seen in figure 1. Part 1 and Part 3 are given as full solutions in
-        this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
+    <p>The detail dataflow can be seen in figure 1, you will implement the RunnerMap.java which copy the distributed cache and assigned FASTA file to local, then run the blast binary with correct parameters.</p>
 
-    <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt=""
+    <p align="center"><img src="assets/img/hw/hadoopblast/hadoop_blast.png" alt=""
                            width="700"/></p>
 
-    <p align="center">Figure 1. Hadoop PageRank dataflow</p>
+    <p align="center">Figure 1. Hadoop Blast dataflow</p>
 
     <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored
         in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key,value&gt;
-        pairs to the mapper. Initially, the PageRank input data is stored in the format of adjacency
-        matrix as a file(s) in the local file system. Then it will be uploaded to the HDFS and
+        pairs to the mapper. Initially, the BLAST input data is set of FASTA files located in the local file system. Then it will be uploaded to the HDFS and
         distributed across the compute nodes. Hadoop framework reads the application records from
-        HDFS with the InputFormat interface and generates &lt;key, value&gt; pair input streams.
-        Each Map function produces zero or more intermediate (key, value) pairs, by consuming one
-        input (key, value) pair. For this PageRank program,
-        the map function applies the calculation PR(v) / L(V) to each &lt;key, value&gt; pair, where
-        the key is the unique id or name of the webpage and the value contains the current rank
-        value of the webpage and its out link information. Map tasks then generate intermediate
-        (key, value) pairs, whose value is the partial rank value of every webpage. Each reduce task
-        aggregates all the partial values of specific webpages by applying the provided Eqn.2. The
-        aggregated global rank values are written back to HDFS, which in turn is used as input in
-        the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in figure 1 shows an
-        example for the PageRank data processing.</p>
-
-    <p align="justify">Eqn.1: <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
-        <br/>
-        Eqn.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">
-    </p>
+        HDFS with the InputFormat interface and generates &lt;key, value&gt; pair input streams; here, we use a provided 
+        provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java to generate key-value pairs of &lt;filename, filepath on HDFS&gt;. For this Hadoop Blast program,
+        the map function firstly setup the distributed cache and generates the two absolute location filepaths for Blast binary and Blast Database. Then, it copy the assigned FASTA file to local disk by looking up the file from HDFS and generate a absolute  filepath. Once these location filepaths are generated and file dependenice are stored in the local disk, we call a external java process and execute the Blast binary with the correct parameters. Finally, the output FASTA file of Blast binary will be uploaded back to HDFS.</p>
 </div>
 
-<h1>Pseudocode for Hadoop PageRank</h1>
+<h1>Sketch for Hadoop Blast</h1>
 
 
 <div>
-    <p>You need to complete two files in the provided pacakge inside &quot;indiana/cgl/hadoop/pagerank/&quot;:
-        PageRankMap.java and PageRankReduce.java.
+    <p>You need to complete one file in the provided pacakge inside &quot;cgl/hadoop/apps/runner&quot;:
+        RunnerMap.java.
         Code snapshots are shown below.</p>
 
-    <p>
-        <br> <strong>PageRankMap.java and PageRankReducer.java</strong>
+    <p><strong>RunnerMap.java</strong>
     </p>
 
     <!-- HTML generated using hilite.me -->
     <div style="background: #ffffff; overflow: auto; width: auto;">
 
         <script src="https://gist.github.com/cloudmooc/2e5c1b34e7701f5f9feb.js"></script>
+
+    </div>
+    
+    <p>&nbsp;</p>
+    <p>In addition, if you need to understand the dataflow and main program, please look into the DataAnalysis.java.</p>
+    
+    <p><strong>DataAnalysis.java</strong>
+    </p>
+
+    <!-- HTML generated using hilite.me -->
+    <div style="background: #ffffff; overflow: auto; width: auto;">
+
+      <script src="https://gist.github.com/cloudmooc/2e5c1b34e7701f5f9feb.js"></script>
 
     </div>
 
@@ -130,15 +120,15 @@
     <div class="dp-highlighter">
         <div class="bar">
 <pre>
-$ cd /root/MoocHomeworks/HadoopPageRank/
-$ vim src/indiana/cgl/hadoop/pagerank/PageRankMap.java
-$ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
+$ cd /root/MoocHomeworks/HadoopBlast/
+$ vim src/cgl/hadoop/apps/runner/RunnerMap.java
+$ vim src/cgl/hadoop/apps/runner/DataAnalysis.java
 </pre>
         </div>
     </div>
     <h2>Compile and run your code</h2>
 
-    <p>Use the same one-click script compileAndExecHadoopPageRank.sh as in prior homework. Standard
+    <p>Use the same one-click script compileAndExecHadoopBlast.sh as in prior homework. Standard
         error messages such as &ldquo;compile errors, execution errors, etc.&rdquo; will be
         redirected on the screen. Debug it based on the returned messages.</p>
 
@@ -147,16 +137,16 @@ $ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
         <div class="dp-highlighter">
             <div class="bar">
 <pre>
-$ cd /root/MoocHomeworks/HadoopPageRank/
+$ cd /root/MoocHomeworks/HadoopBlast/
 
-# usage: ./compileAndExecHadoopPageRank.sh [PageRank Input File][Number of Urls][Number Of Iterations]
-$ ./compileAndExecHadoopPageRank.sh PageRankDataGenerator/pagerank5000g50.input.0 5000 1
+# usage: ./compileAndExecHadoopBlast.sh
+$ ./compileAndExecHadoopHadoopBlast.sh 
 </pre>
             </div>
         </div>
         <h2>View the result</h2>
 
-        <p>The result is generated as /root/hbaseMoocAntProject/output/project1.txt. </p>
+        <p>The result is generated as /root/MoocHomeworks/HadoopBlast/output/HadoopBlastOutput.fa. </p>
 
         <div><br/>
 

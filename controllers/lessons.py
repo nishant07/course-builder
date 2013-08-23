@@ -556,9 +556,21 @@ class HomeWorkHandler(BaseHandler):
             homework = hws[0]
             u = homework.id
 
+        categories = []
+        for h in hws:
+            cat = None
+            for c in categories :
+                if c[0] == h.category:
+                    cat = c
+
+            if cat is not None:
+                cat[1].append(h)
+            else:
+                categories.append([h.category, [h]])
 
         self.template_value['homework'] = homework
         self.template_value['homeworks'] = hws
+        self.template_value['cats'] = categories
         self.template_value['homework_id'] = u
 
         self.render('homework.html')

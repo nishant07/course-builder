@@ -1,23 +1,48 @@
 <div>
+    {% for cat in cats %}
+    <h3>{{cat[0]}}</h3>
     <ul class="bs-docs-sidenav root nav nav-list">
-        {% for homework in homeworks %}
+        {% for homework in cat[1] %}
         {% if homework.id == homework_id %}
         <li class="branch" style="font-weight: bold">
             <a href="homework?unit={{ homework.id }}">{{ homework.id }}. {{ homework.title }}
+                {% if homework.difficulty == 1 %}
+                <i title="Easy" class="badge badge-success pull-right">B</i>
+                {% elif homework.difficulty == 2 %}
+                <i title="Easy" class="badge badge-warning pull-right">I</i>
+                {% elif homework.difficulty == 3%}
+                <i title="Easy" class="badge badge-important pull-right">A</i>
+                {% else %}
+                <i title="None" class="badge badge-none pull-right">---</i>
+                {% endif %}
             {% if homework.type == 'L' %}
             <i class="lab_icon pull-right"></i>
             {% endif %}
+
             </a>
         {% else %}
         <li class="branch">
             <a href="homework?unit={{ homework.id }}">
+                {% if homework.difficulty == 1 %}
+                <i title="Easy" class="badge badge-success pull-right">B</i>
+                {% elif homework.difficulty == 2 %}
+                <i title="Easy" class="badge badge-warning pull-right">I</i>
+                {% elif homework.difficulty == 3%}
+                <i title="Easy" class="badge badge-important pull-right">A</i>
+                {% else %}
+                <i title="None" class="badge badge-none pull-right">---</i>
+                {% endif %}
+
                 {{ homework.id }}. {{ homework.title }}
                 {% if homework.type == 'L' %}
                 <i class="lab_icon pull-right"></i>
                 {% endif %}
+
+
             </a>
         {% endif %}
         </li>
         {% endfor %}
     </ul>
+    {% endfor %}
 </div>

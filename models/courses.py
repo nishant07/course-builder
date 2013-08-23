@@ -303,7 +303,9 @@ class Homework12(object):
         self.type = 'H'
         self.title = ''
         self.filename = ''
-
+        self.optional = ''
+        self.difficulty = None
+        self.category = ''
         self._index = None
 
     @property

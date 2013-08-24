@@ -52,25 +52,42 @@
 
 <h1>Introduction</h1>
 
-<div></div>
+<div>
+  <p align="justify">In statistics and machine learning, kmeans clustering is a method of cluster analysis which aims to partition n observation into k clusters where each observation belongs to the cluster with the nearest mean [<a target="_blank" href="http://en.wikipedia.org/wiki/K-means_clustering">1</a>].</p>
+  <p align="justify">In each iteration of Twister-Kmeans [2], all the map tasks get the same input data (current cluster centers)  and each computes a partial cluster centers by going through the 3D data points owned by itself. A reduce task computes the average of the partial cluster centers and produce the cluster centers for the next step. Main program, once it gets these new cluster centers, calculates the difference between the new cluster centers and the previous cluster centers, then determine if it needs to execute another cycle of MapReduce computation. </p>
+  <p align="center"><img border="0" src="http://salsahpc.indiana.edu/tutorial/images/kmeans_color.png" width="533" height="533" alt="" /></p>
+  <p align="center">Figure 1. The workflow of kmeans application with Twister MapReduce framework</p>
+  <p>&nbsp;</p>
+</div>
 
-<h1>Pseudocode for Hadoop PageRank</h1>
+<h1>Sketch code for Twister Kmeans</h1>
 
 
 <div>
-    <p>You need to complete two files in the provided pacakge inside &quot;&quot;:        </p>
+    <p>Each map task in the Twister-Kmeans application gets a set of 3D data points. These data points does not change over the course of iterations and Map tasks access them in each iteration. Invariant nature of this data mark them as static in Twister. Thus, particular points are loaded only once for the entire execution. The cluster centers computed in each iteration are dynamic data as they tend to change over iterations. Also, the calculated cluster centers of a particular iteration serve as the input for the next iteration if they don't meet the satisfiable conditions.</p>
+    <p>You need to complete two files in the provided pacakge inside &quot;cgl/imr/samples/kmeans/&quot;:        </p>
 
     <p>
         <br> 
-        <strong>Map.java and Reducer.java</strong>
+        <strong>KMeansMapTask.java</strong><!-- HTML generated using hilite.me -->
     </p>
+    <p>You will need to fill the missing code within getEuclidean2() and map().</p>
+    <div style="background: #ffffff; overflow: auto; width: auto;">
 
+      <script src="https://gist.github.com/cloudmooc/6330391.js"></script>
+
+    </div>
+    
+    <p><strong>KMeansReduceTask.java</strong></p>
+    <p>&nbsp;</p>
+    
     <!-- HTML generated using hilite.me -->
     <div style="background: #ffffff; overflow: auto; width: auto;">
 
-        <script src="https://gist.github.com/cloudmooc/2e5c1b34e7701f5f9feb.js"></script>
+      <script src="https://gist.github.com/cloudmooc/6330417.js"></script>
 
     </div>
+    
 
 </div>
 <h1>Edit</h1>
@@ -85,8 +102,8 @@
         <div class="bar">
 <pre>
 $ cd /root/MoocHomeworks/TwisterKmeans/
-$ vim src/indiana/cgl/twister/pagerank/TwisterKmeansMap.java
-$ vim src/indiana/cgl/twister/pagerank/TwisterKmeansReducer.java
+$ vim src/cgl/imr/samples/kmeans/KMeansMapTask.java
+$ vim src/cgl/imr/samples/kmeans/KMeansReduceTask.java
 </pre>
         </div>
     </div>
@@ -108,18 +125,29 @@ $ ./compileAndExecTwisterKmeans.sh
         </div>
         <h2>View the result</h2>
 
-        <p>The result is generated as /root/MoocHomeworks/TwisterKmeans/output/TwisterKmeansOutput.txt. </p>
+        <p>The result is generated as /root/MoocHomeworks/TwisterKmeans/bin/output/TwisterKmeansOutput.txt. </p>
 
         <div><br/>
+        
 
-            <div class="dp-highlighter">
+          <div class="dp-highlighter">
                 <div class="bar">
 <pre>
-$ cd /root/MoocHomeworks/TwisterKmeans/
-$ cat output/*
-</pre>
-                </div>
+$ cd /root/MoocHomeworks/TwisterKmeans/bin/
+$ cat output/*</pre>
             </div>
+            </div>
+
+	<h2>View the result</h2>
+    <ol>
+    <li>Kmeans Clustering Wiki: <a href="http://en.wikipedia.org/wiki/K-means_clustering">http://en.wikipedia.org/wiki/K-means_clustering</a></li>
+    <li>Twister Kmeans tutorail at Big Data for Science: <a href="http://salsahpc.indiana.edu/tutorial/twister_kmeans_user_guide.htm">http://salsahpc.indiana.edu/tutorial/twister_kmeans_user_guide.htm</a></li>
+    <li></li>
+    
+    </ol>
+  
+
+
 
         </div>
 </div>

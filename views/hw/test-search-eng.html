@@ -1,0 +1,40 @@
+<h1>Goal</h1>
+<p>By this point you should have gone over the sections concerning HBase Building an Inverted Index and  PageRank algorithms built on Twister. Now you are going to blend these applications by testing the search engine function from the packaged executable.</p>
+<h1>Deliverables </h1>
+<p>None</p>
+<h1>Evaluation</h1>
+<p>None</p>
+<h1>Test the Search Engine</h1>
+<p>Before we test the search engine, we need to write the PageRank output to the HBase
+    clueWeb09PageRankTable Table.</p>
+
+<div>
+<pre>
+# upload the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br/>
+hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.PageRankTableLoader  /root/hbaseMoocAntProject/resources/en0000-01and02.docToNodeIdx.txt  /root/hbaseMoocAntProject/resources/en0000-01and02_reset_idx_and_square_pagerank.out
+</pre>
+</div>
+<p>Now, combined with &quot;Building an Inverted Index&quot; , we have built three database tables on HBase:</p>
+<ul>
+  <li>clueWeb09DataTable</li>
+    <li>clueWeb09IndexTable</li>
+    <li>clueWeb09PageRankTable</li>
+</ul>
+<p>Using the provided test program, the following commands search the keyword &ldquo;database&rdquo;,
+    and the dataflow is shown as Figure 1.<br/></p>
+
+<p align="center"><img src="assets/img/hw/se4/6.png" alt="" width="365" height="277"/><br/>
+    <em>Figure 1</em>. Dataflow for searching keyword &ldquo;database&rdquo; among the
+    constructed databases</p>
+
+<div>
+<pre>
+# Test search engine  functionality
+cd /root/software/hadoop-1.1.2/
+./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester search-keyword snapshot
+./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester get-page-snapshot 00000113548 |  grep snapshot
+</pre>
+</div>
+<h1>What&rsquo;s next?</h1>
+
+<p>Congratulations, you have finished the search engine project!</p>

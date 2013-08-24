@@ -9,7 +9,7 @@ id,homework_id,type,optional,title,filename,difficulty,category
 8,se4,H,y,Twister PageRank,hw/twister_pagerank.html,3,MapReduce
 9,se5,H,y,Twister K-means,hw/twister_kmeans.html,3,MapReduce
 10,se6,H,y,Hadoop Blast,hw/hadoop_blast.html,3,MapReduce
-11,se7,H,y,Test Search Engine,hw/test-search-eng,3,HBase
+11,se7,H,y,Test Search Engine,hw/test-search-eng.html,3,HBase
 12,pr,H,y,Implement PageRank,hw/pagerank.html,2,MPI
 13,pr2,H,y,MPI PageRank,hw/mpi_pagerank.html,2,MPI
 14,rms,H,y,Resource Monitoring System,hw/resource_ms.html,2,MPI

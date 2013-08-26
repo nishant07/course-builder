@@ -5,7 +5,7 @@
 
 <div>
     <p>By this point you should have gone over the sections concerning Hadoop Setup and Hadoop WordCount. Now you are going to blend these applications by implementing a parallel version of
-        <a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST (Basic Local Alignment Search Tool)</a> using the programming interfaces of the Hadoop MapReduce framework. Noted that, this application is writting in &quot;Map-Only&quot; fashion.</p>
+        <a href="http://blast.ncbi.nlm.nih.gov/Blast.cgi">BLAST (Basic Local Alignment Search Tool)</a> using the programming interfaces of the Hadoop MapReduce framework. Note that this application is written in &quot;Map-Only&quot; fashion.</p>
 </div>
 
 <h1>
@@ -29,7 +29,7 @@
                     program.
                 </li>
                 <li>The output file (<strong>username_HadoopBlast_output.fa</strong>)
-                    which contains the result by running the provided data set.</li>
+                    which contains the result by running the provided dataset.</li>
             </ol>
         </li>
     </ol>
@@ -52,16 +52,16 @@
 <h1>Introduction</h1>
 
 <div>
-    <p>Hadoop-Blast is an advanced Hadoop program which helps Blast, a bioinformatics application, utilizes the Computing Capability of Hadoop. This exercise shows the detail of its implementation, and provides an example of how to handle similar approaches to other applications. <br />
+    <p>Hadoop-Blast is an advanced Hadoop program which helps BLAST, a bioinformatics application, to utilize the computing capability of Hadoop. This exercise shows the details of its implementation, and provides an example of how to handle similar approaches in other applications. <br />
     </p>
-    <p>BLAST (Basic Local Alignment Search Tool) is one of the most widely used bioinformatics applications written in C++, and the version we are using is v2.2.23. This version considered a new version of the software with new features and better performance while BLAST is a legacy software. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/staff/tao/URLAPI/blastdb.html">nr</a>) database, its full name is Non-redundant protein sequence database. Optionally, for more detail to run the blast binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation</a>.</p>
+    <p>BLAST (Basic Local Alignment Search Tool) is one of the most widely used bioinformatics applications written in C++. The version we are using is v2.2.23, which houses new features and better performance. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/staff/tao/URLAPI/blastdb.html">nr</a>) database; its full name is Non-redundant protein sequence database. Optionally, for more details on how to run the BLAST binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation</a>.</p>
     <p>In this project, we have provided a sketch code which contains two java classes/files for you
     to implement:</p>
     <ol>
         <li>DataAnalysis.java (Done): The main program which sets the Hadoop MapReduce job configuration. </li>
-        <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> as Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. The  assigned FASTA files are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
+        <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> as Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. These are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
     </ol>
-    <p>The detail dataflow can be seen in figure 1, you will implement the RunnerMap.java which copy the distributed cache and assigned FASTA file to local, then run the blast binary with correct parameters.</p>
+    <p>The detail dataflow can be seen in figure 1. You will implement the RunnerMap.java, which copies the distributed cache and assigned FASTA file to local, then run the blast binary with correct parameters.</p>
 
     <p align="center"><img src="assets/img/hw/hadoopblast/hadoop_blast.png" alt=""
                            width="700"/></p>
@@ -70,11 +70,11 @@
 
     <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored
         in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key,value&gt;
-        pairs to the mapper. Initially, the BLAST input data is set of FASTA files located in the local file system. Then it will be uploaded to the HDFS and
+        pairs to the mapper. Initially, the BLAST input data is a set of FASTA files located in the local file system. Then it will be uploaded to the HDFS and
         distributed across the compute nodes. Hadoop framework reads the application records from
         HDFS with the InputFormat interface and generates &lt;key, value&gt; pair input streams; here, we use a provided 
-        provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java to generate key-value pairs of &lt;filename, filepath on HDFS&gt;. For this Hadoop Blast program,
-        the map function firstly setup the distributed cache and generates the two absolute location filepaths for Blast binary and Blast Database. Then, it copy the assigned FASTA file to local disk by looking up the file from HDFS and generate a absolute  filepath. Once these location filepaths are generated and file dependenice are stored in the local disk, we call a external java process and execute the Blast binary with the correct parameters. Finally, the output FASTA file of Blast binary will be uploaded back to HDFS.</p>
+        customized Hadoop MapReduce InputFormat DataFileInputFormat.java to generate key-value pairs of &lt;filename, filepath on HDFS&gt;. For this Hadoop Blast program,
+        the map function initially sets up the distributed cache and generates the two absolute location filepaths for Blast binary and Blast Database. Afterwards it copies the assigned FASTA file to local disk by looking up the file from HDFS and generate an absolute  filepath. Once these location filepaths are generated and file dependenice are stored in the local disk, we call a external java process and execute the Blast binary with the correct parameters. Finally, the output FASTA file of Blast binary will be uploaded back to HDFS.</p>
 </div>
 
 <h1>Sketch for Hadoop Blast</h1>
@@ -130,7 +130,7 @@ $ vim src/cgl/hadoop/apps/runner/DataAnalysis.java
 
     <p>Use the same one-click script compileAndExecHadoopBlast.sh as in prior homework. Standard
         error messages such as &ldquo;compile errors, execution errors, etc.&rdquo; will be
-        redirected on the screen. Debug it based on the returned messages.</p>
+        redirected on the screen. Follow the same debugging format.</p>
 
     <div><br/>
 

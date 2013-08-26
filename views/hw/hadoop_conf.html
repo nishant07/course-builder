@@ -18,13 +18,13 @@
 
     <h2>Introduction</h2>
     <div>
-        <p align="justify">we will deploy a simplest hadoop standalone  environment running on the provided VirtualBox image <a
+        <p align="justify">We will deploy a simple hadoop standalone  environment running on the provided VirtualBox image <a
         href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">Environment Setup</a>. </p>
     </div>
 
     <h2>Configuring a Hadoop Standalone Deployment</h2>
     <div>
-        <p>We need to change the following configuration files under Hadoop configuation directory (/root/software/hadoop-1.1.2), they are:</p>
+        <p>We need to change the following configuration files under Hadoop configuation directory (/root/software/hadoop-1.1.2), which are:</p>
         <ul>
           <li>conf/hadoop-env.sh</li>
           <li>conf/master</li>
@@ -44,7 +44,7 @@
       </div>
       
       <p><u>conf/master</u></p>
-      <p>Place the IP of the MasterNode/NameNode in a single line. In this example, we use localhost. (localhost will work for the current hands-on as our Hadoop cluster has only a single node)</p>
+      <p>Place the IP of the MasterNode/NameNode in a single line. In this example, we use localhost (localhost will work for the current hands-on as our Hadoop cluster has only a single node).</p>
         <div class="dp-highlighter">
           <div class="bar">
             <div class="tools"></div>
@@ -53,7 +53,7 @@
       </div>
       
       <p><u>conf/slaves</u></p>
-      <p>Add all related IPs of Workers/Slaves one per line. In this example, we use localhost. (localhost will work for the current hands-on as our Hadoop cluster has only a single node)</p>
+      <p>Add all related IPs of Workers/Slaves, one per line. In this example, we use localhost (localhost will work for the current hands-on as our Hadoop cluster has only a single node).</p>
         <div class="dp-highlighter">
           <div class="bar">
             <div class="tools"></div>
@@ -62,7 +62,7 @@
       </div>
       
       <p><u>conf/core-site.xml</u></p>
-      <p>Within this file, we need to override the name of the default file system, &quot;fs.default.name&quot;. A URI or IP address (localhost will work for the current hands-on as our Hadoop cluster has only a single node) with a port number is needed.</p>
+      <p>Within this file, we need to override the name of the default file system, &quot;fs.default.name&quot;. A URI or IP address with a port number is needed (localhost will work for the current hands-on as our Hadoop cluster has only a single node).</p>
       <p>Between &lt;configuration&gt; and &lt;/configuration&gt;, add:</p>
         <div class="dp-highlighter">
           <div class="bar">
@@ -75,7 +75,7 @@
       </div>
       
       <p><u>conf/hdfs-site.xml</u></p>
-      <p>Within this file, we need to set on where DFS (local filesystem) name node should store the name table (fsimage) and DFS data node should stored the blocks (actual data blocks).</p>
+      <p>Within this file, we need to settle on where DFS (local filesystem) name node should store the name table (fsimage), and DFS data node should store the blocks (actual data blocks).</p>
       <p>Between &lt;configuration&gt; and &lt;/configuration&gt;, add:</p>
         <div class="dp-highlighter">
           <div class="bar">
@@ -123,7 +123,7 @@
     <h2>Check the HDFS and JobTracker status</h2>
 
     <div>
-        <p>Use the Firefox browser to lookup the following urls:</p>
+        <p>Use the Firefox browser to look up the following urls:</p>
         <p>http://localhost:50070</p>
         <p align="center"><img src="assets/img/hw/hadoopConf/50070.fw.png" alt="" width="624" height="108" />
         <p>http://localhost:50030 </p>

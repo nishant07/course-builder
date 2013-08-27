@@ -121,20 +121,16 @@
 </div>
 <h1>Edit</h1>
 
-<p>The sketch code is stored within the provided VirtualBox image <a
-        href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>
-    [5]. Use linux text editor vi/vim to add your code.</p>
+<p>The sketch code is stored within the provided <a
+        href="homework?unit=0">VirtualBox image</a>
+    [5]. Use Eclipse or linux text editor vi/vim to add your code.</p>
 
-<div><br/>
-
-    <div class="dp-highlighter">
-        <div class="bar">
+<div>
 <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
 $ vim src/indiana/cgl/hadoop/pagerank/PageRankMap.java
 $ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
 </pre>
-        </div>
     </div>
     <h2>Compile and run your code</h2>
 
@@ -142,34 +138,24 @@ $ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
         error messages such as &ldquo;compile errors, execution errors, etc.&rdquo; will be
         redirected on the screen. Debug it based on the returned messages.</p>
 
-    <div><br/>
-
-        <div class="dp-highlighter">
-            <div class="bar">
+    <div>
 <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
 
 # usage: ./compileAndExecHadoopPageRank.sh [PageRank Input File][Number of Urls][Number Of Iterations]
 $ ./compileAndExecHadoopPageRank.sh PageRankDataGenerator/pagerank5000g50.input.0 5000 1
 </pre>
-            </div>
         </div>
         <h2>View the result</h2>
 
         <p>The result is generated as /root/hbaseMoocAntProject/output/project1.txt. </p>
 
-        <div><br/>
-
-            <div class="dp-highlighter">
-                <div class="bar">
+        <div>
 <pre>
 $ cd /root/MoocHomeworks/HadoopPageRank/
 $ cat output/*
 </pre>
-                </div>
-            </div>
-
-        </div>
-</div>
     </div>
+
 </div>
+

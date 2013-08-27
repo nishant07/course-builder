@@ -29,6 +29,8 @@
             <li>Reducer</li>
             <li>Main program</li>
         </ol>
+
+        <p>The source code and build files for this project can be found in the /root/MoocHomeworks/HadoopWordCount directory of the VM</p>
     </div>
 
     <h2>Write a Mapper</h2>
@@ -60,7 +62,6 @@
                 <li class=""><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
             </ol>
         </div>
-        <!--<p><u>Detail implementation</u></p>-->
         <div>
             <script src="https://gist.github.com/cloudmooc/6232204.js"></script>
         </div>
@@ -107,8 +108,7 @@
 
         <p>
             The Main program configures and runs the MapReduce job. We use the main program to
-            perform basic
-            configurations, such as:</p>
+            perform basic configurations, such as:</p>
         <ol>
             <li><strong>Job Name</strong>: name of this Job</li>
             <li><strong>Executable (Jar) Class</strong>: the main executable class. For here,
@@ -132,21 +132,20 @@
         </div>
     </div>
     <h2>Compile the Program</h2>
-        <pre xml:space="preserve">cd ~/HadoopWordCount<br>./build.sh</pre>
+        <pre xml:space="preserve">cd /root/MoocHomeworks/HadoopWordCount<br>./build.sh</pre>
     </div>
     <!-- content area -->
     <h2>Execute Standalone Hadoop-WordCount</h2>
-
     <div>
         <p>This section details the simplest way to run a standalone WordCount. First a <a
                 href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone
             version of
             Hadoop</a> (without any environment setting) is required. You can find the program in
-            the location &quot;~/HadoopWordCount&quot;. </p>
+            the location &quot;/root/MoocHomewokrs/HadoopWordCount&quot;. </p>
 
         <p>Assume that:</p>
         <ol>
-            <li>~/software/hadoop-1.1.2 - Hadoop standalone framework directory</li>
+            <li>/root/software/hadoop-1.1.2-standalone - Hadoop standalone framework directory</li>
         </ol>
         <p>Next, enter the following commands to run the program:</p>
         <script src="https://gist.github.com/cloudmooc/6233918.js"></script>

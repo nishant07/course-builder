@@ -34,16 +34,13 @@
 <p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot;, which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key,value&gt; pairs using the provided  Context.<br />
   &lt;key, value&gt; of this map function is  &lt;rowkey, content&gt;,  where the key  is the rowkey of an HBase record related to a specified URI, and the content is  the stored text of that URI. Your Map task should output &lt;word, &lt;docId, frequency&gt;&gt;  for each word in the content of text.<br />
   <em>Pseudocode</em></p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+<div>
             <pre>
 void Map (key, value){
     for each word x in the content of a hbase record:
     context.write(x, <docId, frequency>);
 }
             </pre>
-        </div>
   </div>
 <p><em>Detail implementation</em></p>
 
@@ -55,33 +52,25 @@ void Map (key, value){
 <p>Again, the main function has been provided as  standard initialization, and you may modify it to fit your own style. See the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [4].</p>
 <h1>Edit, compile  and run your code</h1>
 <p>The sketch code is  stored within the provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You can use linux text editor vi/vim to  add your code.</p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+<div>
 <pre>
 $ cd /root/hbaseMoocAntProject/
 $ vim src/iu/pti/hbaseapp/clueweb09/FreqIndexBuilderClueWeb09.java
 </pre>
-        </div>
   </div>
 <div class="dp-highlighter">
-        <div class="bar">
 <pre>
 $ cd /root/hbaseMoocAntProject/
 $ ./compileAndExecFreqIndexBuilderClueWeb.sh
 </pre>
-        </div>
   </div>
 <h2>View the result</h2>
 <p>The result is  generated as /root/hbaseMoocAntProject/output/project2.txt. </p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+<div>
 <pre>
 $ cd /root/hbaseMoocAntProject
 $ cat output/project2.txt
 </pre>
-        </div>
   </div>
 <h1>What&rsquo;s next?</h1>
 <p>You will be ready  to program your next project: &ldquo;Twister PageRank and Test the Search Engine.&rdquo;</p>
@@ -90,5 +79,5 @@ $ cat output/project2.txt
   <li>salsaHPC  IndexedHBase Project: <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>
   <li>Clueweb09  project and dataset: <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
   <li>Cloud Mooc Homework 1 - Hadoop WordCount: <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=1">http://cloudmooc.soic.indiana.edu:8080/homework?unit=1</a></li>
-  <li>HBase MapReduce Examples: <a href:"http://hbase.apache.org/book/mapreduce.example.html">http://hbase.apache.org/book/mapreduce.example.html</a></li>
+  <li>HBase MapReduce Examples: <a href="http://hbase.apache.org/book/mapreduce.example.html">http://hbase.apache.org/book/mapreduce.example.html</a></li>
 </ol>

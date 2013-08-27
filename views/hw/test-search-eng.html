@@ -1,12 +1,12 @@
 <h1>Goal</h1>
-<p>By this point you should have gone over the sections concerning HBase Building an Inverted Index and  PageRank algorithms built on Twister. Now you are going to blend these applications by testing the search engine function from the packaged executable.</p>
+<p>After having familiarized yourself with the HBase Building an Inverted Index and  PageRank algorithms built on Twister, you are ready to use these applications to test the search engine function from the packaged executable.</p>
 <h1>Deliverables </h1>
 <p>None</p>
 <h1>Evaluation</h1>
 <p>None</p>
 <h1>Test the Search Engine</h1>
 <p>Before we test the search engine, we need to write the PageRank output to the HBase
-    clueWeb09PageRankTable Table.</p>
+    clueWeb09PageRankTable.</p>
 
 <div>
 <pre>
@@ -29,7 +29,7 @@ hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clu
 
 <div>
 <pre>
-# Test search engine  functionality
+# Test search engine functionality
 cd /root/software/hadoop-1.1.2/
 ./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester search-keyword snapshot
 ./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester get-page-snapshot 00000113548 |  grep snapshot

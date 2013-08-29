@@ -158,33 +158,13 @@
 	<h1>Compile guide</h1>
 	<div>
 		<p>Instructions for compiling and a recommended execution guide are
-			as follows (we assume that you will compile and run on machines of the CS
-			department, such as burrow cluster):</p>
+			as follow. We assume you are using the Virtual Machine we've provided for compiling and running the code.</p>
 		<p>
 			<strong>Step one: Compile </strong>
 		</p>
-		<p>To compile MPI code, you need to set up correct MPI development
-			environments. You can do so by using an &#8220;mpi-selector&#8221;
-			command:</p>
-		<p>First, check which MPI versions are available:</p>
-		<pre>$ mpi-selector &#8211;list</pre>
-		<p>In Silo, you can see the following list:</p>
-		<pre>lam-i386 
-lam-x86_64 
-openmpi-1.4-gcc-i386 
-openmpi-1.4-gcc-x86_64 
-</pre>
-		<p>Second, choose one of the MPI versions in the list by executing
-			the following command:</p>
-		<pre>$ mpi-selector --set openmpi-1.4-gcc-i386</pre>
-		<p>You may see a warning for overwriting your previous setting.
-			You can answer 'yes'.</p>
-		<p>Next you will see 'Defaults already exist; overwrite them (Y/N)?' Choose 'Yes'.</p>
-		<p>Now you are ready to compile the sample simply by using the
-			&#8220;make&#8221; command (we provide Makefile for you).</p>
 		<pre>
 $ make clean
-$ make 
+$ make
 </pre>
 		<p>You will see an executable &#8220;mpi_main&#8221; in the
 			directory.</p>
@@ -210,11 +190,11 @@ Usage: mpi_main -i filename -n num_iterations
 		<p>
 			To run &#8220;mpi_main&#8221;, you need to use an MPI command called
 			&#8220;mpirun&#8221;. For example, to process
-			&#8220;pagerank.input&#8221; file (included as a sample input) by
+			&#8220;pagerank.input1&#8221; file (included as a sample input) by
 			using 2 processes concurrently, you can type the following commands:
 			<br /> <br />
 		</p>
-		<pre>$ mpirun -np 2 mpi_main -i pagerank.input -n 10 -t 0.001</pre>
+		<pre>$ mpirun -np 2 mpi_main -i pagerank.input1 -n 10 -t 0.001</pre>
 		<p>
 			<br /> Below is an example of MPI PageRank execution. <br />
 			<br />

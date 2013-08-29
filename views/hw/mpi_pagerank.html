@@ -26,7 +26,7 @@
             </li>
         </ol>
         <p>
-            Note that this document only provides MPI C/C++ instructions. If you
+            Note that this document provides MPI C/C++ instructions as well as MPJExpress instructions. If you
             prefer or know MPJExpress <a href="http://mpj-express.org/">http://mpj-express.org/</a>,
             please feel free to implement it.
         </p>
@@ -68,11 +68,7 @@
 			implementation.</p>
 	</div>
 
-	<h1>Pseudocode for MPI PageRank</h1>
-
-
-
-
+	<h1>C MPI PageRank</h1>
 	<div>
 		<p>You need to complete two files: mpi_main.c and mpi_pagerank.c.
 			Pseudocodes are as follows:</p>
@@ -80,6 +76,7 @@
 			<br> <strong>mpi_main.c & mpi_pagerank.c</strong>
 		</p>
         <script src="https://gist.github.com/cloudmooc/6272489.js"></script>
+    </div>
 	<h1>FILE IO functions</h1>
 	<div>
 		<p>Besides pseudocodes, we provide two MPI functions (mpi_read
@@ -226,3 +223,34 @@ Computation timing =     0.0002 sec
 		</div>
 
 	</div>
+    <h1>Java Pagerank</h1>
+<p>To compile and run the program:</p>
+<ul>
+<li>Download MPJ Express and unpack it.</li>
+<li>Set MPJ_HOME and PATH environmental variables:
+<pre>
+export MPJ_HOME=/path/to/mpj/
+export PATH=$PATH:$MPJ_HOME/bin
+</pre>
+(These above two lines can be added to ~/.bashrc)
+</li>
+<li>
+Start the MPJ Daemon using the following command:
+<pre>./mpjdaemon_linux_x86_32 start</pre>
+</li>
+
+<li>Compile the project:
+<pre>javac -cp .:$MPJ_HOME/lib/mpj.jar [Java files]</pre></li>
+
+<li>Execute the project :
+<pre>mpjrun.sh -np 3 [main program] [arguments to the main program]</pre>
+</li>
+</ul>
+<p>In the previous command the -np 3 indicates the number of processes.</p>
+<p>For the program you can give inputs like</p>
+<ul>
+<li>Input file containing the adjacency matrix.</li>
+<li>Output file to write the output rank values.</li>
+<li>Iteration count that specifies the number of iterations for the calculation of rank. (the higher the number of iterations, the more accurate the results would be)</li>
+<li>The threshold value.</li>
+</ul>

@@ -36,7 +36,15 @@ $('.icon-list-alt').click(function(event){
         var val = $(this).siblings('input').attr('value');
         window.location = val;
     });
+
+        {% if course_info.course.forum_embed_url %}
+            document.getElementById("forum_embed").src =
+                    "{{course_info.course.forum_embed_url}}"
+                            + "&showsearch=true&showpopout=true&showtabs=false"
+                            + "&parenturl=" + encodeURIComponent(window.location.href);
+        {% endif %}
     });
+
 
 
 </script>
@@ -273,14 +281,6 @@ $('.icon-list-alt').click(function(event){
                     height="1000px">
             </iframe>
 
-            {% if course_info.course.forum_embed_url %}
-            <script type="text/javascript">
-                document.getElementById("forum_embed").src =
-                "{{course_info.course.forum_embed_url + "#!categories/b534/unit-" + gettext(unit.index)}}"
-                + "&showsearch=true&showpopout=true&showtabs=false"
-                + "&parenturl=" + encodeURIComponent(window.location.href);
-            </script>
-            {% endif %}
         </div>
     </div>
 </div>

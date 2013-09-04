@@ -65,7 +65,7 @@ course:
   # announcements. For details, see
   #
   #     http://code.google.com/p/course-builder/wiki/CreateEmailList
-  announcement_list_url: https://groups.google.com/d/forum/b534
+  announcement_list_url: https://groups.google.com/d/forum/cloudmoocds
 
   # Locale for internationalization. See modules/i18n/resources/locale for
   # available locales.

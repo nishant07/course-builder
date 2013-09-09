@@ -70,7 +70,7 @@
 
 	<h1>C MPI PageRank</h1>
 	<div>
-        <p>The skeleton code can be found in /root/MoocHomeworks/MPIPagerRank/c folder</p>
+        <p>The skeleton code can be found in the /root/MoocHomeworks/MPIPagerRank/c folder.</p>
 		<p>You need to complete two files: mpi_main.c and mpi_pagerank.c.
 			Pseudocodes are as follows:</p>
 		<p>
@@ -156,7 +156,7 @@
 	<h1>Compile guide</h1>
 	<div>
 		<p>Instructions for compiling and a recommended execution guide are
-			as follow. We assume you are using the Virtual Machine we've provided for compiling and running the code.</p>
+			as follows. We assume you are using the Virtual Machine we've provided for compiling and running the code.</p>
 		<p>
 			<strong>Step one: Compile </strong>
 		</p>
@@ -226,19 +226,17 @@ Computation timing =     0.0002 sec
 	</div>
     <h1>Java Pagerank</h1>
 <p>To compile and run the program:</p>
-<ul>
-<li>Download MPJ Express and unpack it.</li>
-<li>Set MPJ_HOME and PATH environmental variables:
+
+<p>Download MPJ Express and unpack it.</p>
+<p>Set MPJ_HOME and PATH environmental variables:</p>
 <pre>
 export MPJ_HOME=/path/to/mpj/
 export PATH=$PATH:$MPJ_HOME/bin
 </pre>
-(These above two lines can be added to ~/.bashrc)
-</li>
-<li>
-Start the MPJ Daemon using the following command:
+(The above two lines can be added to ~/.bashrc).
+<p>Start the MPJ Daemon using the following command:</p>
 <pre>./mpjdaemon_linux_x86_32 start</pre>
-</li>
+
 
 <li>Compile the project:
 <pre>javac -cp .:$MPJ_HOME/lib/mpj.jar [Java files]</pre></li>
@@ -250,8 +248,8 @@ Start the MPJ Daemon using the following command:
 <p>In the previous command the -np 3 indicates the number of processes.</p>
 <p>For the program you can give inputs like</p>
 <ul>
-<li>Input file containing the adjacency matrix.</li>
-<li>Output file to write the output rank values.</li>
-<li>Iteration count that specifies the number of iterations for the calculation of rank. (the higher the number of iterations, the more accurate the results would be)</li>
-<li>The threshold value.</li>
+<li>Input file containing the adjacency matrix</li>
+<li>Output file to write the output rank values</li>
+<li>Iteration count that specifies the number of iterations for the calculation of rank (the higher the number of iterations, the more accurate the results would be)</li>
+<li>The threshold value</li>
 </ul>

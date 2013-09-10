@@ -1,5 +1,5 @@
 <h1>Goal</h1>
-<p>Write an HBase WordCount program to count  the unique term&rsquo;s occurrences from the clueWeb09 dataset. Each row record of  columnfamily &ldquo;frequencies&rdquo; is unique; the rowkey is the unique term  stored in byte format, column name is &ldquo;count&rdquo; and value is the term  frequency shown in all documents. Upload the result to HBase WordCountTable.  Figure 1 shows the data structure of WordCountTable.<br /></p>
+<p>Write an HBase WordCount program to count  all unique terms&rsquo; occurrences from the clueWeb09 dataset. Each row record of  columnfamily &ldquo;frequencies&rdquo; is unique; the rowkey is the unique term  stored in byte format, column name is &ldquo;count&rdquo; and value is the term  frequency shown in all documents. Upload the result to HBase WordCountTable.  Figure 1 shows the data structure of WordCountTable.<br /></p>
   <p align="center"><img src="assets/img/hw/se2/1.png" alt="" width="259" height="177" /><br />
   <em>Figure 1.</em> WordCount table schema for storing unique  term&rsquo;s occurrences</p>
 <h1>Deliverables </h1>
@@ -20,20 +20,20 @@
     text input dataset. It fits  very well with the map/reduce programming model, making WordCount a
     great example  to understand the Hadoop MapReduce programming style [1]. Instead of  loading the
     data from HDFS, we will load our data directly from existing HBase  records which store the similar
-    content structures on HBASE and HDFS (if you finished Homework 8, this has already been done).
+    content structures on HBASE and HDFS (if you finished Homework 5, this has already been done).
 </p>
-<p>In this homework and the next homework (Building an Inverted Index) we use the same source code. The source code can be found in</p>
+<p>In this homework and the next homework (Building an Inverted Index) we use the same source code. The source code can be found in:</p>
 <div>
 <pre>/root/MoocHomeworks/HadoopWordCountAndIndexing</pre>
 </div>
 <h2>HBase</h2>
-<p>For details about  HBase [2], please see Homework Load Data into HBase</p>
+<p>For details about  HBase [2], please see Homework 5: Load Data into HBase</p>
 <h2>Clueweb09 dataset</h2>
 <p>We are using the ClueWeb09 dataset, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2].  Since the ClueWeb09 dataset is composed of webpages crawled from the Internet, the  uploaded table schemas are designed as shown in Figure 2.<br />
   </p>
   <p align="center"><img src="assets/img/hw/se2/2.png" alt="" width="624" height="92" /><br />
   <em>Figure 2</em>. Data table schema for storing the  ClueWeb09 dataset<br /></p>
-  <p>So, similar to Hadoop WordCount [3], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
+  <p>So, while similar to Hadoop WordCount [3], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
 <h2>Mapper, Reducer and Main Program </h2>
 <p>Now we are going to implement the HBase  WordCount. Our implementation consists of three main parts:</p>
 <ul>
@@ -42,7 +42,7 @@
   <li>Main  program</li>
 </ul>
 <h3>Mapper</h3>
-<p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot; which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key,value&gt; pairs using the provided  Context.<br />
+<p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot; which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key, value&gt; pairs using the provided  Context.<br />
   &lt;key, value&gt; of this map function is  &lt;rowkey, content&gt;,  where the key  is the rowkey of an HBase record related to a specified URI, and the content is  the stored text of that URI. Your Map task should output &lt;word, frequency&gt;  for each word in the content of text.<br />
   <em>Pseudocode</em></p>
 

@@ -32,8 +32,8 @@
             <li>You need to write a torque/PBS script which runs MPI/MPJ
                 PageRank automatically only in bare metal mode.</li>
             <li>Provide your scripts (if you used any) in a zip file and
-                package with filename &#8220;taklwu_proj2.zip&#8221; where
-                &#8220;taklwu&#8221; should be replaced with your IU username.</li>
+                package with filename &#8220;student_proj2.zip&#8221; where
+                &#8220;student&#8221; should be replaced with your IU username.</li>
         </ol>
         <p>Points will be reduced (maximum 0.5 points) if the filename or
             directory structure are different from instructed above.</p>
@@ -63,7 +63,7 @@
 			a performance analysis report by running MPIPageRank program in two
 			different modes &#8212; bare metal nodes and Eucalyptus VMs on
 			FutureGrid. Please reuse your MPI PageRank program developed in
-			Homework 4 for this project. The following sections of this document
+			Homework 13 for this project. The following sections of this document
 			provide detailed instructions on how to access FutureGrid.</p>
 		<p>
 			You must have your FutureGrid account and your generated ssh private
@@ -76,7 +76,7 @@
 	<h1>Performance Analysis and Writing a Report</h1>
 	<div>
 		<p>In this project, you are going to use FutureGrid as your test
-			environment. You will need to copy your Homework 4 results back to these two
+			environment. You will need to copy your Homework 13 results back to these two
 			environments. Test your MPI Pagerank program on a very small (old)
 			dataset to make sure everything is working correctly. Finally, run
 			the program with the generated dataset(s) and analyze the
@@ -136,7 +136,7 @@
 		</pre>
 	</div>
 
-	<h1>5. FutureGrid Bare Metal</h1>
+	<h1>FutureGrid Bare Metal</h1>
 	<div>
 		<p>For the bare metal test, you need to obtain an independent node
 			from the FutureGrid India headnode (i136):</p>
@@ -158,7 +158,7 @@ qsub: job 43809.i136 ready
 			the openmpi module. If you are using MPJ Express, download and
 			install the MPJ package under your home directory and set the
 			environment parameter to &#8220;~/.bashrc&#8221;.</p>
-		<h2>* Set up MPJ_HOME and add it to the PATH</h2>
+		<h2>Set up MPJ_HOME and add it to the PATH</h2>
 		<pre>
 [taklwu@i136 ~]$ unzip mpj-v0_38.zip
 [taklwu@i136 ~]$ echo &#8220;export MPJ_HOME=/N/u/taklwu/mpj-v0_38&#8221; &gt;&gt; ~/.bashrc
@@ -312,7 +312,7 @@ Enter passphrase for key 'ssh_id_rsa':
 				cluster. We will obtain a Eucalyptus Virtual Cluster from this node.
 				<strong>DO NOT</strong> run your mpi program on the
 				&#8220;i136&#8221; headnode. If you are interested in running on a bare
-				metal mode, see Appendix B for details.
+				metal node, see Appendix B for details.
 			</p>
 			<p>2. Locate security credentials from India under
 				$Home/.futuregrid/eucalyptus/fg251.</p>
@@ -348,7 +348,7 @@ Enter passphrase for key 'ssh_id_rsa':
 AVAILABILITYZONE        euca3india      149.165.146.135 arn:euca:eucalyptus:euca3india:cluster:euca3indiaCC/
 			</pre>
 			
-			<h2>Set up the VM key pair and allow ssh access to VM:</h2>
+			<h2>Set up the VM key pair and allow ssh access to VM</h2>
 			<p>After testing the euca2ools, you need to add a ssh keypair
 				using euca-add-keypair for future access to the VM. Note that,
 				without setting this correctly, you will not able to ssh into your

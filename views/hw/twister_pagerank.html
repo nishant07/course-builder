@@ -25,8 +25,8 @@
 
 <h1>Introduction </h1>
 <p>This project reveals the technologies behind modern search engines like Google Search, Bing
-    Search and Yahoo Search [1]. Project 2 has built inverted indices for the clueweb09 [2] data,
-    and stored the indices with HBase. It provides the function to locate a keyword among a set of
+    Search and Yahoo Search [1]. In Homework #7 you built inverted indices for the clueweb09 [2] data,
+    and stored the indices with HBase. This homework provides the function to locate a keyword among a set of
     text-based documents. However, to better serve a search query, we need to calculate a ranking
     value (PageRank) of each document to optimize the search results. <br/>
     In this project we will go through a Twister PageRank implementation.
@@ -81,19 +81,19 @@
 </ul>
 <p>In Twister implementations of PageRank, we constructed web graphs with vertices where in-link
     degree of all pages complies with the power law distribution. This input data is partitioned
-    into a few parts and stored in the format of an adjacency list. Each map function runs on one of
+   and stored in the format of an adjacency list. Each map function runs on one of
     the partitioned datasets, which is constant over the iterations. The variable data is the
     PageRank values calculated during previous iterations, which in turn is used as the input value
     for the next iteration. In each iteration, the MAP task updates the old PageRank values to the
     new ones by analyzing the local partial adjacency list file. The output of each MAP task is only
-    a part of the PageRank values. The reduce task receives all the partial output and produces the
+    a part of these values. The reduce task receives all the partial output and produces the
     new PageRank values. Figure 5 shows a dataflow diagram of this program.<br/></p>
 <p align="center"><img src="assets/img/hw/se4/5.png" alt="" width="344" height="258"/><br/>
     <em>Figure 5</em>. Twister PageRank dataflow</p>
 <h3>Mapper</h3>
 <p>A Mapper overrides the &ldquo;map&rdquo; function from the Class &quot;cgl.imr.base.MapTask&lt;collector,
     Key, Value&gt;&quot; which provides a collector for map task output, and &lt;key, value&gt;
-    pairs as the map input. A Mapper implementation outputs a new set of &lt;key,value&gt; pairs
+    pairs as the map input. A Mapper implementation outputs a new set of &lt;key, value&gt; pairs
     using the provided Context.<br/>
     &lt;key, value&gt; of PageRank&rsquo;s map function is &lt;taskID, updated PageRank Values&gt;,
     where the key is the index of the current map task and the value is the compressed changed
@@ -193,7 +193,7 @@ $ cat output/project3.txt
 <h1>Test the Search Engine</h1>
 
 <p>Before we test the search engine, we need to write the PageRank output to the HBase
-    clueWeb09PageRankTable Table.</p>
+    clueWeb09PageRankTable table.</p>
 
 <div>
 <pre>

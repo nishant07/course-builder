@@ -3,8 +3,7 @@
     be written to an HBase clueWeb09PageRankTable table by a provided java uploader.    <br/>
     Each row record of columnfamily &ldquo;pagerank&rdquo; is unique, where the rowkey is the unique
     documentId stored in byte format, column name is the pagerank value of that document, and the
-    value is NULL. Figure 1 shows the data structure of clueWeb09PageRankTable. You will also use
-    our provided tester to verify the search engine is working correctly.</p>
+    value is NULL. Figure 1 shows the data structure of clueWeb09PageRankTable.</p>
 <p align="center"><img src="assets/img/hw/se4/1.png" alt="" width="231" height="116"/><br/>
     <em>Figure 1.</em> clueWeb09PageRankTable table schema for storing ranks of webpages<br/></p>
 <h1>Deliverables </h1>
@@ -30,7 +29,7 @@
     text-based documents. However, to better serve a search query, we need to calculate a ranking
     value (PageRank) of each document to optimize the search results. <br/>
     In this project we will go through a Twister PageRank implementation.
-    Then we use the indexed table from before and test our in-house search engine. </p>
+</p>
 <h2>What is Twister?</h2>
 <p>Twister MapReduce Framework [4] is a Java implementation of the MapReduce programming model with
     extended features such as supporting Iterative MapReduce computations. It can cooperate with
@@ -190,40 +189,10 @@ $ cd /root/MoocHomeworks/TwisterPageRank/
 $ cat output/project3.txt
 </pre>
 </div>
-<h1>Test the Search Engine</h1>
 
-<p>Before we test the search engine, we need to write the PageRank output to the HBase
-    clueWeb09PageRankTable table.</p>
-
-<div>
-<pre>
-# upload the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br/>
-hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.PageRankTableLoader  /root/hbaseMoocAntProject/resources/en0000-01and02.docToNodeIdx.txt  /root/hbaseMoocAntProject/resources/en0000-01and02_reset_idx_and_square_pagerank.out
-</pre>
-</div>
-<p>Now, combined with project 2, we have built three database tables on HBase:</p>
-<ul>
-    <li>clueWeb09DataTable</li>
-    <li>clueWeb09IndexTable</li>
-    <li>clueWeb09PageRankTable</li>
-</ul>
-<p>Using the provided test program, the following commands search the keyword &ldquo;database&rdquo;,
-    and the dataflow is shown as Figure 6.<br/></p>
-
-<p align="center"><img src="assets/img/hw/se4/6.png" alt="" width="365" height="277"/><br/>
-    <em>Figure 6</em>. Dataflow for searching keyword &ldquo;database&rdquo; among the
-    constructed databases</p>
-
-<div>
-<pre>
-# Test search engine  functionality
-./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester search-keyword snapshot
-./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester get-page-snapshot 00000113548 |  grep snapshot
-</pre>
-</div>
 <h1>What&rsquo;s next?</h1>
 
-<p>Congratulations, you have finished the search engine project!</p>
+<p>Your next assignment will cover the use of K-means with Twister.</p>
 
 <h1>References</h1>
 <ol>

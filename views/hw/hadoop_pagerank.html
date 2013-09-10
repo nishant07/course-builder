@@ -135,15 +135,11 @@ Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
         the key is the unique id or name of the webpage and the value contains the current rank
         value of the webpage and its out link information. Map tasks then generate intermediate
         (key, value) pairs, whose value is the partial rank value of every webpage. Each reduce task
-        aggregates all the partial values of specific webpages by applying the provided Eqn.4. The
+        aggregates all the partial values of specific webpages by applying the provided Eqn.2. The
         aggregated global rank values are written back to HDFS, which in turn is used as input in
         the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in Figure 1 shows an
         example for the PageRank data processing.</p>
 
-    <p align="justify">Eqn.3: <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
-        <br/>
-        Eqn.4: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">
-    </p>
 </div>
 
 <h1>Pseudocode for Hadoop PageRank</h1>

@@ -38,15 +38,7 @@
 			means there is one link from the source webpage to a target webpage. The included percentage indicates the rank value of each webpage.</p>
 
 		<p><strong>Notes:</strong></p>
-		<p>You can implement a sequential PageRank that will run on
-			desktops or laptops. But when processing larger amounts of input data, like web
-			graphs containing more than a million webpages, you need to run the
-			application in parallel so that it can aggregate the
-			computing power of multiple compute nodes. Currently, in both
-			industry and academia, the study of large-scale web or social graphs has
-			become increasingly popular. In one published paper, the job execution
-			engines that claim to support large scale PageRank applications include: MPI,
-			Hadoop, Dryad, Twister, and Pregel. This project is divided into two parts.
+		<p> This project is divided into two parts.
 			In the first part, you need to implement the sequential version of PageRank.
 			In the second you will implement a parallel version by
 			using the programming interfaces of Hadoop MapReduce job execution
@@ -69,7 +61,7 @@
     <div>
         <p>To help you understand the process of PageRank computation better, we offer an executable PageRank java class file in the assignment package. Its usage is:  </p>
 		<p><strong>Java SequentialPageRank [input file name] [output file name] [iteration count] [damping factor]</strong></p>
-        <p>We also provide a small input file which is based on the web graph showed in Fig.1. You can evaluate the rank values in Fig. 1 by running SequentialPageRank with the following parameters:</p>
+        <p>We also provide a small input file which is based on the web graph shown in Fig.1. You can evaluate the rank values in Fig. 1 by running SequentialPageRank with the following parameters:</p>
         <br><pre><strong>Java  SequentialPageRank    pagerank.input   pagerank.output   10  0.85</strong></pre> 
         <p>To check the accuracy of these output rank values, you can open pagerank.output file and see whether the output results are the same as rank values in Fig. 1. Generally speaking, the larger the number of iterations, the more accurate the computed rank values will be. </p>
     </div>

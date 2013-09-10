@@ -30,7 +30,7 @@
     </tr>
   </table>
 </div>
-<p>To build these  inverted indices, we reuse the ClueWeb09 dataset from Project #1, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
+<p>To build these  inverted indices, we reuse the ClueWeb09 dataset from before, which was  created to support research on information retrieval and related human language  technologies. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
   In the clueWeb09IndexTable table each term  will have the same structure, with term as rowkey, values contained in documentId,  and the occurrence of the term within this document shown. Our goal is to write  an HBase program which generates an inverted index table by extracting the  information from the ClueWeb09 dataset. </p>
 <h2>Mapper and  Main Program </h2>
 <p>Now we are going to implement the HBase FreqIndexBuilder  program. As opposed to WordCount [3], our implementation only consists  of two main parts:</p>
@@ -82,7 +82,7 @@ $ cat output/project2.txt
 </pre>
   </div>
 <h1>What&rsquo;s next?</h1>
-<p>You will be ready  to program your next project: &ldquo;Twister PageRank and Test the Search Engine.&rdquo;</p>
+<p>You will be ready  to program your next project: &ldquo;Twister PageRank.&rdquo;</p>
 <h1>References</h1>
 <ol>
   <li>salsaHPC  IndexedHBase Project: <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>

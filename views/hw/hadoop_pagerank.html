@@ -15,7 +15,7 @@
     helps Internet users sort hits by their importance. <br/>
     PageRank calculates a numerical value for each element of a hyperlinked set of webpages, which
     reflects the probability that a random surfer will access that page. The process of PageRank can
-    be understood as a Markov Chain [3] which requires iterative calculation to converge. An
+    be understood as a Markov Chain [3] which requires iterative calculations to converge. An
     iteration of PageRank calculates the new access probability for each webpage based on values
     calculated in the previous iteration. The process will repeat until the number of current
     iterations is bigger than predefined maximum iterations, or the Euclidian distance between rank
@@ -47,7 +47,7 @@ Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
     webpage &lsquo;u&rsquo;. The L(v) refers to the out degree of each webpage in the vertices set.
     The initial rank values of each webpage, like PR&rsquo;(u), can be any double value. After
     several iteration calculations, the rank values converge to the stationary distribution
-    regardless of what their initial values are. Markov Chain [3]</p>
+    regardless of what their initial values are.</p>
 <h3>Damping factor</h3>
 <p>The PageRank theory holds that even an imaginary surfer who is randomly clicking on links will
     eventually stop clicking. The probability, at any step, that the person will continue is a
@@ -115,7 +115,7 @@ Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
             as the final result.
         </li>
     </ol>
-    <p>The detail dataflow can be seen in figure 1. Part 1 and Part 3 are given as full solutions in
+    <p>The detail dataflow can be seen in Figure 1. Part 1 and Part 3 are given as full solutions in
         this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
 
     <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt=""
@@ -124,25 +124,25 @@ Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
     <p align="center">Figure 1. Hadoop PageRank dataflow</p>
 
     <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored
-        in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key,value&gt;
+        in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key, value&gt;
         pairs to the mapper. Initially, the PageRank input data is stored in the format of adjacency
         matrix as a file(s) in the local file system. Then it will be uploaded to the HDFS and
         distributed across the compute nodes. Hadoop framework reads the application records from
         HDFS with the InputFormat interface and generates &lt;key, value&gt; pair input streams.
-        Each Map function produces zero or more intermediate (key, value) pairs, by consuming one
+        Each Map function produces zero or more intermediate (key, value) pairs by consuming one
         input (key, value) pair. For this PageRank program,
         the map function applies the calculation PR(v) / L(V) to each &lt;key, value&gt; pair, where
         the key is the unique id or name of the webpage and the value contains the current rank
         value of the webpage and its out link information. Map tasks then generate intermediate
         (key, value) pairs, whose value is the partial rank value of every webpage. Each reduce task
-        aggregates all the partial values of specific webpages by applying the provided Eqn.2. The
+        aggregates all the partial values of specific webpages by applying the provided Eqn.4. The
         aggregated global rank values are written back to HDFS, which in turn is used as input in
-        the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in figure 1 shows an
+        the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in Figure 1 shows an
         example for the PageRank data processing.</p>
 
-    <p align="justify">Eqn.1: <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
+    <p align="justify">Eqn.3: <img src="assets/img/hw/pagerank/eq1.png" width="150" height="20">
         <br/>
-        Eqn.2: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">
+        Eqn.4: <img src="assets/img/hw/pagerank/eq2.png" width="242" height="37">
     </p>
 </div>
 
@@ -181,9 +181,9 @@ $ vim src/indiana/cgl/hadoop/pagerank/PageRankReduce.java
     </div>
     <h2>Compile and run your code</h2>
 
-    <p>Use the same one-click script compileAndExecHadoopPageRank.sh as in prior homework. Standard
+    <p>Use the one-click script compileAndExecHadoopPageRank.sh provided below. Standard
         error messages such as &ldquo;compile errors, execution errors, etc.&rdquo; will be
-        redirected on the screen. Debug it based on the returned messages.</p>
+        redirected on the screen. Debug them based on the returned messages.</p>
 
     <div>
 <pre>

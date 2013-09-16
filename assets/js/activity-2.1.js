@@ -31,8 +31,55 @@
 
 var activity = [
 
-  '<table border="2"><tr><td><b>Search Tips:</b><p> <ul><li>When you do certain queries, Google presents information about these topics directly on the search results page.<li>You can distinguish the information in these panels from advertisements because advertisements are labeled as Ads. Also, when these panels appear, they are always the top box on the right-hand side.<li>Topics for which information panels appear include, but are not limited to, animals, famous people, landmarks, countries, movies, books, works of art, sports teams, and chemical elements.</ul> </tr></td></table><br>',
+    '<b>1.</b> Select the service not provided by Amazon Cloud',
 
-  'Have you ever played the <a href="http://en.wikipedia.org/wiki/Six_degrees_of_separation#Kevin_Bacon_game" target="_blank">"Six Degrees of Separation"</a> game, where you try to get from one celebrity to another via co-stars in movies they have in common? Clicking only in the information panels on the right side of the screen, our search expert got from Mona Lisa to the Golden Gate Bridge in seven clicks. That is, she entered the query [Mona Lisa], clicked on something in the panel on the right side of the screen, then clicked on something else in the resulting screen, and so forth, and finally ended up at a page about the Golden Gate Bridge. How did she do it? Can you do it with fewer clicks? <p>Find your own "six degrees" chain using the panels on the right. Share your story in the <a href="LINK_TO_COURSE_FORUM" target="_blank">forum</a>.',
+    { questionType: 'multiple choice',
+        choices: [['EBS', false, 'Please try again.'],
+            ['S3', false, 'Please try again.'],
+            ['EC2', false, 'Please try again.'],
+            ['Z3', true, 'Correct.'],
+            ['SQS', false, 'Please try again']]},
 
+    '<br><b>2.</b>Where are the AMIs stored in',
+
+    { questionType: 'multiple choice',
+        choices: [['EBS', true, 'Correct.'],
+            ['S3', false, 'Please try again.'],
+            ['EC2', false, 'Please try again.'],
+            ['SNS', false, 'Please try again.']]},
+
+    '<br><b>2.</b>Select the one which is not a Virtual Image managers',
+
+    { questionType: 'multiple choice',
+        choices: [['Eucalyptus', true, 'Please try again.'],
+            ['Nimbus', false, 'Please try again.'],
+            ['OpenNebula', false, 'Please try again.'],
+            ['Hadoop', true, 'Correct.']]},
+
+    '<br><b>2.</b>Anyone can login to a private Virtual Machine in Amazon, true or false?',
+    { questionType: 'multiple choice',
+        choices: [['False', true, 'Correct.'],
+            ['True', false, 'Please try again.']]},
+
+    '<br><b>2.</b>In Amazon S3 what is the basic unit of data storage',
+    { questionType: 'multiple choice',
+        choices: [['Bucket', true, 'Please try again.'],
+            ['Object', true, 'Correct.'],
+            ['Key', false, 'Please try again.'],
+            ['Metadata', false, 'Please try again']]},
+
+    '<br><b>2.</b>Select the one that is not a Hypervisor',
+    { questionType: 'multiple choice',
+        choices: [['Xen', false, 'Please try again.'],
+            ['KVM', false, 'Please try again.'],
+            ['VMWare', false, 'Please try again.'],
+            ['Linux', true, 'Correct']]},
+
+    '<br><b>2.</b>Which of the following cannot be used to create Infrastructure as a Service (IaaS)',
+    { questionType: 'multiple choice',
+        choices: [['OpenStack', false, 'Please try again.'],
+            ['Nimbus', false, 'Please try again.'],
+            ['S3', true, 'Correct'],
+            ['OpenNebula', true, 'Please try again.'],
+            ['Eucalyptus', true, 'Please try again.']]}
 ];

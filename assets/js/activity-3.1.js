@@ -47,7 +47,7 @@ var activity = [
             ['Fat32', false, 'Please try again.'],
             ['NTFS', false, 'Please try again.']]},
 
-    '<br><b>2.</b>The HBase data model can be viewed as a ',
+    '<br><b>3.</b>The HBase data model can be viewed as a ',
 
     { questionType: 'multiple choice',
         choices: [['List', false, 'Please try again.'],
@@ -55,14 +55,14 @@ var activity = [
             ['Stack', false, 'Please try again.'],
             ['Tree', false, 'Please try again.']]},
 
-    '<br><b>2.</b>Which of the following is not true about HBase',
+    '<br><b>4.</b>Which of the following is not true about HBase',
     { questionType: 'multiple choice',
         choices: [['Schema is flexible', false, 'Please try again.'],
             ['Designed for commodity hardware', false, 'Please try again.'],
             ['Data size is limited to Terabytes', false, 'Please try again.'],
             ['Read write throughput is high compared to RDBMs', true, 'Correct.']]},
 
-    '<br><b>2.</b>HBase provides a MapReduce API, true or false?',
+    '<br><b>5.</b>HBase provides a MapReduce API, true or false?',
     { questionType: 'multiple choice',
         choices: [['True', true, 'Correct.'],
             ['False', true, 'Please try again.']]}

@@ -48,7 +48,7 @@ var activity = [
             ['EC2', false, 'Please try again.'],
             ['SNS', false, 'Please try again.']]},
 
-    '<br><b>2.</b>Select the one which is not a Virtual Image managers',
+    '<br><b>3.</b>Select the one which is not a Virtual Image managers',
 
     { questionType: 'multiple choice',
         choices: [['Eucalyptus', true, 'Please try again.'],
@@ -56,26 +56,26 @@ var activity = [
             ['OpenNebula', false, 'Please try again.'],
             ['Hadoop', true, 'Correct.']]},
 
-    '<br><b>2.</b>Anyone can login to a private Virtual Machine in Amazon, true or false?',
+    '<br><b>4.</b>Anyone can login to a private Virtual Machine in Amazon, true or false?',
     { questionType: 'multiple choice',
         choices: [['False', true, 'Correct.'],
             ['True', false, 'Please try again.']]},
 
-    '<br><b>2.</b>In Amazon S3 what is the basic unit of data storage',
+    '<br><b>5.</b>In Amazon S3 what is the basic unit of data storage',
     { questionType: 'multiple choice',
         choices: [['Bucket', true, 'Please try again.'],
             ['Object', true, 'Correct.'],
             ['Key', false, 'Please try again.'],
             ['Metadata', false, 'Please try again']]},
 
-    '<br><b>2.</b>Select the one that is not a Hypervisor',
+    '<br><b>6.</b>Select the one that is not a Hypervisor',
     { questionType: 'multiple choice',
         choices: [['Xen', false, 'Please try again.'],
             ['KVM', false, 'Please try again.'],
             ['VMWare', false, 'Please try again.'],
             ['Linux', true, 'Correct']]},
 
-    '<br><b>2.</b>Which of the following cannot be used to create Infrastructure as a Service (IaaS)',
+    '<br><b>7.</b>Which of the following cannot be used to create Infrastructure as a Service (IaaS)',
     { questionType: 'multiple choice',
         choices: [['OpenStack', false, 'Please try again.'],
             ['Nimbus', false, 'Please try again.'],

@@ -6,7 +6,123 @@
 	(function(H) {
 		H.className = H.className.replace(/\bgoogle\b/, 'google-js');
 	})(document.documentElement)
+
 </script>
+
+    <!-- The following translated strings are used in activity-generic.js and should be
+declared before that file is imported. -->
+    <script>
+        // import JSON for older browsers like IE 7
+        if (typeof JSON == 'undefined') {
+            document.write(
+                    '<script src="assets/lib/json2-2012.10.08.min.js"></' + 'script>');
+        }
+
+        // inline translations
+        var trans = {};
+
+        {# I18N: Text on the button for checking an answer. #}
+        trans.CHECK_ANSWER_TEXT =
+                "{{ gettext(' Check Answer ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for checking a set of answers. #}
+        trans.CHECK_ANSWERS_TEXT =
+                "{{ gettext( ' Check Answers ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for showing the answer to a question. #}
+        trans.SHOW_ANSWER_TEXT =
+                "{{ gettext(' Skip and Show Answer ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for saving answers to a question. #}
+        trans.SAVE_ANSWERS_TEXT =
+                "{{ gettext(' Save Answers ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for saving a draft answer. #}
+        trans.SAVE_DRAFT_TEXT =
+                "{{ gettext(' Save Draft ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for submitting answers. #}
+        trans.SUBMIT_ANSWERS_TEXT =
+                "{{ gettext(' Submit Answers ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for submitting a peer-reviewed assignment. #}
+        trans.SUBMIT_ASSIGNMENT_TEXT =
+                "{{ gettext(' Submit Assignment ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text on the button for submitting a peer review. #}
+        trans.SUBMIT_REVIEW_TEXT =
+                "{{ gettext(' Submit Review ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text to prompt the student to select a multiple-choice answer. #}
+        trans.SELECT_ANSWER_PROMPT =
+                "{{ gettext(' Please click one of the buttons for your answer. ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing after the student has answered all questions correctly. #}
+        trans.ALL_CORRECT_TEXT =
+                "{{ gettext(' All your answers are correct! ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing after the student has answered all questions correctly. #}
+        trans.NUM_CORRECT_TEXT =
+                "{{ gettext(' Number of questions you answered correctly ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing after the student has submitted an assessment. #}
+        trans.YOUR_SCORE_TEXT =
+                "{{ gettext(' You received a score on this assessment of ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing after the student has checked his/her answers to an assessment. #}
+        trans.LESSONS_TO_REVIEW_TEXT =
+                "{{ gettext(' Here are lessons you could review to improve your score ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing after the student has checked his/her answers to an assessment. #}
+        trans.PERFECT_SCORE_SAVE_TEXT =
+                "{{ gettext(' Congratulations! Press the \\\'Submit Answers\\\' button to submit your grade. ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing after the student has checked his/her answers to an assessment. #}
+        trans.GENERIC_SAVE_TEXT =
+                "{{ gettext(' Press the \\\'Submit Answers\\\' button below to save your scores. You can also edit your answers above before clicking \\\'Submit Answers\\\'. ')|replace('\"', '\\\"') }}";
+
+        {# I18N: Text appearing in a confirmation dialog after the student has tried to submit an assignment. #}
+        trans.SUBMIT_ASSIGNMENT_CONFIRMATION =
+                "{{ gettext(' Are you sure you want to submit this assignment? ') }}";
+
+        {# I18N: Text appearing in a confirmation dialog after the student has tried to submit a review. #}
+        trans.SUBMIT_REVIEW_CONFIRMATION =
+                "{{ gettext(' Are you sure you want to submit this review? ') }}";
+
+        {# I18N: Text appearing in a confirmation dialog after 'Are you sure you want to submit this assignment/review?' #}
+        trans.CONFIRMATION_EXPLANATION =
+                "{{ gettext(' You cannot edit or delete it after you have done so. ') }}";
+
+        var assessmentTagMessages = {};
+
+        {# I18N: Confirmation text for the answer given to a question by a student. #}
+        assessmentTagMessages.correctAnswer = "{{ gettext(' Yes, the answer is correct. ') }}";
+        {# I18N: Confirmation text for the answer given to a question by a student. #}
+        assessmentTagMessages.incorrectAnswer = "{{ gettext(' No, the answer is incorrect. ') }}";
+        {# I18N: Confirmation text for the answer given to a question by a student. #}
+        assessmentTagMessages.partiallyCorrectAnswer = "{{ gettext(' The answer is partially correct. ') }}";
+
+        {# I18N: Text appearing at the bottom of a lesson page after the student asks for it to be graded. #}
+        assessmentTagMessages.yourScoreIs = "{{ gettext(' Your score is: ') }}";
+    </script>
+    <script>
+        var eventXsrfToken = '{{ event_xsrf_token }}';
+        {% if record_tag_events %}
+            var gcbCanPostTagEvents = true;
+            {% endif %}
+            {% if record_page_events %}
+                var gcbCanPostPageEvents = true;
+                {% endif %}
+                {% if record_events %}
+                    var gcbCanPostEvents = true;
+                    {% endif %}
+
+                    {% if transient_student %}
+                        var transientStudent = true;
+                        {% else %}
+                        var transientStudent = false;
+                        {% endif %}
+    </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <title>{{course_info.course.title}} - {% block subtitle %} {% trans %} Course {% endtrans %} {% endblock subtitle %}</title>

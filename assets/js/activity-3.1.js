@@ -51,7 +51,7 @@ var activity = [
 
     { questionType: 'multiple choice',
         choices: [['List', false, 'Please try again.'],
-            ['Map', true, 'Please try again.'],
+            ['Map', true, 'Correct.'],
             ['Stack', false, 'Please try again.'],
             ['Tree', false, 'Please try again.']]},
 

@@ -31,38 +31,35 @@
 
 var activity = [
 
-    '<b>1.</b> Select the one that is not an advantage of using NoSQL databases',
-
+    '<b>1.</b> Select the one that is not an advantage of using NoSQL databases</br>',
     { questionType: 'multiple choice',
         choices: [['Horizontal scalability', false, 'Please try again.'],
             ['Can run on commodity hardware', false, 'Please try again.'],
             ['Can store semi-structured data', false, 'Please try again.'],
             ['The data model behind NoSQL databases are backed by strong mathematical models', true, 'Correct.']]},
 
-    '<br><b>2.</b>Select the underlying file system used by HBase for storing data',
-
+    '<br><b>2.</b>Select the underlying file system used by HBase for storing data</br>',
     { questionType: 'multiple choice',
         choices: [['HDFS', true, 'Correct.'],
             ['NFS', false, 'Please try again.'],
             ['Fat32', false, 'Please try again.'],
             ['NTFS', false, 'Please try again.']]},
 
-    '<br><b>3.</b>The HBase data model can be viewed as a ',
-
+    '<br><b>3.</b>The HBase data model can be viewed as a</br>',
     { questionType: 'multiple choice',
         choices: [['List', false, 'Please try again.'],
             ['Map', true, 'Correct.'],
             ['Stack', false, 'Please try again.'],
             ['Tree', false, 'Please try again.']]},
 
-    '<br><b>4.</b>Which of the following is not true about HBase',
+    '<br><b>4.</b>Which of the following is not true about HBase</br>',
     { questionType: 'multiple choice',
         choices: [['Schema is flexible', false, 'Please try again.'],
             ['Designed for commodity hardware', false, 'Please try again.'],
             ['Data size is limited to Terabytes', false, 'Please try again.'],
             ['Read write throughput is high compared to RDBMs', true, 'Correct.']]},
 
-    '<br><b>5.</b>HBase provides a MapReduce API, true or false?',
+    '<br><b>5.</b>HBase provides a MapReduce API, true or false?</br>',
     { questionType: 'multiple choice',
         choices: [['True', true, 'Correct.'],
             ['False', true, 'Please try again.']]}

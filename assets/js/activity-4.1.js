@@ -31,41 +31,41 @@
 
 var activity = [
 
-    '<b>1.</b> What is the biggest advantage of using Pig Latin',
+    '<b>1.</b> What is the biggest advantage of using Pig Latin</br>',
 
     { questionType: 'multiple choice',
         choices: [['Performs better than Hadoop', false, 'Please try again.'],
             ['Can run without Hadoop', false, 'Please try again.'],
             ['Reduce the development time of MapReduce jobs', true, 'Correct.']]},
 
-    '<br><b>2.</b>What is a tuple in Pig',
+    '<br><b>2.</b>What is a tuple in Pig</br>',
 
     { questionType: 'multiple choice',
         choices: [['Ordered set of fields', true, 'Correct.'],
             ['A relation', false, 'Please try again.'],
             ['Piece of data', false, 'Please try again.']]},
 
-    '<br><b>3.</b>True or false. Pig does support flow control statements like if/else',
+    '<br><b>3.</b>True or false. Pig does support flow control statements like if/else</br>',
     { questionType: 'multiple choice',
         choices: [['True', true, 'Correct.'],
             ['False', true, 'Please try again.']]},
 
 
-    '<br><b>4.</b>In pig latin if you want to get set of expressions and apply them to every record what is the construct you use?',
+    '<br><b>4.</b>In pig latin if you want to get set of expressions and apply them to every record what is the construct you use?</br>',
     { questionType: 'multiple choice',
         choices: [['LOAD', false, 'Please try again.'],
             ['GROUP', false, 'Please try again.'],
             ['DUMP', false, 'Please try again.'],
             ['FOREACH-GENERATE', true, 'Correct.']]},
 
-    '<br><b>5.</b>What does BinStorage data loader do in Pig?',
+    '<br><b>5.</b>What does BinStorage data loader do in Pig?</br>',
     { questionType: 'multiple choice',
         choices: [['loads/stores relations using field-delimited text format', false, 'Please try again.'],
             ['loads/stores relations from or to binary files', true, 'Correct.'],
             ['loads relations from a plain-text format', false, 'Please try again.'],
             ['loads relations from a plain-text format', false, 'Please try again.']]},
 
-    '<br><b>6.</b>Select the one that is not a supported mode by Pig Latin for executing scripts?',
+    '<br><b>6.</b>Select the one that is not a supported mode by Pig Latin for executing scripts?</br>',
     { questionType: 'multiple choice',
         choices: [['Local Mode', false, 'Please try again.'],
             ['Network Mode', true, 'Correct.'],

@@ -31,7 +31,7 @@
 
 var activity = [
 
-    '<b>1.</b> In Matrix multiplication choose a factor that doesn\'t slowed down the speed up as a size increases',
+    '<b>1.</b> In Matrix multiplication choose a factor that doesn\'t slowed down the speed up as a size increases</br>',
 
     { questionType: 'multiple choice',
         choices: [['Large values of the integers in the matrix ', false, 'Please try again.'],
@@ -39,7 +39,7 @@ var activity = [
             ['Integer division', true, 'Correct.'],
             ['Sorting and grouping', false, 'Please try again.']]},
 
-    '<br><b>2.</b>Choose the false statement about K-Means',
+    '<br><b>2.</b>Choose the false statement about K-Means</br>',
 
     { questionType: 'multiple choice',
         choices: [['K means can return more that K clusters', true, 'Correct.'],
@@ -47,7 +47,7 @@ var activity = [
             ['In each iteration K clusters are chosen by associating points to the nearest center', false, 'Please try again.'],
             ['The iteration continues until convergence or fixed number of times', false, 'Please try again.']]},
 
-    '<br><b>3.</b>K-Means is an iterative algorithm, true or false?',
+    '<br><b>3.</b>K-Means is an iterative algorithm, true or false?</br>',
     { questionType: 'multiple choice',
         choices: [['True', true, 'Correct.'],
             ['False', true, 'Please try again.']]},

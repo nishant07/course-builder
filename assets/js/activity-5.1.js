@@ -31,7 +31,7 @@
 
 var activity = [
 
-    '<b>1.</b> Select the one that is not a MapReduce framework',
+    '<b>1.</b> Select the one that is not a MapReduce framework</br>',
 
     { questionType: 'multiple choice',
         choices: [['Twister', false, 'Please try again.'],
@@ -39,7 +39,7 @@ var activity = [
             ['ActiveMQ', true, 'Correct.'],
             ['Dryad', false, 'Please try again.']]},
 
-    '<br><b>2.</b>Which is not a high level language for creating MapReduce programs?',
+    '<br><b>2.</b>Which is not a high level language for creating MapReduce programs?</br>',
 
     { questionType: 'multiple choice',
         choices: [['C', true, 'Correct.'],
@@ -47,14 +47,14 @@ var activity = [
             ['Pig Latin', false, 'Please try again.'],
             ['DryadLINQ', false, 'Please try again.']]},
 
-    '<br><b>3.</b>Choose the feature that is not provided by Hadoop MapReduce framework',
+    '<br><b>3.</b>Choose the feature that is not provided by Hadoop MapReduce framework</br>',
     { questionType: 'multiple choice',
         choices: [['Automatic Parallelization & Distribution', true, 'Please try again.'],
             ['Fault tolerance', false, 'Please try again.'],
             ['Distributed File system', false, 'Please try again.'],
             ['NoSQL database', true, 'Correct.']]},
 
-    '<br><b>4.</b>Choose the component not in Hadoop Architectures',
+    '<br><b>4.</b>Choose the component not in Hadoop Architectures</br>',
     { questionType: 'multiple choice',
         choices: [['Namenode', false, 'Please try again.'],
             ['Datanode', false, 'Please try again.'],
@@ -62,14 +62,14 @@ var activity = [
             ['MPI', true, 'Correct.'],
             ['Job Tracker', false, 'Please try again.']]},
 
-    '<br><b>5.</b>What is the final phase of a Hadoop MapReduce job?',
+    '<br><b>5.</b>What is the final phase of a Hadoop MapReduce job?</br>',
     { questionType: 'multiple choice',
         choices: [['Map', false, 'Please try again.'],
             ['Reduce', true, 'Correct.'],
             ['Shuffle', false, 'Please try again.'],
             ['Combine', false, 'Please try again.']]},
 
-    '<br><b>6.</b>Select weather the following statement is true or false. “Before running a Hadoop MapReduce job on a cluster of nodes, the input data must be loaded into HDFS” ',
+    '<br><b>6.</b>Select weather the following statement is true or false. “Before running a Hadoop MapReduce job on a cluster of nodes, the input data must be loaded into HDFS”</br>',
     { questionType: 'multiple choice',
         choices: [['True', true, 'Correct.'],
             ['False', true, 'Please try again.']]},

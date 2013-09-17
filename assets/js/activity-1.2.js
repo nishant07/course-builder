@@ -31,7 +31,7 @@
 
 var activity = [
 
-    '<b>1.</b> Select the one that is not a commercial cloud offering',
+    '<b>1.</b> Select the one that is not a commercial cloud offering</br>',
 
     { questionType: 'multiple choice',
         choices: [['Amazon Web Services', false, 'Please try again.'],
@@ -39,14 +39,14 @@ var activity = [
             ['Google App Engine', false, 'Please try again.'],
             ['Microsoft Azure', true, 'Please try again']]},
 
-    '<br><b>2.</b>Select which sentence describes Hadoop',
+    '<br><b>2.</b>Select which sentence describes Hadoop</br>',
 
     { questionType: 'multiple choice',
         choices: [['A programming model for distributed computing', false, 'Please try again.'],
             ['A Software Library that implements map reduce', true, 'Correct.']]},
 
 
-    '<br><b>3.</b>Which of the following is not an advantage of cloud computing',
+    '<br><b>3.</b>Which of the following is not an advantage of cloud computing</br>',
 
     { questionType: 'multiple choice',
         choices: [['No need to have in house data centers', false, 'Please try again.'],
@@ -54,7 +54,7 @@ var activity = [
             ['Data security ', true, 'Correct.'],
             ['Doesn’t have to buy expensive software licenses ', false, 'Please try again']]},
 
-    '<br><b>4.</b>What is a biggest concern for a company when moving their applications to the cloud',
+    '<br><b>4.</b>What is a biggest concern for a company when moving their applications to the cloud</br>',
 
     { questionType: 'multiple choice',
         choices: [['Information security', true, 'Correct.'],
@@ -62,21 +62,21 @@ var activity = [
             ['Training employees', false, 'Please try again.'],
             ['Availability of cloud platforms', false, 'Please try again']]},
 
-    '<br><b>5.</b>If you want to build an application with the maximum control of a cloud environment what service layer you will choose to build your application',
+    '<br><b>5.</b>If you want to build an application with the maximum control of a cloud environment what service layer you will choose to build your application</br>',
     { questionType: 'multiple choice',
         choices: [['IaaS', true, 'Correct.'],
             ['PaaS', false, 'Please try again.'],
             ['SaaS', false, 'Please try again.'],
             ['None of the above', false, 'Please try again']]},
 
-    '<br><b>6.</b>Select all the function that is not handled by MapReduce',
+    '<br><b>6.</b>Select all the function that is not handled by MapReduce</br>',
     { questionType: 'multiple choice',
         choices: [['Fault handling', false, 'Please try again.'],
             ['Parallelization', false, 'Please try again.'],
             ['Data distribution among computation nodes', false, 'Please try again.'],
             ['Data security', true, 'Correct']]},
 
-    '<br><b>7.</b>MapReduce is a batch processing model, true or false?',
+    '<br><b>7.</b>MapReduce is a batch processing model, true or false?</br>',
     { questionType: 'multiple choice',
         choices: [['True', true, 'Correct.'],
             ['False', false, 'Please try again.']]}

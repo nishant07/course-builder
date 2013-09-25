@@ -18,7 +18,7 @@
 
     <h2>Introduction</h2>
     <div>
-        <p align="justify">We will deploy a simple hadoop standalone  environment running on the provided VirtualBox image <a
+        <p align="justify">We will deploy a simple Hadoop standalone  environment running on the provided VirtualBox image <a
         href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">Environment Setup</a>. </p>
     </div>
 
@@ -53,7 +53,7 @@
       </div>
       
       <p><u>conf/slaves</u></p>
-      <p>Add all related IPs of Workers/Slaves, one per line. In this example, we use localhost (localhost will work for the current hands-on as our Hadoop cluster has only a single node).</p>
+      <p>Add all related IPs of Workers/Slaves, one per line.</p>
         <div class="dp-highlighter">
           <div class="bar">
             <div class="tools"></div>
@@ -62,7 +62,7 @@
       </div>
       
       <p><u>conf/core-site.xml</u></p>
-      <p>Within this file, we need to override the name of the default file system, &quot;fs.default.name&quot;. A URI or IP address with a port number is needed (localhost will work for the current hands-on as our Hadoop cluster has only a single node).</p>
+      <p>Within this file, we need to override the name of the default file system, &quot;fs.default.name&quot;. A URI or IP address with a port number is needed (again, localhost is sufficient for the current hands-on).</p>
       <p>Between &lt;configuration&gt; and &lt;/configuration&gt;, add:</p>
         <div class="dp-highlighter">
           <div class="bar">
@@ -75,7 +75,7 @@
       </div>
       
       <p><u>conf/hdfs-site.xml</u></p>
-      <p>Within this file, we need to settle on where DFS (local filesystem) name node should store the name table (fsimage), and DFS data node should store the blocks (actual data blocks).</p>
+      <p>Within this file, we need to settle on where DFS (local filesystem) name node should store the name table (fsimage), and where DFS data node should store the blocks (actual data blocks).</p>
       <p>Between &lt;configuration&gt; and &lt;/configuration&gt;, add:</p>
         <div class="dp-highlighter">
           <div class="bar">
@@ -88,7 +88,7 @@
       </div>
       
       <p><u>conf/mapred-site.xml</u></p>
-      <p>In addition, we need to modify the configuration file to set the host and port for JobTracker:</p>
+      <p>In addition, we need to modify the configuration file to set the host and port for JobTracker.</p>
         <div class="dp-highlighter">
           <div class="bar">
             <div class="tools"></div>

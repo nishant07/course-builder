@@ -4,7 +4,7 @@
 </h1>
 
 <div>
-    <p>This homework utilizes the K-means Clustering algorithms and Twister Iterative MapReduce framework previously studied. You are going to blend the two by implementing a parallel version of
+    <p>This homework utilizes the K-means Clustering algorithms and Twister Iterative MapReduce frameworks. You are going to blend the two by implementing a parallel version of
         Kmeans Clustering application using the programming interfaces of the Twister MapReduce framework. </p>
 </div>
 
@@ -64,14 +64,14 @@
 
 
 <div>
-    <p>Each map task in the Twister-Kmeans application gets a set of 3D data points. These data points do not change over the course of iterations and Map tasks access them in each iteration. The invariant nature of this data marks it as static in Twister. Therefore, particular points are loaded only once for the entire execution. The cluster centers computed in each iteration are dynamic data, as they tend to change over iterations. Also, the calculated cluster centers of a particular iteration serve as the input for the next iteration if they don't satisfy the required conditions.</p>
+    <p>Each map task in the Twister-Kmeans application gets a set of 3D data points. These data points do not change over the course of iterations and Map tasks access them in each iteration. The invariant nature of this data marks it as static in Twister. Therefore, particular points are loaded only once for the entire execution. The cluster centers computed in each iteration are dynamic data, as they tend to change over iterations. Also, the calculated cluster centers of a particular iteration serve as the input for the next if they don't satisfy the required conditions.</p>
     <p>You need to complete two files in the provided pacakge inside &quot;cgl/imr/samples/kmeans/&quot;:        </p>
 
     <p>
         <br> 
         <strong>KMeansMapTask.java</strong><!-- HTML generated using hilite.me -->
     </p>
-    <p>You will need to fill the missing code within getEuclidean2() and map().</p>
+    <p>You will need to fill in the missing code within getEuclidean2() and map().</p>
     <div style="background: #ffffff; overflow: auto; width: auto;">
 
       <script src="https://gist.github.com/cloudmooc/6330391.js"></script>
@@ -135,7 +135,7 @@ $ cat output/*</pre>
             </div>
             </div>
 
-	<h2>View the result</h2>
+	<h2>References</h2>
     <ol>
     <li>Kmeans Clustering Wiki: <a href="http://en.wikipedia.org/wiki/K-means_clustering">http://en.wikipedia.org/wiki/K-means_clustering</a></li>
     <li>Twister Kmeans tutorial at Big Data for Science: <a href="http://salsahpc.indiana.edu/tutorial/twister_kmeans_user_guide.htm">http://salsahpc.indiana.edu/tutorial/twister_kmeans_user_guide.htm</a></li>

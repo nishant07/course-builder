@@ -22,9 +22,9 @@
     values in two subsequent iterations is less than a predefined threshold that controls the
     accuracy of the output results.  <br/>
 <p align="center"><img src="assets/img/hw/se4/2.png" alt="" width="406" height="328"/><br/>
-    <em>Fig</em><em>ure 2.</em>  Mathematical PageRank for a simple network in Wikipedia<br/></p>
-Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to a unique  webpage, and the directed edge means there is one link from the source webpage  to the target webpage. The percentage on each vertex represents the rank value  of each webpage.</p>
-<h3>Notes:</h3>
+    <em>Fig</em><em>ure 1.</em>  Mathematical PageRank for a simple network in Wikipedia<br/></p>
+Figure 1 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to a unique  webpage, and the directed edge means there is one link from the source webpage  to the target webpage. The percentage on each vertex represents the rank value  of each webpage.</p>
+<h3>Notes</h3>
 <p>You can implement a sequential PageRank that can run on desktops or laptops. But when processing
     larger input data, like web graphs containing more than a million webpages, you need to run the
     PageRank application in parallel so that it can aggregate the computing power of multiple
@@ -115,13 +115,13 @@ Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
             as the final result.
         </li>
     </ol>
-    <p>The detail dataflow can be seen in Figure 1. Part 1 and Part 3 are given as full solutions in
+    <p>The detail dataflow can be seen in Figure 2. Part 1 and Part 3 are given as full solutions in
         this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
 
     <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt=""
                            width="700"/></p>
 
-    <p align="center">Figure 1. Hadoop PageRank dataflow</p>
+    <p align="center">Figure 2. Hadoop PageRank dataflow</p>
 
     <p align="justify">Normally for any Hadoop MapReduce program, input data is uploaded and stored
         in the Hadoop Distributed File System (HDFS) before computation in order to generate &lt;key, value&gt;
@@ -137,7 +137,7 @@ Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
         (key, value) pairs, whose value is the partial rank value of every webpage. Each reduce task
         aggregates all the partial values of specific webpages by applying the provided Eqn.2. The
         aggregated global rank values are written back to HDFS, which in turn is used as input in
-        the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in Figure 1 shows an
+        the next set of iterations, if any. &quot;Hadoop - PageRank&quot; in Figure 2 shows an
         example for the PageRank data processing.</p>
 
 </div>

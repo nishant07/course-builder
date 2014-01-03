@@ -54,8 +54,6 @@ conf/
 $ cd /root/software/hadoop-1.1.2/
 $ echo "export HADOOP_CLASSPATH=`/root/software/hbase-0.94.7/bin/hbase classpath`" >>
 ~/.bashrc
-
-$ source ~/.bashrc
             </pre>
   </div>
 <h2>Load data into HBase Tables </h2>
@@ -66,13 +64,13 @@ $ source ~/.bashrc
 $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.TableCreatorClueWeb09
 
 # create two directories for data input
-$ mkdir -p /root/data/clueweb09/files
-$ mkdir -p /root/data/clueweb09/mrInput
+$ mkdir -p /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files
+$ mkdir -p /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput
 # create input’s metadata for HBbase data loader
-$ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.Helpers create-mr-input /root/data/clueweb09/files/ /root/data/clueweb09/mrInput/ 1
+$ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.Helpers create-mr-input /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files/ /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput/ 1
 
 # copy metadata to Hadoop HDFS
-$ ./bin/hadoop dfs -copyFromLocal /root/data/clueweb09/mrInput/ /cw09LoadInput
+$ ./bin/hadoop dfs -copyFromLocal /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput/ /cw09LoadInput
 $ ./bin/hadoop dfs -ls /cw09LoadInput
 
 # load data into HBase (takes 10-20 minutes to finish)

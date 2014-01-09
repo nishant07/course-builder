@@ -52,22 +52,21 @@
 $ cp /root/software/hbase-0.94.7/conf/hbase-site.xml /root/software/hadoop-1.1.2/
 conf/
 $ cd /root/software/hadoop-1.1.2/
-$ echo "export HADOOP_CLASSPATH=`/root/software/hbase-0.94.7/bin/hbase classpath`" >>
-~/.bashrc
+$ export HADOOP_CLASSPATH=`/root/software/hbase-0.94.7/bin/hbase classpath`
             </pre>
   </div>
 <h2>Load data into HBase Tables </h2>
 <p>After the working environment is ready, two  HBase Tables, WordCountTable and clueWeb09DataTable for this homework, are created  by the provided java class iu.pti.hbaseapp.clueweb09.TableCreatorClueWeb09. Then we upload the clueWeb09 data to HBase  using helper iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09.</p>
-<div><
+<div>
             <pre style="overflow: auto; width: auto;">
+
+export HADOOP_CLASSPATH=`/root/software/hbase-0.94.7/bin/hbase classpath`
+            
 # create hbase tables
 $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.TableCreatorClueWeb09
 
-# create two directories for data input
-$ mkdir -p /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files
+# create one directory for mapreduce data input
 $ mkdir -p /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput
-# copy the input files
-$ cp /root/data/clueweb09/files/* /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files/
 
 # create input’s metadata for HBbase data loader
 $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.Helpers create-mr-input /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files/ /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput/ 1

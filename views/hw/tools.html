@@ -81,5 +81,22 @@
     a build.sh file that will assist you in compiling the program.</p>
 </div>
 
+<h3>Copy files between VM and Local Machine</h3>
+<div>
+    <p>Some homework requires copying files between the VM and the local machine. To do this you need to create a shared folder between the host and the guest VM</p>
+    <ol>
+        <li>You need to install Guest Additions for the VM first. To do this, start the VM and from the VirtualBox "Devices" menu select "Insert Guest Additions CD Image" menu item and follow the instructions.</li>
+        <li>After this shutdown the VM and Go to Settings->Shared Folders of virtual machine</li>
+        <li>Add a new shared folder. Choose a folder from the host machine and give a name to the shared folder, for example myfiles</li>
+        <li>Now boot the VM and go to the command line</li>
+        <li>Create a folder to mount the shared folder, for example the folder is "share" created in the home directory, i.e mkdir ~/share</li>
+        <li>Now mount using the following command</li>
+        <li>sudo mount -t vboxsf myfiles ~/share</li>
+        <li>When asked for the password, give school2012</li>
+    </ol>
+    <p>More information can be found in the <a href="https://www.virtualbox.org/manual/ch04.html#sharedfolders">VirtualBox documentation</a>.</p>
+</div>
+
+
 
 

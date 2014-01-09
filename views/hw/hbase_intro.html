@@ -66,6 +66,9 @@ $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.TableCreatorCl
 # create two directories for data input
 $ mkdir -p /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files
 $ mkdir -p /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput
+# copy the input files
+$ cp /root/data/clueweb09/files/* /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files/
+
 # create input’s metadata for HBbase data loader
 $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.Helpers create-mr-input /root/MoocHomeworks/HBaseWordCount/data/clueweb09/files/ /root/MoocHomeworks/HBaseWordCount/data/clueweb09/mrInput/ 1
 

@@ -46,6 +46,7 @@ table, fieldset {
 
 body {
 	margin: 0;
+    /*background-image: url("../img/blue_mooc.jpg");*/
 }
 
 h1, h2, h3, h4, blockquote, q, .gcb-nav ul {

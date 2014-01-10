@@ -1,10 +1,18 @@
 <h1>Goal</h1>
 <p>After having familiarized yourself with the HBase Building an Inverted Index homework and PageRank algorithms homework, you are ready to use these applications to test the search engine function from the packaged executable.</p>
 <h1>Deliverables </h1>
-<p>None</p>
+<p>Zip your source code, library, and results in a file named e-mailBefore@test-search-engine.zip, where e-mailBefore@ should be replaced by your e-mail account username. Please submit this file to the MOOC submission page.</p>
 <h1>Evaluation</h1>
-<p>None</p>
-<h1>Test the Search Engine</h1>
+        <div>
+<p>The point total for this project is 5, where the
+    distribution is as follows:</p>
+<ol type="a">
+    <li>Completeness of your code (3 points)</li>
+    <li>Correct output (2 points)</li>
+</ol>
+        </div>
+
+<h1>Search Engine Implementation</h1>
 <p>Before we test the search engine, we need to write the PageRank output to the HBase
     clueWeb09PageRankTable.</p>
 
@@ -20,14 +28,34 @@ hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clu
     <li>clueWeb09IndexTable</li>
     <li>clueWeb09PageRankTable</li>
 </ul>
-<p>Using the provided test program, the following commands search the keyword &ldquo;database&rdquo;,
-    and the dataflow is shown as Figure 1.<br/></p>
+<p>The data-flow of the program is shown as Figure 1.<br/></p>
 
 <p align="center"><img src="assets/img/hw/se4/6.png" alt="" width="365" height="277"/><br/>
     <em>Figure 1</em>. Dataflow for searching keyword &ldquo;database&rdquo; among the
     constructed databases</p>
-
+<p>You need to complete the following code before you can run the search engine</p>
 <div>
+<pre>
+$ vim src/iu/pti/hbaseapp/clueweb09/SearchEngineTester.java
+</pre>
+</div>
+<script src="https://gist.github.com/cloudmooc/8359771.js"></script>
+<div>
+<h3>Compile and Run the program</h3>
+    <div>
+<pre>
+$ cd /root/MoocHomeworks/HBaseInvertedIndexing/
+$ vim src/iu/pti/hbaseapp/clueweb09/SearchEngineTester.java
+</pre>
+    </div>
+    <div class="dp-highlighter">
+<pre>
+$ cd /root/MoocHomeworks/HBaseInvertedIndexing/
+$ ant
+$ cp /root/MoocHomeworks/HBaseInvertedIndexing/dist/cglHBaseMooc.jar /root/software/hadoop-1.1.2/lib
+</pre>
+    </div>
+    <p>Now you can test the functionality of the search engine by running the program with keywords</p>
 <pre>
 # Test search engine functionality
 cd /root/software/hadoop-1.1.2/

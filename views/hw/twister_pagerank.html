@@ -141,7 +141,7 @@ void Reduce (taskID, &lt;list of value&gt;){
 <h3>Combiner</h3>
 
 <p>Twister Combiner generally is the &ldquo;Single reducer&rdquo; to combine all the partial
-    results into a single output.<br/>
+    results into a single output. Every time  when an output of a reducer comes, combine method in Combiner is invoked to combine this part of data to the data structure it owns.  <br/>
     <em>Pseudocode</em></p>
 
 <div>

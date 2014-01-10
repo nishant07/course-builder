@@ -20,7 +20,7 @@
     text input dataset. It fits  very well with the map/reduce programming model, making WordCount a
     great example  to understand the Hadoop MapReduce programming style [1]. Instead of  loading the
     data from HDFS, we will load our data directly from existing HBase  records which store the similar
-    content structures on HBase and HDFS (if you finished Homework 5, this has already been done).
+    content structures on HBase and HDFS (if you finished Homework 6, this has already been done).
 </p>
 <p>In this homework and the next homework (Building an Inverted Index) we use the same source code, which can be found in:</p>
 <div>
@@ -33,7 +33,7 @@
   </p>
   <p align="center"><img src="assets/img/hw/se2/2.png" alt="" width="624" height="92" /><br />
   <em>Figure 2</em>. Data table schema for storing the  ClueWeb09 dataset<br /></p>
-  <p>So, while similar to Hadoop WordCount [3], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
+  <p>So, while similar to Hadoop WordCount [4], the  differences are that data is stored on HBase and URI is the &ldquo;filename&rdquo; that contains  all the text content.</p>
 <h2>Mapper, Reducer and Main Program </h2>
 <p>Now we are going to implement the HBase  WordCount. Our implementation consists of three main parts:</p>
 <ul>
@@ -80,9 +80,9 @@ void Reduce (keyword, &lt;list of value&gt;){
 </div>
 
 <h3>Main program </h3>
-<p>The main function has been provided as standard initialization, although you can modify it to suit your own style. Hint:  the provided code is designed for using put operations in the reducer  content.write() function. For details, please see examples of using TableMapReduceUtil.initTableReducerJob [4].</p>
+<p>The main function has been provided as standard initialization, although you can modify it to suit your own style. Hint:  the provided code is designed for using put operations in the reducer  content.write() function. For details, please see examples of using TableMapReduceUtil.initTableReducerJob [5].</p>
 <h1>Edit</h1>
-<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">Environment Setup</a> [5]. You may use linux text editor vi/vim to add  your code.</p>
+<p>The sketch code is stored within the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">Environment Setup</a> [6]. You may use linux text editor vi/vim to add  your code.</p>
 <div class="dp-highlighter">
         <div class="bar">
 <pre>

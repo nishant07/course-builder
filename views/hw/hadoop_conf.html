@@ -19,8 +19,13 @@
     <h2>Introduction</h2>
     <div>
         <p align="justify">We will start a simple Hadoop standalone  environment on the provided VirtualBox image. All the software required is installed on the VM <a
-        href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">Environment Setup</a>.</p>
+        href="homework?unit=1">Environment Setup</a>.</p>
     </div>
+    
+    <h3>Video</h3>
+<div>
+    <iframe width="560" height="315" src="//www.youtube.com/watch?v=_LgyAKVdLoA" frameborder="0" allowfullscreen></iframe>
+</div>
 
     <h2>Configuring a Hadoop Standalone Deployment</h2>
     <div>
@@ -107,7 +112,7 @@
           <!--<script src="https://gist.github.com/cloudmooc/6232204.js"></script>-->
       <!--</div>-->
   </div>
-    <h2>Start the Hadoop Standalone Service</h2>
+    <h2>Start the Hadoop</h2>
     <div>
         
         <div class="dp-highlighter">
@@ -130,5 +135,10 @@
         <p>http://localhost:9003 </p>
         <p align="center"><img src="assets/img/hw/hadoopConf/50030.fw.png" alt="" width="624" height="108" />
     </div>
-    <div></div>
+<h2>Shutting Down Hadoop</h2>
+<div>
+    <p>stop-all.sh script found in the hadoop bin directory can be used to shut down hadoop instances</p>
+    <pre xml:space="preserve">cd /root/software/hadoop-1.1.2/bin/<br />./stop-all.sh</pre>
+</div>
+
 </div>

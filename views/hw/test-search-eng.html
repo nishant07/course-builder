@@ -18,7 +18,9 @@
 
 <div>
 <pre>
-# upload the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br/>
+# Load the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br/>
+<span style="overflow: auto; width: auto;">export HADOOP_CLASSPATH=`/root/software/hbase-0.94.7/bin/hbase classpath`</span>
+
 hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.PageRankTableLoader  /root/MoocHomeworks/HBaseInvertedIndexing/resources/en0000-01and02.docToNodeIdx.txt  /root/MoocHomeworks/HBaseInvertedIndexing/resources/en0000-01and02_reset_idx_and_square_pagerank.out
 </pre>
 </div>
@@ -52,8 +54,7 @@ $ vim src/iu/pti/hbaseapp/clueweb09/SearchEngineTester.java
 <pre>
 $ cd /root/MoocHomeworks/HBaseInvertedIndexing/
 $ ant
-$ cp /root/MoocHomeworks/HBaseInvertedIndexing/dist/cglHBaseMooc.jar /root/software/hadoop-1.1.2/lib
-</pre>
+$ cp /root/MoocHomeworks/HBaseInvertedIndexing/dist/lib/cglHBaseMooc.jar /root/software/hadoop-1.1.2/lib/</pre>
     </div>
     <p>Now you can test the functionality of the search engine by running the program with keywords</p>
 <pre>

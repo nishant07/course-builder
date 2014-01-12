@@ -1,5 +1,5 @@
 <h1>Goal</h1>
-<p>Write an HBase FreqIndexBuilder program to build  an inverted index table which has the unique term&rsquo;s occurrences in all documents from the clueWeb09 dataset. Each row record of columnfamily &ldquo;frequencies&rdquo;  is unique, where the rowkey is the unique term stored in byte format, column  name is the documentId that contains this term, and value is the term  frequency shown per document. Note that each row has multiple columns. The  result must be uploaded to HBase clueWeb09IndexTable. Figure 1 shows the data  structure of clueWeb09IndexTable.<br />
+<p>Write an HBase FreqIndexBuilder program to build  an inverted index table which has the unique term&rsquo;s occurrences in all documents from the clueWeb09 dataset. Each row record of columnfamily &ldquo;frequencies&rdquo;  is unique, where the rowkey is the unique term stored in byte format, column  name is the documentId that contains this term, and value is the term  frequency shown per document. Note that each row has multiple columns. The  result must be loaded to HBase clueWeb09IndexTable. Figure 1 shows the schema of clueWeb09IndexTable.<br />
   </p>
   <p align="center"><img src="assets/img/hw/se3/1.png" alt="" width="624" height="108" /><br />
   Figure 1. clueWeb09IndexTable table schema for  storing term frequencies and their related documentId</p>

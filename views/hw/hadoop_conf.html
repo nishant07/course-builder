@@ -1,0 +1,144 @@
+<div id="accordion">
+    <h2>Goal</h2>
+    <div>
+        <p>Learn the basic configuration parameters for Hadoop MapReduce framework.</p>
+    </div>
+
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+        <p>None</p>
+    </div>
+
+    <h1>Evaluation</h1>
+    <div>
+        <p>None</p>
+    </div>
+
+    <h2>Introduction</h2>
+    <div>
+        <p align="justify">We will start a simple Hadoop standalone  environment on the provided VirtualBox image. All the software required is installed on the VM <a
+        href="homework?unit=1">Environment Setup</a>.</p>
+    </div>
+    
+    <h3>Video</h3>
+<div>
+    <iframe width="560" height="315" src="//www.youtube.com/embed/_LgyAKVdLoA" frameborder="0" allowfullscreen></iframe>
+</div>
+
+    <h2>Configuring a Hadoop Standalone Deployment</h2>
+    <div>
+        <p>We need to change the following configuration files under Hadoop configuration directory (/root/software/hadoop-1.1.2), which are:</p>
+        <ul>
+          <li>conf/hadoop-env.sh</li>
+          <li>conf/masters</li>
+          <li>conf/slaves</li>
+          <li>conf/core-site.xml</li>
+          <li>conf/hdfs-site.xml</li>
+          <li>conf/mapred-site.xml</li>
+        </ul>
+        <p>The configurations in the VM are already set to correct values. You can go through these and verify the configurations before starting Hadoop.</p>
+        <p><u>conf/hadoop-env.sh</u></p>
+        <p>If it hasn't set the JAVA_HOME with this file, please add the installed Java path to it:</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools"></div>
+                <pre xml:space="preserve">//export JAVA_HOME=${Your JAVA HOME PATH}<br />export JAVA_HOME=/root/software/jdk1.6.0_33</pre>
+          <span>&nbsp;&nbsp;&nbsp;</span>
+          </div>
+      </div>
+      
+      <p><u>conf/masters</u></p>
+      <p>Place the IP of the MasterNode/NameNode in a single line. In this example, we use localhost (localhost will work for the current hands-on as our Hadoop cluster has only a single node).</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools"></div>
+                <pre xml:space="preserve">localhost</pre>
+          </div>
+      </div>
+      
+      <p><u>conf/slaves</u></p>
+      <p>Add all related IPs of Workers/Slaves, one per line.</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools"></div>
+                <pre xml:space="preserve">localhost</pre>
+          </div>
+      </div>
+      
+      <p><u>conf/core-site.xml</u></p>
+      <p>Within this file, we need to override the name of the default file system, &quot;fs.default.name&quot;. A URI or IP address with a port number is needed (again, localhost is sufficient for the current hands-on).</p>
+      <p>Between &lt;configuration&gt; and &lt;/configuration&gt;, add:</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools"></div>
+                <pre xml:space="preserve">
+&lt;configuration&gt;
+&lt;property&gt;<br />   &lt;name&gt;fs.default.name&lt;/name&gt;<br />   &lt;!-- URL of MasterNode/NameNode, e.g. hdfs://localhost:9000/--&gt; <br />   &lt;value&gt;hdfs://localhost:9000/&lt;/value&gt;<br />&lt;/property&gt;
+&lt;/configuration&gt;</pre>
+          </div>
+      </div>
+      
+      <p><u>conf/hdfs-site.xml</u></p>
+      <p>Within this file, we need to settle on where DFS (local filesystem) name node should store the name table (fsimage), and where DFS data node should store the blocks (actual data blocks).</p>
+      <p>Between &lt;configuration&gt; and &lt;/configuration&gt;, add:</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools"></div>
+                <pre xml:space="preserve">
+&lt;configuration&gt;
+&lt;property&gt;<br />   &lt;name&gt;dfs.name.dir&lt;/name&gt;<br />   &lt;!-- Path to store namespace and transaction logs, e.g. /tmp/hadoop-test/name--&gt; <br />   &lt;value&gt;/tmp/summer/name&lt;/value&gt;<br />&lt;/property&gt;<br />&lt;property&gt;<br />   &lt;name&gt;dfs.data.dir&lt;/name&gt;<br />   &lt;!-- Path to store blocks within DataNodes/Slaves--&gt;<br />   &lt;value&gt;/tmp/summer/data&lt;/value&gt;<br />&lt;/property&gt;
+&lt;/configuration&gt;</pre>
+          </div>
+      </div>
+      
+      <p><u>conf/mapred-site.xml</u></p>
+      <p>In addition, we need to modify the configuration file to set the host and port for JobTracker.</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools"></div>
+                <pre xml:space="preserve">
+&lt;configuration&gt;
+&lt;property&gt;<br />   &lt;name&gt;mapred.job.tracker&lt;/name&gt;<br />   &lt;!-- IP/Hostname:Port for Hadoop JobTracker, e.g. localhost:9001 --&gt; <br />   &lt;value&gt;localhost:9001&lt;/value&gt;<br />&lt;/property&gt;<br />&lt;property&gt;<br />   &lt;name&gt;mapred.local.dir&lt;/name&gt;<br />   &lt;!-- data node's local tmp directory --&gt; <br />   &lt;value&gt;/tmp/summer/local&lt;/value&gt;<br />&lt;/property&gt;<br />&lt;property&gt;<br />   &lt;name&gt;mapred.tasktracker.map.tasks.maximum&lt;/name&gt;<br />   &lt;!-- maximum map tasks per node, please set it as same as the amount of cores (cpu)--&gt; <br />   &lt;value&gt;2&lt;/value&gt;<br />&lt;/property&gt;
+&lt;/configuration&gt;</pre>
+          </div>
+      </div>
+      
+      
+      
+        <!--<p><u>Detail implementation</u></p>-->
+        <!--<div>-->
+          <!--<script src="https://gist.github.com/cloudmooc/6232204.js"></script>-->
+      <!--</div>-->
+  </div>
+    <h2>Start the Hadoop</h2>
+    <div>
+        
+        <div class="dp-highlighter">
+          <div class="bar">
+              <div class="tools"></div>
+                <pre xml:space="preserve">cd /root/software/hadoop-1.1.2/bin/<br />./hadoop namenode -format<br />./start-all.sh</pre>
+            </div>
+        </div>
+        <pre name="code" class="java" style="display: none;">void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);<br>}   </pre>
+        <!--<p><u>Detail implementation</u></p>-->
+
+    </div>
+</div>
+    <h2>Check the HDFS and JobTracker status</h2>
+
+    <div>
+        <p>Use the Firefox browser to look up the following urls:</p>
+        <p>http://localhost:9001</p>
+        <p align="center"><img src="assets/img/hw/hadoopConf/50070.fw.png" alt="" width="624" height="108" />
+        <p>http://localhost:9003 </p>
+        <p align="center"><img src="assets/img/hw/hadoopConf/50030.fw.png" alt="" width="624" height="108" />
+    </div>
+<h2>Shutting Down Hadoop</h2>
+<div>
+    <p>stop-all.sh script found in the hadoop bin directory can be used to shut down hadoop instances</p>
+    <pre xml:space="preserve">cd /root/software/hadoop-1.1.2/bin/<br />./stop-all.sh</pre>
+</div>
+
+</div>

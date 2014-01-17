@@ -300,9 +300,12 @@ class Homework12(object):
     def __init__(self):
         self.id = 0
         self.homework_id = ''
+        self.type = 'H'
         self.title = ''
         self.filename = ''
-
+        self.optional = ''
+        self.difficulty = None
+        self.category = ''
         self._index = None
 
     @property

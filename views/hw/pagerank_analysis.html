@@ -1,6 +1,58 @@
 <div id="accordion">
+    <h1>Goal</h1>
+    <div>
+        <p>The goal of this homework is to write a distributed monitoring system that will monitor
+            the statistics from different machines and collect them in a single location.</p>
+            	<p>PLEASE NOTE: The following homework requires access to a FutureGrid account, which
+			is available only for those students who are enrolled at the Indiana University
+			Bloomington campus.
+		</p>
+    </div>
+
+    <h1>Deliverables</h1>
+    <div>
+        <p>For this project, each team is required to turn in a report to OnCourse with
+            the following items:</p>
+        <ol>
+            <li> Experiment with a number of urls (scale
+                up to 1M urls at least) and the following numbers in a table, then draw a
+                human readable graph chart.</li>
+
+            <ol type="a">
+                <li>Instance class, number of worker nodes, number of
+                    core/cpu/processors per worker node, size of dataset (# of urls, # of
+                    groups), number of MPI process (set with argument -np), MPI error
+                    threshold, number of iterations, etc.</li>
+                <li> A speed-up performance analysis chart (graph).</li>
+                <li>Each execution time must be taken as an average
+                    of three runs.</li>
+            </ol>
+            <li>Findings, description and explanation of your results.</li>
+            <li>Feedback about using FutureGrid Bare Metal and Eucalyptus.</li>
+            <li>You need to write a torque/PBS script which runs MPI/MPJ
+                PageRank automatically only in bare metal mode.</li>
+            <li>Provide your scripts (if you used any) in a zip file and
+                package with filename &#8220;student_proj2.zip&#8221; where
+                &#8220;student&#8221; should be replaced with your IU username.</li>
+        </ol>
+        <p>Points will be reduced (maximum 0.5 points) if the filename or
+            directory structure are different from instructed above.</p>
+
+    </div>
+
+    <h1>Project Evaluation</h1>
+    <div>
+        <p>The point total for this project is 10, where the distribution is
+            as follows:</p>
+        <p>a. Experiments: design quality, accurate measurements, amount
+            of work involved (5 points)</p>
+        <p>b. Report (3 points)</p>
+        <p>c. Review/Demo (2 points)</p>
+    </div>
+
 	<h1>Introduction</h1>
 	<div>
+	
 		<p>Academic Cloud provides a great environment to run applications. Users
 			have more control and flexibility to run their own applications,
 			with higher availability to researchers and students.
@@ -10,60 +62,21 @@
 			grid, and cloud computing. In this assignment, you will hand in
 			a performance analysis report by running MPIPageRank program in two
 			different modes &#8212; bare metal nodes and Eucalyptus VMs on
-			FutureGrid. Please reuse your MPIPageRank program developed in
-			Project #1 for this project. The following sections of this document
+			FutureGrid. Please reuse your MPI PageRank program developed in
+			Homework 13 for this project. The following sections of this document
 			provide detailed instructions on how to access FutureGrid.</p>
 		<p>
 			You must have your FutureGrid account and your generated ssh private
-			key ready to proceed. If you haven&#8217;t applied for one,
+			key ready in order to proceed. If you haven&#8217;t applied for one,
 			sign up at <a href="http://portal.futuregrid.org">FutureGrid
 				Portal</a> [1] as soon as possible.
 		</p>
 	</div>
 
-	<h1>Deliverables (Due Nov. 5)</h1>
-	<div>
-		<p>For this project, each team is required to turn in a report to OnCourse with
-			the following items:</p>
-		<ol>
-			<li> Experiment with a number of urls (scale
-			up to 1M urls at least) and the following numbers in a table, then draw a
-			human readable graph chart.
-		
-		&nbsp;&nbsp; a. Instance class, number of worker nodes, number of
-			core/cpu/processors per worker node, size of dataset (# of urls, # of
-			groups), number of MPI process (set with argument -np), MPI error
-			threshold, and number of iterations, etc.
-		&nbsp;&nbsp; b. A speed-up performance analysis chart (graph).
-		&nbsp;&nbsp; c. Each execution time must be taken as an average
-			of three runs.</li>
-		<li>Findings, description and explanation of your results.</li>
-		<li>Feedback about using FutureGrid Bare Metal and Eucalyptus.</li>
-		<li>You need to write a torque/PBS script which runs MPI/MPJ
-			PageRank automatically only in bare metal mode.</li>
-		<li>Provide your scripts (if you used any) in a zip file and
-			package with filename &#8220;taklwu_proj2.zip&#8221; where
-			&#8220;taklwu&#8221; should be replaced with your IU username.</li>
-			</ol>
-		<p>Points will be reduced (maximum 0.5 points) if the filename or
-			directory structure are different from instructed above.</p>
-			
-	</div>
-
-	<h1>Project Evaluation</h1>
-	<div>
-		<p>The point total for Project #3 is 10, where the distribution is
-			as follows:</p>
-		<p>a. Experiments: design quality, accurate measurements, amount
-			of work involved (5 points)</p>
-		<p>b. Report (3 points)</p>
-		<p>c. Review/Demo (2 points)</p>
-	</div>
-
 	<h1>Performance Analysis and Writing a Report</h1>
 	<div>
 		<p>In this project, you are going to use FutureGrid as your test
-			environment. You will need to copy your Project 1 back to these two
+			environment. You will need to copy your Homework 13 results back to these two
 			environments. Test your MPI Pagerank program on a very small (old)
 			dataset to make sure everything is working correctly. Finally, run
 			the program with the generated dataset(s) and analyze the
@@ -71,7 +84,7 @@
 			descriptions and explanations about your results. It is required to show 
 			this information on your report.</p>
 		<p>Note that you must test your program with scaling up to
-			at least 100k urls, using at most 16 cores of computing
+			at least 100K urls, using at most 16 cores of computing
 			resources. In other words, each team can only use at most 2 bare
 			metal nodes (8 cores/processors per node) in India-HPC environment and
 			8 VMs (2 cores per m1.large VM) in India-Eucalyptus.</p>
@@ -111,7 +124,7 @@
 		</ul>
 		<h2>PageRank Dataset Generation</h2>
 		<p>We have provided a java-class
-			&#8220;PageRankDataGen.java&#8221; in order to generate a 10k dataset
+			&#8220;PageRankDataGen.java&#8221; in order to generate a 10K dataset
 			to run the performance test. Compile and execute this
 			generator as follows:</p>
 		<pre>
@@ -123,7 +136,7 @@
 		</pre>
 	</div>
 
-	<h1>5. FutureGrid Bare Metal</h1>
+	<h1>FutureGrid Bare Metal</h1>
 	<div>
 		<p>For the bare metal test, you need to obtain an independent node
 			from the FutureGrid India headnode (i136):</p>
@@ -145,7 +158,7 @@ qsub: job 43809.i136 ready
 			the openmpi module. If you are using MPJ Express, download and
 			install the MPJ package under your home directory and set the
 			environment parameter to &#8220;~/.bashrc&#8221;.</p>
-		<h2>* Set up MPJ_HOME and add it to the PATH</h2>
+		<h2>Set up MPJ_HOME and add it to the PATH</h2>
 		<pre>
 [taklwu@i136 ~]$ unzip mpj-v0_38.zip
 [taklwu@i136 ~]$ echo &#8220;export MPJ_HOME=/N/u/taklwu/mpj-v0_38&#8221; &gt;&gt; ~/.bashrc
@@ -272,7 +285,7 @@ echo "Bare Metal job Finished"
 			<p>As mentioned above, virtual clusters offer more power to run
 				applications on a shared environment. Eucalyptus is a virtual
 				infrastructure management tool that provides the functions to manage
-				and to access those virtual resources. With the help of Eucalyptus,
+				and access those virtual resources. With the help of Eucalyptus,
 				we can easily obtain a private virtual cluster (Cloud) on a set of
 				machines. FutureGrid has deployed Eucalyptus and provided service to
 				its users for years. Figure 1 shows the compute resource provided by the
@@ -286,8 +299,8 @@ echo "Bare Metal job Finished"
 				<i>Fig. 1 Overview of FutureGrid Compute Resources</i>
 			</p>
 			<p>This section shows the steps to create FutureGrid
-				India-Eucalyptus accounts, to access India Cluster HeadNode on
-				FutureGrid, and to obtain a set of VM nodes as a virtual
+				India-Eucalyptus accounts, access India Cluster HeadNode on
+				FutureGrid, and obtain a set of VM nodes as a virtual
 				cluster.</p>
 			<p>1. Access FutureGrid India with your ssh private key</p>
 			<pre>
@@ -299,7 +312,7 @@ Enter passphrase for key 'ssh_id_rsa':
 				cluster. We will obtain a Eucalyptus Virtual Cluster from this node.
 				<strong>DO NOT</strong> run your mpi program on the
 				&#8220;i136&#8221; headnode. If you are interested in running on a bare
-				metal mode, see Appendix B for details.
+				metal node, see Appendix B for details.
 			</p>
 			<p>2. Locate security credentials from India under
 				$Home/.futuregrid/eucalyptus/fg251.</p>
@@ -335,7 +348,7 @@ Enter passphrase for key 'ssh_id_rsa':
 AVAILABILITYZONE        euca3india      149.165.146.135 arn:euca:eucalyptus:euca3india:cluster:euca3indiaCC/
 			</pre>
 			
-			<h2>Set up the VM key pair and allow ssh access to VM:</h2>
+			<h2>Set up the VM key pair and allow ssh access to VM</h2>
 			<p>After testing the euca2ools, you need to add a ssh keypair
 				using euca-add-keypair for future access to the VM. Note that,
 				without setting this correctly, you will not able to ssh into your
@@ -357,7 +370,7 @@ PERMISSION      taklwu  default ALLOWS  tcp     22      22      FROM    CIDR    
 			</pre>
 			
 			<h2>Start and log into a Eucalyptus VM</h2>
-			<p>Finally, we start two m1.large Eucalyptus VMs and contruct our
+			<p>Finally, we start two m1.large Eucalyptus VMs and construct our
 				cluster. For MPI and MPJ, use image
 				&#8220;emi-2C2937BB&#8221;.</p>
 			<p>command: euca-run-instances -k [public key] -t [instance
@@ -412,7 +425,7 @@ root@localhost:~#
 				Before running the MPI PageRank in multiple nodes environment on
 				FutureGrid Eucalyptus, you need to make sure the Eucalyptus ssh
 				private key and the MPI program are uploaded to each of the created
-				VMs. <strong>Do Not copy the Eucalyptus ssh key and MPI
+				VMs. <strong>Do not copy the Eucalyptus ssh key and MPI
 					program to each node in bare metal mode.</strong>
 			</p>
 			<pre>
@@ -451,7 +464,7 @@ root@localhost:~# vi nodes
 				&#8220;machines&#8221; and use the optional argument &#8220;-dev
 				niodev&#8221;). See the details for <a
 					href="http://mpj-express.org/docs/guides/linuxguide.pdf">MPJ
-					Cluster Configuration</a> here[4]).
+					Cluster Configuration</a> here [4]).
 			</p>
 			<h2>Execution command for MPI</h2>
 			<pre>

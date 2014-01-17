@@ -1,205 +1,102 @@
-<div id="accordion">
-  <h3>Before You Begin</h3>
-  <div>
-    <ol >      
-	<li>Install  VirtualBox by going to the following location: <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox Downloads</a>.</li>
-
-      <li>Download the prepackaged appliance from this <a href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova">link</a>. (<a href="http://149.165.146.120/salsa/chef_ubuntu.ova">mirror 1</a>,&nbsp;<a href="http://129.79.49.181/ScienceCloud/chef_ubuntu.ova">mirror 2</a>) (update with new image)</li>
-      <li>Download and install <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a> (for mac and linux users, please use terminal)</li>
-      <li>Download and install <a href="http://winscp.net/eng/download.php">WinSCP</a> (for mac users, please use <a href="http://cyberduck.ch/">Cyberduck</a>)</li>	  
-    </ol>
-	<p>ALTERNATIVE VIDEO TUTORIAL<p>
-	<iframe width="560" height="315" src="http://www.youtube.com/embed/vQWzc8oUlKA" frameborder="0" allowfullscreen></iframe>
-  </div>
-  <h3>Import the Appliance</h3>
-  <div>
-    <P 
-  style="MARGIN-BOTTOM: 3pt; FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN-TOP: 15pt">1. 
-  Installation Guide</P>
-  <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-  <DIV style="DIRECTION: ltr">
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Download 
-        the prepackaged appliance from&nbsp;<A 
-        href="http://salsahpc.indiana.edu/ScienceCloud/apps/salsaDPI/virtualbox/chef_ubuntu.ova">this 
-        link</A>. (<A href="http://149.165.146.120/salsa/chef_ubuntu.ova">mirror 
-        1</A>,&nbsp;<A 
-        href="http://129.79.49.181/ScienceCloud/chef_ubuntu.ova">mirror 
-        2</A>)</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">To import 
-        the appliance, select the "File &gt; Import Appliance..." menu option. 
-</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;,trI+ U&#10;Ctrl-’-l&#10;9rIsr&#10;[J Display&#10;Q Storaqe&#10;Controller: IDE&#10;IDE Secondary Master:&#10;Controller: SATA&#10;SATA Port O:&#10;Audio&#10;Host Driver: Windows DirectSound&#10;Controller: ICH AC97&#10;J Virtual Media Manager...&#10;Import App’iance...&#10;(ii) Export Appliance...&#10;ii:&#10;Details J Snapshots&#10;Ubuntu&#10;Ubuntu (64 bit)&#10;All/Nothing to See&#10;(  Preview&#10;System&#10;Base Memory:&#10;Boot Order:&#10;Acceleration:&#10;8 192 MB&#10;Floppy, CD3VD-ROM, Hard Disk&#10;VT-x/AMD-V, Nested Paging&#10;Ubuntu&#10;L&#10;Video Memory: 16 MB&#10;Remote Desktop Server: Disabled&#10;[CDfl)VD] Empty&#10;Ubuntu.vdi (Normal, 30.00 GB)&#10;[i Network" 
-        src="assets/img/hw/mhtA380.tmp"
-        width=576 height=432>
-        </P>
-        
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in; padding-top: 10px">Click
-        "Open appliance…" </P>
-        <P><IMG 
-        alt="Machine generated alternative text:&#10;VirtuaBox currentiy supports importing appliances saveci in the Open&#10;Virtualizabon Format (OVF). To continue, select the file to import below." 
-        src="assets/img/hw/mhtA393.tmp"
-        width=563 height=432></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in; padding-top: 10px">Select the
-        file from the downloaded location.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;t j,  Libraries  Documents  P434 Cj Search P434&#10;Organize “ New folder  4&#10;. ‘ Nani&#10;- Favorites&#10;t Desktop “6 P434&#10;. Recent places&#10;Downloads&#10;:; Dropbox&#10;j. SkyDrive&#10;Google Drive&#10;, Libraries&#10;5J Documents&#10;J) Music&#10;J Pictures&#10;Videos&#10;4 Homegroup&#10;a Jake Pusateri&#10;: Computer&#10;L Local Disk (C:)&#10;__ Data (D:)&#10;___ Data (E:)&#10;___ Data (F:)&#10;Local Disk (G:)&#10;i My Book (I:)&#10;JakeDeskMC&#10;File flame: P434 y Open Virtualization Format@.o ‘‘&#10;Qpen Cancel" 
-        src="assets/img/hw/mhtA396.tmp"
-        width=576 height=346></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Hit the 
-        "Next" button.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;VirtualBox currently supports importing appliances saveci in the Open&#10;Virtualizabon Format (OVF). To continue, select the file to import below." 
-        src="assets/img/hw/mhtA3A8.tmp"
-        width=563 height=432></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Click 
-        "Import".</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;These re the virtud machines contained in the appiiance and the suggested&#10;settings of the imported VirtualBox machines. You can change many of the&#10;properties shown by double-dicking on the items and disable others using the&#10;check boxes below.&#10;J Configu&#10;network cards" 
-        src="assets/img/hw/mhtA3AB.tmp"
-        width=563 height=432></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Wait as 
-        the appliance is imported.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;"
-        src="assets/img/hw/mhtA3AE.tmp"
-        width=395 height=151></P>
-        <P 
-      style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P></TD></TR></TBODY></TABLE></DIV>
-  <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-  <DIV style="DIRECTION: ltr">
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">You should 
-        now have an image named "Chef Ubuntu 32 Bit". You can start this image 
-        by clicking the start icon at the top of VirtualBox.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;General&#10;Name: Chef Ubuntu 32 bit&#10;Operating System: Ubuntu&#10;LiJ System&#10;Display&#10;Video Memory: 8 MB&#10;Remote Desktop Server: Disabled&#10;O Storage&#10;Controller: IDE Controller&#10;IDE Secondary Master: [CDItND] Empty&#10;Controller: SATA Controller&#10;SATA Port 0: P434-diskl.vmdk (Normal, 8.00 GB)&#10;Audio&#10;Host Driver: Windows DirectSound&#10;Controller: ICH AC7&#10;Network&#10;Ie&#10;Preview&#10;Base Memory:&#10;Boot Order:&#10;Acceleration:&#10;15% MB&#10;Floppy, CDfl)VD-ROM, Hard Disk&#10;VT-x/AMD-V, Nested Paging, PAEfi’iIX&#10;—" 
-        src="assets/img/hw/mhtA3C1.tmp"
-        width=576 height=432></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">A window 
-        should appear and end up looking like this after the server boots. It is 
-        a 32-bit installation of Ubuntu 10.10 Server. </P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;[ Z.7O21] piixl_smbus 0000:00:07.0: SMBus bdse address uninitialized — upgr&#10;ade BIOS or use force_addr0xaddr&#10;libuntu 10.10 ubuntu ttyl&#10;ubuntu login:&#10;I" 
-        src="assets/img/hw/mhtA3C4.tmp"
-        width=576 height=320></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Proceed
-        to log in at this screen with: </P>
-        <br>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Username: 
-        root</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Password: 
-        school2012</P>
-        <br>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in"><SPAN 
-        style="mso-spacerun: yes">&nbsp;</SPAN>However, SSHing 
-        into the server allows easier copy-paste, changing of the window size, 
-        and scrolling to view history. To do this, we must find the IP to 
-        connect via SSH.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;Details J snapshots&#10;General&#10;Name: Chef Ubuntu 32 bit&#10;Operating System: Ubuntu&#10;j System&#10;Video Memory: 8 MB&#10;Remote Desktop Server: Disabled&#10;O Storage&#10;Controller: IDE Controller&#10;IDE Secondary Master: [CDOVD] Empty&#10;Controller: SATA Controller&#10;SATA Port O:&#10;Audio&#10;Host Driver: Windows DirectSound&#10;Controller: ICH AC7&#10;Network&#10;Preview&#10;1536 MB&#10;Floppy, CDfl)VD-ROM, Hard Disk&#10;VT-x/AMD-V, Nested Paging, PAEfi’iIX&#10;Base Memory:&#10;Boot Order:&#10;Acceleration:&#10;[J Display&#10;L&#10;P434-diskl.vmdk (Normal, 8.00 GB)" 
-        src="assets/img/hw/mhtA3C7.tmp"
-        width=576 height=432></P></DIV>
-        
-        <p><strong>NOTE THAT</strong> for <em>MAC</em> and <em>Linux</em> users, if you are using &quot;NAT&quot; network setting, you will have to check the existence of virtual network adapter with command ifconfig from the terminal. If you do not find any, you may need to add a virtual network adapter to enable SSH connections. Otherwise use "Host Only Network" for SSH connections. See the <a href="http://www.virtualbox.org/manual/ch06.html">VirtualBox official manual</a> for more networking information.</p>
-  </div>
-  <h3>Configure PuTTY (for windows users)</h3>
-  <div>
-    <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Open the 
-        Settings menu for the Chef Ubuntu VM</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;Adapter .1 I Adapter ¡ I Adapter 2 I Adapter  I&#10;P Enable Network Adapter&#10;Attached to: INAT&#10;Name:&#10;9 Advanced&#10;Adapter lype:&#10;Promiscuous Mode: IDeRY&#10;MAC Address: 102IDDZ7:3 7AF7&#10;P Çable connected&#10;Bort Forwarding&#10;On the Dispby page, you have assigned less than 16 MD of video memory which is the minimum&#10;amount required to switch the virtual machine to fullscreen or seamless mode.&#10;OK Cancel elp j&#10;Network&#10;General&#10;System&#10;Display&#10;Storage&#10;Audio&#10;6’ Network&#10;s&#10;,&#10;Serial Ports&#10;USB&#10;Shared Folders&#10;lIntel PRO/bOO MT Desktop (82 542Er&#10;I.. Non-optimal settings detected" 
-        src="assets/img/hw/mhtA3D9.tmp"
-        width=576 height=424></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Open the 
-        Port Forwarding menu, and note the Host IP in Rule 1. </P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;OK Cancel&#10;Name&#10;Rule 1&#10;Rule 2&#10;j Protocol Host P Host Port Guest LP&#10;TCP 22 10.0.2.15&#10;TCP 129.79.49436 22 10.0,2.15&#10;Guest Port 1 <ô&#10;22&#10;22 J" 
-        src="assets/img/hw/mhtA3DC.tmp"
-        width=576 height=317></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Open PuTTY 
-        and put the IP address from before into the Host Name field. Then Press 
-        "Open"</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;Basic options for your PuTTY session&#10;Specify the destination you want to conned to&#10;Host Name (or IP address)&#10;192.168.56.11&#10;Eonnedion type.&#10;U Raw lelnet ç. Rlogfr, Ø.: SH&#10;Load, save or delete a stored session&#10;Savd Sessions&#10;Seijal&#10;Cateqory:&#10;E Session&#10;Logging&#10;E Terminal&#10;Keyboard&#10;Bell&#10;Features&#10;Wndow&#10;Appearance&#10;Behaviour&#10;Translation&#10;Seledion&#10;Colours&#10;Connedion&#10;Data&#10;Proxy&#10;Telnet&#10;Riogin&#10;SSH&#10;Port&#10;Default Settings&#10;w.&#10;Load&#10;Señal&#10;Save&#10;Delete&#10;Dose window on exit:&#10;Q ?Jways Q Never&#10;() Only on dean exit&#10;Qpen" 
-        src="assets/img/hw/mhtA3EF.tmp"
-        width=466 height=449></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">This 
-        message will appear the first time. Click Yes</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;The server’s host key is not cached in the registry. You&#10;I ix have no guarantee that the server is the computer you&#10;think it is.&#10;The server’s rsa2 key fingerprint is:&#10;ssh-rsa 2048 09:f6:8c:f8:3b:08:c4:f3:80:Oc:8b:c6:69:38:32:d7&#10;If you trust this host hit Yes to add the key to&#10;PuTTY’s cache and carry on connecting.&#10;If you want to carry on connecting just once, without&#10;adding the key to the cache, hit No.&#10;If you do not trust this host, hit Cancel to abandon the&#10;connection.&#10;Yes No Cancel" 
-        src="assets/img/hw/mhtA3F2.tmp"
-        width=420 height=305></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Login as 
-        </P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">root</P>
-        <P 
-        style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">school2012</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;" 
-        src="assets/img/hw/mhtA3F5.tmp"
-        width=576 height=363></P>
-        <P 
-      style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;" 
-        src="assets/img/hw/mhtA408.tmp"
-        width=576 height=363></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">And you 
-        will be greeted with this screen to indicate success!</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;login as: root&#10;root@192.168.56.l’s password:&#10;Linux ubuntu 2.6.35—22—generic #33—Ubuntu SMP Sun Sep 19 20:34:50 tJTC 2010 i686&#10;GNU/Linux&#10;tlbuntu 10.10&#10;Welcome to tibuntu!&#10;* Documentation: https :1/help. ubuntu. com/&#10;New release ‘natty’ available.&#10;Run ‘do—release—upgrade’ to upgrade to it.&#10;Last login: Mon Apr 1 16:58:38 2013&#10;root@ubuntu:-’$ •" 
-        src="assets/img/hw/mhtA40B.tmp"
-        width=576 height=363></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Try typing 
-        "ls" and then hit enter.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;login as: root&#10;root@192.168.56.l’s password:&#10;Linux ubuntu 2.6.35—22—generic #33—Ubuntu SMP Sun Sep 19 20:34:50 tJTC 2010 i686&#10;GNU/Linux&#10;tlbuntu 10.10&#10;Welcome to tibuntu!&#10;* Documentation: https :1/help. ubuntu. com/&#10;New release ‘natty’ available.&#10;Run ‘do—release—upgrade’ to upgrade to it.&#10;Last login: Mon Apr 1 18:16:04 2013 from 10.0.2.2&#10;root@ubuntu:—$ ls&#10;client.rb hbasetutorial pigtutorial salsaDPl software validation.pem&#10;root@ubuntn:»4 •" 
-        src="assets/img/hw/mhtA40E.tmp"
-        width=576 height=363></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>  </div>
-  <h3>Configure WinSCP (for windows users)</h3>
-  <div>
-    <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">PuTTY is 
-        great for running commands, but if you are using Windows and want to copy files directly, 
-        I recommend WinSCP. Open WinSCP and click the "New" 
-        button.</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;Session ijpusate@bunvw.csindiana.edu New&#10;. Stored sessions ijpusatet’cIoudmooc.soic.indiana.edu&#10;Environment root@192.168.56.1&#10;Directories&#10;SSH Delete&#10;Preferences&#10;Rename&#10;New folder...&#10;Shell icon...&#10;E . Tools...&#10;Advanced options&#10;‘ Aout... Languages Login Save...  L Close" 
-        src="assets/img/hw/mhtA420.tmp"
-        width=529 height=471></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Enter the 
-        IP into Host name.</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">User name: 
-        root</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Password: 
-        school2012</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">These are 
-        the same as logging in with PuTTY.</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Click 
-        "Login" (In future 
-        runs you may want to save).</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;Session Session&#10;Stored sessions Ale protocol:&#10;Environment&#10;Directories SFTP ‘1&#10;SSH Host name: Port number:&#10;Preferences&#10;192.168.56.1&#10;User name: Eassword:&#10;root&#10;Private key file:&#10;Select color&#10;fl Advanced options&#10;About... Languages Login Save...  Close" 
-        src="assets/img/hw/mhtA423.tmp"
-        width=529 height=471></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">Success! 
-        Now you can drag files between the locations, and even sychronize 
-        directories!</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;I OBofl.B65MiBinOof 1&#10;P&#10;O B of 62,942 B in O of 17&#10;Local Mark files commands session ptions emote eip&#10;___  L±•;. &#10;root@192.168.56.1 +&#10;JIJE &#10;——&#10;Default&#10;Size Type&#10;Parent directory&#10;1,665 MiB Open Virtualiz...&#10;Changed&#10;4/1/2013&#10;4/1/2013&#10;10:58:37 ...&#10;1OE02:54... a&#10;aptitude&#10;cache&#10;.chef&#10;gen&#10;.ssh&#10;.umi&#10;, .vim&#10;hbasetutorial&#10;. pigtutorial&#10;. salsaDPl&#10;. software&#10;U .bash_history&#10;D .bashrc&#10;validation.pm&#10;.profile&#10;Dclient.rb&#10;.viminfo&#10;Size&#10;Changed&#10;Rights&#10;7/20/2012 12:42:42...&#10;rwxr-xr-x&#10;7/18/20126:13:39...&#10;rwx &#10;7/18/2012 7:28:28 ...&#10;rwxr-xr-x&#10;7/29/2012 3:19:30 ...&#10;rwxr-xr-x&#10;7/19/2012 &amp;31:26 ...&#10;rwxr-xr-x&#10;7/29/2012 9:08:53 ...&#10;rwx &#10;7/18/2012 7:25:53 ...&#10;rwxr-xr-x&#10;7/29/2012 9:09:22 ...&#10;rwxr-xr-x&#10;7/29/2012 7:44:33 ...&#10;rwxr-xr-x&#10;7/28/2012 7:06:54 ...&#10;rwxr-xr-x&#10;4/1/2013 9:55:38 PM&#10;rwx &#10;7/28/2012 8:04:15 ...&#10;rwxr-xr-x&#10;36,862B&#10;4/1/2013959:39PM&#10;rw &#10;8,073 B&#10;7/29/2012 916:04 ...&#10;rw-r--r-&#10;1,675 B&#10;7/25/2012 11:55:12...&#10;rw-r--r-&#10;140 B&#10;4/23/2010 5:45:44 ...&#10;rw-r--r-&#10;132 B&#10;7/25/2012 6:41:51 ...&#10;rw-r--r-&#10;16,OSOB&#10;4/1/2013957:18PM&#10;rw &#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root&#10;root" 
-        src="assets/img/hw/mhtA436.tmp"
-        width=576 height=394></P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">&nbsp;</P>
-        <P style="FONT-SIZE: 11pt; FONT-FAMILY: Calibri; MARGIN: 0in">If you 
-        will log in frequently to edit files, click "Save…" on the previous 
-        screen. Then check the "Save password (not recommended)" box and click 
-        "OK"</P>
-        <P style="MARGIN: 0in"><IMG 
-        alt="Machine generated alternative text:&#10;I Save session as:" 
-        src="assets/img/hw/mhtA439.tmp"
-        width=342 height=150></P>
-  </div>
+<h3>Goal</h3>
+<div>
+    <p>The goal of this lab is to prepare the environment required for all subsequent homework assignments.
+        This will also permit you to become familiar with the basic homework setup.</p>
 </div>
+
+<h3>Deliverables</h3>
+<div>
+    <p>None</p>
+</div>
+
+<h3>Introduction</h3>
+<div>
+    <p>This course has homework covering a wide range of topics, from configuration of the environment and various tools to writing advanced programs.
+        It all comes packaged in a virtual machine to allow students to focus on specific tasks instead of
+        environment setup, which can be complicated in distributed systems. You are expected to download the provided virtual machine and install it on your own computer.</p>
+</div>
+
+<h3>Video</h3>
+<div>
+    <iframe width="560" height="315" src="//www.youtube.com/embed/FfpAAAw1gIY" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<h3>Installing the Virtual Machine</h3>
+<div>
+    <p>First off you will need VirtualBox to run the virtual machine. Download the latest version of the VirtualBox and install it on your local machine: <a
+                href="https://www.virtualbox.org/wiki/Downloads">VirtualBox downloads</a>.
+    </p>
+    <p>Afterwards you need to download the Virtual Machine Image from this 
+    <a href="http://cloudmooc.soic.indiana.edu:10002/mooc-ubuntu1204.ova">link</a>.
+    </p>
+</div>
+
+<h3>Running the Virtual Machine</h3>
+<div>
+    <p>Start the VirtualBox and go to menu File -> Import Appliance. Select the downloaded Virtual Machine image and import it to the VirtualBox. After the import is successful you can start the virtual machine.</p>
+</div>
+
+<h3>Logging in to the Virtual Machine</h3>
+<div>
+    <p>The virtual machine is password protected. You can log in using the credentials:</p>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td>summer</td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>school2012</td>
+        </tr>
+    </table>
+    <p>If you have trouble accessing or using the VM, please post a message to the forum so the staff or your classmates can respond.</p>
+</div>
+
+<h3>File structure</h3>
+<div>
+    <p>All the files related to homework can be found on the /root directory of the machine:</p>
+    <table>
+        <tr>
+            <td>MoocHomeworks</td>
+            <td>This folder contains all the homework material</td>
+        </tr>
+        <tr>
+            <td>software</td>
+            <td>Contains the software required by the homework</td>
+        </tr>
+    </table>
+    <p>Later homework will give a detailed description about the files required.</p>
+</div>
+
+<h3>Development Environment</h3>
+<div>
+    <p>Students are expected to complete the homework using Java programming language. We have installed Eclipse IDE in the Virtual machine for the purpose of development.
+        You can either use this or another product like VIM and gEdit for editing the programs.
+    </p>
+</div>
+
+<h3>Compiling & Running the Homework</h3>
+<div>
+    <p>The homework uses Ant build system to compile and package itself. Most have 
+    a build.sh file that will assist you in compiling the program.</p>
+</div>
+
+<h3>Copy files between VM and Local Machine</h3>
+<div>
+    <p>Some homework requires copying files between the VM and the local machine. To do this you need to create a shared folder between the host and the guest VM</p>
+    <ol>
+        <li>You need to install Guest Additions for the VM first. To do this, start the VM and from the VirtualBox "Devices" menu select "Insert Guest Additions CD Image" menu item and follow the instructions.</li>
+        <li>After this shutdown the VM and Go to Settings->Shared Folders of virtual machine</li>
+        <li>Add a new shared folder. Choose a folder from the host machine and give a name to the shared folder, for example myfiles</li>
+        <li>Now boot the VM and go to the command line</li>
+        <li>Create a folder to mount the shared folder, for example the folder is "share" created in the home directory, i.e mkdir ~/share</li>
+        <li>Now mount using the following command</li>
+        <li>sudo mount -t vboxsf myfiles ~/share</li>
+        <li>When asked for the password, give school2012</li>
+    </ol>
+    <p>More information can be found in the <a href="https://www.virtualbox.org/manual/ch04.html#sharedfolders">VirtualBox documentation</a>.</p>
+</div>
+
+
+
+

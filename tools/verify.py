@@ -104,7 +104,7 @@ LESSONS_HEADER = (
     'unit_id,unit_title,lesson_id,lesson_title,lesson_activity,'
     'lesson_activity_name,lesson_notes,lesson_video_id,lesson_objectives,lesson_description')
 HOME_WORKS_HEADER = (
-    'id,homework_id,title,filename')
+    'id,homework_id,type,optional,title,filename,difficulty,category')
 
 UNIT_CSV_TO_DB_CONVERTER = {
     'id': None,
@@ -134,10 +134,13 @@ LESSON_CSV_TO_DB_CONVERTER = {
 
 HOME_WORK_CSV_TO_DB_CONVERTER = {
     'id': ('id', int),
-
     'homework_id': ('homework_id', unicode),
+    'type': ('type', unicode),
+    'optional': ('optional', unicode),
     'title': ('title', unicode),
-    'filename': ('filename', unicode)
+    'filename': ('filename', unicode),
+    'difficulty': ('difficulty', int),
+    'category': ('category', unicode)
 }
 
 # pylint: disable-msg=anomalous-backslash-in-string

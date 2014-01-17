@@ -43,7 +43,8 @@ course:
   # priority. The image alt text allows the image to be understood by text-only
   # screen readers.
   main_video:
-    url: http://www.youtube.com/embed/tAUuY0Yld0E?theme=light&color=white&controls=0&rel=0
+    url: //www.youtube.com/embed/tzq3FuFvedo?theme=light&color=white&controls=1&rel=0&showinfo=0
+    #url: http://www.youtube.com/embed/tAUuY0Yld0E?theme=light&color=white&controls=0&rel=0
   main_image:
     url: /assets/img/banner1.png
     alt_text: Photo of Dan Russell
@@ -54,18 +55,18 @@ course:
   # Forum URL. For details, see
   #
   #     http://code.google.com/p/course-builder/wiki/WebForums.
-  forum_url: https://groups.google.com/d/forum/b534
+  forum_url: https://groups.google.com/d/forum/cloudmoocds
 
   # Forum embedding URL. This link is used to embed the forum in an iframe on
   # the forum.html page. Set this value to False if you don't use forum and/or
   # to remove the Forum link from the student navigation bar.
-  forum_embed_url: https://groups.google.com/forum/embed/?place=forum/b534     
+  forum_embed_url: https://groups.google.com/forum/embed/?place=forum/cloudmoocds    
 
   # URL for the mailing list where students can register to receive course
   # announcements. For details, see
   #
   #     http://code.google.com/p/course-builder/wiki/CreateEmailList
-  announcement_list_url: https://groups.google.com/d/forum/b534
+  announcement_list_url: https://groups.google.com/d/forum/cloudmoocds
 
   # Locale for internationalization. See modules/i18n/resources/locale for
   # available locales.
@@ -81,12 +82,12 @@ institution:
   name: 'PTI'
 
   # URL of your institution's webpage
-  url: 'LINK_TO_YOUR_INSTITUTION_HERE'
+  url: 'http://cloudmooc.appspot.com/'
 
   # Link and alt text for the logo of the course or your institution
   logo:
     url: 'assets/img/your_logo_here.png'
-    alt_text: YOUR_LOGO_HERE
+    alt_text: Cloud Mooc
 
 
 #########################################

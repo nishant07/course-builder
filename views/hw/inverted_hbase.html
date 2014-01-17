@@ -1,12 +1,21 @@
 <h1>Goal</h1>
-<p>Write an HBase FreqIndexBuilder program to build  an inverted index table which has the unique term&rsquo;s occurrences in each  document from the clueWeb09 dataset. Each row record of columnfamily &ldquo;frequencies&rdquo;  is unique, where the rowkey is the unique term stored in byte format, column  name is the documentId that contains this term, and the value is the term  frequency shown in each document. Note that each row has multiple columns. The  result must be uploaded to HBase clueWeb09IndexTable. Figure 1 shows the data  structure of clueWeb09IndexTable.<br />
+<p>Write an HBase FreqIndexBuilder program to build  an inverted index table which has the unique term&rsquo;s occurrences in all documents from the clueWeb09 dataset. Each row record of columnfamily &ldquo;frequencies&rdquo;  is unique, where the rowkey is the unique term stored in byte format, column  name is the documentId that contains this term, and value is the term  frequency shown per document. Note that each row has multiple columns. The  result must be loaded to HBase clueWeb09IndexTable. Figure 1 shows the schema of clueWeb09IndexTable.<br />
   </p>
   <p align="center"><img src="assets/img/hw/se3/1.png" alt="" width="624" height="108" /><br />
-  <em>Figure 1.</em> clueWeb09IndexTable table schema for  storing term frequencies and their related documentId</p>
+  Figure 1. clueWeb09IndexTable table schema for  storing term frequencies and their related documentId</p>
 <h1>Deliverables </h1>
 <p>Zip your source code, library, and results in  a file named <a href="mailto:e-mailBefore@-hbase-wordcount-proj2.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj2.zip</a>, where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Submit this file to the MOOC  submission page. </p>
 <h1>Evaluation</h1>
-<p>TBD</p>
+<div>
+    <p>The point total for this project is 5, where the
+        distribution is as follows:</p>
+    <ol type="a">
+        <li>Completeness of your code and output (3 points)</li>
+        <li>Correctness of written report (1.5 points)</li>
+        <li>Readability and clarity of README.txt (0.5 points)</li>
+    </ol>
+</div>
+
 <h1>Introduction </h1>
 <p>Hbase FreqIndexBuilder [1] is an advanced  WordCount program which counts the number of occurrences of each word in a  given text input dataset and also stores the related document name (identification  number) as HBase inverted index records. These Inverted indices&nbsp;for text  data are built for supporting efficient searches in a huge set of text data.</p>
 <h2>What is Inverted Index?</h2>
@@ -21,7 +30,7 @@
     </tr>
   </table>
 </div>
-<p>To build these  inverted indices, we reuse the ClueWeb09 dataset from Project #1, which was  created to support research on information retrieval and related human language  technologies. It consists of about 1 billion webpages in ten languages that  were collected in January and February 2009. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
+<p>To build these  inverted indices, we reuse the ClueWeb09 dataset from before, which was  created to support research on information retrieval and related human language  technologies. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
   In the clueWeb09IndexTable table each term  will have the same structure, with term as rowkey, values contained in documentId,  and the occurrence of the term within this document shown. Our goal is to write  an HBase program which generates an inverted index table by extracting the  information from the ClueWeb09 dataset. </p>
 <h2>Mapper and  Main Program </h2>
 <p>Now we are going to implement the HBase FreqIndexBuilder  program. As opposed to WordCount [3], our implementation only consists  of two main parts:</p>
@@ -34,77 +43,50 @@
 <p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot;, which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key,value&gt; pairs using the provided  Context.<br />
   &lt;key, value&gt; of this map function is  &lt;rowkey, content&gt;,  where the key  is the rowkey of an HBase record related to a specified URI, and the content is  the stored text of that URI. Your Map task should output &lt;word, &lt;docId, frequency&gt;&gt;  for each word in the content of text.<br />
   <em>Pseudocode</em></p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+<div>
             <pre>
 void Map (key, value){
     for each word x in the content of a hbase record:
     context.write(x, <docId, frequency>);
 }
             </pre>
-        </div>
   </div>
 <p><em>Detail implementation</em></p>
-<div class="dp-highlighter">
-        <div class="bar">
+
 <div>
-    <pre>
-public static class FibMapper extends TableMapper<ImmutableBytesWritable, Writable> {
-    @Override
-    protected void map(ImmutableBytesWritable rowKey, Result result, Context context) throws IOException, InterruptedException {
-        byte[] docIdBytes = rowKey.get();
-        byte[] contentBytes = result.getValue(Constants.CF_DETAILS_BYTES, Constants.QUAL_CONTENT_BYTES);
-        String content = Bytes.toString(contentBytes);
-
-        // TO DO: write your implementation for getting the term frequencies from each document, and generating put objects for
-        // clueWeb09IndexTable. Hint: use the "getWordFreqByLuceneAnalyzer" function to count the frequency of terms in content.
-                             /* Write your code here */
-
-        }
-    }
-}
-    </pre>
+    <script src="https://gist.github.com/cloudmooc/6235296.js"></script>
 </div>
-</div>
+
 <h3>Main program </h3>
 <p>Again, the main function has been provided as  standard initialization, and you may modify it to fit your own style. See the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [4].</p>
 <h1>Edit, compile  and run your code</h1>
-<p>The sketch code is  stored within the provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. You can use linux text editor vi/vim to  add your code.</p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+<p>The sketch code is  stored within the provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">Environment Setup</a>. You can use linux text editor vi/vim to  add your code.</p>
+<div>
 <pre>
-$ cd /root/hbaseMoocAntProject/
+$ cd /root/MoocHomeworks/HBaseInvertedIndexing/
 $ vim src/iu/pti/hbaseapp/clueweb09/FreqIndexBuilderClueWeb09.java
 </pre>
-        </div>
   </div>
 <div class="dp-highlighter">
-        <div class="bar">
 <pre>
-$ cd /root/hbaseMoocAntProject/
+$ cd /root/MoocHomeworks/HBaseInvertedIndexing/
 $ ./compileAndExecFreqIndexBuilderClueWeb.sh
 </pre>
-        </div>
   </div>
 <h2>View the result</h2>
 <p>The result is  generated as /root/hbaseMoocAntProject/output/project2.txt. </p>
-<div><br />
-<div class="dp-highlighter">
-        <div class="bar">
+<div>
 <pre>
-$ cd /root/hbaseMoocAntProject
+$ cd /root/MoocHomeworks/HBaseInvertedIndexing/
 $ cat output/project2.txt
 </pre>
-        </div>
   </div>
 <h1>What&rsquo;s next?</h1>
-<p>You will be ready  to program your next project: &ldquo;Twister PageRank and Test the Search Engine.&rdquo;</p>
+<p>You will be ready  to program your next project: &ldquo;Twister PageRank.&rdquo;</p>
 <h1>References</h1>
 <ol>
   <li>salsaHPC  IndexedHBase Project: <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>
   <li>Clueweb09  project and dataset: <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
   <li>Cloud Mooc Homework 1 - Hadoop WordCount: <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=1">http://cloudmooc.soic.indiana.edu:8080/homework?unit=1</a></li>
-  <li>HBase MapReduce Examples: <a href:"http://hbase.apache.org/book/mapreduce.example.html">http://hbase.apache.org/book/mapreduce.example.html</a></li>
+  <li>HBase MapReduce Examples: <a href="http://hbase.apache.org/book/mapreduce.example.html">http://hbase.apache.org/book/mapreduce.example.html</a></li>
 </ol>

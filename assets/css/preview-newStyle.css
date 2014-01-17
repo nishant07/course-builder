@@ -53,3 +53,8 @@ position: absolute;
     width: 600px;
     max-width: 100%;
 }
+
+
+body {
+	background: url(../img/blue%20mooc.jpg);
+}

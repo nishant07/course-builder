@@ -9,6 +9,7 @@
 
 {% block header_content %}
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
 <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <link href="assets/css/mooc.css" rel="stylesheet" type="text/css">
 
@@ -36,9 +37,17 @@ $('.icon-list-alt').click(function(event){
         var val = $(this).siblings('input').attr('value');
         window.location = val;
     });
+
+        {% if course_info.course.forum_embed_url %}
+            document.getElementById("forum_embed").src =
+                    "{{course_info.course.forum_embed_url}}"
+                            + "&showsearch=true&showpopout=true&showtabs=false"
+                            + "&parenturl=" + encodeURIComponent(window.location.href);
+        {% endif %}
     });
 
-    $
+
+
 </script>
 
 {% endblock %}
@@ -273,14 +282,6 @@ $('.icon-list-alt').click(function(event){
                     height="1000px">
             </iframe>
 
-            {% if course_info.course.forum_embed_url %}
-            <script type="text/javascript">
-                document.getElementById("forum_embed").src =
-                "{{course_info.course.forum_embed_url + "#!categories/b534/unit-" + gettext(unit.index)}}"
-                + "&showsearch=true&showpopout=true&showtabs=false"
-                + "&parenturl=" + encodeURIComponent(window.location.href);
-            </script>
-            {% endif %}
         </div>
     </div>
 </div>

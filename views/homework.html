@@ -25,17 +25,55 @@
 </script>
 
 <style>
-        h1, h2, h3 {
-                font-size: 18px;
-            /*display: block;*/
-            /*background-color: #f49955;*/
-            color: rgb(44, 80, 145);
-            /*padding-left: 10px;*/
-        }
-        p {
-             padding-top: 10px;
-        }
-    </style>
+    .badge {
+        font-style: normal;
+        margin-top: 5px;
+    }
+
+    h1, h2, h3 {
+        font-size: 18px;
+        /*display: block;*/
+        /*background-color: #f49955;*/
+        color: rgb(44, 80, 145);
+        /*padding-left: 10px;*/
+    }
+
+    p {
+        padding-top: 10px;
+    }
+
+    table {
+        margin-bottom: 0;
+    }
+
+    #homework a:link,a:visited {
+        color: #0000A0;
+        background-color: #FFFFFF;
+        text-decoration: underline;
+        target-new: none;
+    }
+
+    #homework a:hover {
+        color: #0000FF;
+        background-color: #FFFFFF;
+        text-decoration: underline;
+        target-new: none;
+    }
+
+    /*a:link,a:visited {*/
+        /*color: #0000A0;*/
+        /*background-color: #FFFFFF;*/
+        /*text-decoration: underline;*/
+        /*target-new: none;*/
+    /*}*/
+
+    /*a:hover {*/
+        /*color: #0000FF;*/
+        /*background-color: #FFFFFF;*/
+        /*text-decoration: underline;*/
+        /*target-new: none;*/
+    /*}*/
+</style>
 {% endblock %}
 
 {% block main_content %}
@@ -48,7 +86,7 @@
             </h4>
             {% include 'homework_navbar.html' %}
         </div>
-        <div class="span9">
+        <div class="span9" id="homework">
             <h4>
                 {{ gettext('%(title)s', title=homework.title) }}
             </h4>

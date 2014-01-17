@@ -1,56 +1,58 @@
 <div id="accordion">
-	<h1>
-		Deliverables
-	</h1>
-	<div>
-		<p>
-			You are required to turn in the following items in a zip file (<strong>groupID_Project1P2.zip</strong>)
-			in this assignment:
-		</p>
-		<ol>
-			<li>The source code of parallel PageRank you implemented.</li>
-			<li>The executable class file and the README file that describes its
-				usage.</li>
-			<li>Technical report (<strong>groupID_Project1P2_report.docx</strong>)
-				that contains:
-				<ol type="a">
-					<li>The description of the main steps and data flow in your
-						program.</li>
-					<li>The output file (<strong>groupID_pagerank_output.txt</strong>)
-						which contains the top 10 ranking url numbers.
-					</li>
-				</ol>
-			</li>
-		</ol>
-		<p>
-			Note that this document only provides MPI C/C++ instructions. If you
-			prefer or know MPJExpress <a href="http://mpj-express.org/">http://mpj-express.org/</a>,
-			please feel free to implement it.
-		</p>
-		<p>Points will be reduced (maximum 0.5 points) if the filename or
-			directory structure are different from instructed above.</p>
-	</div>
+    <h2>Goal</h2>
+    <div>
+        <p>The goal of this assignment is to implement the parallel Pagerank algorithm using MPI.</p>
+    </div>
 
-	<h1>Evaluation</h1>
-	<div>
-		<p>The point total for Project #1 Part 1 is 5, where the
-			distribution is as follows:</p>
-		<ol type="a">
-			<li>Completeness of your code and output (3 points)</li>
-			<li>Correctness of written report (1.5 points)</li>
-			<li>Readability and clarity of README.txt (0.5 points)</li>
-		</ol>
-	</div>
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+        <p>
+            You are required to turn in the following items in a zip file:
+        </p>
+        <ol>
+            <li>The source code of parallel PageRank you implemented.</li>
+            <li>The executable class file and the README file that describes its
+                usage.</li>
+            <li>Technical report that contains:
+                <ol type="a">
+                    <li>The description of the main steps and data flow in your
+                        program.</li>
+                    <li>The output file (<strong>pagerank_output.txt</strong>)
+                        which contains the top 10 ranking url numbers.
+                    </li>
+                </ol>
+            </li>
+        </ol>
+        <p>
+            Note that this document provides MPI C/C++ instructions as well as MPJExpress instructions. If you
+            prefer or know MPJExpress <a href="http://mpj-express.org/">http://mpj-express.org/</a>,
+            please feel free to implement it.
+        </p>
+        <p>Points will be reduced (maximum 0.5 points) if the filename or
+            directory structure are different from instructed above.</p>
+    </div>
+
+    <h2>Evaluation</h2>
+    <div>
+        <p>The point total for this project is 5, where the distribution is as follows:</p>
+        <ol type="a">
+            <li>Completeness of your code and output (3 points)</li>
+            <li>Correctness of written report (1.5 points)</li>
+            <li>Readability and clarity of README.txt (0.5 points)</li>
+        </ol>
+    </div>
 
 	<h1>Introduction</h1>
 	<div>
-		<p>In the second part of Project #1, you will implement a parallel
+		<p>In this second part of our PageRank homework, you will implement a parallel
 			version of PageRank by using MPI programming interface. We provide a
-			pseudocode for MPI PageRank and you need to complete the
-			implementation based on the pseudocode to make a working version of
-			it. We provide functions for file IO so that you can focus on main
-			implementation only. For more details on the PageRank algorithm, you can
-			refer to the previous descriptions for part 1 of Project #1.</p>
+			pseudocode for MPI PageRank and you will have to complete the
+			implementation based on this to make a working version. We provide 
+			functions for file IO so that you can focus on main
+			implementation only. For more details on the PageRank algorithm, 
+			refer to the previous descriptions for Homework 8 and 10.</p>
 
 		<p>
 			<strong>Parallel PageRank</strong>
@@ -66,178 +68,20 @@
 			implementation.</p>
 	</div>
 
-	<h1>Pseudocode for MPI PageRank</h1>
-
-
-
-
+	<h1>C MPI PageRank</h1>
 	<div>
+        <p>The skeleton code can be found in the /root/MoocHomeworks/MPIPagerRank/c folder.</p>
 		<p>You need to complete two files: mpi_main.c and mpi_pagerank.c.
 			Pseudocodes are as follows:</p>
 		<p>
-			<br> <strong>mpi_main.c </strong>
+			<br> <strong>mpi_main.c & mpi_pagerank.c</strong>
 		</p>
-
-		<!-- HTML generated using hilite.me -->
-		<div
-			style="background: #ffffff; overflow: auto; width: auto;">
-			<pre style="margin: 0; line-height: 125%">
-				<span style="color: #507090">#include &lt;mpi.h&gt; </span>
-<span style="color: #507090">#include &quot;pagerank.h&quot; </span>
- 
-<span style="color: #303090; font-weight: bold">int</span> <span
-					style="color: #0060B0; font-weight: bold">main</span>(<span
-					style="color: #303090; font-weight: bold">int</span> argc, <span
-					style="color: #303090; font-weight: bold">char</span> <span
-					style="color: #303030">**</span>argv) 
-{ 
-    <span style="color: #808080">/* Definition of data structure and variables for MPI PageRank */</span> 
-    <span style="color: #303090; font-weight: bold">int</span> numUrls, totalNumUrls; 
-    <span style="color: #303090; font-weight: bold">char</span> <span
-					style="color: #303030">*</span>filename; 
-    <span style="color: #303090; font-weight: bold">int</span> <span
-					style="color: #303030">**</span>am_index; <span
-					style="color: #808080">/* int[numUrls][2] */</span> 
-                    <span style="color: #808080">/* am_index[i][0]refers to second index for am,  am_index[i][1] refers to length of target urls list */</span> 
-    <span style="color: #303090; font-weight: bold">int</span> <span
-					style="color: #303030">*</span>adjacency_matrix;      <span
-					style="color: #808080">/* [numTotalWebPages] */</span> 
-    <span style="color: #303090; font-weight: bold">double</span> <span
-					style="color: #303030">*</span>rank_values_table;  <span
-					style="color: #808080">/* [numUrls] */</span> 
-    <span style="color: #303090; font-weight: bold">double</span> threshold; 
-   
-    <span style="color: #303090; font-weight: bold">int</span> rank, nproc, mpi_namelen; 
-    <span style="color: #303090; font-weight: bold">char</span> mpi_name[MPI_MAX_PROCESSOR_NAME]; 
- 
-    <span style="color: #808080">/* MPI Initialization */</span> 
-    MPI_Init(<span style="color: #303030">&amp;</span>argc, <span
-					style="color: #303030">&amp;</span>argv); 
-    MPI_Comm_rank(MPI_COMM_WORLD, <span style="color: #303030">&amp;</span>rank); 
-    MPI_Comm_size(MPI_COMM_WORLD, <span style="color: #303030">&amp;</span>nproc); 
-    MPI_Get_processor_name(mpi_name, <span style="color: #303030">&amp;</span>mpi_namelen); 
- 
-    <span style="color: #808080">/* Parse command line arguments */</span> 
- 
-    <span style="color: #808080">/* Read local adjacency matrix from file for each process */</span> 
-    mpi_read(filename, <span style="color: #303030">&amp;</span>numUrls, <span
-					style="color: #303030">&amp;</span>am_index, <span
-					style="color: #303030">&amp;</span>adjacency_matrix, MPI_COMM_WORLD); 
-
-    <span style="color: #808080">/* Set totalNumUrls */</span> 
-    MPI_Allreduce(<span style="color: #303030">&amp;</span>numUrls, <span
-					style="color: #303030">&amp;</span>totalNumUrls, <span
-					style="color: #0000D0; font-weight: bold">1</span>, MPI_INT, MPI_SUM,MPI_COMM_WORLD); 
- 
-    <span style="color: #808080">/* Global page rank value table */</span> 
-    rank_values_table <span style="color: #303030">=</span> (<span
-					style="color: #303090; font-weight: bold">double</span> <span
-					style="color: #303030">*</span>) malloc(totalNumUrls <span
-					style="color: #303030">*</span> <span
-					style="color: #008000; font-weight: bold">sizeof</span>(<span
-					style="color: #303090; font-weight: bold">double</span>)); 
-    assert(rank_values_table <span style="color: #303030">!=</span> <span
-					style="color: #007020">NULL</span>); 
- 
-    <span style="color: #808080">/* Root(rank 0) computes the initial rank value for each web page */</span> 
- 
-    <span style="color: #808080">/* Broadcast the initial rank values to all other compute nodes */</span> 
-    MPI_Bcast(rank_values_table, totalNumUrls, MPI_DOUBLE, <span
-					style="color: #0000D0; font-weight: bold">0</span>, MPI_COMM_WORLD);        
- 
-    <span style="color: #808080">/* Start the core computation of MPI PageRank */</span> 
-    mpi_pagerank(adjacency_matrix, am_index, numUrls, totalNumUrls, 
-                 num_iterations, threshold, rank_values_table, 
-                 MPI_COMM_WORLD); 
- 
-    <span style="color: #808080">/* Save results to a file */</span> 
-     
-    <span style="color: #808080">/* Release resources e.g. free(adjacency_matrix); */</span> 
- 
-    MPI_Finalize(); 
-    <span style="color: #008000; font-weight: bold">return</span> (<span
-					style="color: #0000D0; font-weight: bold">0</span>); 
-} 
-</pre>
-		</div>
-
-		<p>
-			<br> <strong>mpi_pagerank.c </strong>
-		</p>
-
-		<!-- HTML generated using hilite.me -->
-		<div
-			style="background: #ffffff; overflow: auto; width: auto;">
-			<pre style="margin: 0; line-height: 125%">
-				<span style="color: #507090">#include &lt;mpi.h&gt; </span>
-<span style="color: #507090">#include &quot;pagerank.h&quot; </span>
- 
-<span style="color: #808080">/* Define mpi_pagerank function with following signature */</span> 
-<span style="color: #303090; font-weight: bold">int</span> <span
-					style="color: #0060B0; font-weight: bold">mpi_pagerank</span>( 
-    <span style="color: #303090; font-weight: bold">int</span> adjacency_matrix, <span
-					style="color: #808080">/* adjacency matrix for pagerank */</span>  
-    <span style="color: #303090; font-weight: bold">int</span> <span
-					style="color: #303030">**</span>am_index, <span
-					style="color: #808080">/* index array for adjacency matrix */</span> 
-    <span style="color: #303090; font-weight: bold">int</span> numUrls,        <span
-					style="color: #808080">/* num of urls assigned to local machine */</span> 
-    <span style="color: #303090; font-weight: bold">int</span> total_num_urls, <span
-					style="color: #808080">/* num of total urls */</span> 
-    <span style="color: #303090; font-weight: bold">int</span> num_iterations, <span
-					style="color: #808080">/* num of maximum interations */</span> 
-    <span style="color: #303090; font-weight: bold">double</span> threshold,   <span
-					style="color: #808080">/* control the number of iterations */</span> 
-    <span style="color: #303090; font-weight: bold">double</span> <span
-					style="color: #303030">*</span>rank_values_table, <span
-					style="color: #808080">/* double[total_num_urls] */</span> 
-    MPI_Comm comm)             <span style="color: #808080">/* MPI communicator */</span> 
-{ 
-    <span style="color: #808080">/* Definitions of variables */</span> 
- 
-    <span style="color: #808080">/* Get MPI rank */</span> 
-    MPI_Comm_rank(comm, <span style="color: #303030">&amp;</span>rank); 
- 
-    <span style="color: #808080">/* Allocate memory and initialize values for local_rank_values_table */</span> 
- 
-    <span style="color: #808080">/* Start computation loop */</span> 
-    <span style="color: #008000; font-weight: bold">do</span> 
-    { 
-        <span style="color: #808080">/* Compute pagerank and dangling values */</span> 
- 
-        <span style="color: #808080">/* Distribute pagerank values */</span> 
-        MPI_Allreduce(local_rank_values_table, rank_values_table, 
-                      total_num_urls, MPI_DOUBLE, MPI_SUM, comm); 
- 
-        <span style="color: #808080">/* Distribute dangling values */</span> 
-        MPI_Allreduce(<span style="color: #303030">&amp;</span>dangling, <span
-					style="color: #303030">&amp;</span>sum_dangling, <span
-					style="color: #0000D0; font-weight: bold">1</span>, MPI_DOUBLE, MPI_SUM, comm); 
-         
-        <span style="color: #808080">/* Recalculate the page rank values with damping factor 0.85 */</span> 
- 
-        <span style="color: #808080">/* Root(process 0) computes delta to determine to stop or continue */</span> 
- 
-        <span style="color: #808080">/* Root broadcasts delta */</span> 
-        MPI_Bcast(<span style="color: #303030">&amp;</span>delta, <span
-					style="color: #0000D0; font-weight: bold">1</span>, MPI_DOUBLE, <span
-					style="color: #0000D0; font-weight: bold">0</span>, MPI_COMM_WORLD); 
-    } 
-    <span style="color: #008000; font-weight: bold">while</span> (delta <span
-					style="color: #303030">&gt;</span> threshold <span
-					style="color: #303030">&amp;&amp;</span> loop<span
-					style="color: #303030">++</span> <span style="color: #303030">&lt;</span> num_iterations); 
-    <span style="color: #008000; font-weight: bold">return</span> <span
-					style="color: #0000D0; font-weight: bold">1</span>; 
-} 	
-</pre>
-		</div>
-	</div>
-
+        <script src="https://gist.github.com/cloudmooc/6272489.js"></script>
+    </div>
 	<h1>FILE IO functions</h1>
 	<div>
 		<p>Besides pseudocodes, we provide two MPI functions (mpi_read
-			and mpi_write) for file reading and writing. This is so you can simply
+			and mpi_write) for file reading and writing. This is so you can easily
 			call them without re-implementation.</p>
 		<p>
 			<strong>mpi_read </strong>
@@ -280,7 +124,7 @@
 			<strong>mpi_write </strong>
 		</p>
 		<p>This function is for saving rank values to a file. We assume
-			rank values are synchronized through all processes. Therefore it
+			rank values are synchronized through all processes, therefore it
 			doesn&#8217;t matter which process you choose to write. In this function, 
 			we simply have root (rank 0) processes to write rank values to a file.</p>
 
@@ -312,33 +156,13 @@
 	<h1>Compile guide</h1>
 	<div>
 		<p>Instructions for compiling and a recommended execution guide are
-			as follows (we assume that you will compile and run on machines of the CS
-			department, such as burrow cluster):</p>
+			as follows. We assume you are using the Virtual Machine we've provided for compiling and running the code.</p>
 		<p>
 			<strong>Step one: Compile </strong>
 		</p>
-		<p>To compile MPI code, you need to set up correct MPI development
-			environments. You can do that by using an &#8220;mpi-selector&#8221;
-			command:</p>
-		<p>First, check which MPI versions are available:</p>
-		<pre>$ mpi-selector &#8211;list</pre>
-		<p>In Silo, you can see the following list:</p>
-		<pre>lam-i386 
-lam-x86_64 
-openmpi-1.4-gcc-i386 
-openmpi-1.4-gcc-x86_64 
-</pre>
-		<p>Second, choose one of the MPI versions in the list by executing
-			the following command:</p>
-		<pre>$ mpi-selector --set openmpi-1.4-gcc-i386</pre>
-		<p>You may see a warning for overwriting your previous setting.
-			You can answer 'yes'.</p>
-		<p>Next you will see 'Defaults already exist; overwrite them (Y/N)?' Choose 'Yes'.</p>
-		<p>Now you are ready to compile the sample simply by using the
-			&#8220;make&#8221; command (we provide Makefile for you).</p>
 		<pre>
 $ make clean
-$ make 
+$ make
 </pre>
 		<p>You will see an executable &#8220;mpi_main&#8221; in the
 			directory.</p>
@@ -349,7 +173,7 @@ $ make
 			an input. Most importantly we should be able to specify input file by
 			using &#8220;-i&#8221; option and the number of iterations by using
 			&#8220;-n&#8221; option. The full list of options you need to
-			implement is as follows:</p>
+			implement is shown below:</p>
 		<pre>
 $ mpi_main -h 
 Usage: mpi_main -i filename -n num_iterations 
@@ -362,15 +186,15 @@ Usage: mpi_main -i filename -n num_iterations
 		</pre>
 
 		<p>
-			To run &#8220;mpi_main&#8221;, you need to use a MPI command called
+			To run &#8220;mpi_main&#8221;, you need to use an MPI command called
 			&#8220;mpirun&#8221;. For example, to process
-			&#8220;pagerank.input&#8221; file (included as a sample input) by
+			&#8220;pagerank.input1&#8221; file (included as a sample input) by
 			using 2 processes concurrently, you can type the following commands:
 			<br /> <br />
 		</p>
-		<pre>$ mpirun -np 2 mpi_main -i pagerank.input -n 10 -t 0.001</pre>
+		<pre>$ mpirun -np 2 mpi_main -i pagerank.input1 -n 10 -t 0.001</pre>
 		<p>
-			<br /> The following is an example of MPI PageRank execution. <br />
+			<br /> Below is an example of MPI PageRank execution. <br />
 			<br />
 		</p>
 		<pre>
@@ -392,7 +216,7 @@ Proc:0 is writing rank values of 11 urls to file pagerank.output
 Num of processes   = 2 
 Input file         = pagerank.input 
 totalNumUrls       = 11 
-num_itertaions     = 10 
+num_iterations     = 10 
 threshold          = 0.001000000 
 I/O time           =     0.4031 sec 
 Computation timing =     0.0002 sec 	
@@ -400,3 +224,34 @@ Computation timing =     0.0002 sec
 		</div>
 
 	</div>
+    <h1>Java Pagerank</h1>
+<p>To compile and run the program:</p>
+<p>The skeleton code for the C program can be found in /root/MoocHomeworks/MPIPageRank/mpj. You need to complete the java classes.</p>
+<script src="https://gist.github.com/cloudmooc/6516348.js"></script>
+
+<p>Download MPJ Express and unpack it.</p>
+<p>Set MPJ_HOME and PATH environmental variables:</p>
+<pre>
+export MPJ_HOME=/path/to/mpj/
+export PATH=$PATH:$MPJ_HOME/bin
+</pre>
+(The above two lines can be added to ~/.bashrc).
+<p>Start the MPJ Daemon using the following command:</p>
+<pre>./mpjdaemon_linux_x86_32 start</pre>
+
+
+<li>Compile the project:
+<pre>javac -cp .:$MPJ_HOME/lib/mpj.jar [Java files]</pre></li>
+
+<li>Execute the project :
+<pre>mpjrun.sh -np 3 [main program] [arguments to the main program]</pre>
+</li>
+</ul>
+<p>In the previous command the -np 3 indicates the number of processes.</p>
+<p>For this program you can give inputs like:</p>
+<ul>
+<li>Input file containing the adjacency matrix</li>
+<li>Output file to write the output rank values</li>
+<li>Iteration count that specifies the number of iterations for the calculation of rank (the higher the number of iterations, the more accurate the results would be)</li>
+<li>The threshold value</li>
+</ul>

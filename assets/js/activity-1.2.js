@@ -31,27 +31,54 @@
 
 var activity = [
 
-  '<table border="2"><tr><td><b>Search Tips:</b><p><ul><li>In the last video, you learned how to use color filtering within image search to narrow your image results to images made up primarily of a certain color. You do this by clicking on the appropriate colored box in the left panel. <li>Please note that you can’t filter by color on iPad or Android tablets, but you can answer the questions below as if you were using a laptop or desktop computer.</ul><p></tr></td></table><br>',
+    '<b>1.</b> Select the one that is not a commercial cloud offering</br>',
 
-  '<img src="assets/img/Image1.1a.png" height=450 width=785><p/>',
-  '<b>1.</b> You want to re-read an introductory accounting textbook from school, but you cannot remember the exact title. You recall that the cover is yellow and has puzzle pieces on it. In the image above, where would you click to filter the results in order to locate the book?',
+    { questionType: 'multiple choice',
+        choices: [['Amazon Web Services', false, 'Please try again.'],
+            ['Twitter', false, 'Correct.'],
+            ['Google App Engine', false, 'Please try again.'],
+            ['Microsoft Azure', true, 'Please try again']]},
 
-  { questionType: 'multiple choice',
-    choices: [['A', false, 'Please try again.'],
-              ['B', false, 'Please try again.'],
-              ['C', false, 'Please try again.'],
-              ['D', true, 'Correct! Filtering by color would help you view all the books with yellow covers.']]},
+    '<br><b>2.</b>Select which sentence describes Hadoop</br>',
 
-  '<br><br><br><img src="assets/img/Image1.3.png" height=450 width=785><p/>',
-  '<br><b>2.</b> You want statistics on college loans. If you search using [college loans statistics], you get the image results above. What color would you click to see just the charts and graphs? ',
+    { questionType: 'multiple choice',
+        choices: [['A programming model for distributed computing', false, 'Please try again.'],
+            ['A Software Library that implements map reduce', true, 'Correct.']]},
 
-  { questionType: 'freetext',
-    correctAnswerRegex: /white?/i,
-    correctAnswerOutput: 'Correct! Many charts, tables, and graphs have white backgrounds, so filtering for white images helps you find them faster.',
-    incorrectAnswerOutput: 'Try again. Consider what color would be dominant in images of charts, tables, and graphs. Look at the results above. Each of those sources is traditionally printed on paper.',
-    showAnswerOutput: 'Our search expert says: I would click on white in the color grid, since many charts, tables, and graphs have white backgrounds.' },
 
-  '<br><br><br><b>3.</b> What is something you have wanted to find that color filtering might have helped you locate faster? Try it out and share your story in the <a href="LINK_TO_COURSE_FORUM" target="_blank">forum</a>.',
+    '<br><b>3.</b>Which of the following is not an advantage of cloud computing</br>',
 
+    { questionType: 'multiple choice',
+        choices: [['No need to have in house data centers', false, 'Please try again.'],
+            ['Time and money savings because no need to maintain physical machines', false, 'Please try again.'],
+            ['Data security ', true, 'Correct.'],
+            ['Doesn’t have to buy expensive software licenses ', false, 'Please try again']]},
+
+    '<br><b>4.</b>What is a biggest concern for a company when moving their applications to the cloud</br>',
+
+    { questionType: 'multiple choice',
+        choices: [['Information security', true, 'Correct.'],
+            ['Cost of operation', false, 'Please try again.'],
+            ['Training employees', false, 'Please try again.'],
+            ['Availability of cloud platforms', false, 'Please try again']]},
+
+    '<br><b>5.</b>If you want to build an application with the maximum control of a cloud environment what service layer you will choose to build your application</br>',
+    { questionType: 'multiple choice',
+        choices: [['IaaS', true, 'Correct.'],
+            ['PaaS', false, 'Please try again.'],
+            ['SaaS', false, 'Please try again.'],
+            ['None of the above', false, 'Please try again']]},
+
+    '<br><b>6.</b>Select all the function that is not handled by MapReduce</br>',
+    { questionType: 'multiple choice',
+        choices: [['Fault handling', false, 'Please try again.'],
+            ['Parallelization', false, 'Please try again.'],
+            ['Data distribution among computation nodes', false, 'Please try again.'],
+            ['Data security', true, 'Correct']]},
+
+    '<br><b>7.</b>MapReduce is a batch processing model, true or false?</br>',
+    { questionType: 'multiple choice',
+        choices: [['True', true, 'Correct.'],
+            ['False', false, 'Please try again.']]}
 ];
 

@@ -1,344 +1,214 @@
 <h1>Goal</h1>
-<p>Write a Twister program to calculate PageRank  values for the clueWeb09 dataset. These values will be written to an  HBase clueWeb09PageRankTable table by a provided java uploader.    <br />
-  Each row record of columnfamily &ldquo;pagerank&rdquo;  is unique, where the rowkey is the unique documentId stored in byte format,  column name is the pagerank value of that document, and the value is NULL.  Figure 1 shows the data structure of clueWeb09PageRankTable. You will also use  our provided tester to verify the search engine is working correctly.</p>
-<p align="center"><img src="assets/img/hw/se4/1.png" alt="" width="231" height="116" /><br />
-  <em>Figure 1.</em> clueWeb09PageRankTable table schema for  storing ranks of webpages<br /></p>
+<p>Write a Twister program to calculate PageRank values for the clueWeb09 dataset. These values will
+    be written to an HBase clueWeb09PageRankTable table by a provided java uploader.    <br/>
+    Each row record of columnfamily &ldquo;pagerank&rdquo; is unique, where the rowkey is the unique
+    documentId stored in byte format, column name is the pagerank value of that document, and the
+    value is NULL. Figure 1 shows the data structure of clueWeb09PageRankTable.</p>
+<p align="center"><img src="assets/img/hw/se4/1.png" alt="" width="231" height="116"/><br/>
+    <em>Figure 1.</em> clueWeb09PageRankTable table schema for storing ranks of webpages<br/></p>
 <h1>Deliverables </h1>
-<p>Zip your source code, library, and results in  a file named <a href="mailto:e-mailBefore@-hbase-wordcount-proj3.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj3.zip</a>, where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Please submit this file to the  MOOC submission page. </p>
+<p>Zip your source code, library, and results in a file named <a
+        href="mailto:e-mailBefore@-hbase-wordcount-proj3.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj3.zip</a>,
+    where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Please submit
+    this file to the MOOC submission page. </p>
 <h1>Evaluation</h1>
-<p>TBD</p>
+<div>
+    <p>The point total for this project is 5, where the
+        distribution is as follows:</p>
+    <ol type="a">
+        <li>Completeness of your code and output (3 points)</li>
+        <li>Correctness of written report (1.5 points)</li>
+        <li>Readability and clarity of README.txt (0.5 points)</li>
+    </ol>
+</div>
+
 <h1>Introduction </h1>
-<p>This project reveals the technologies behind  modern search engines like Google Search, Bing Search and Yahoo Search [1]. Project  2 has built inverted indices for the clueweb09 [2] data, and stored the indices  with HBase. It provides the function to locate a keyword among a set of  text-based documents. However, to better serve a search query, we need to calculate  a ranking value (PageRank) of each document to optimize the search results. <br />
-  In this project we will go through the  PageRank algorithm and a Twister PageRank implementation. Then we use the indexed  table from Project 2 and test our in-house search engine. </p>
-<h2>What is PageRank?</h2>
-<p>The  web search engine is a typical distributed system on the Internet. It is  designed to search for information on the World Wide Web. The search results  are generally presented in a list of results and are often called hits.  PageRank is a well-known web graph ranking algorithm that helps Internet users  sort hits by their importance. <br />
-  PageRank  calculates a numerical value for each element of a hyperlinked set of webpages,  which reflects the probability that a random surfer will access that page. The  process of PageRank can be understood as a Markov  Chain [3] which requires  iterative calculation to converge. An iteration  of PageRank calculates the new access probability for each webpage based on  values calculated in the previous iteration. The process will repeat until the  number of current iterations is bigger than predefined maximum iterations, or the  Euclidian distance between rank values in two subsequent iterations is less  than a predefined threshold that controls the accuracy of the output results.  <br />
-  <p align="center"><img src="assets/img/hw/se4/2.png" alt="" width="406" height="328" /><br />
-  <em>Fig</em><em>ure 2.</em>  Mathematical  PageRank for a simple network in Wikipedia<br /></p>
-  Figure 2 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to a unique  webpage, and the directed edge means there is one link from the source webpage  to the target webpage. The percentage on each vertex represents the rank value  of each webpage.</p>
-<h3>Notes:</h3>
-<p>You  can implement a sequential PageRank that can run on desktops or laptops. But when  processing larger input data, like web graphs containing more than a million webpages,  you need to run the PageRank application in parallel so that it can aggregate  the computing power of multiple compute nodes. Currently, in both industry and  academia, the study of large-scale web or social graphs has become increasingly  popular. In one published paper, the job execution engines that claim to  support large-scale PageRank include: MPI, Hadoop,  Dryad, Twister, Pregel.  <br />
-  Project #1 is divided into two parts. In the first part, you  need to implement the sequential version of PageRank. In the second part, you  will implement a parallel version of PageRank by using the programming  interfaces of Hadoop MapReduce job execution engine. </p>
-<h3>Formula</h3>
-<p>Eqn.1  is the formula to calculate the rank value for each webpage. We will learn this  formula by applying it to the case in Fig.1. There are 11 webpages in Fig.1,  which include: {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Assuming the probability  distribution for a web surfer accessing all these 11 pages in current iteration  is {PR(A), PR(B), PR(C),  … PR(G5)}, then  the probability for the surfer to access Page B in the next iteration is:   <br />
-  PR(B)  =  PR(D)/2 + PR(E)/3 + PR(F)/2 + PR(C) +  PR(G1)/2 + PR(G2)/2 + PR(G3)/2 <br />
-  In a general case, the PageRank value for any page <em>u</em> can be expressed as:<br />
-  Eqn.1:   <br />
-  The  vertices seen in the right of the formula contain all the webpages that point  to target webpage &lsquo;u&rsquo;. The L(v) refers to the out degree of each webpage in the  vertices set. The initial rank values of each webpage, like PR&rsquo;(u), can be any  double value. After several iteration calculations, the rank values converge to  the stationary distribution regardless of what their initial values are. Markov Chain [3]</p>
-<h3>Damping factor</h3>
-<p>The PageRank theory holds that even an  imaginary surfer who is randomly clicking on links will eventually stop  clicking. The probability, at any step, that the person will continue is a  damping factor <strong>d</strong>.  Various studies have tested different damping factors, but it is generally  assumed that the damping factor will be around 0.85. The formula considering  damping factor is shown in Eqn.2. N refers to the total number of unique urls. <br />
-  Eqn.2: </p>
-<h2>What is  Twister?</h2>
-<p>Twister MapReduce Framework [4] is a Java  implementation of the MapReduce programming model with extended features such  as supporting Iterative MapReduce computations. It can cooperate with different  messaging software, e.g. Apache ActiveMQ [5], to execute MapReduce jobs. Figure  3 shows the iterative programming model supported by Twister. Figure 4 presents  the system architecture of Twister.</p>
+<p>This project reveals the technologies behind modern search engines like Google Search, Bing
+    Search and Yahoo Search [1]. In Homework #8 you built inverted indices for the clueweb09 [2] data,
+    and stored the indices with HBase. This homework provides the function to locate a keyword among a set of
+    text-based documents. However, to better serve a search query, we need to calculate a ranking
+    value (PageRank) of each document to optimize the search results. <br/>
+    In this project we will go through a Twister PageRank implementation.
+
+<div>
+    <iframe width="560" height="315" src="//www.youtube.com/watch?v=j2-cFxhC3SY" frameborder="0" allowfullscreen></iframe>
+</div>
+
+</p>
+<h2>What is Twister?</h2>
+<p>Twister MapReduce Framework [4] is a Java implementation of the MapReduce programming model with
+    extended features such as supporting Iterative MapReduce computations. It can cooperate with
+    different messaging software, e.g. Apache ActiveMQ [5], to execute MapReduce jobs. Figure 3
+    shows the iterative programming model supported by Twister. Figure 4 presents the system
+    architecture of Twister.</p>
 <table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="319"><img src="assets/img/hw/se4/3.png" alt="" width="614" height="364" /><br /></td>
-    </tr>  
     <tr>
-    <td width="319"><p align="center"><em>Figure 3.</em> Twister Programming Model</p></td>      
+        <td width="319"><img src="assets/img/hw/se4/3.png" alt="" width="614" height="364"/><br/>
+        </td>
     </tr>
-</table>  
-  <table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="319"><p align="center"><img src="assets/img/hw/se4/4.png" alt="" width="614" height="428" /></p></td>
-  </tr>
-  <tr>
-    <td width="319"><p align="center"><em>Figure 4.</em> Twister Architecture</p></td>
-  </tr>
+    <tr>
+        <td width="319"><p align="center"><em>Figure 3.</em> Twister Programming Model</p></td>
+    </tr>
 </table>
-<p>Twister provides the following features to  support MapReduce computations. </p>
+<table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td width="319"><p align="center"><img src="assets/img/hw/se4/4.png" alt="" width="614"
+                                               height="428"/></p></td>
+    </tr>
+    <tr>
+        <td width="319"><p align="center"><em>Figure 4.</em> Twister Architecture</p></td>
+    </tr>
+</table>
+<p>Twister provides the following features to support MapReduce computations. </p>
 <ul>
-  <li>Distinction  between static and variable data</li>
-  <li>Configurable  long-running (cacheable) map/reduce tasks</li>
-  <li>Pub/sub  messaging-based communication/data transfers</li>
-  <li>Efficient  support for Iterative MapReduce computations (far faster than Hadoop or  Dryad/DryadLINQ)</li>
-  <li>Combine  phase to collect all reduce outputs</li>
-  <li>Data  access via local disks</li>
-  <li>Lightweight  (~5600 lines of Java code)</li>
-  <li>Support  for typical MapReduce computations</li>
-  <li>Tools  to manage data</li>
+    <li>Distinction between static and variable data</li>
+    <li>Configurable long-running (cacheable) map/reduce tasks</li>
+    <li>Pub/sub messaging-based communication/data transfers</li>
+    <li>Efficient support for Iterative MapReduce computations (far faster than Hadoop or
+        Dryad/DryadLINQ)
+    </li>
+    <li>Combine phase to collect all reduce outputs</li>
+    <li>Data access via local disks</li>
+    <li>Lightweight (~5600 lines of Java code)</li>
+    <li>Support for typical MapReduce computations</li>
+    <li>Tools to manage data</li>
 </ul>
 <h2>Mapper, Reducer, Combiner, and Main Program </h2>
-<p>Now we are going to implement the Twister  PageRank program. Following the Twister programming model, this program  contains four main parts. Note that the main program is provided with fixed  input parameters.</p>
+<p>Now we are going to implement the Twister PageRank program. Following the Twister programming
+    model, this program contains four main parts. Note that the main program is provided with fixed
+    input parameters.</p>
 <ul>
-  <li>Mapper</li>
-  <li>Reduce</li>
-  <li>Combiner</li>
-  <li>Main  program</li>
+    <li>Mapper</li>
+    <li>Reduce</li>
+    <li>Combiner</li>
+    <li>Main program</li>
 </ul>
-<p>In Twister implementations of PageRank, we  constructed web graphs with vertices where in-link degree of all pages complies  with the power law distribution. This input data is partitioned into a few  parts and stored in the format of an adjacency list. Each map function runs on  one of the partitioned datasets, which is constant over the iterations. The  variable data is the PageRank values calculated during previous iterations,  which in turn is used as the input value for the next iteration. In each  iteration, the MAP task updates the old PageRank values to the new ones by  analyzing the local partial adjacency list file. The output of each MAP task is  only a part of the PageRank values. The reduce task receives all the partial  output and produces the new PageRank values. Figure 5 shows a dataflow diagram  of this program.<br /></p>
-  <p align="center"><img src="assets/img/hw/se4/5.png" alt="" width="344" height="258" /><br />
-  <em>Figure 5</em>. Twister PageRank dataflow</p>
+<p>In Twister implementations of PageRank, we constructed web graphs with vertices where in-link
+    degree of all pages complies with the power law distribution. This input data is partitioned
+   and stored in the format of an adjacency list. Each map function runs on one of
+    the partitioned datasets, which is constant over the iterations. The variable data is the
+    PageRank values calculated during previous iterations, which in turn is used as the input value
+    for the next iteration. In each iteration, the MAP task updates the old PageRank values to the
+    new ones by analyzing the local partial adjacency list file. The output of each MAP task is only
+    a part of these values. The reduce task receives all the partial output and produces the
+    new PageRank values. Figure 5 shows a dataflow diagram of this program.<br/></p>
+<p align="center"><img src="assets/img/hw/se4/5.png" alt="" width="344" height="258"/><br/>
+    <em>Figure 5</em>. Twister PageRank dataflow</p>
 <h3>Mapper</h3>
-<p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;cgl.imr.base.MapTask&lt;collector, Key, Value&gt;&quot; which  provides a collector for map task output, and &lt;key, value&gt; pairs as the map  input. A Mapper implementation outputs a new set of &lt;key,value&gt; pairs  using the provided Context.<br />
-  &lt;key, value&gt; of PageRank&rsquo;s map function  is &lt;taskID, updated PageRank Values&gt;, where the key is the index of the current map  task and the value is the compressed changed PageRank values of each iteration.  Each map task will use this information along with the split data to calculate  the partial PageRank values, after which it emits the map output as &lt;taskID,  partial updated PageRank Values&gt;.<br />
- 
-          
-  <em>Pseudocode</em></p>
-   <div class="dp-highlighter">
-        <div class="bar">
+<p>A Mapper overrides the &ldquo;map&rdquo; function from the Class &quot;cgl.imr.base.MapTask&lt;collector,
+    Key, Value&gt;&quot; which provides a collector for map task output, and &lt;key, value&gt;
+    pairs as the map input. A Mapper implementation outputs a new set of &lt;key, value&gt; pairs
+    using the provided Context.<br/>
+    &lt;key, value&gt; of PageRank&rsquo;s map function is &lt;taskID, updated PageRank Values&gt;,
+    where the key is the index of the current map task and the value is the compressed changed
+    PageRank values of each iteration. Each map task will use this information along with the split
+    data to calculate the partial PageRank values, after which it emits the map output as &lt;taskID,
+    partial updated PageRank Values&gt;.<br/>
+
+
+    <em>Pseudocode</em></p>
 <div>
     <pre>
 void Map (key, value){
-    for each url in a assigned map task:
+    for each url in an assigned map task:
         calculate new pagerank for each url;
         collector.collect(taskID, updated partial PageRank Table);
 }
     </pre>
 </div>
-  </div>
-  <p><em>Detail implementation</em></p>
-  <div class="dp-highlighter">
-        <div class="bar">
-          
+<p><em>Detail implementation</em></p>
 <div>
-    <pre>
-public class PageRankMapTask implements MapTask {
-    public void map(MapOutputCollector collector, Key key, Value val)
-            throws TwisterException {
-        try {
-            DoubleVectorData tmpDvd = new DoubleVectorData();
-            Set<Integer> urlsSet = new HashSet<Integer>();
-            double tanglingProbSum = 0.0d;
-            tmpDvd.fromBytes(val.getBytes());
-            double[][] tmpData = tmpDvd.getData();
-            this.numUrls = (int) tmpData[0][0];
-
-            int fromUrl, toUrl;
-            double[][] tmpPageRank = decompress(tmpDvd);
-            double[][] newPageRank = new double[numUrls][2];
-
-            /* Write your code here */
-            /* End of your code */
-
-            int numChangedUrls = urlsSet.size();
-            double changedPageRank[][] = new double[numChangedUrls + 1][2];
-            changedPageRank[0][0] = numUrls;
-            changedPageRank[0][1] = tanglingProbSum;
-            int[] urlsArray = new int[numChangedUrls];
-            Iterator<Integer> iter = urlsSet.iterator();
-            for (int i = 0; i < numChangedUrls; i++) {
-                if (iter.hasNext())
-                urlsArray[i] = (iter.next()).intValue();
-            }
-
-            for (int i = 0; i < numChangedUrls; i++) {
-                changedPageRank[i + 1][0] = urlsArray[i];
-                changedPageRank[i + 1][1] = newPageRank[urlsArray[i]][1];
-            }
-
-            DoubleVectorData resultDvd = new DoubleVectorData(changedPageRank,
-            numChangedUrls + 1, 2);
-
-            int taskNo = key.hashCode();
-            collector.collect(new IntKey(taskNo), new BytesValue(resultDvd.getBytes()));
-
-        } catch (SerializationException e) {
-            throw new TwisterException(e);
-        }
-    }// end map
-} //end of
-
-</pre>
+    <script src="https://gist.github.com/cloudmooc/6235215.js"></script>
 </div>
-</div>
+
 <h3>Reducer</h3>
-<p>Reducers collect the intermediate &lt;key, value&gt;  output from multiple map tasks and assemble a &ldquo;near-completed&rdquo; result. The  reason is that Twister uses multiple reducers to collect the intermediate  result and provide a faster aggregation. This &ldquo;near-completed&rdquo; will be passed  to a single combiner to yield the final output.<br />
-  <em>Pseudocode</em></p>
- <div class="dp-highlighter">
-        <div class="bar">
+
+<p>Reducers collect the intermediate &lt;key, value&gt; output from multiple map tasks and
+    assemble a &ldquo;near-completed&rdquo; result. The reason is that Twister uses multiple
+    reducers to collect the intermediate result and provide a faster aggregation.
+    This &ldquo;near-completed&rdquo; will be passed to a single combiner to yield the final
+    output.<br/>
+    <em>Pseudocode</em></p>
+
 <div><pre>
-void Reduce (taskID, <list of value>){
-    for each x in <list of value>:
+void Reduce (taskID, &lt;list of value&gt;){
+    for each x in &lt;list of value&gt;:
         urlPageRank+=x;
     collector.collect (taskID, updated partial PageRank Table);
 }
 </pre>
 </div>
-</div>
 <p><em>Detail implementation</em></p>
- <div class="dp-highlighter">
-        <div class="bar">
+
 <div>
-    <pre>
-public void reduce(ReduceOutputCollector collector, Key key, List<Value> values) throws TwisterException {
-    try {
-        int numUrls, numData, lenData;
-        double tanglingProbSum = 0.0d;
-        Set<Integer> urlsSet = new HashSet<Integer>();
-        BytesValue val = (BytesValue) values.get(0);
-        DoubleVectorData tmpDvd = new DoubleVectorData();
-        tmpDvd.fromBytes(val.getBytes());
-        numData = tmpDvd.getNumData();
-        lenData = tmpDvd.getVecLen();
-        double[][] tmpPageRank = new double[numData][lenData];
-        tmpPageRank = tmpDvd.getData();
-        numUrls = (int) (tmpPageRank[0][0]);
-        double[][] newPageRank = new double[numUrls][lenData];
-
-        /* Write your code here */
-
-        /* End of your code */
-
-
-        // compress the page rank values by only storing the changed page rank values
-        int numChangedUrls = urlsSet.size(); // the number of urls whose rank value changed
-
-        int[] urlsArray = new int[numChangedUrls];
-        Iterator<Integer> iter = urlsSet.iterator();
-        for (int i = 0; i < numChangedUrls; i++) {
-            if (iter.hasNext())
-            urlsArray[i] = (iter.next()).intValue();
-        }
-
-        double[][] resultData = new double[numChangedUrls + 1][2];
-        resultData[0][0] = numUrls;
-        resultData[0][1] = tanglingProbSum;
-        for (int i = 1; i <= numChangedUrls; i++) {
-            resultData[i][0] = urlsArray[i - 1];
-            resultData[i][1] = newPageRank[urlsArray[i - 1]][1];
-        }
-        DoubleVectorData resultDvd = new DoubleVectorData(resultData,
-        numChangedUrls + 1, 2);
-        collector.collect(new IntKey(1), new BytesValue(resultDvd.getBytes()));
-            // emit the results to combiner
-    } catch (SerializationException e) {
-        throw new TwisterException(e);
-    }
-}
-
-    </pre>
-
-</div>
+    <script src="https://gist.github.com/cloudmooc/6235231.js"></script>
 </div>
 <h3>Combiner</h3>
-<p>Twister Combiner generally  is the &ldquo;Single reducer&rdquo; to combine all the partial results into a single  output.<br />
-  <em>Pseudocode</em></p>
-   <div class="dp-highlighter">
-        <div class="bar">
+
+<p>Twister Combiner generally is the &ldquo;Single reducer&rdquo; to combine all the partial
+    results into a single output. Every time  when an output of a reducer comes, combine method in Combiner is invoked to combine this part of data to the data structure it owns.  <br/>
+    <em>Pseudocode</em></p>
+
 <div>
 <pre>
-void Combine (Map<Key, Value> keyValues){
+void Combine (Map&lt;Key, Value&gt; keyValues){
     for each key in keyValues:
             urlPageRank+=x;
     write the final result to disk
 }
 </pre>
 </div>
-</div>
 <p><em>Detail implementation</em></p>
+
 <div>
-<pre>
-public void combine(Map<Key, Value> keyValues) throws TwisterException {
-    try {
-        int numData, numUrls;
-        DoubleVectorData tmpDvd = new DoubleVectorData();
-        Set<Integer> urlsSet = new HashSet<Integer>();
-        Key key = keyValues.keySet().iterator().next();
-        BytesValue val = (BytesValue) keyValues.get(key);
-        tmpDvd.fromBytes(val.getBytes());
-        double[][] tmpData;
-        tmpData = tmpDvd.getData();
-        numUrls = (int) tmpData[0][0];
-        double[][] newPageRank = new double[numUrls][2];
-        double tanglingProb = 0.0d;
-
-        int index; // index of changed url
-
-        /* Write your code here */
-
-        /* End of your code */
-
-        int numChangedUrls = urlsSet.size();
-        int[] urlsArray = new int[numChangedUrls];
-        Iterator<Integer> iter = urlsSet.iterator();
-        for (int i = 0; i < numChangedUrls; i++) {
-            if (iter.hasNext())
-            urlsArray[i] = (iter.next()).intValue();
-        }
-
-        double[][] resultData = new double[numChangedUrls + 1][2];
-        resultData[0][0] = numUrls;
-        resultData[0][1] = tanglingProb;
-        for (int i = 1; i <= numChangedUrls; i++) {
-            resultData[i][0] = urlsArray[i - 1];
-            resultData[i][1] = newPageRank[urlsArray[i - 1]][1];
-        }
-        DoubleVectorData newPageRankDvd = new DoubleVectorData(resultData,
-        numChangedUrls + 1, 2);
-        this.results.fromBytes(newPageRankDvd.getBytes());
-    } catch (Exception e) {
-        throw new TwisterException(e);
-    }
-} // end of combiner
-</pre>
-</div>
+    <script src="https://gist.github.com/cloudmooc/6235249.js"></script>
 </div>
 <h1>Edit, compile and run your code</h1>
-<p>The sketch code can be found in the  provided VirtualBox image <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. Use linux text editor vi/vim to  add your code.</p>
- <div class="dp-highlighter">
-        <div class="bar">
+
+<p>The sketch code can be found in the provided VirtualBox image <a
+        href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>.
+    Use linux text editor vi/vim to add your code.</p>
+
 <div><pre>
-$ cd /root/twister-pagerank/
+$ cd /root/MoocHomeworks/TwisterPageRank/
 # finish the map function
-$ vim src/iu/pti/hbaseapp/clueweb09/PageRankMapTask.java
+$ vim src/cgl/imr/samples/pagerank/PageRankMapTask.java
 # finish the reduce function
-$ vim src/iu/pti/hbaseapp/clueweb09/PageRankReduceTask.java
+$ vim src/cgl/imr/samples/pagerank/PageRankReduceTask.java
 # finish the combine function
-$ vim src/iu/pti/hbaseapp/clueweb09/PageRankCombiner.java
+$ vim src/cgl/imr/samples/pagerank/PageRankCombiner.java
 </pre>
 </div>
-</div>
-<div><br />
- <div class="dp-highlighter">
-        <div class="bar"><pre>
-$ cd /root/twister-pagerank/
-$ ./ compileAndExecTwisterPageRank.sh
+<div><pre>
+$ cd /root/MoocHomeworks/TwisterPageRank/
+$ ./compileAndExecTwisterPageRank.sh
  </pre>
 </div>
-  </div>
 <h2>View the result</h2>
-<p>The result is  generated as /root/twister-pagerank/output/project3.txt. </p>
-<div><br />
- <div class="dp-highlighter">
-        <div class="bar">
+
+<p>The result is generated as /root/MoocHomeworks/TwisterPageRank/output/project3.txt. </p>
+
+<div class="bar">
 <pre>
-$ cd /root/twister-pagerank/
+$ cd /root/MoocHomeworks/TwisterPageRank/
 $ cat output/project3.txt
 </pre>
 </div>
-</div>
-<h1>Test  the Search Engine</h1>
-<p>Before we test the search engine, we need to  write the PageRank output to the HBase clueWeb09PageRankTable Table.</p>
-<div>
-<pre>
-# upload the pagerank result to hbase &ldquo;clueWeb09PageRankTable&rdquo;<br />
-hadoop jar /root/software/hadoop-1.1.2/lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.PageRankTableLoader  /root/hbaseMoocAntProject/resources/en0000-01and02.docToNodeIdx.txt  /root/hbaseMoocAntProject/resources/en0000-01and02_reset_idx_and_square_pagerank.out
-</pre></div>
-<p>Now, combined with  project 2, we have built three database tables on HBase:</p>
-<ul>
-  <li>clueWeb09DataTable </li>
-  <li>clueWeb09IndexTable </li>
-  <li>clueWeb09PageRankTable</li>
-</ul>
-<p>Using the provided  test program, the following commands search the keyword &ldquo;database&rdquo;, and the  dataflow is shown as Figure 6.<br /></p>
-  <p align="center"><img src="assets/img/hw/se4/6.png" alt="" width="365" height="277" /><br />
-  <em>Figure 6</em>. Dataflow for searching keyword &ldquo;database&rdquo;  among the constructed databases</p>
-<div>
-<pre>
-# Test search engine  functionality
-./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester search-keyword snapshot
-./bin/hadoop jar lib/cglHBaseMooc.jar  iu.pti.hbaseapp.clueweb09.SearchEngineTester get-page-snapshot 00000113548 |  grep snapshot
-</pre>
-</div>
+
 <h1>What&rsquo;s next?</h1>
-<p>Congratulations,  you have finished the search engine project!</p>
+
+<p>Your next assignment will cover the use of K-means with Twister.</p>
+
 <h1>References</h1>
 <ol>
-  <li>salsaHPC  IndexedHBase Project, <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a></li>
-  <li>Clueweb09  project and dataset, <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a></li>
-  <li><a href="http://en.wikipedia.org/wiki/Markov_chain">http://en.wikipedia.org/wiki/Markov_chain</a></li>
-  <li>Twister  Iterative MapReduce, <a href="http://www.iterativemapreduce.org/">http://www.iterativemapreduce.org/</a></li>
-  <li>Apache  ActiveMQ, <a href="http://activemq.apache.org/">http://activemq.apache.org/</a></li>
+    <li>salsaHPC IndexedHBase Project, <a href="http://salsaproj.indiana.edu/IndexedHBase/index.html">http://salsaproj.indiana.edu/IndexedHBase/index.html</a>
+    </li>
+    <li>Clueweb09 project and dataset, <a href="http://lemurproject.org/clueweb09/">http://lemurproject.org/clueweb09/</a>
+    </li>
+    <li><a href="http://en.wikipedia.org/wiki/Markov_chain">http://en.wikipedia.org/wiki/Markov_chain</a>
+    </li>
+    <li>Twister Iterative MapReduce, <a href="http://www.iterativemapreduce.org/">http://www.iterativemapreduce.org/</a>
+    </li>
+    <li>Apache ActiveMQ, <a href="http://activemq.apache.org/">http://activemq.apache.org/</a></li>
 </ol>
 

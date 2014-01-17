@@ -39,8 +39,14 @@ html, h4, h5, h6 {
   font-size: 13px;
 }
 
-body, table, fieldset {
+table, fieldset {
   margin: 0;
+  
+}
+
+body {
+	margin: 0;
+    /*background-image: url("../img/blue_mooc.jpg");*/
 }
 
 h1, h2, h3, h4, blockquote, q, .gcb-nav ul {
@@ -838,4 +844,5 @@ span.progress-empty {
 #star_img {
 	margin-left:.5px;
 }
+
 

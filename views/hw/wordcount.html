@@ -1,36 +1,62 @@
 <div id="accordion">
-
-
-    <h2>Overview</h2>
-
+    <h2>Goal</h2>
     <div>
+        <p>In this program you will get acquainted with running Hadoop programs and configuring their systems.
+            This lab assumes you followed the Hadoop Configuration lab and started Hadoop successfully.</p>
+    </div>
 
-        <p>WordCount is a simple program which counts the number of occurrences of each word in a given text input dataset. 
-        WordCount fits very well with the map/reduce programming model, making it a perfect example for illustrating
-            the Hadoop MapReduce programming style. Our implementation consists of three main parts: </p>
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+        <p>None</p>
+    </div>
 
+    <h1>Evaluation</h1>
+    <div>
+        <p>None</p>
+    </div>
+
+    <h2>Introduction</h2>
+    <div>
+        <p>WordCount is a simple program which counts the number of occurrences of each word in a
+            given text input dataset.
+            WordCount fits very well with the map/reduce programming model, making it a perfect
+            example for illustrating
+            the Hadoop MapReduce programming style. Our implementation consists of three main
+            parts: </p>
         <ol>
             <li>Mapper</li>
             <li>Reducer</li>
-            <li>Main program</li></ol></div>
+            <li>Main program</li>
+        </ol>
+
+        <p>The source code and build files for this project can be found in the /root/MoocHomeworks/HadoopWordCount directory of the VM.</p>
+    </div>
+
+    <h2>Video</h2>
+    <div>
+        <iframe width="560" height="315" src="//www.youtube.com/embed/U1vuNjFAI9o" frameborder="0" allowfullscreen></iframe>
+	</div>
 
     <h2>Write a Mapper</h2>
-
     <div>
-        <p>A Mapper overrides the “map” function from the Class "org.apache.hadoop.mapreduce.Mapper" which provides &lt;key,
-            value&gt; pairs as the input. A Mapper implementation may output &lt;key,value&gt; pairs using the provided
+        <p>A Mapper overrides the “map” function from the Class "org.apache.hadoop.mapreduce.Mapper"
+            which provides &lt;key,
+            value&gt; pairs as the input. A Mapper implementation may output &lt;key, value&gt; pairs
+            using the provided
             Context. </p>
 
-        <p>Input value of the WordCount Map task will be a line of text from the input data file and the key would be
-            the line number &lt;line_number, line_of_text&gt; . Map task outputs &lt;word, one&gt; for each word in the
-            line of text. </p>
-
-        <p><u>Pseudo-code</u></p>
-
+        <p>Input value of the WordCount Map task will be a line of text from the input data file. The key will be
+            the line number &lt;line_number, line_of_text&gt;. Map task outputs &lt;word, one&gt;
+            for each word in the
+            line of text.
+        </p>
+        <p><u>Pseudocode</u></p>
         <div class="dp-highlighter">
             <div class="bar">
                 <div class="tools"></div>
-          </div>
+            </div>
             <ol class="dp-j">
                 <li class="alt"><span><span class="keyword">void</span><span>&nbsp;Map&nbsp;(key,&nbsp;value){&nbsp;&nbsp;</span></span>
                 </li>
@@ -41,52 +67,21 @@
                         class="number">1</span><span>);&nbsp;&nbsp;</span></span></li>
                 <li class=""><span>}&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
             </ol>
-      </div>
-        <p><u>Detail implementation</u></p>
-
-        <pre>
-import java.io.IOException;
-import java.util.StringTokenizer;
-
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
-
-public class WordCount {
-
-  public static class Map
-            extends Mapper<LongWritable, Text, Text, IntWritable>{
-
-    private final static IntWritable one = new IntWritable(1); // type of output value
-    private Text word = new Text();   // type of output key
-
-    public void map(LongWritable key, Text value, Context context
-                    ) throws IOException, InterruptedException {
-      StringTokenizer itr = new StringTokenizer(value.toString()); // line to string token
-
-      while (itr.hasMoreTokens()) {
-        word.set(itr.nextToken());    // set word as each input keyword
-        context.write(word, one);     // create a pair <keyword, 1>
-      }
-    }
-  }
-        </pre>
-
+        </div>
+        <div>
+            <script src="https://gist.github.com/cloudmooc/6232204.js"></script>
+        </div>
     </div>
     <h2>Write a Reducer</h2>
-
     <div>
-        <p>A Reducer collects the intermediate &lt;key,value&gt; output from multiple map tasks and assembles a single
-            result. Here, the WordCount program will sum up the occurrence of each word into pairs as &lt;word, occurrence&gt;.</p>
-
+        <p>A Reducer collects the intermediate &lt;key,value&gt; output from multiple map tasks and
+            assembles a single
+            result. Here, the WordCount program will sum up the occurrence of each word into pairs
+            as &lt;word, occurrence&gt;.
+        </p>
         <p>
-            <u>Pseudo-code</u></p>
+            <u>Pseudo-code</u>
+        </p>
 
         <div class="dp-highlighter">
             <div class="bar">
@@ -105,140 +100,77 @@ public class WordCount {
                 <li class="alt"><span>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
             </ol>
         </div>
-      <pre name="code" class="java" style="display: none;">void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);<br>}   </pre>
-        <p><u>Detail implementation</u></p>
-        <pre>
-public static class Reduce
-    extends Reducer<Text,IntWritable,Text,IntWritable> {
-
-    private IntWritable result = new IntWritable();
-
-    public void reduce(Text key, Iterable<IntWritable> values, Context context)
-            throws IOException, InterruptedException {
-        int sum = 0; // initialize the sum for each keyword
-        for (IntWritable val : values) {
-            sum += val.get();
-        }
-        result.set(sum);
-        context.write(key, result); // create a pair <keyword, number of occurences>
-    }
-}
-        </pre>
+        <pre name="code" class="java" style="display: none;">void&nbsp;Reduce&nbsp;(keyword,&nbsp;&lt;list&nbsp;of&nbsp;value&gt;){<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;each&nbsp;x&nbsp;in&nbsp;&lt;list&nbsp;of&nbsp;value&gt;:<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum+=x;<br>    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final_output.collect(keyword,&nbsp;sum);<br>}   </pre>
+        <!--<p><u>Detail implementation</u></p>-->
+        <div>
+        <script src="https://gist.github.com/cloudmooc/6232383.js"></script>
+        </div>
     </div>
-    <h2>Set up the Main Program</h2>
 
+
+
+    <h2>Set up the Main Program</h2>
     <div>
 
         <p>
-            The Main program configures and runs the MapReduce job. We use the main program to perform basic
-            configurations, such as:</p>
+            The Main program configures and runs the MapReduce job. We use the main program to
+            perform basic configurations, such as:</p>
         <ol>
             <li><strong>Job Name</strong>: name of this Job</li>
-            <li><strong>Executable (Jar) Class</strong>: the main executable class. For here, WordCount.</li>
-            <li><strong>Mapper Class</strong>: class which overrides the "map" function. For here, Map.</li>
+            <li><strong>Executable (Jar) Class</strong>: the main executable class. For here,
+                WordCount.
+            </li>
+            <li><strong>Mapper Class</strong>: class which overrides the "map" function. For here,
+                Map.
+            </li>
 
-            <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here, Reduce.</li>
+            <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here,
+                Reduce.
+            </li>
             <li><strong>Output Key</strong>: type of output key. For here, Text.</li>
             <li><strong>Output Value</strong>: type of output value. For here, IntWritable.</li>
             <li><strong>File Input Path</strong></li>
 
             <li><strong>File Output Path</strong></li>
         </ol>
-        <pre>
-public static void main(String[] args) throws Exception {
-    Configuration conf = new Configuration();
-    String[] otherArgs = new GenericOptionsParser(conf, args).getRemainingArgs(); // get all args
-    if (otherArgs.length != 2) {
-        System.err.println("Usage: WordCount <in> <out>");
-        System.exit(2);
-    }
-
-    // create a job with name "wordcount"
-    Job job = new Job(conf, "wordcount");
-    job.setJarByClass(WordCount.class);
-    job.setMapperClass(Map.class);
-    job.setReducerClass(Reduce.class);
-
-    // uncomment the following line to add the Combiner
-    job.setCombinerClass(Reduce.class);
-
-
-    // set output key type
-    job.setOutputKeyClass(Text.class);
-    // set output value type
-    job.setOutputValueClass(IntWritable.class);
-    //set the HDFS path of the input data
-    FileInputFormat.addInputPath(job, new Path(otherArgs[0]));
-    // set the HDFS path for the output
-    FileOutputFormat.setOutputPath(job, new Path(otherArgs[1]));
-
-    //Wait till job completion
-    System.exit(job.waitForCompletion(true) ? 0 : 1);
-}
-</pre>
+        <div>
+        <script src="https://gist.github.com/cloudmooc/6232408.js"></script>
+        </div>
     </div>
-    <h2>Set up Java JDK and Compile the Program</h2>
-
-    <div>
-        <p>Before we compile the WordCount program, please make sure the JAVA_HOME and PATH variables are correctly set in  &quot;~/.bashrc&quot;. </p>
-        <p>Install the java jdk 1.6.0 if you don't have one. We are setting up a JDK 64 bit version.</p>
-      <pre xml:space="preserve">cd ~/
-wget http://salsahpc.indiana.edu/ScienceCloud/apps/jdk-6u33-linux-x64.bin<br />chmod 755 jdk-6u33-linux-x64.bin<br />./jdk-6u33-linux-x64.bin<br />pwd </pre>
-        <p>Set up the JAVA_HOME and PATH in ~/.bashrc, then source it to the environment.</p>
-        <pre xml:space="preserve">
-echo &quot;export JAVA_HOME=~/jdk1.6.0_33&quot; &gt;&gt; ~/.bashrc<br />echo &quot;export PATH=~/jdk1.6.0_33/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc<br />source ~/.bashrc
-        
-Enter the following commands where the “WordCount.java" is located in the bash mode: </pre>
-				<pre xml:space="preserve">cd ~/HadoopWordCount<br>cat WordCount.java<br>cat build.sh<br>./build.sh</pre></div>
+    <h2>Compile the Program</h2>
+        <pre xml:space="preserve">cd /root/MoocHomeworks/HadoopWordCount<br>./build.sh</pre>
+    </div>
     <!-- content area -->
-    <h2>Execute Standalone Hadoop-WordCount</h2>
-
+    <h2>Execute Hadoop-WordCount</h2>
     <div>
-        <p>This section details the simplest way to run a standalone WordCount. First a <a
-                href="http://salsahpc.indiana.edu/tutorial/apps/hadoop-0.20.2-standalone.tar.gz">standalone version of
-            Hadoop</a> (without any environment setting) is required. You can find the program in the location &quot;~/HadoopWordCount&quot;.            </p>
-
-        <p>Assume that:</p>
+        <p>This section details the simplest way to run the WordCount. We will use the Hadoop we've started from the Hadoop Configuration lab. Here are the steps.</p>
         <ol>
-            <li>~/hadoop-0.20.2-standalone - Hadoop standalone framework directory</li>
-            <li>~/HadoopWordCount - WordCount program directory</li>
+            <li>First build the WordCount program</li>
+            <li>Then create a input directory in hadoop file system
+            </li>
+            <li>Copy the text file containing the words to the input directory created.
+            </li>
+
+            <li>Run the WordCount program with the created input directory
+            </li>
+            <li>View the results</li>
         </ol>
-        <p>Next, enter the following commands to run the program:</p>
-<pre xml:space="preserve">
-cd ~/software/hadoop-1.1.2/bin<br />
-cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br />
-# Make sure you copy the wordcount.jar in ~/software/hadoop-1.1.2/bin<br />
-./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output <br />
-cd ~/HadoopWordCount/<br />
-cat output/part-r-00000<br />
-</pre>
+        <p>The command required are listed below:</p>
+        <script src="https://gist.github.com/cloudmooc/6233918.js"></script>
     </div>
     <h2>Adding a Combiner</h2>
 
     <div>
-        <p>A combiner is a reduce-type function to be used when there are map key-value pairs that are not immediately
-            written to the output. It will collect those pairs in lists and perform local aggregation of the
-            intermediate outputs. It speeds up the process, which cuts down the amount of data transferred from the
+        <p>A combiner is a reduce-type function to be used when there are map key-value pairs that
+            are not immediately
+            written to the output. It will collect those pairs in lists and perform local
+            aggregation of the
+            intermediate outputs. This speeds up the process, which cuts down the amount of data
+            transferred from the
             Mapper to the Reducer.</p>
         <pre name="code"
              class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>
-
-<pre xml:space="preserve">
-cd ~/HadoopWordCount/<br />
-./clean.sh <br />
-ls  <br />
-# you should have only build.sh clean.sh input & WordCount.java<br />
-vi WordCount.java # uncomment the above line (line number 67) & save (ESC, :wq!)<br />
-./build.sh<br />cd ~/software/hadoop-1.1.2/bin <br />cp ~/HadoopWordCount/wordcount.jar ~/software/hadoop-1.1.2/bin<br /><br /># Run the WordCount Program<br />./hadoop jar wordcount.jar WordCount ~/HadoopWordCount/input ~/HadoopWordCount/output-combiner<br /></pre></div>
-    <h2>Check the Result and Submit</h2>
-
-    <div>
-<pre xml:space="preserve">    
-# Check the result<br/>
-cd ~/HadoopWordCount/<br/>
-cat output-combiner/part-r-00000</pre>
-        <p> To submit, answer the following question: What are the Top 10 words to appear in the complete works of
-            William Shakespeare? http://www.gutenberg.org/cache/epub/100/pg100.txt </p>
+        <p>The WordCount program can be changed to include a combiner. You need to uncomment a line in the WordCount source file, compile the program and run the word count as described earlier.</p>
+        <script src="https://gist.github.com/cloudmooc/6233958.js"></script>
     </div>
-    <div>    </div>
 </div>

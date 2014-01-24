@@ -1,15 +1,25 @@
 <div id="accordion">
     <h2>Goal</h2>
     <div>
-        <p>In this program you will get acquainted with running Hadoop programs and configuring their systems.
-            This lab assumes you followed the Hadoop Configuration lab and started Hadoop successfully.</p>
+        <p>In this project you will get acquainted with running Hadoop programs and configuring their systems.
+            This project assumes you followed the Hadoop Configuration lab and started Hadoop successfully.
+            The project asks you to add a Combiner to the basic word count program.</p>
     </div>
 
     <h1>
         Deliverables
     </h1>
     <div>
-        <p>None</p>
+        <p>You will need to complete the source code and write a report.</p>
+        <ol>
+            <li>Complete source code with the added combiner</li>
+            <li>A document with the following details
+                <ul>
+                    <li>Transformation of data during the computations i.e. data type of key, value</li>
+                    <li>How the data flow happens through disk and memory during the computation</li>
+                </ul>
+            </li>
+        </ol>
     </div>
 
     <h1>Evaluation</h1>
@@ -32,6 +42,9 @@
         </ol>
 
         <p>The source code and build files for this project can be found in the /root/MoocHomeworks/HadoopWordCount directory of the VM.</p>
+        <p>In this project you need to add a combiner to the provided source code. A combiner doesn't affect the correctness of a Hadoop program.
+            A combiner is used to reduce the amount of data transferred from Map function to Reduce function in a Hadoop program.
+            We have provided you with a complete WordCount program with a working Mapper and a Reducer. You can compile and run the program as provided.</p>
     </div>
 
     <h2>Video</h2>
@@ -39,7 +52,7 @@
         <iframe width="560" height="315" src="//www.youtube.com/embed/U1vuNjFAI9o" frameborder="0" allowfullscreen></iframe>
 	</div>
 
-    <h2>Write a Mapper</h2>
+    <h2>Mapper</h2>
     <div>
         <p>A Mapper overrides the “map” function from the Class "org.apache.hadoop.mapreduce.Mapper"
             which provides &lt;key,
@@ -72,9 +85,9 @@
             <script src="https://gist.github.com/cloudmooc/6232204.js"></script>
         </div>
     </div>
-    <h2>Write a Reducer</h2>
+    <h2>Reducer</h2>
     <div>
-        <p>A Reducer collects the intermediate &lt;key,value&gt; output from multiple map tasks and
+        <p>A Reducer collects the intermediate &lt;key,vjob.setCombinerClass(Reduce.class);alue&gt; output from multiple map tasks and
             assembles a single
             result. Here, the WordCount program will sum up the occurrence of each word into pairs
             as &lt;word, occurrence&gt;.
@@ -107,11 +120,9 @@
         </div>
     </div>
 
-
-
     <h2>Set up the Main Program</h2>
     <div>
-
+        <p>You will need to add the combiner when you configure the MapReduce job.</p>
         <p>
             The Main program configures and runs the MapReduce job. We use the main program to
             perform basic configurations, such as:</p>
@@ -123,9 +134,10 @@
             <li><strong>Mapper Class</strong>: class which overrides the "map" function. For here,
                 Map.
             </li>
-
             <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here,
                 Reduce.
+            </li>
+            <li><strong>Combiner</strong>: which is an optional component.
             </li>
             <li><strong>Output Key</strong>: type of output key. For here, Text.</li>
             <li><strong>Output Value</strong>: type of output value. For here, IntWritable.</li>
@@ -167,10 +179,10 @@
             aggregation of the
             intermediate outputs. This speeds up the process, which cuts down the amount of data
             transferred from the
-            Mapper to the Reducer.</p>
-        <pre name="code"
-             class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>
-        <p>The WordCount program can be changed to include a combiner. You need to uncomment a line in the WordCount source file, compile the program and run the word count as described earlier.</p>
-        <script src="https://gist.github.com/cloudmooc/6233958.js"></script>
+            Mapper to the Reducer. You can add the combiner to the Main program and compile and run the Word Count as described previously.</p>
+        <!--<pre name="code"-->
+             <!--class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>-->
+        <!--<p>The WordCount program can be changed to include a combiner. You need to uncomment a line in the WordCount source file, compile the program and run the word count as described earlier.</p>-->
+        <!--<script src="https://gist.github.com/cloudmooc/6233958.js"></script>-->
     </div>
 </div>

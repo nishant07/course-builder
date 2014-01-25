@@ -50,6 +50,11 @@ XSRF_SECRET = ConfigProperty(
         'this variable.'),
     'course builder XSRF secret')
 
+def is_user_allowed(email, user):
+    for e in email:
+        if e.email == user.email():
+            return 1
+    return 0
 
 class ReflectiveRequestHandler(object):
     """Uses reflection to handle custom get() and post() requests.
@@ -186,6 +191,10 @@ class BaseHandler(ApplicationHandler):
         """Gets all units in the course."""
         return self.get_course().get_units()
 
+    def get_emails(self):
+        """Gets all units in the course."""
+        return self.get_course().get_emails()
+
     def get_lessons(self, unit_id):
         """Gets all lessons (in order) in the specific course unit."""
         return self.get_course().get_lessons(unit_id)
@@ -222,6 +231,10 @@ class BaseHandler(ApplicationHandler):
             self.redirect(users.create_login_url(self.request.uri))
             return None
 
+        if not is_user_allowed(self.get_emails(), user):
+            self.redirect('/preview')
+            return None
+
         student = Student.get_enrolled_student_by_email(user.email())
         if not student:
             self.redirect('/preview')
@@ -245,12 +258,16 @@ class BaseHandler(ApplicationHandler):
         for unit in self.get_units():
             if len(self.get_lessons(unit.unit_id)) != 0:
                 ls[unit.unit_id] = self.get_lessons(unit.unit_id)
+                print unit.unit_id
             else:
                 ls[unit.unit_id] = 'None'
+                print unit.unit_id
+                print 'none'
+
         self.template_value['units_lessons'] = ls
 
         user = users.get_current_user()
-        if user and Student.get_enrolled_student_by_email(user.email()):
+        if user and Student.get_enrolled_student_by_email(user.email()) and is_user_allowed(self.get_emails(), user):
             self.template_value['enrolled'] = True
 
         template = self.get_template(template_file)
@@ -288,7 +305,7 @@ class PreviewHandler(BaseHandler):
 
         self.template_value['navbar'] = {'course': True}
         self.template_value['units'] = self.get_units()
-        if user and Student.get_enrolled_student_by_email(user.email()):
+        if user and Student.get_enrolled_student_by_email(user.email()) and is_user_allowed(self.get_emails(), user):
             self.redirect('/course')
         else:
             self.render('preview.html')

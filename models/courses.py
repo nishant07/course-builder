@@ -117,6 +117,7 @@ def load_csv_course(app_context):
     unit_file = os.path.join(app_context.get_data_home(), 'unit.csv')
     lesson_file = os.path.join(app_context.get_data_home(), 'lesson.csv')
     homework_file = os.path.join(app_context.get_data_home(), 'homework.csv')
+    email_file = os.path.join(app_context.get_data_home(), 'email.csv')
 
     # Check files exist.
     if (not app_context.fs.isfile(unit_file) or
@@ -150,9 +151,13 @@ def load_csv_course(app_context):
         app_context.fs.open(homework_file), verify.HOME_WORKS_HEADER, Homework12,
         converter=verify.HOME_WORK_CSV_TO_DB_CONVERTER)
 
+    emails = verify.read_objects_from_csv_stream(
+        app_context.fs.open(email_file), verify.EMAIL_HEADER, Email12,
+        converter=verify.EMAIL_CSV_TO_DB_CONVERTER)
+
     print home_works
 
-    return units, lessons, home_works
+    return units, lessons, home_works, emails
 
 
 def index_units_and_lessons(course):
@@ -312,6 +317,16 @@ class Homework12(object):
     def index(self):
         return self._index
 
+class Email12(object):
+    def __init__(self):
+        self.id = 0
+        self.email = ''
+        self._index = None
+
+    @property
+    def index(self):
+        return self._index
+
 class CachedCourse12(AbstractCachedObject):
     """A representation of a Course12 optimized for storing in memcache."""
 
@@ -350,9 +365,9 @@ class CourseModel12(object):
         """Loads course data into a model."""
         course = CachedCourse12.load(app_context)
         if not course:
-            units, lessons, homeworks = load_csv_course(app_context)
+            units, lessons, homeworks, emails = load_csv_course(app_context)
             if units and lessons:
-                course = CourseModel12(app_context, units, lessons, homeworks)
+                course = CourseModel12(app_context, units, lessons, homeworks, emails)
         if course:
             CachedCourse12.save(app_context, course)
         return course
@@ -370,13 +385,14 @@ class CourseModel12(object):
 
     def __init__(
         self, app_context,
-        units=None, lessons=None, homeworks=None, unit_id_to_lessons=None):
+        units=None, lessons=None, homeworks=None, emails=None, unit_id_to_lessons=None):
 
         self._app_context = app_context
         self._units = []
         self._lessons = []
         self._homeworks = []
         self._unit_id_to_lessons = {}
+        self._emails = []
 
         if units:
             self._units = units
@@ -384,6 +400,8 @@ class CourseModel12(object):
             self._lessons = lessons
         if homeworks:
             self._homeworks = homeworks
+        if emails:
+            self._emails = emails
         if unit_id_to_lessons:
             self._unit_id_to_lessons = unit_id_to_lessons
         else:
@@ -413,6 +431,9 @@ class CourseModel12(object):
 
     def get_units(self):
         return self._units[:]
+
+    def get_emails(self):
+        return self._emails[:]
 
     def get_homeworks(self):
         return self._homeworks[:]
@@ -1270,6 +1291,9 @@ class Course(object):
 
     def get_units(self):
         return self._model.get_units()
+
+    def get_emails(self):
+        return self._model.get_emails()
 
     def get_lessons(self, unit_id):
         return self._model.get_lessons(unit_id)

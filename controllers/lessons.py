@@ -76,6 +76,11 @@ def extract_unit_and_lesson(handler):
         lesson = handler.get_course().find_lesson_by_id(unit, l)
     return unit, lesson
 
+def is_user_allowed(email, user):
+    for e in email:
+        if e.email == user.email():
+            return 1
+    return 0
 
 def get_unit_and_lesson_id_from_url(url):
     """Extracts unit and lesson ids from a URL."""

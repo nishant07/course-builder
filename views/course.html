@@ -117,12 +117,12 @@
                         {% elif unit.type == 'U' %}
                             {{ gettext('Unit %(id)s - %(title)s', id=unit.index, title=unit.title) }}
                             <em>
-                                ({{ unit.release_date }})
+                                {{ unit.release_date }}
                             </em>
                         {% elif unit.type == 'O' %}
                             {{ unit.title }}
                             <em>
-                                ({{ unit.release_date }})
+                                {{ unit.release_date }}
                             </em>
                         {% else %}
                             Error: unit type not recognized.

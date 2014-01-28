@@ -10,7 +10,7 @@
         Deliverables
     </h1>
     <div>
-        <p>You will need to complete the source code and write a report.</p>
+        <p>You will need to complete the source code and write a report. Zip the source code and report into a file with the groupID_project1.zip and submit it (replace with your own group id)</p>
         <ol>
             <li>Complete source code with the added combiner</li>
             <li>A document with the following details
@@ -24,7 +24,11 @@
 
     <h1>Evaluation</h1>
     <div>
-        <p>None</p>
+        <p>The total points for this project is 5</p>
+        <ol>
+            <li>Correctness of the source code (2 points)</li>
+            <li>Completeness of the report (3 points)</li>
+        </ol>
     </div>
 
     <h2>Introduction</h2>
@@ -150,8 +154,7 @@
         </div>
     </div>
     <h2>Compile the Program</h2>
-        <pre xml:space="preserve">cd /root/MoocHomeworks/HadoopWordCount<br>./build.sh</pre>
-    </div>
+    <pre xml:space="preserve">cd /root/MoocHomeworks/HadoopWordCount<br>./build.sh</pre>
     <!-- content area -->
     <h2>Execute Hadoop-WordCount</h2>
     <div>
@@ -180,9 +183,5 @@
             intermediate outputs. This speeds up the process, which cuts down the amount of data
             transferred from the
             Mapper to the Reducer. You can add the combiner to the Main program and compile and run the Word Count as described previously.</p>
-        <!--<pre name="code"-->
-             <!--class="java">public static void main(String[] args) throws Exception {<br/>           // ....<br/>            // uncomment this line<br/>            job.setCombinerClass(Reduce.class);<br/>            // ....<br/>}</pre>-->
-        <!--<p>The WordCount program can be changed to include a combiner. You need to uncomment a line in the WordCount source file, compile the program and run the word count as described earlier.</p>-->
-        <!--<script src="https://gist.github.com/cloudmooc/6233958.js"></script>-->
     </div>
 </div>

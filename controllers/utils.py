@@ -52,7 +52,7 @@ XSRF_SECRET = ConfigProperty(
 
 def is_user_allowed(email, user):
     for e in email:
-        if e.email == user.email():
+        if e.email.lower() == user.email().lower():
             return 1
     return 0
 

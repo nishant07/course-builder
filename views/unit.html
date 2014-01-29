@@ -99,13 +99,7 @@ $('.icon-list-alt').click(function(event){
 
             {% if lesson.now_available or is_course_admin %}
 
-            {% if lesson.objectives %}
-            <div class="row-fluid">
-                <div class="span12">
-                    {{ lesson.objectives | safe }}
-                </div>
-            </div>
-            {% endif %}
+
 
             {% if lesson.video %}
             <div class="row-fluid">
@@ -119,8 +113,15 @@ $('.icon-list-alt').click(function(event){
                 </div>
             </div>
             {% endif %}
-
-
+            <hr>
+            {% if lesson.objectives %}
+            <div class="row-fluid">
+                <div class="span12">
+                    {{ lesson.objectives | safe }}
+                </div>
+            </div>
+            {% endif %}
+            <hr>
             <div class="row-fluid">
                 <div class="span12">
 
@@ -158,17 +159,17 @@ $('.icon-list-alt').click(function(event){
                     </div>
 
                     <!-- More Course Content -->
-                    <div class="btn-group pull-right">
-                        {% if lesson.notes %}
-                        <a role="button" class="btn btn-large" href="{{ lesson.notes }}" target="_blank">
-                            <i class="icon-list-alt"></i> {% trans %} Text Version {% endtrans %}
-                        </a>
-                        {% endif %}
-                    </div>
+                    <!--<div class="btn-group pull-right">-->
+                        <!--{% if lesson.notes %}-->
+                        <!--<a role="button" class="btn btn-large" href="{{ lesson.notes }}" target="_blank">-->
+                            <!--<i class="icon-list-alt"></i> {% trans %} Text Version {% endtrans %}-->
+                        <!--</a>-->
+                        <!--{% endif %}-->
+                    <!--</div>-->
                 </div>
             </div>
 
-            <hr>
+            <!--<hr>-->
 
             {% else %}
             <div class="row-fluid">

@@ -2,18 +2,18 @@
     <h2>Goal</h2>
     <div>
         <p>In this project you will get acquainted with running Hadoop programs and configuring their systems.
-            This project assumes you followed the Hadoop Configuration lab and started Hadoop successfully.
-            The project asks you to add a Combiner to the basic word count program.</p>
+            This assumes you followed the Hadoop Configuration lab and started Hadoop successfully.
+            You will be asked to add a Combiner to the basic WordCount program.</p>
     </div>
 
     <h1>
         Deliverables
     </h1>
     <div>
-        <p>You will need to complete the source code and write a report. Zip the source code and report into a file with the groupID_project1.zip and submit it (replace with your own group id)</p>
+        <p>You will need to complete the source code and write a report. Zip your work into a file with the groupID_project1.zip (replace 'groupID' with your own) and submit the following:</p>
         <ol>
             <li>Complete source code with the added combiner</li>
-            <li>A document with the following details
+            <li>A document with the following details:
                 <ul>
                     <li>Transformation of data during the computations i.e. data type of key, value</li>
                     <li>How the data flow happens through disk and memory during the computation</li>
@@ -24,7 +24,7 @@
 
     <h1>Evaluation</h1>
     <div>
-        <p>The total points for this project is 5</p>
+        <p>The total points for this project is 5.</p>
         <ol>
             <li>Correctness of the source code (2 points)</li>
             <li>Completeness of the report (3 points)</li>
@@ -46,9 +46,9 @@
         </ol>
 
         <p>The source code and build files for this project can be found in the /root/MoocHomeworks/HadoopWordCount directory of the VM.</p>
-        <p>In this project you need to add a combiner to the provided source code. A combiner doesn't affect the correctness of a Hadoop program.
-            A combiner is used to reduce the amount of data transferred from Map function to Reduce function in a Hadoop program.
-            We have provided you with a complete WordCount program with a working Mapper and a Reducer. You can compile and run the program as provided.</p>
+        <p>In this project you need to add a combiner to the provided source code. A combiner doesn't affect the correctness of a Hadoop program, but is
+       used to reduce the amount of data transferred from Map function to Reduce function in a Hadoop program.
+            We have provided you with the complete WordCount program with a working Mapper and a Reducer. You can compile and run the program as provided.</p>
     </div>
 
     <h2>Video</h2>
@@ -129,7 +129,7 @@
         <p>You will need to add the combiner when you configure the MapReduce job.</p>
         <p>
             The Main program configures and runs the MapReduce job. We use the main program to
-            perform basic configurations, such as:</p>
+            perform basic configurations such as:</p>
         <ol>
             <li><strong>Job Name</strong>: name of this Job</li>
             <li><strong>Executable (Jar) Class</strong>: the main executable class. For here,
@@ -141,7 +141,7 @@
             <li><strong>Reducer</strong>: class which overrides the "reduce" function. For here,
                 Reduce.
             </li>
-            <li><strong>Combiner</strong>: which is an optional component.
+            <li><strong>Combiner</strong>: an optional component.
             </li>
             <li><strong>Output Key</strong>: type of output key. For here, Text.</li>
             <li><strong>Output Value</strong>: type of output value. For here, IntWritable.</li>
@@ -158,19 +158,19 @@
     <!-- content area -->
     <h2>Execute Hadoop-WordCount</h2>
     <div>
-        <p>This section details the simplest way to run the WordCount. We will use the Hadoop we've started from the Hadoop Configuration lab. Here are the steps.</p>
+        <p>This section details the simplest way to run the WordCount program. We will use Hadoop from the Hadoop Configuration lab. Here are the steps.</p>
         <ol>
             <li>First build the WordCount program</li>
-            <li>Then create a input directory in hadoop file system
+            <li>Then create a input directory in Hadoop File System
             </li>
-            <li>Copy the text file containing the words to the input directory created.
+            <li>Copy the text file containing the words to the input directory created
             </li>
 
             <li>Run the WordCount program with the created input directory
             </li>
             <li>View the results</li>
         </ol>
-        <p>The command required are listed below:</p>
+        <p>The commands required are listed below:</p>
         <script src="https://gist.github.com/cloudmooc/6233918.js"></script>
     </div>
     <h2>Adding a Combiner</h2>
@@ -182,6 +182,6 @@
             aggregation of the
             intermediate outputs. This speeds up the process, which cuts down the amount of data
             transferred from the
-            Mapper to the Reducer. You can add the combiner to the Main program and compile and run the Word Count as described previously.</p>
+            Mapper to the Reducer. You can add the combiner to the Main program and compile and run WordCount as described previously.</p>
     </div>
 </div>

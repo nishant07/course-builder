@@ -36,10 +36,10 @@
     <hr>
     <div class="row-fluid">
         <div class="spam12">
-            <h2>Course progress: {{ (progress_total*100)|round|int }}%</h2>
+            <h2>Course progress: {{ (progress_total)|round|int }}%</h2>
             {% if progress_total != 0 %}
             <div class="progress">
-                <div class="bar" style="width: {{ progress_total*100 }}%;"></div>
+                <div class="bar" style="width: {{ progress_total }}%;"></div>
             </div>
             {% endif %}
         </div>

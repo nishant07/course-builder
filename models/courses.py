@@ -321,6 +321,7 @@ class Email12(object):
     def __init__(self):
         self.id = 0
         self.email = ''
+        self.progress = 0
         self._index = None
 
     @property
@@ -434,6 +435,11 @@ class CourseModel12(object):
 
     def get_emails(self):
         return self._emails[:]
+
+    def get_email_for_student(self, email):
+        for e in self._emails:
+            if e.email.lower() == email.lower():
+                return e
 
     def get_homeworks(self):
         return self._homeworks[:]
@@ -1294,6 +1300,9 @@ class Course(object):
 
     def get_emails(self):
         return self._model.get_emails()
+
+    def get_email_for_student(self, email):
+        return self._model.get_email_for_student(email)
 
     def get_lessons(self, unit_id):
         return self._model.get_lessons(unit_id)

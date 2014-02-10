@@ -78,7 +78,7 @@ def extract_unit_and_lesson(handler):
 
 def is_user_allowed(email, user):
     for e in email:
-        if e.email == user.email():
+        if e.email.lower() == user.email().lower():
             return 1
     return 0
 
@@ -124,10 +124,14 @@ class CourseHandler(BaseHandler):
             elif i == 1:
                 progress += 0.5
 
+
+
         if len(student.playList) == 0:
             self.template_value['playListEmpty'] = True
 
         progress = progress/len(progressList)
+        # overriding the normal progress calculation
+        progress = self.get_email_for_student(user.email()).progress
         self.template_value['progress_total'] = progress
 
         self.template_value['is_progress_recorded'] = (

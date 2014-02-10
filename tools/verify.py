@@ -106,7 +106,7 @@ LESSONS_HEADER = (
 HOME_WORKS_HEADER = (
     'id,homework_id,type,optional,title,filename,difficulty,category')
 EMAIL_HEADER = (
-    'email')
+    'email,progress')
 
 UNIT_CSV_TO_DB_CONVERTER = {
     'id': None,
@@ -146,7 +146,8 @@ HOME_WORK_CSV_TO_DB_CONVERTER = {
 }
 
 EMAIL_CSV_TO_DB_CONVERTER = {
-    'email': ('email', unicode)
+    'email': ('email', unicode),
+    'progress': ('progress', int)
 }
 
 # pylint: disable-msg=anomalous-backslash-in-string

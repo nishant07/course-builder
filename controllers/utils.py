@@ -195,6 +195,10 @@ class BaseHandler(ApplicationHandler):
         """Gets all units in the course."""
         return self.get_course().get_emails()
 
+    def get_email_for_student(self, name):
+        """Gets all units in the course."""
+        return self.get_course().get_email_for_student(name)
+
     def get_lessons(self, unit_id):
         """Gets all lessons (in order) in the specific course unit."""
         return self.get_course().get_lessons(unit_id)

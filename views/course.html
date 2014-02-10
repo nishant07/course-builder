@@ -8,32 +8,32 @@
 
 {% block main_content %}
 <div class="content-box">
-    <div class="row-fluid">
-        <div class="span12">
-            <h2>Playlist</h2>
-            {% if not playListEmpty %}
-            <a class="btn btn-success" href="unitplaylist">
-                {% trans %} Start {% endtrans %}
-            </a>
+    <!--<div class="row-fluid">-->
+        <!--<div class="span12">-->
+            <!--<h2>Playlist</h2>-->
+            <!--{% if not playListEmpty %}-->
+            <!--<a class="btn btn-success" href="unitplaylist">-->
+                <!--{% trans %} Start {% endtrans %}-->
+            <!--</a>-->
 
-            {% else %}
-            <a class="btn btn-success" href="unit">
-                <i class="icon-play icon-white"></i>{% trans %} Start {% endtrans %}
-            </a>
-            {% endif %}
+            <!--{% else %}-->
+            <!--<a class="btn btn-success" href="unit">-->
+                <!--<i class="icon-play icon-white"></i>{% trans %} Start {% endtrans %}-->
+            <!--</a>-->
+            <!--{% endif %}-->
 
-            {% if not playListEmpty %}
-            <a class="btn" href="unitplaylist?resume=yes">
-                {% trans %} Resume {% endtrans %}
-            </a>
-            {% endif %}
+            <!--{% if not playListEmpty %}-->
+            <!--<a class="btn" href="unitplaylist?resume=yes">-->
+                <!--{% trans %} Resume {% endtrans %}-->
+            <!--</a>-->
+            <!--{% endif %}-->
 
-            <a role="btn" href="playlist" class="btn hidden-phone">
-                <i class="icon-pencil"></i>
-            </a>
-        </div>
-    </div>
-    <hr>
+            <!--<a role="btn" href="playlist" class="btn hidden-phone">-->
+                <!--<i class="icon-pencil"></i>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<hr>-->
     <div class="row-fluid">
         <div class="spam12">
             <h2>Course progress: {{ (progress_total)|round|int }}%</h2>

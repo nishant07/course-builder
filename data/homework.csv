@@ -2,8 +2,8 @@ id,homework_id,type,optional,title,filename,difficulty,category
 1,tools,L,n,Environment Setup,hw/tools.html,1,Introduction
 2,hc,L,n,Hadoop configuration,hw/hadoop_conf.html,1,MapReduce
 3,wc,H,n,Hadoop WordCount,hw/wordcount.html,1,MapReduce
-4,pr3,H,n,Hadoop PageRank,hw/hadoop_pagerank.html,2,MapReduce
-5,se6,H,y,Hadoop Blast,hw/hadoop_blast.html,3,MapReduce
+4,pr3,H,n,Hadoop PageRank,hw/hadoop_pagerank.html,3,MapReduce
+5,se6,H,y,Hadoop Blast,hw/hadoop_blast.html,2,MapReduce
 6,se1,L,n,Load Data into HBase,hw/hbase_intro.html,1,Data
 7,se2,H,n,HBase WordCount,hw/hbase_wordcount.html,2,Data
 8,se3,H,n,Building an Inverted Index,hw/inverted_hbase.html,3,Data

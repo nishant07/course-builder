@@ -8,9 +8,9 @@
     <em>Figure 1.</em> clueWeb09PageRankTable table schema for storing ranks of webpages<br/></p>
 <h1>Deliverables </h1>
 <p>Zip your source code, library, and results in a file named <a
-        href="mailto:e-mailBefore@-hbase-wordcount-proj3.zip"><em>e-mailBefore@</em>-hbase-wordcount-proj3.zip</a>,
-    where <em>e-mailBefore@</em> should be replaced by your e-mail account username. Please submit
-    this file to the MOOC submission page. </p>
+        href="mailto:e-mailBefore@-hbase-wordcount-proj3.zip"><em>username@</em>-hbase-wordcount-proj3.zip</a>,
+    where <em>username</em> should be replaced by your e-mail account username. Please submit
+    this file to the Oncourse submission page. </p>
 <h1>Evaluation</h1>
 <div>
     <p>The point total for this project is 5, where the
@@ -89,8 +89,8 @@
    and stored in the format of an adjacency list. Each map function runs on one of
     the partitioned datasets, which is constant over the iterations. The variable data is the
     PageRank values calculated during previous iterations, which in turn is used as the input value
-    for the next iteration. In each iteration, the MAP task updates the old PageRank values to the
-    new ones by analyzing the local partial adjacency list file. The output of each MAP task is only
+    for the next iteration. In each iteration, the Map task updates the old PageRank values to the
+    new ones by analyzing the local partial adjacency list file. The output of each Map task is only
     a part of these values. The reduce task receives all the partial output and produces the
     new PageRank values. Figure 5 shows a dataflow diagram of this program.<br/></p>
 <p align="center"><img src="assets/img/hw/se4/5.png" alt="" width="344" height="258"/><br/>
@@ -127,7 +127,7 @@ void Map (key, value){
 <p>Reducers collect the intermediate &lt;key, value&gt; output from multiple map tasks and
     assemble a &ldquo;near-completed&rdquo; result. The reason is that Twister uses multiple
     reducers to collect the intermediate result and provide a faster aggregation.
-    This &ldquo;near-completed&rdquo; will be passed to a single combiner to yield the final
+    This &ldquo;near-completed&rdquo; result will be passed to a single combiner to yield the final
     output.<br/>
     <em>Pseudocode</em></p>
 
@@ -147,7 +147,7 @@ void Reduce (taskID, &lt;list of value&gt;){
 <h3>Combiner</h3>
 
 <p>Twister Combiner generally is the &ldquo;Single reducer&rdquo; to combine all the partial
-    results into a single output. Every time  when an output of a reducer comes, combine method in Combiner is invoked to combine this part of data to the data structure it owns.  <br/>
+    results into a single output. Every time an output of a reducer comes, Combiner is invoked to add this piece of data to the data structure it owns.  <br/>
     <em>Pseudocode</em></p>
 
 <div>

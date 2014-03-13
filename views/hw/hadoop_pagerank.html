@@ -15,7 +15,7 @@
     helps Internet users sort hits by their importance. <br/>
     PageRank calculates a numerical value for each element of a hyperlinked set of webpages, which
     reflects the probability that a random surfer will access that page. The process of PageRank can
-    be understood as a Markov Chain [3] which requires iterative calculations to converge. An
+    be understood as a Markov Chain which requires iterative calculations to converge. An
     iteration of PageRank calculates the new access probability for each webpage based on values
     calculated in the previous iteration. The process will repeat until the number of current
     iterations is bigger than predefined maximum iterations, or the Euclidian distance between rank
@@ -95,7 +95,7 @@ Figure 1 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
 <h1>Introduction</h1>
 
 <div>
-    <p>In this project, we have provided a sketch code which contains three mapreduce jobs for you
+    <p>In this project, we have provided a sketch code which contains three MapReduce jobs for you
         to implement:</p>
     <ol>
         <li>CreateGraph (done): add one column, 'initial pagerank value', to the input pagerank
@@ -110,7 +110,7 @@ Figure 1 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
         </li>
     </ol>
     <p>The detail dataflow can be seen in Figure 2. Part 1 and Part 3 are given as full solutions in
-        this pipeline; you will implement the 2nd part of <strong>PageRank</strong> program.</p>
+        this pipeline; you will implement the 2nd part of the <strong>PageRank</strong> program.</p>
 
     <p align="center"><img src="assets/img/hw/hadooppagerank/HadoopPageRank.png" alt=""
                            width="700"/></p>
@@ -160,8 +160,8 @@ Figure 1 shows a web graph consisting of  11 vertices {A, B, C, D, E, F, G1, G2,
 <h1>Edit</h1>
 
 <p>The sketch code is stored within the provided <a
-        href="homework?unit=0">VirtualBox image</a>
-    [5]. Use Eclipse or linux text editor vi/vim to add your code.</p>
+        href="homework?unit=0">VirtualBox image</a>. 
+        Use Eclipse or linux text editor vi/vim to add your code.</p>
 
 <div>
 <pre>

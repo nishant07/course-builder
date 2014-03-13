@@ -10,12 +10,12 @@
         Deliverables
     </h1>
     <div>
-        <p>You will need to complete the source code and write a report. Zip your work into a file with the groupID_project1.zip (replace 'groupID' with your own) and submit the following:</p>
+        <p>You will need to complete the source code and write a report. Zip your work into a file with the name username_project1.zip (replace 'username' with your own) and submit the following:</p>
         <ol>
             <li>Complete source code with the added combiner</li>
             <li>A document with the following details:
                 <ul>
-                    <li>Transformation of data during the computations i.e. data type of key, value</li>
+                    <li>Transformation of data during the computations, i.e. data type of key, value</li>
                     <li>How the data flow happens through disk and memory during the computation</li>
                 </ul>
             </li>
@@ -160,15 +160,15 @@
     <div>
         <p>This section details the simplest way to run the WordCount program. We will use Hadoop from the Hadoop Configuration lab. Here are the steps.</p>
         <ol>
-            <li>First build the WordCount program</li>
-            <li>Then create a input directory in Hadoop File System
+            <li>First build the WordCount program.</li>
+            <li>Then create an input directory in Hadoop File System.
             </li>
-            <li>Copy the text file containing the words to the input directory created
+            <li>Copy the text file containing the words to the input directory.
             </li>
 
-            <li>Run the WordCount program with the created input directory
+            <li>Run the WordCount program with the input directory.
             </li>
-            <li>View the results</li>
+            <li>View the results.</li>
         </ol>
         <p>The commands required are listed below:</p>
         <script src="https://gist.github.com/cloudmooc/6233918.js"></script>
@@ -180,7 +180,7 @@
             are not immediately
             written to the output. It will collect those pairs in lists and perform local
             aggregation of the
-            intermediate outputs. This speeds up the process, which cuts down the amount of data
+            intermediate output. This speeds up the process, which cuts down the amount of data
             transferred from the
             Mapper to the Reducer. You can add the combiner to the Main program and compile and run WordCount as described previously.</p>
     </div>

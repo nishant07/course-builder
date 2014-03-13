@@ -77,7 +77,7 @@
 				Subscriber to pick the messages, i.e. NaradaBrokering[4],
 				ActiveMQ[5], etc. AIs will set up instances of NaradaBrokering and
 				ActiveMQ to be used by the students. Students are advised to prefix
-				their topics with the group number (e.g. <strong>username</strong>_xyz) to avoid conflicts
+				their topics with their username (e.g. <strong>username</strong>_xyz) to avoid conflicts
 				when sharing the same brokers.
 <ul>
 			<li><strong>For NaradaBrokering, please use</strong> <strong>machine</strong>
@@ -149,11 +149,11 @@ While(!done){
 			receive the messages with monitoring information from the daemons
 			running on the nodes.</p>
 		<p>2. Summarize the statistics from all the compute nodes (&gt;2)
-			that run the Hadoop/MPI Pagerank application from Homework 4. Calculate the
+			that run the Hadoop/MPI Pagerank application from Homework 4/13. Calculate the
 			overall CPU and Memory utilization percentages.</p>
 		<p>3. Draw real-time cumulative performance graphs with summarized
 			resource utilization information. This must be GUI-based (no table
-			or command-line text). If you use Java, JFreeChart [4] is a good
+			or command-line text). If you use Java, JFreeChart [7] is a good
 			option to draw the graphs. Figure 2 is an example UI, developed by the salsaHPC Team using
 			JFreeChart. The blue area is the CPU usage, and the
 			green area is the memory usage.</p>
@@ -192,7 +192,7 @@ UIUpdateThread{
 	<h1>Run Hadoop/MPI/MPJ PageRank on provided VirtualBox Linux </h1>
 	<div>
 		<p>In this project, you must run your Hadoop/MPI/MPJ PageRank program on
-			provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a>. Please make sure your provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a> has internet access, e.g. try to ping www.google.com, otherwise you won't be able to finish this project. Then your resource monitoring
+			the provided <a href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">VirtualBox image</a>. Please make sure your VirtualBox image has internet access, e.g. try to ping www.google.com, otherwise you won't be able to finish this project. Then your resource monitoring
 			daemons have to capture the computing performance of the specified
 			Hadoop/MPI/MPJ processes on each node and show a live aggregated
 			performance chart on monitoring UI.</p>

@@ -36,13 +36,6 @@
 		</div><br>
 		<p>Fig.1 consists of 11 vertices {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Each vertex refers to a unique webpage, and the directed edge 
 			means there is one link from the source webpage to a target webpage. The included percentage indicates the rank value of each webpage.</p>
-
-		<p><strong>Notes:</strong></p>
-		<p> This project is divided into two parts.
-			In the first part, you need to implement the sequential version of PageRank.
-			In the second you will implement a parallel version by
-			using the programming interfaces of Hadoop MapReduce job execution
-			engine.</p>
 		
 		<p><strong>Formula:</strong></p>
 		<p>Eqn.1 is the formula to calculate the rank value for each webpage. We will learn this formula by applying it to the case in Fig.1. There are 11 webpages in Fig.1 which include: {A, B, C, D, E, F, G1, G2, G3, G4, G5}. Assuming the probability distribution for a web surfer accessing all these 11 pages in the current iteration is {PR(A), PR(B), PR(C),  … PR(G5)}, then the probability for the surfer to access Page B in the next iteration is:   

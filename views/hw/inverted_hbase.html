@@ -8,7 +8,7 @@
     <li>Complete source code</li>
     <li>A written report describing the main steps</li>
 </ol>
-<p>Zip your source code, results and report in  a file named groupId_project5.zip. Submit this file to the oncourse submission page. </p>
+<p>Zip your source code, results and report in  a file named username_project5.zip. Submit this file to the oncourse submission page. </p>
 <h1>Evaluation</h1>
 <div>
     <p>The point total for this project is 10, where the
@@ -33,7 +33,7 @@
     </tr>
   </table>
 </div>
-<p>To build these  inverted indices, we reuse the ClueWeb09 dataset from before, which was  created to support research on information retrieval and related human language  technologies. The dataset is used by several  tracks of the <a href="http://trec.nist.gov/">TREC</a> conference [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
+<p>To build these  inverted indices, we reuse the ClueWeb09 dataset from before [2]. New  inverted index table schemas are designed as shown in Figure 1.<br />
   In the clueWeb09IndexTable table each term  will have the same structure, with term as rowkey, values contained in documentId,  and the occurrence of the term within this document shown. Our goal is to write  an HBase program which generates an inverted index table by extracting the  information from the ClueWeb09 dataset. </p>
 <h2>Mapper and  Main Program </h2>
 <p>Now we are going to implement the HBase FreqIndexBuilder  program. As opposed to WordCount [3], our implementation only consists  of two main parts:</p>

@@ -4,7 +4,7 @@
 </h1>
 
 <div>
-    <p>This homework utilizes the K-means Clustering algorithms and Twister Iterative MapReduce frameworks. You are going to blend the two by implementing a parallel version of
+    <p>This homework utilizes the K-means Clustering algorithm and Twister Iterative MapReduce framework. You are going to blend the two by implementing a parallel version of
         Kmeans Clustering application using the programming interfaces of the Twister MapReduce framework. </p>
 </div>
 
@@ -60,11 +60,11 @@
   <p>&nbsp;</p>
 </div>
 
-<h1>Sketch code for Twister Kmeans</h1>
+<h1>Sketch code for Twister K-means</h1>
 
 
 <div>
-    <p>Each map task in the Twister-Kmeans application gets a set of 3D data points. These data points do not change over the course of iterations and Map tasks access them in each iteration. The invariant nature of this data marks it as static in Twister. Therefore, particular points are loaded only once for the entire execution. The cluster centers computed in each iteration are dynamic data, as they tend to change over iterations. Also, the calculated cluster centers of a particular iteration serve as the input for the next if they don't satisfy the required conditions.</p>
+    <p>Each map task in the Twister K-means application gets a set of 3D data points. These data points do not change over the course of iterations and Map tasks access them in each iteration. The invariant nature of this data marks it as static in Twister. Therefore, particular points are loaded only once for the entire execution. The cluster centers computed in each iteration are dynamic data, as they tend to change over iterations. Also, the calculated cluster centers of a particular iteration serve as the input for the next if they don't satisfy the required conditions.</p>
     <p>You need to complete two files in the provided pacakge inside &quot;cgl/imr/samples/kmeans/&quot;:        </p>
 
     <p>

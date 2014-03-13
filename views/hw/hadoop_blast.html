@@ -58,7 +58,7 @@
         <li>DataAnalysis.java (Done): The main program which sets the Hadoop MapReduce job configuration. </li>
         <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> as Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. These are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
     </ol>
-    <p>The detail dataflow can be seen in Figure 1. You will implement the RunnerMap.java, which copies the distributed cache and assigned FASTA file to local, then run the BLAST binary with correct parameters.</p>
+    <p>The detail dataflow can be seen in Figure 1. You will implement the RunnerMap.java, which copies the distributed cache and assigned FASTA file to local, then runs the BLAST binary with correct parameters.</p>
 
     <p align="center"><img src="assets/img/hw/hadoopblast/hadoop_blast.png" alt=""
                            width="700"/></p>
@@ -78,7 +78,7 @@
 
 
 <div>
-    <p>You need to complete one file in the provided pacakge inside &quot;cgl/hadoop/apps/runner&quot;:
+    <p>You need to complete one file in the provided package inside &quot;cgl/hadoop/apps/runner&quot;:
         RunnerMap.java.
         Code snapshots are shown below.</p>
 

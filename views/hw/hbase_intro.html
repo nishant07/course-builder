@@ -7,7 +7,7 @@
   <li>Test  the stored HBase records with the provided java executable</li>
 </ul>
 <h1>Deliverables </h1>
-<p>Submit an output  file dataTable1.txt containing your results to the Google MOOC submission page by using the  provided java class iu.pti.hbaseapp.HBaseTableReader.</p>
+<p>Submit an output  file dataTable1.txt containing your results to the Oncourse Assignments page by using the  provided java class iu.pti.hbaseapp.HBaseTableReader.</p>
 <h1>Evaluation</h1>
 <div>
     <p>None</p>
@@ -86,7 +86,7 @@ $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.clueweb09.DataLoaderClue
             </pre>
 </div>
 <h2>Verify data record from HBase output </h2>
-<p>Finally, we verify  the uploaded records with the iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09 from the clueWeb09DataTable. The screen redirects the output to dataTable1.txt. This file is used for evaluation and must  be uploaded to the MOOC submission page.</p>
+<p>Finally, we verify  the uploaded records with the iu.pti.hbaseapp.clueweb09.DataLoaderClueWeb09 from the clueWeb09DataTable. The screen redirects the output to dataTable1.txt. This file is used for evaluation and must  be uploaded to the Oncourse Assignments page.</p>
 <div><pre>
   $ ./bin/hadoop jar lib/cglHBaseMooc.jar iu.pti.hbaseapp.HBaseTableReader  clueWeb09DataTable details string string string string 1 &gt; dataTable1.txt<br />
   $ vim dataTable1.txt </pre>

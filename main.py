@@ -15,6 +15,7 @@
 """Main package for Course Builder, which handles URL routing."""
 import os
 import webapp2
+import urllib
 
 # The following import is needed in order to add third-party libraries.
 import appengine_config  # pylint: disable-msg=unused-import
@@ -26,6 +27,21 @@ from modules.admin import admin
 from modules.admin import config
 from modules.announcements import announcements
 from modules.dashboard import dashboard
+
+
+# Reading from a REST URL
+url = 'http://cloudmooc.soic.indiana.edu:8181/RESTExamples/rest/StudentDataService/id/1'
+response = urllib.urlopen(url).read()
+print response
+# Inserting using REST API into remote database
+url = 'http://cloudmooc.soic.indiana.edu:8181/RESTExamples/rest/StudentDataService'
+params = urllib.urlencode({
+    'id': '1',
+    'name': 'Abhilash'
+})
+response1= urllib.urlopen(url, params).read()
+print response1
+
 
 urls = [
     ('/', lessons.CourseHandler),

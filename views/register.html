@@ -18,10 +18,57 @@
         <fieldset>
           <ol>
             <li>
-              <label class="form-label" for="form01">
-               {% trans %} What is your name? {% endtrans %}
+              <!--label class="form-label" for="form01"-->
+              <label class="form-label" for="first_name"/>
+               {% trans %} What is your First Name? {% endtrans %}
               </label>
-              <input name="form01" type="text">
+             <!-- <input name="form01" type="text"> -->
+              <input name="first_name" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="last_name">
+               {% trans %} What is your Last Name? {% endtrans %}
+              </label>
+              <input name="last_name" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="email">
+               {% trans %} What is your Email Address? {% endtrans %}
+              </label>
+              <input name="email" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="birthday">
+               {% trans %} When is your birthday?(Format:####-##-##) {% endtrans %}
+              </label>
+              <input name="birthday" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="phone_number">
+               {% trans %} What is your phone number? {% endtrans %}
+              </label>
+              <input name="phone_number" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="address">
+               {% trans %} What is your living address? {% endtrans %}
+              </label>
+              <input name="address" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="message">
+               {% trans %} Write down your cool introduction {% endtrans %}
+              </label>
+              <input name="message" type="text">
+            </li>
+            <li>
+              <label class="form-label" for="Class_interest">
+               {% trans %} Pick the most interest part for this course {% endtrans %}
+              </label>
+               <input type="checkbox" name="Class_interest" value="MapReduce" /> MapReduce
+                        <input type="checkbox" name="Class_interest" value="Store Data"  /> Store Data
+                        <input type="checkbox" name="Class_interest" value="Search Engine" /> Search Engine
+                         <input type="checkbox" name="Class_interest" value="Project" />Project     
             </li>
             {{course_info.reg_form.additional_registration_fields | safe}}
           </ol>

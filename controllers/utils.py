@@ -32,6 +32,11 @@ import webapp2
 from google.appengine.api import namespace_manager
 from google.appengine.api import users
 
+import urllib2
+import urllib
+from google.appengine.api import urlfetch
+import json
+
 
 # The name of the template dict key that stores a course's base location.
 COURSE_BASE_KEY = 'gcb_course_base'
@@ -374,22 +379,114 @@ class RegisterHandler(BaseHandler):
         if not can_register:
             self.template_value['course_status'] = 'full'
         else:
-            name = self.request.get('form01')
+            #name = self.request.get('form01')
+            first_name = self.request.get('first_name')
+            last_name = self.request.get('last_name')
+            email= self.request.get('email')
+            birthday= self.request.get('birthday')
+            phone_number=self.request.get('phone_number')
+            address=self.request.get('address')
+            message=self.request.get('message')
+            Class_interest=self.request.get('Class_interest')
+            #connect to java project
+            url='http://localhost:8080/JSON3/Login/Add'
+            form_fields ={'first_name':first_name,
+                    'last_name':last_name,
+                    'email':email,
+                    'birthday':birthday,
+                    'phone_number':phone_number,
+                    'address':address,
+                    'message':message,
+                    'Class_interest':Class_interest}
+            form_data=urllib.urlencode(form_fields)
+            result=urlfetch.fetch(url=url,
+                                payload=form_data,
+                                method=urlfetch.POST,
+                                headers={'Content-Type':'application/x-www-form-urlencoded'})
 
-            # create new or re-enroll old student
+            if result.status_code == 200:
+                print "Congr:qulation, you are enrolled!"
+           # create new or re-enroll old student
             student = Student.get_by_email(user.email())
             if not student:
                 student = Student(key_name=user.email())
                 student.user_id = user.user_id()
 
             student.is_enrolled = True
-            student.name = name
+            #student.name = name
             student.put()
 
         # Render registration confirmation page
         self.template_value['navbar'] = {'registration': True}
         self.render('confirmation.html')
 
+        #add
+        #self.render('survey.html')
+
+#add:survey page
+class SurveyHandler(BaseHandler):
+    """Handler for survey."""
+    def get(self):
+        """Handles GET request."""
+        user = self.personalize_page_and_get_user()
+        student = Student.get_enrolled_student_by_email(user.email())
+        self.template_value['survey_xsrf_token'] = (
+            XsrfTokenManager.create_xsrf_token('survey-post'))
+        self.render('survey.html')
+
+    def post(self):
+        """Handles POST requests."""
+        #if not self.assert_xsrf_token_or_fail(self.request, 'survey-post'):
+         #   return
+        user = self.personalize_page_and_get_user()
+        if not user:
+            self.redirect(users.create_login_url(self.request.uri))
+            return
+
+        #name = self.request.get('form01')
+        email = user.email()
+        how = self.request.get('how')
+        why= self.request.get('why')
+        which= self.request.get('which')
+        background=self.request.get('background')
+        java=self.request.get('java')
+        c1=self.request.get('c1')
+        c2=self.request.get('c2')
+        c3=self.request.get('c3')
+        perl=self.request.get('perl')
+        python=self.request.get('python')
+        ruby=self.request.get('ruby')
+        used=self.request.get('used')
+        expect=self.request.get('expect')
+
+
+        #connect to java project
+        url='http://localhost:8080/JSON3/Survey/Add'
+        form_fields ={'email':email,
+                    'how':how,
+                    'why':why,
+                    'which':which,
+                    'background':background,
+                    'java':java,
+                    'c1':c1,
+                    'c2':c2,
+                    'c3':c3,
+                    'perl':perl,
+                    'python':python,
+                    'ruby':ruby,
+                    'used':used,
+                    'expect':expect}
+        form_data=urllib.urlencode(form_fields)
+        result=urlfetch.fetch(url=url,
+                                payload=form_data,
+                                method=urlfetch.POST,
+                                headers={'Content-Type':'application/x-www-form-urlencoded'})
+
+        if result.status_code == 200:
+            print "Congr:qulation, you are enrolled!"
+            # create new or re-enroll old student
+        #student = Student.get_by_email(user.email())
+        self.redirect('course')   
 
 class ForumHandler(BaseHandler):
     """Handler for forum page."""
@@ -415,6 +512,27 @@ class StudentProfileHandler(BaseHandler):
         course = self.get_course()
 
         self.template_value['navbar'] = {}
+
+        #revise code
+        #connect to java project
+      
+        url="http://localhost:8080/JSON3/Cloud/Student?email="+student.key().name()
+        searchresult=urllib2.urlopen(url)
+        #handle json fromat 
+        data=searchresult.read()
+        data2=json.loads(data)
+        newdata=data2.pop()
+
+        self.template_value['first_name'] = newdata['first_name']
+        self.template_value['last_name'] = newdata['last_name']
+        self.template_value['email'] = newdata['email']
+        self.template_value['birthday']= newdata['birthday']
+        self.template_value['phone_number']= newdata['phone_number']
+        self.template_value['address']= newdata['address']
+        self.template_value['message'] = newdata['message']
+        self.template_value['Class_interest']=newdata['Class_interest']
+        
+        #original code
         self.template_value['student'] = student
         self.template_value['score_list'] = course.get_all_scores(student)
         self.template_value['overall_score'] = course.get_overall_score(student)

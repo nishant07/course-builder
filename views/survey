@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block top_content %}
+
+{% endblock %}
+
+{% block main_content %}
+<div class="content-box">
+  <div class="fluid-row">
+    <div class="spam12">
+      <!--
+      <p>
+        {{course_info.reg_form.header_text | safe}}
+      </p>
+      -->
+      <form action="survey" method='post'>
+        <input type="hidden" name="xsrf_token" value="{{ register_xsrf_token|escape }}">
+        <fieldset>
+          <ol>
+            <!-- <li>
+             label class="form-label" for="form01"
+              <label class="form-label" for="email"/>
+               {% trans %} What is your Email? {% endtrans %}
+              </label>
+             <input name="form01" type="text"> 
+               <input type="text" name="email" > 
+            </li>
+         -->
+            <li>
+
+              <label class="form-label" for="how">
+              {% trans %} How you get information for our course? {% endtrans %}
+              </label>
+               <input type="text" name="how" />
+            </li>
+            <li>
+              <label class="form-label" for="why">
+               {% trans %} Why did you choose this class? {% endtrans %}
+              </label>
+              <input type="checkbox" name="why" value="Interested in Cloud Computing"/>Interested in Cloud Computing<br>
+              <input type="checkbox" name="why" value="Degree requirement"/>Degree requirement<br>
+              <input type="checkbox" name="why" value="Related to my research"/>Related to my research<br>
+              <input type="checkbox" name="why" value="Helpful for my career development"/>Helpful for my career development<br>
+              <input type="checkbox" name="why" value="Other"/>Other<br>
+            </li>
+            <li>
+              <label class="form-label" for="which">
+               {% trans %} Which of the following categories are you involved in? <br> {% endtrans %}
+              </label>
+              <input type="checkbox" name="which" value="Artificial Intelligence"/>  Artificial Intelligence     <br>
+                    <input type="checkbox" name="which" value="Cybersecurity"/>  Cybersecurity    <br>
+                    <input type="checkbox" name="which" value="Databases"/>  Databases    <br>
+                    <input type="checkbox" name="which" value="Distributed Systems"/>  Distributed Systems     <br>
+                    <input type="checkbox" name="which" value="Formal Methods"/> Formal Methods      <br>
+                    <input type="checkbox" name="which" value="Graphics and Visualization"/>  Graphics and Visualization     <br>
+                    <input type="checkbox" name="which" value="High-Performance Computing"/> High-Performance Computing      <br>
+                    <input type="checkbox" name="which" value="Programming Languages"/>  Programming Languages     <br>
+                     <input type="checkbox" name="which" value="Bioinformatics"/> Bioinformatics<br>
+                    <input type="checkbox" name="which" value="Cheminformatics"/> Cheminformatics<br>
+                    <input type="checkbox" name="which" value="Complex Systems"/>Complex Systems <br>
+                    <input type="checkbox" name="which" value="Human-Computer Interaction Design"/>Human-Computer Interaction Design <br>
+                    <input type="checkbox" name="which" value="Logic and Mathematical Foundations of Informatics"/>Logic and Mathematical Foundations of Informatics <br>
+                    <input type="checkbox" name="which" value="Music Informatics"/> Music Informatics<br>
+                    <input type="checkbox" name="which" value="Security Informatics"/> Security Informatics<br>
+                    <input type="checkbox" name="which" value="Other"/> Other<br>
+            </li>
+            <li>
+              <label class="form-label" for="background">
+               {% trans %} Indicate your current educational background. <br> {% endtrans %}
+              </label>
+                  <input type="radio" name="background" value="High school"> High school<br>
+                  <input type="radio" name="background" value="Undergrad"> Undergrad<br>
+                  <input type="radio" name="backgound" value="Master"> Master<br>
+                  <input type="radio" name="backgound" value="PhD"> PhD<br>
+                  <input type="radio" name="backgound" value="Postdoc"> Postdoc<br>
+                  <input type="radio" name="backgound" value="Other"> Other<br>
+            </li>
+            <li>
+              <label class="form-label" for="java">
+               {% trans %} Java:{% endtrans %}
+              </label>
+                  <input type="checkbox" name="java" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="java" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="java" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="java" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="java" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="java" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="c1">
+               {% trans %} C#:{% endtrans %}
+              </label>
+                  <input type="checkbox" name="c1" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="c1" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="c1" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="c1" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="c1" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="c1" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="c2">
+               {% trans %} C++:{% endtrans %}
+              </label>
+                  <input type="checkbox" name="c2" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="c2" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="c2" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="c2" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="c2" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="c2" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="c3">
+               {% trans %} C:{% endtrans %}
+              </label>
+                  <input type="checkbox" name="c3" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="c3" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="c3" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="c3" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="c3" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="c3" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="perl">
+               {% trans %} Perl: {% endtrans %}
+              </label>
+                  <input type="checkbox" name="perl" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="perl" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="perl" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="perl" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="perl" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="perl" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="python">
+               {% trans %} Python: {% endtrans %}
+              </label>
+                  <input type="checkbox" name="python" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="python" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="python" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="python" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="python" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="python" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="ruby">
+               {% trans %} Perl: {% endtrans %}
+              </label>
+                  <input type="checkbox" name="ruby" value="0-1 Yrs"/> 0-1 Yrs
+                  <input type="checkbox" name="ruby" value="1-2 Yrs"/> 1-2 Yrs
+                  <input type="checkbox" name="ruby" value="2-3 Yrs"/> 2-3 Yrs
+                  <input type="checkbox" name="ruby" value="3-4 Yrs"/> 3-4 Yrs
+                  <input type="checkbox" name="ruby" value=">6 Yrs"/> >6 Yrs
+                  <input type="checkbox" name="ruby" value="N/A"/> N/A
+            </li>
+            <li>
+              <label class="form-label" for="used">
+               {% trans %} What cluster, Grid, Cloud and Internet technologies have you ever used before?<br> {% endtrans %}
+              </label>
+               <input type="checkbox" name="used" value="xCAT"/> xCAT<br>
+        <input type="checkbox" name="used" value="XEN/KVM Hypervisor"/> XEN/KVM Hypervisor<br>
+        <input type="checkbox" name="used" value="Moab"/> Moab<br>
+        <input type="checkbox" name="used" value="Torque/PBS"/> Torque/PBS<br>
+        <input type="checkbox" name="used" value=">Eucalyptus"/> Eucalyptus<br>
+        <input type="checkbox" name="used" value="OpenNebula"/> OpenNebula<br>
+        <input type="checkbox" name="used" value="OpenStack"/> OpenStack<br>
+        <input type="checkbox" name="used" value="Sector/Sphere"/>'Sector/Sphere<br>
+        <input type="checkbox" name="used" value="Twister"/> Twister<br>
+        <input type="checkbox" name="used" value="Dryad/DryadLINQ"/> Dryad/DryadLINQ<br>
+        <input type="checkbox" name="used" value="Hadoop"/> Hadoop<br>
+        <input type="checkbox" name="used" value="Pig"/> Pig<br>
+        <input type="checkbox" name="used" value="MPI"/> MPI<br>
+        <input type="checkbox" name="used" value="Azure"/> Azure<br>
+        <input type="checkbox" name="used" value="Avro"/> Avro<br>
+        <input type="checkbox" name="used" value="Memcached"/> Memcached<br>
+        <input type="checkbox" name="used" value="Amazon EC2 and S3"/> Amazon EC2 and S3<br>
+        <input type="checkbox" name="used" value="Amazon EMR"/> Amazon EMR<br>
+        <input type="checkbox" name="used" value="Workflow"/> Workflow<br>
+        <input type="checkbox" name="used" value="WebServices"/> WebServices<br>
+        <input type="checkbox" name="used" value="Django"/>Django<br>
+        <input type="checkbox" name="used" value="Apache Tomcat"/> Apache Tomcat<br>
+        <input type="checkbox" name="used" value="SOAP/REST"/> SOAP/REST<br>
+        <input type="checkbox" name="used" value="Windows Communication Foundation"/> Windows Communication Foundation<br>
+        <input type="checkbox" name="used" value="Apache Lucene Indexing"/> Apache Lucene Indexing<br>
+        <input type="checkbox" name="used" value="Apache Whoosh Indexing"/> Apache Whoosh Indexing<br>
+        <input type="checkbox" name="used" value="Web Portal"/> Web Portal<br>
+         <input type="checkbox" name="used" value="Pub/Sub messaging"/> Pub/Sub messaging<br>
+        <input type="checkbox" name="used" value="Apache ActiveMQ"/> Apache ActiveMQ<br>
+        <input type="checkbox" name="used" value="NaradaBrokering"/> NaradaBrokering<br>
+        <input type="checkbox" name="used" value="Condor"/>Condor<br>
+        <input type="checkbox" name="used" value="Globus"/> Globus<br>
+        <input type="checkbox" name="used" value="NFS"> NFS<br>
+        <input type="checkbox" name="used" value="Apache Cassandra"/>Apache Cassandra<br>
+        <input type="checkbox" name="used" value="HBase"/> HBase<br>
+        <input type="checkbox" name="used" value="Grid File System"/> Grid File System<br>
+        <input type="checkbox" name="used" value="Gfarm"/> Gfarm<br>
+        <input type="checkbox" name="used" value="HDFSCouchDB"/> HDFSCouchDB<br>
+        <input type="checkbox" name="used" value="MongoDB"/> MongoDB<br>
+        <input type="checkbox" name="used" value="Dynamo"/> Dynamo<br>
+        <input type="checkbox" name="used" value="Lustre"/> Lustre<br>
+        <input type="checkbox" name="used" value="Sensor Networks"/> Sensor Networks<br>
+        <input type="checkbox" name="used" value="Linux Command Line Environment"/>Linux Command Line Environment<br>
+        <input type="checkbox" name="used" value="None"/>None<br>
+        <input type="checkbox" name="used" value="Other"/> Other<br>
+            </li>
+            <li>
+              <label class="form-label" for="Class_interest">
+               {% trans %} What do you expect to learn from this class? Is there any specific material you would prefer to see? <br>  {% endtrans %}
+              </label>
+               <input type="text" name="expect" />
+            </li>
+           
+            {{course_info.reg_form.additional_registration_fields | safe}}
+        
+          </ol>
+        </fieldset>
+
+        <button class="btn btn-success" type="submit">
+          {% trans %} Done {% endtrans %}
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -50,7 +50,7 @@ course:
     alt_text: Photo of Dan Russell
 
   # Course start date.
-  start_date: 'Jan 27, 2014'
+  start_date: 'Jan 13, 2015'
 
   # Forum URL. For details, see
   #
@@ -79,7 +79,7 @@ course:
 
 institution:
   # Name of your institution
-  name: 'PTI'
+  name: 'IU'
 
   # URL of your institution's webpage
   url: 'http://cloudmooc.appspot.com/'

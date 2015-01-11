@@ -5,7 +5,12 @@
         {% for homework in cat[1] %}
         {% if homework.id == homework_id %}
         <li class="branch" style="font-weight: bold">
+            {% if homework.now_available %}
             <a href="homework?unit={{ homework.id }}">{{ homework.id }}. {{ homework.title }}
+            {% else %}
+            <a href="homework?unit={{ homework.id }}" class="disabled-link">{{ homework.id }}. {{ homework.title }}
+            {% endif %}
+
                 {% if homework.difficulty == 1 %}
                 <i title="Easy" class="badge badge-success pull-right">B</i>
                 {% elif homework.difficulty == 2 %}
@@ -22,7 +27,11 @@
             </a>
         {% else %}
         <li class="branch">
+            {% if homework.now_available %}
             <a href="homework?unit={{ homework.id }}">
+            {% else %}
+            <a href="homework?unit={{ homework.id }}" class="disabled-link">
+            {% endif %}
                 {% if homework.difficulty == 1 %}
                 <i title="Easy" class="badge badge-success pull-right">B</i>
                 {% elif homework.difficulty == 2 %}

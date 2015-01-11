@@ -104,7 +104,7 @@ LESSONS_HEADER = (
     'unit_id,unit_title,lesson_id,lesson_title,lesson_activity,'
     'lesson_activity_name,lesson_notes,lesson_video_id,lesson_objectives,lesson_description')
 HOME_WORKS_HEADER = (
-    'id,homework_id,type,optional,title,filename,difficulty,category')
+    'id,homework_id,type,optional,title,filename,difficulty,category,now_available')
 EMAIL_HEADER = (
     'email,progress')
 
@@ -142,7 +142,8 @@ HOME_WORK_CSV_TO_DB_CONVERTER = {
     'title': ('title', unicode),
     'filename': ('filename', unicode),
     'difficulty': ('difficulty', int),
-    'category': ('category', unicode)
+    'category': ('category', unicode),
+    'now_available': ('now_available', lambda value: value == 'True')
 }
 
 EMAIL_CSV_TO_DB_CONVERTER = {

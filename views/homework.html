@@ -87,10 +87,12 @@
             {% include 'homework_navbar.html' %}
         </div>
         <div class="span9" id="homework">
+            {% if homework.now_available %}
             <h4>
                 {{ gettext('%(title)s', title=homework.title) }}
             </h4>
             {% include homework.filename %}
+            {% endif %}
         </div>
     </div>
 </div>

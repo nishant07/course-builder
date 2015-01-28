@@ -157,6 +157,13 @@
     <h2>Compile the Program</h2>
     <pre xml:space="preserve">cd /root/MoocHomeworks/HadoopWordCount<br>./build.sh</pre>
     <!-- content area -->
+    <h2>Format Hadoop File System</h2>
+    <ol>
+    <li>cd $HADOOP_HOME/bin</li>
+<li>./stop-all.sh</li>
+<li>hadoop namenode -format</li>
+<li>./start-all.sh # (and wait for at least 10 seconds)</li>
+</ol>
     <h2>Execute Hadoop-WordCount</h2>
     <div>
         <p>This section details the simplest way to run the WordCount program. We will use Hadoop from the Hadoop Configuration lab. Here are the steps.</p>

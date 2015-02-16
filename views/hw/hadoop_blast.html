@@ -51,11 +51,11 @@
 <div>
     <p>Hadoop-Blast is an advanced Hadoop program which helps BLAST, a bioinformatics application, to utilize the computing capability of Hadoop. This exercise shows the details of its implementation, and provides an example of how to handle similar approaches in other applications. <br />
     </p>
-    <p>BLAST is one of the most widely used bioinformatics applications written in C++. The version we are using is v2.2.23, which houses new features and better performance. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/staff/tao/URLAPI/blastdb.html">nr</a>) database; its full name is Non-redundant protein sequence database. Optionally, for more details on how to run the BLAST binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation</a>.</p>
+    <p>BLAST is one of the most widely used bioinformatics applications written in C++. The version we are using is v2.2.23, which houses new features and better performance. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/books/NBK1762/">nr</a>) database; its full name is Non-redundant protein sequence database. Optionally, for more details on how to run the BLAST binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation</a>.</p>
     <p>In this project, we have provided a sketch code which contains two java classes/files for you
     to implement:</p>
     <ol>
-        <li>DataAnalysis.java (Done): The main program which sets the Hadoop MapReduce job configuration. </li>
+        <li>DataAnalysis.java : The main program which sets the Hadoop MapReduce job configuration. </li>
         <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> as Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. These are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
     </ol>
     <p>The detail dataflow can be seen in Figure 1. You will implement the RunnerMap.java, which copies the distributed cache and assigned FASTA file to local, then runs the BLAST binary with correct parameters.</p>
@@ -71,7 +71,7 @@
         distributed across the compute nodes. Hadoop framework reads the application records from
         HDFS with the InputFormat interface and generates &lt;key, value&gt; pair input streams; here, we use a provided 
         customized Hadoop MapReduce InputFormat DataFileInputFormat.java to generate key-value pairs of &lt;filename, filepath on HDFS&gt;. For this Hadoop Blast program,
-        the map function initially sets up the distributed cache and generates the two absolute location filepaths for Blast binary and Blast Database. Afterwards it copies the assigned FASTA file to local disk by looking up the file from HDFS and generating an absolute  filepath. Once this is accomplished and file dependencies are stored in the local disk, we call an external java process and execute the Blast binary with the correct parameters. Finally, the output FASTA file of Blast binary will be uploaded back to HDFS.</p>
+        the map function initially sets up the distributed cache and generates the two absolute location filepaths for BLAST binary and BLAST Database. Afterwards it copies the assigned FASTA file to local disk by looking up the file from HDFS and generating an absolute  filepath. Once this is accomplished and file dependencies are stored in the local disk, we call an external java process and execute the BLAST binary with the correct parameters. Finally, the output FASTA file of BLAST binary will be uploaded back to HDFS.</p>
 </div>
 
 <h1>Sketch for Hadoop Blast</h1>
@@ -108,8 +108,8 @@
 </div>
 <h1>Edit</h1>
 
-<p>The sketch code is stored within the provided VirtualBox image <a
-        href="http://cloudmooc.soic.indiana.edu:8080/homework?unit=0">http://cloudmooc.soic.indiana.edu:8080/homework?unit=0</a>. Use linux text editor vi/vim to add your code.</p>
+<p>The sketch code is stored within the provided <a
+        href="http://cloudmooc.soic.indiana.edu:10002/mooc-ubuntu1204.ova">VirtualBox</a> image. Use linux text editor vi/vim to add your code.</p>
 
 <div><br/>
 
@@ -124,7 +124,7 @@ $ vim src/cgl/hadoop/apps/runner/DataAnalysis.java
     </div>
     <h2>Compile and run your code</h2>
 
-    <p>Use the same one-click script compileAndExecHadoopBlast.sh as in prior homework. Standard
+    <p>Use the one-click script compileAndExecHadoopBlast.sh as provided. Standard
         error messages such as &ldquo;compile errors, execution errors, etc.&rdquo; will be
         redirected on the screen. Follow the same debugging format.</p>
 

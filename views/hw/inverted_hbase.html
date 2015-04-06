@@ -43,7 +43,7 @@
 </ul>
 <p>This type of application is called &ldquo;Map-Only&rdquo;  parallel application.</p>
 <h3>Mapper</h3>
-<p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot;, which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key,value&gt; pairs using the provided  Context.<br />
+<p>A Mapper overrides the &ldquo;map&rdquo; function from  the Class &quot;org.apache.hadoop.hbase.mapreduce.TableMapper&lt;Text,  LongWritable&gt;&quot;, which provides &lt;key, value&gt; pairs as the input. A  Mapper implementation may output &lt;key, value&gt; pairs using the provided  Context.<br />
   &lt;key, value&gt; of this map function is  &lt;rowkey, content&gt;,  where the key  is the rowkey of an HBase record related to a specified URI, and the content is  the stored text of that URI. Your Map task should output &lt;word, &lt;docId, frequency&gt;&gt;  for each word in the content of text.<br />
   <em>Pseudocode</em></p>
 <div>
@@ -63,7 +63,7 @@ void Map (key, value){
 <h3>Main program </h3>
 <p>Again, the main function has been provided as  standard initialization, and you may modify it to fit your own style. See the examples of using TableMapReduceUtil.initTableMapperJob  and TableMapReduceUtil.initTableReducerJob [4].</p>
 <h1>Edit, compile  and run your code</h1>
-<p>The sketch code is  stored within the provided VirtualBox image <a href="homework?unit=1">Environment Setup</a>. You can use linux text editor vi/vim to  add your code.</p>
+<p>The sketch code is  stored within the provided VirtualBox image. You can use linux text editor vi/vim to  add your code.</p>
 <div>
 <pre>
 $ cd /root/MoocHomeworks/HBaseInvertedIndexing/

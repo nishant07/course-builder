@@ -25,7 +25,7 @@
 
     <h2>Pig WordCount</h2>
     <div>
-        <p>The following code shows the Pig WordCount written in Pig Latin. Each line of code is a <a href="http://cloudmooc.appspot.com/homework?unit=2">statement [3]</a> that takes a relation as input and produces another relation as output.</p>
+        <p>The following code shows Pig WordCount written in Pig Latin. Each line of code is a <a href="http://cloudmooc.appspot.com/homework?unit=2">statement [3]</a> that takes a relation as input and produces another relation as output.</p>
         <ul>
           <li> Line 1: LOAD data from HDFS PigWordCountInput directory and transfer it into alias line with data type as String (chararray); the output relation (outer bag) of this statement is input_line</li>
           <li>Line 5: FOREACH line in input_line, TOKENIZE by space delimiter and FLATTEN each of them as word Tuple; the output relation is words</li>

@@ -9,7 +9,7 @@ id,homework_id,type,optional,title,filename,difficulty,category,now_available
 8,se3,H,n,Building an Inverted Index,hw/inverted_hbase.html,3,Data,True
 9,se7,H,y,Test Search Engine,hw/test-search-eng.html,3,Data,False
 10,se4,H,y,Twister PageRank,hw/twister_pagerank.html,3,Twister,False
-11,se5,H,y,Twister K-means,hw/twister_kmeans.html,3,Twister,False
+11,se5,H,y,Pig K-means,hw/pig_kmeans.html,3,Pig,False
 12,pr,H,y,Implement PageRank,hw/pagerank.html,2,MPI,False
 13,pr2,H,y,MPI PageRank,hw/mpi_pagerank.html,2,MPI,False
 14,rms,H,y,Resource Monitoring System,hw/resource_ms.html,2,MPI,False

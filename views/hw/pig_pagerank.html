@@ -1,0 +1,110 @@
+<html>
+<body>
+<div id="accordion">
+	<h1>Pig PageRank Project</h1>
+    
+    <h2>Goal</h2>
+    <div>
+        <p>In this project you will get acquainted with writing and running a Pig PageRank program. This project assumes you followed the Pig Configuration lab, Hadoop PageRank homework, and started Hadoop successfully.
+            The project asks you to write one line of code and run Pig PageRank successfully.</p>
+    </div>
+
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+      <p>You are required to turn in the following items in a zip file (<strong>username_PigPageRank.zip</strong>)
+        in this assignment: </p>
+      <ul>
+        <li>A completed PageRank.pig</li>
+        <li>Technical report (<strong>username_PigPageRank_report.docx</strong>)
+            that contains:
+          <ol type="a">
+            <li>The description of the main steps for running the program and dataflow in the
+              program. </li>
+          </ol>
+        </li>
+      </ul>
+      <p>&nbsp;</p>
+    </div>
+
+    <h1>Evaluation</h1>
+    <div>
+      <p>The point total for this project is 10, where the
+        distribution is as follows:</p>
+      <ol type="a">
+        <li>Completeness of your code and output (5 points)</li>
+        <li>Correctness of written report (5 points)</li>
+      </ol>
+    </div>
+
+    <h2>Introduction</h2>
+    <div>
+      <p>For details on the PageRank algorithm, please refer to the Hadoop PageRank [1] project. </p>
+      <p>Pig Latin is a very simple procedural language without control flow support, e.g. lack of while loop as shown in Figure 1. As iterative applications need multiple rounds of computation, each iteration is submitted as an independent Pig script to Hadoop. As such the overall progress requires additional control flow steps for linking generated data on HDFS between iterations. To enable a loop awareness application, Pig provides a solution by writing an external wrapper script or program to support running iterations. Four different languages can be used and written as the external wrapper: Java, Python, JavaScript and Groovy [2]. </p>
+      <p align="center"><img src="http://salsahpc.indiana.edu/csci-b649-spring-2015/projects/PigWithIterativeApp.png" alt="" width="529" height="403"></p>
+      <p align="center">Figure 1. Iterative applications with Pig</p>
+      <p>&nbsp;</p>
+      <p>This project shows an example of using Java as a control script and running PageRank with Pig. You only need to understand the dataflow and fill one line of code for PageRank.pig</p>
+    </div>
+    
+    <h2>Pig PageRank</h2>
+    <div>
+        <p>Pig PageRank is split into three parts: a Java wrapper, a Customized Loader UDF, and a PageRank script.</p>
+        <p><u>src/PageRank.java</u>: a java wrapper that links data between iterations.</p>
+      <script src="https://gist.github.com/taklwu/086e7110c7ef1d0407b3.js"></script>
+        <p><u>src/CustomLoader.java</u>: a customized data loader for clueweb09 data format.</p>
+        <script src="https://gist.github.com/taklwu/aff585469e9d46d1e4b8.js"></script>
+        <p><u>script/PageRank.pig</u>: the core PageRank algorithm in Pig implementation. Note you will need to replace the section marked {fill_your_code} in your own implementation.</p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools">
+<script src="https://gist.github.com/taklwu/9d26b961e96c83540634.js"></script>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- content area -->
+  <h2>Configure Pig and Download PigProjects.zip</h2>
+  <p>Make sure you have followed the Pig WordCount lab; download and reimport the <a href="http://cloudmooc.soic.indiana.edu:10002/mooc-ubuntu1204-03242015-with-Pig.ova">updated VM image</a> or configure Pig correctly.
+  <h2>Compile, Execute Pig PageRank and View Result</h2>
+  <p>Before executing Pig PageRank, please make sure you have Hadoop started and it is running correctly. If not, please refer to  <a href="http://cloudmooc.appspot.com/homework?unit=2">Hadoop Configuration</a>.</p>
+    <div>
+      <pre>
+# implement your PageRank.pig
+cd /root/MoocHomeworks/PigPageRank
+vim scripts/PageRank.pig
+
+# compile the code
+cd /root/MoocHomeworks/PigPageRank
+ant clean &amp;&amp; ant
+
+# put input onto HDFS
+hadoop dfs -put PigPageRankInput 50kinput
+
+# execute the program
+cd bin
+java PageRank 50000 0.15 2 50kinput 50krun1 4
+hadoop dfs -cat 50krun1/*</pre>
+</div>
+<h2>Dataflow in the report</h2>
+<p>In your report, you will need to draw a dataflow diagram about how the data is transformed between each line in PageRank.pig. </p>
+<p>For example, line 9 loads the adjacent matrix and transforms it into (source, pagerank, (adjacentNodes)):</p>
+<p><img src="http://salsahpc.indiana.edu/csci-b649-spring-2015/projects/PigPageRankLine1.png" width="468" height="216"></p>
+<p>You will need to provide the following transformation of lines:</p>
+<ul>
+  <li>line 12 for previous_pagerank</li>
+  <li>line 15 for cogroup_graph</li>
+  <li>line 20 for new_pagerank</li>
+</ul>
+<h2>Reference</h2>
+
+    <div>
+        <ol>
+          <li>Hadoop PageRank, http://cloudmooc.appspot.com/homework?unit=4</li>
+          <li>Apache Pig control structure, http://pig.apache.org/docs/r0.14.0/cont.html</li>
+        </ol>
+    </div>    
+</div>
+</body>
+</html>

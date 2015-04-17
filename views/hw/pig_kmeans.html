@@ -1,0 +1,121 @@
+<html>
+<body>
+<div id="accordion">
+    <h1>Pig K-means Project</h1>
+    <h2>Goal</h2>
+    <div>
+        <p>In this project you will get acquainted with writing and running Pig PageRank program. This project assumes you followed the Pig Configuration lab, the homework for Hadoop PageRank, and started Hadoop successfully.
+            You are asked to write a function 'findClosestCentroids' of PigKmeans.java and run Pig Kmeans successfully.</p>
+    </div>
+
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+      <p>You are required to turn in the following items in a zip file (<strong>username_PigKmeans.zip</strong>)
+        in this assignment: </p>
+      <ul>
+        <li>A completed PigKmeans.java</li>
+        <li>Technical report (<strong>groupdId_PigKmeans_report.docx</strong>)
+            that contains:
+          <ol type="a">
+            <li>The description of the main steps for running the program and dataflow in the
+              program. </li>
+          </ol>
+        </li>
+      </ul>
+      <p>You may also include a completed CalculateNewCentroids.java for extra credits.</li>
+      <p>&nbsp;</p>
+    </div>
+
+    <h1>Evaluation</h1>
+    <div>
+      <p>The point total for this project is 10, where the
+        distribution is as follows:</p>
+      <ol type="a">
+        <li>Completeness of your code and output (7 points)</li>
+        <li>Correctness of written report (3 points)</li>
+        <li>Extra credit if implement the CalculateNewCentroids (3 points)</li>
+      </ol>
+    </div>
+    <h2>K-means Clustering</h2>
+    <div>
+      <p align="justify">In statistics and machine learning, K-means clustering is a method of cluster analysis which aims to partition n observations into k clusters where each observation belongs to the cluster with the nearest mean [<a target="_blank" href="http://en.wikipedia.org/wiki/K-means_clustering">1</a>].</p>
+  </div>
+    <h2>Introduction</h2>
+    <div>
+      <p>Pig Latin is a very simple procedural language without control flow support, e.g. lack of while loop as shown in Figure 1. As iterative applications need multiple rounds of computation, each iteration is submitted as an independent Pig script to Hadoop. As such the overall progress requires additional control flow steps for linking generated data on HDFS between iterations. To enable a loop awareness application, Pig provides a solution by writing an external wrapper script or program to support running iterations. Four different languages can be used and written as the external wrapper: Java, Python, JavaScript and Groovy [2]. </p>
+      <p align="center"><img src="http://salsahpc.indiana.edu/csci-b649-spring-2015/projects/PigWithIterativeApp.png" alt="" width="529" height="403"></p>
+      <p align="center">Figure 1. Iterative applications with Pig</p>
+      <p>&nbsp;</p>
+      <p>This project shows an example of using Python as a control script and running Kmeans with Pig. You only need to understand the dataflow and fill code for findClosestCentroids in PigKmeans.java</p>
+    </div>
+
+    <h2>Pig Kmeans</h2>
+    <div>
+        <p>The Pig Kmeans program is split into three parts: a Python wrapper, a Customized Loader UDF, and a PageRank script.        </p>
+        <p><u>bin/PigKmeans.py</u>: a Python wrapper that links data between iterations.</p>
+<script src="https://gist.github.com/taklwu/d80fb59483ce45464886.js"></script>
+        <p><u>src/PigKmeans.java</u>: a customized data loader and the core Kmeans clustering algorithm for 3-dimensional data. You must implement the findClosestCentroids function.</p>
+        <script src="https://gist.github.com/taklwu/9d43dfb72bdd762fbc39.js"></script>
+        <p><u>src/CalculateNewCentroids.java</u>: extra credit, a Pig classic UDF that aggregates partition results into a final result; the function is the same as line #18-21 in <u>bin/PigKmeans.py</u></p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools">
+<script src="https://gist.github.com/taklwu/542c4c23997db81890f1.js"></script>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- content area -->
+  <h2>Configure Pig and Download PigProjects.zip</h2>
+  <p>Make sure you have followed Pig WordCount lab. Download and re-import the <a href="http://cloudmooc.soic.indiana.edu:10002/mooc-ubuntu1204-03242015-with-Pig.ova">updated VM image</a> or configure Pig correctly.
+  <h2>Compile, Execute Pig PageRank and View Result</h2>
+  <p>Before executing Pig PageRank, please make sure you have Hadoop started and it is running correctly. If not, please refer to <a href="http://cloudmooc.appspot.com/homework?unit=2">Hadoop Configuration</a>.</p>
+    <div>
+      <pre>
+# implement your own Kmeans
+cd /root/MoocHomeworks/PigKmeans
+vim src/PigKmeans.java
+# optional
+vim src/CalculateNewCentroids.java
+
+# compile the code
+cd /root/MoocHomeworks/PigKmeans
+ant clean &amp;&amp; ant
+
+# put input onto HDFS
+hadoop dfs -put PigKmeansInput PigKmeansInput
+hadoop fs -ls PigKmeansInput
+
+# execute the program
+cd bin
+pig -x mapreduce PigKmeans.py 500centroids.txt PigKmeansInput 500 2 3
+
+# check result
+hadoop fs -ls output
+hadoop dfs -cat output/*
+hadoop fs -copyToLocal output
+      </pre>
+</div>
+<h2>Dataflow in the report</h2>
+<p>In your report, you will need to draw a dataflow diagram about how the data is transformed between each line in PigKmeans.py of this page. </p>
+<p>For example, line 4 loads the 3D data points, applies Kmeans clustering to all partitions, and transforms them into one line of string &quot;centroid number, accumulated x ,accumulated y, accumulated z, associate data points count&quot;.</p>
+<p><img src="http://salsahpc.indiana.edu/csci-b649-spring-2015/projects/PigKmeansLine2.png" width="581" height="216"></p>
+<p>You will need to provide the following transformation of lines:</p>
+<ul>
+  <li>line 9 for datapointInFloat </li>
+  <li>line 11 for grouped </li>
+  <li>line 18 for newCentroids </li>
+</ul>
+<h2>Reference</h2>
+
+    <div>
+        <ol>
+          <li>Kmeans Clustering Wiki: <a href="http://en.wikipedia.org/wiki/K-means_clustering">http://en.wikipedia.org/wiki/K-means_clustering</a></li>
+          <li>Apache Pig control structure, http://pig.apache.org/docs/r0.14.0/cont.html</li>
+        </ol>
+    </div>    
+</div>
+</body>
+</html>

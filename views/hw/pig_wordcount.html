@@ -1,0 +1,133 @@
+<html>
+<body>
+<div id="accordion">
+    
+    <h2>Goal</h2>
+    <div>
+        <p>In this lab you will get acquainted with running Pig programs and configuring their systems.
+            This homework assumes you followed the Hadoop Configuration lab and started Hadoop successfully.
+            The lab asks you to se tup Apache Pig and run Pig WordCount</p>
+    </div>
+
+    <h1>
+        Deliverables
+    </h1>
+    <div>None</div>
+
+    <h1>Evaluation</h1>
+    <div>None</div>
+
+    <h2>Introduction</h2>
+    <div>
+      <p>As you have learned from Hadoop WordCount, 'Hello Word' is the simplest example in the Hadoop ECO System. In this lab, you will first set up the Apache Pig environment (if you didn't download and import the updated VM image), then learn and run the Pig WordCount program.</p>
+      <p>For more information about <a href="http://pig.apache.org/">Pig [1]</a> and <a href="http://pig.apache.org/docs/r0.14.0/basic.html">PigLatin [2] syntax</a>, please refer to their official website. Fundamentally, Pig is a platform designed for large-scale data analysis  with Hadoop MapReduce systems, where Pig Latin is the high level language; each Pig script written in Pig Latin is parsed, compiled, and executed onto Hadoop MapReduce as jobs.</p>
+    </div>
+
+    <h2>Pig WordCount</h2>
+    <div>
+        <p>The following code shows the Pig WordCount written in Pig Latin. Each line of code is a <a href="http://cloudmooc.appspot.com/homework?unit=2">statement [3]</a> that takes a relation as input and produces another relation as output.</p>
+        <ul>
+          <li> Line 1: LOAD data from HDFS PigWordCountInput directory and transfer it into alias line with data type as String (chararray); the output relation (outer bag) of this statement is input_line</li>
+          <li>Line 5: FOREACH line in input_line, TOKENIZE by space delimiter and FLATTEN each of them as word Tuple; the output relation is words</li>
+          <li>Line 8: FILTER all non-english words in words; the output relation is filtered_words </li>
+          <li>Line 11: GROUP same word as key within the relation of filtered_words; the output relation is word_groups </li>
+          <li>Line 14: Loop through (FOREACH) word_groups, count the occurrence of each word, emit &quot;word, number of occurrences&quot; for each record/tuple. The output relation is word_count. </li>
+          <li>Line 18: STORE word_count into HDFS directory PigWordCountOutput </li>
+        </ul>
+        <p><u>Pig WordCount</u></p>
+        <div class="dp-highlighter">
+          <div class="bar">
+            <div class="tools">
+            <script src="https://gist.github.com/taklwu/8e6f3b8470018c152032.js"></script>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- content area -->
+  <h2>Configure Pig and download PigProjects.zip (only if you haven't updated your VM image)</h2>
+  <p>If you haven't downloaded and imported the <a href="http://cloudmooc.soic.indiana.edu:10002/mooc-ubuntu1204-03242015-with-Pig.ova">updated VM image</a>, 
+      you can follow this instruction to download two packages and set up a Pig environment on your existing imported VM.
+  <div>
+      <pre>
+# download and unzip Pig
+cd /tmp/
+wget http://salsahpc.indiana.edu/csci-b649-spring-2015/projects/pig-0.14.0.tar.gz
+# or download from wget http://mirror.cogentco.com/pub/apache/pig/pig-0.14.0/pig-0.14.0.tar.gz
+tar -zxvf pig-0.14.0.tar.gz -C /root/software
+
+# backup ~/.bashrc
+cp ~/.bashrc ~/.bashrc_bak
+
+# setup pig environment into ~/.bashrc
+PIG_HOME=/root/software/pig-0.14.0
+HADOOP_CONF_DIR=$HADOOP_HOME/conf/
+echo &quot;export PIG_HOME=/root/software/pig-0.14.0&quot; &gt;&gt; ~/.bashrc
+echo &quot;export HADOOP_CONF_DIR=$HADOOP_HOME/conf/&quot; &gt;&gt; ~/.bashrc
+echo &quot;export CLASSPATH=$HADOOP_HOME/lib/*:$HADOOP_HOME/*:$HADOOP_HOME/hadoop-core-1.1.2.jar:$PIG_HOME/lib/*:$HADOOP_CONF_DIR:$PIG_HOME/pig-0.14.0-core-h1.jar:.&quot; &gt;&gt; ~/.bashrc
+echo &quot;export PATH=$PIG_HOME/bin:$PATH:.&quot; &gt;&gt; ~/.bashrc
+
+# reload environment
+source ~/.bashrc
+
+# download PigProjects.zip to /root/MoocHomeworks/
+cd /root/MoocHomeworks/
+wget http://salsahpc.indiana.edu/csci-b649-spring-2015/projects/PigProjects.zip
+unzip PigProjects.zip
+ls -l 
+drwxrwxr-x 5 summer summer 4096 Feb  2 18:41 PigKmeans<br>drwxrwxr-x 6 summer summer 4096 Feb  2 18:49 PigPageRank<br>drwxrwxr-x 3 summer summer 4096 Feb  2 16:57 PigWordCount
+      </pre>
+</div>
+  <h2>Execute Pig WordCount and view result</h2>
+  <p>Before executing Pig WordCount, please make sure you have Hadoop started and it is running correctly. If not, please refer to  <a href="http://cloudmooc.appspot.com/homework?unit=2">Hadoop Configuration [4]</a>.</p>
+    <div>
+      <pre>
+# start hadoop 
+cd $HADOOP_HOME
+bin/hadoop namenode -format
+bin/start-all.sh
+
+cd /root/MoocHomeworks/PigWordCount
+hadoop dfs -put PigWordCountInput PigWordCountInput
+hadoop dfs -rmr PigWordCountOutput
+pig -x mapreduce PigWordCount.pig
+hadoop dfs -cat PigWordCountOutput/*</pre>
+</div>
+
+<h2>For Debugging</h2>
+<p>Pig provides two execution modes, local and mapreduce, when you submit your pig script. Normally, developers should use local for debugging, and mapreduce mode for production.</p>
+<div>
+  <pre>
+# local mode and run as a single process job
+pig -x local &lt;srcipt&gt;
+# or mapreduce mode run as a hadoop job
+pig -x mapreduce &lt;srcipt&gt;</pre>
+</div>
+<p>In addition, pig also provides an interactive shell interface GRUNT; you may find it helpful for line-by-line program debugging.</p>
+<div>
+  <pre>
+# enter GRUNT shell
+pig
+#.... some message of pig startup
+grunt&gt; </pre>
+</div>
+<p>Debug operators help to understand data schema, data type, execution flow and Pig internal compiler related execution.</p>
+<ul>
+  <li>DUMP: display results to your terminal screen.
+  </li>
+  <li>DESCRIBE: review the schema of a relation.  </li>
+  <li>EXPLAIN: view the logical, physical, or map reduce execution plans to compute a relation. </li>
+  <li>ILLUSTRATE: view the step-by-step execution of a series of statements. </li>
+</ul>
+<h2>Reference</h2>
+
+    <div>
+        <ol>
+          <li>Apache Pig, http://pig.apache.org/</li>
+          <li>Apache Pig tutorial, http://pig.apache.org/docs/r0.14.0/basic.html</li>
+          <li>Apache Pig Latin statement, http://pig.apache.org/docs/r0.14.0/start.html#pl-statements</li>
+          <li>Hadoop Configuration, http://cloudmooc.appspot.com/homework?unit=2</li>
+        </ol>
+    </div>    
+</div>
+</body>
+</html>

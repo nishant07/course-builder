@@ -67,4 +67,6 @@ unit_id,unit_title,lesson_id,lesson_title,lesson_activity,lesson_activity_name,l
 6,Internet of Things,5,Spouts to Bolts,,,,tjHVvy5kP0s,"<p>Ph.D. candidate Supun Kamburugamuva goes over the so-called Internet of Things as well as strategies and tools developed for Distributed Stream Processing.</p>",
 6,Internet of Things,6,Pig Setup,,,,Uq_6sLjxEyk,"<p>A tutorial designed to introduce Pig programming and its use on previously applied functions.</p>",
 6,Internet of Things,7,Pig Projects,,,,jEbpPW_jWgs,"<p>A tutorial designed to introduce Pig programming and its use on previously applied functions.</p>",
-7,How to Build a Search Engine (SaaS),1,Lab 8,,,,a_4cYG87P6M,"<p>A lab tutorial going over the basic components of Project 8: Search Engine.</p>",
+7,How to Build a Search Engine (SaaS),1,Google Components,,,,bCH_V8CGyKY,"<p></p>",
+7,How to Build a Search Engine (SaaS),2,Google Architecture,,,,syZHezdbdRY,"<p></p>",
+7,How to Build a Search Engine (SaaS),3,Google History,,,,Kg0NK0XUkHw,"<p></p>",

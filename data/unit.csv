@@ -3,11 +3,11 @@ id,type,unit_id,title,release_date,now_available,difficulty,unit_description
 2,U,1,Cloud Computing Fundamentals,,True,1,The indictment unsealed on Tuesday said Liberty Reserve had more than a million users worldwide
 3,U,2,How to Run VMs (IaaS),,False,2,including at least 200000 in the United States and virtually all of its business was related to suspected criminal activity.
 4,U,3,How to Run MapReduce (PaaS),,False,3,
-5,U,4,How to Run Iterative MapReduce (PaaS),,False,3,Liberty Reserve has emerged as one of the principal means by which cyber-criminals around the world distribute
-6,A,Mid,Mid-course assessment, ,False,1,
-7,U,5,How to Store Data (NoSQL),,False,3,
-8,U,6,Internet of Things,,False,2,
-9,U,7,How to Build a Search Engine (SaaS),,False,3,
+5,A,Mid,Mid-course assessment, ,False,1,
+6,U,5,How to Store Data (NoSQL),,False,3,
+7,U,7,How to Build a Search Engine (SaaS),,False,3,
+8,U,4,How to Run Iterative MapReduce (PaaS),,False,3,
+9, U,6,Internet of Things (optional),,False,2,
 10,A,Fin,Post-course assessment,,False,2,
 11,O,https://docs.google.com/forms/d/1FEj8HMwRaW5gtxdjz1aA-VdW5hHvkztF5bqkpyfeTLU/viewform,Post-course Survey,,False,0,
 12,A,Test,Test-course assessment,,False,2,

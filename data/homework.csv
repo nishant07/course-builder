@@ -1,6 +1,6 @@
 id,homework_id,type,optional,title,filename,difficulty,category,now_available
 1,tools,L,n,Environment Setup,hw/tools.html,1,Introduction,True
-2,hc,L,n,Hadoop configuration,hw/hadoop_conf.html,1,MapReduce,True
+2,hc,L,n,Hadoop configuration,hw/hadoop_conf.html,1,MapReduce,False
 3,wc,H,n,Hadoop WordCount,hw/wordcount.html,1,MapReduce,True
 4,pr3,H,n,Hadoop PageRank,hw/hadoop_pagerank.html,3,MapReduce,False
 5,se6,H,y,Hadoop Blast,hw/hadoop_blast.html,2,MapReduce,False

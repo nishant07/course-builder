@@ -18,18 +18,13 @@
         in this assignment:
     </p>
     <ol>
-        <li>The source code of Hadoop Blast you implemented.</li>
-        <li>The executable class file</li>
-        <li>Technical report (<strong>username_HadoopBlast_report.docx</strong>)
-            that contains:
-            <ol type="a">
-                <li>The description of the main steps and data flow in your
-                    program.
-                </li>
-                <li>The output file (<strong>username_HadoopBlast_output.fa</strong>)
-                    which contains the result by running the provided dataset.</li>
-            </ol>
+        <li>What is Hadoop Distributed Cache and how is it used in this program? </li>
+        <li>Write the two lines that add and receive values from Distributed cache. Also include the method and class information.</li>
+        <li>In previous projects we used Hadoop’s TextInputFormat to feed in the file splits line-by-line to map tasks. 
+        In this program, however, we want to feed in a whole file to a single map task. What is the technique used to achieve this? Also, briefly explain, what are the key and value pairs 
+        you receive as input to a map task, what methods are responsible for producing these pairs and in which class?
         </li>
+        <li>do you think the particular implementation will work if the input files are larger than the default HDFS block size? Briefly, explain what you think. [Hint: you can test what’ll happen by concatenating the same input file multiple times to create a larger input file in the resources/blast_input folder]</li>
     </ol>
     <p>Points will be reduced (maximum 0.5 points) if the filename or
         directory structure are different from instructed above.</p>

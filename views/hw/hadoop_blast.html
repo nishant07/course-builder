@@ -55,12 +55,12 @@
 <div>
     <p>Hadoop-Blast is an advanced Hadoop program which helps BLAST, a bioinformatics application, to utilize the computing capability of Hadoop. This exercise shows the details of its implementation, and provides an example of how to handle similar approaches in other applications. <br />
     </p>
-    <p>BLAST is one of the most widely used bioinformatics applications written in C++. The version we are using is v2.2.23, which houses new features and better performance. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/books/NBK1762/">nr</a>) database; its full name is Non-redundant protein sequence database. Optionally, for more details on how to run the BLAST binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation</a>.</p>
+    <p>BLAST is one of the most widely used bioinformatics applications written in C++. The version we are using is v2.2.23, which houses new features and better performance. The database used in the following settings is a subset of a full 8.5GB (<a href="http://www.ncbi.nlm.nih.gov/books/NBK1762/">nr</a>) database; its full name is Non-redundant protein sequence database. Optionally, for more details on how to run the BLAST binary, please see <a href="http://salsahpc.indiana.edu/tutorials/hadoopblastex1.html">Big Data for Science tutorial page for Blast Installation (NOT required for the assignment)</a>.</p>
     <p>In this project, we have provided a sketch code which contains two java classes/files for you
     to implement:</p>
     <ol>
-        <li>DataAnalysis.java : The main program which sets the Hadoop MapReduce job configuration. </li>
-        <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> as Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. These are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
+     
+        <li>RunnerMap.java: The pleasingly-parallel/map-only Map class which takes the prepackaged <a href="http://salsahpc.indiana.edu/tutorials/apps/BlastProgramAndDB.tar.gz">Blast (v2.2.23) Binary Program and optimized database</a> from Hadoop Distributed Cache, then executes BLAST binary as java external process with the  assigned FASTA file. These are passed as key-value pairs of &lt;filename, filepath on HDFS&gt; handled by a provided customized Hadoop MapReduce InputFormat DataFileInputFormat.java.</li>
     </ol>
     <p>The detail dataflow can be seen in Figure 1. You will implement the RunnerMap.java, which copies the distributed cache and assigned FASTA file to local, then runs the BLAST binary with correct parameters.</p>
 
@@ -122,7 +122,6 @@
 <pre>
 $ cd /root/MoocHomeworks/HadoopBlast/
 $ vim src/cgl/hadoop/apps/runner/RunnerMap.java
-$ vim src/cgl/hadoop/apps/runner/DataAnalysis.java
 </pre>
         </div>
     </div>
@@ -146,15 +145,15 @@ $ ./compileAndExecHadoopBlast.sh
         </div>
         <h2>View the result</h2>
 
-        <p>The result is generated as /root/MoocHomeworks/HadoopBlast/output/HadoopBlastOutput.fa. </p>
+        <p>The result is generated at /root/MoocHomeworks/HadoopBlast/output/HDFS_blast_output. There should be 4 output FASTA files with .fa extension.</p>
 
         <div><br/>
 
             <div class="dp-highlighter">
                 <div class="bar">
 <pre>
-$ cd /root/MoocHomeworks/HadoopPageRank/
-$ cat output/*
+$ cd /root/MoocHomeworks/HadoopBlast/output/HDFS_blast_output
+
 </pre>
                 </div>
             </div>

@@ -18,6 +18,9 @@
         in this assignment:
     </p>
     <ol>
+        <li>The source code of Hadoop BLAST you implemented.</li>
+        <li>Technical report (username_HadoopBlast_report.docx) that answers the following questions:</li>
+    <ul>
         <li>What is Hadoop Distributed Cache and how is it used in this program? </li>
         <li>Write the two lines that add and receive values from Distributed cache. Also include the method and class information.</li>
         <li>In previous projects we used Hadoop’s TextInputFormat to feed in the file splits line-by-line to map tasks. 
@@ -27,8 +30,10 @@
         <li>Do you think this particular implementation will work if the input files are larger than the default HDFS block size?
         Briefly explain why. [Hint: you can test what will happen by concatenating the same input file multiple times to create a 
         larger input file in the resources/blast_input folder]</li>
-        <li>5.	If you wanted to extend this program such that all output files will be concatenated into a single file, what key and value pairs 
+        <li>If you wanted to extend this program such that all output files will be concatenated into a single file, what key and value pairs 
         would you need to emit from the map task? Also, how would you use these in the reduce that you would need to add?</li>
+    </ul>
+    <li>The 4 output FASTA files: celllines_1.fa to celllines_4.fa.</li>
     </ol>
     <p>Points will be reduced (maximum 0.5 points) if the filename or
         directory structure are different from instructed above.</p>
@@ -40,8 +45,8 @@
     <p>The point total for this project is 10, where the
         distribution is as follows:</p>
     <ol type="a">
-        <li>Completeness of your code and output (7 points)</li>
-        <li>Correctness of written report (3 points)</li>
+        <li>Completeness of your code and output (3 points)</li>
+        <li>Correctness of written report (7 points)</li>
     </ol>
 </div>
 

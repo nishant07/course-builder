@@ -24,7 +24,11 @@
         In this program, however, we want to feed in a whole file to a single map task. What is the technique used to achieve this? Also, briefly explain, what are the key and value pairs 
         you receive as input to a map task, what methods are responsible for producing these pairs and in which class?
         </li>
-        <li>do you think the particular implementation will work if the input files are larger than the default HDFS block size? Briefly, explain what you think. [Hint: you can test what’ll happen by concatenating the same input file multiple times to create a larger input file in the resources/blast_input folder]</li>
+        <li>Do you think this particular implementation will work if the input files are larger than the default HDFS block size?
+        Briefly explain why. [Hint: you can test what will happen by concatenating the same input file multiple times to create a 
+        larger input file in the resources/blast_input folder]</li>
+        <li>5.	If you wanted to extend this program such that all output files will be concatenated into a single file, what key and value pairs 
+        would you need to emit from the map task? Also, how would you use these in the reduce that you would need to add?</li>
     </ol>
     <p>Points will be reduced (maximum 0.5 points) if the filename or
         directory structure are different from instructed above.</p>

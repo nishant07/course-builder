@@ -1,0 +1,135 @@
+<html>
+<body>
+<div id="accordion">
+    <!--<h1>Harp K-means Project</h1>-->
+    <h2>Goal</h2>
+    <div>
+        <p>The goal of this project is to familiarize yourself with the concept of map-collective applications. Harp is similar to MapReduce in programming with the exception that it provides collective communication support across map tasks.</p>
+    </div>
+
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+      <p>Zip your source code and output as <strong>username_harp-kmeans.zip</strong>. Please submit this file to the Canvas Assignments page.
+        in this assignment: </p>
+
+    </div>
+
+    <h1>Evaluation</h1>
+    <div>
+      <p>The point total for this project is 20, where the
+        distribution is as follows:</p>
+      <ol type="a">
+        <li>Completeness of your code and output (16 points)</li>
+        <li>Correct output (4 points)</li>
+      </ol>
+    </div>
+    <h2>Prerequisites</h2>
+    <div>
+    <ol>
+    <li>Before working on Harp K-Means, make sure you can successfully run Harp WordCount following instructions of Lab10 (the presentation is in Canvas).</li>
+    <li>Download <strong>simplekmeans</strong> folder from Canvas assignments under <strong>B649_Project7</strong> folder.</li>
+    <li>Copy that folder to <strong>harp2-project-master/harp2-app/src/edu/iu</strong></li>
+    <li>Open <strong>harp2-project-master/harp2-app/build.xml</strong> and add the following line next to where you find other <strong>include</strong> tags. Note. This is within the javac tag of the build.xml
+<strong>include name="edu/iu/simplekmeans/**" /</strong>
+</li>
+    </ol>
+      <p align="justify">In statistics and machine learning, K-means is a clustering algorithm to partition <em>n</em> observations into <em>k</em> clusters where each observation belongs to the cluster with the nearest mean of Euclidean distance. The objective function is to minimize the sum of distance functions for each point to centroids.</p>
+     <div align="center"><img src="assets/img/hw/min_dist.png" alt=""></div>
+     <p>The input is data points (data) and the model is cluster centers (centroids). The problem is computationally difficult (NP-hard); however, there are efficient algorithms via an iterative refinement approach. </p>
+     <div align="center"><img src="assets/img/hw/Kmeans.png" alt="">
+     <p style="font-family: Arial">Image source: https://en.wikipedia.org/wiki/K-means_clustering</p>
+  </div>
+
+    <h2>K-means Clustering for MapReduce</h2>
+    <div align="center"><img src="assets/img/hw/Kmeans chart.png" alt="">
+  </div>
+    <div>
+        <p>The main data structure used for this assignment is ArrTable&#60;DoubleArray&#62;. You can think of  this as a collection of double array objects. Each double array represents a center. For example, if  the centers for your program are 3D, then each array will have 3+1 (4) elements. The first 3 will be the x, y, z coordinates. The last element is used to store the number of points assigned to this center. </p>
+        <p>To retrieve all the centers you can invoke the <strong>getPartitions()</strong> method on ArrTable  object, which will return a collection of  ArrPartition objects. To retrieve the underlying double array from these ArrPartition objects, you can invoke the <strong>getArray()</strong> method on ArrPartition object. To figure out the index (ID) of this center you can invoke <strong>getPartitionID()</strong> method on the same ArrPartition object.</p>
+        <div align="center"><img src="assets/img/hw/Kmeans_par.png" alt="">
+  </div>
+    <!-- content area -->
+  <h2>Harp Implementation</h2>
+  <p>Most of the code is completed for you; your task will be to perform the nearest center finding computation and updating new centers. The code to implement this is in the <strong>simplekmeans/KmeansMapper.java</strong></p>
+  
+  <p>The two functions are listed below.</p>
+  
+  <p><strong>Find Nearest Center</strong></p>
+      <pre>
+private void findNearestCenter(ArrTable<DoubleArray> cenTable, ArrTable<DoubleArray> previousCenTable, ArrayList<DoubleArray> dataPoints){
+double err=0;
+ for(DoubleArray aPoint: dataPoints){
+      //for each data point, find the nearest centroid
+      double minDist = -1;
+      double tempDist = 0;
+      int nearestPartitionID = -1; // Keeps track of the nearest center ID
+      for(ArrPartition ap: previousCenTable.getPartitions()){
+         DoubleArray aCentroid = (DoubleArray) ap.getArray();
+         
+         /* TODO – Write code here */
+         tempDist = // this is the Euclidean distance between aPoint and aCentroid. Use Utils.calcEucDistSquare() for this
+
+	 // Next check if tempDist is smaller than current minDist (unless it’s -1)
+	 // If so, set the minDist to tempDist and mark the current center ID as the nearest center found so far. To get the center ID use the ap.getPartitionID() method.
+
+      }
+      err+=minDist;
+      
+      //for the certain data point, found the nearest centroid.
+      // add the data to a new cenTable.
+      double[] partial = new double[vectorSize+1];
+      for(int j=0; j < vectorSize; j++){
+         partial[j] = aPoint.getArray()[j];
+      }
+      partial[vectorSize]=1;
+      
+      if(cenTable.getPartition(nearestPartitionID) == null){
+         ArrPartition<DoubleArray> tmpAp = new ArrPartition<DoubleArray>(nearestPartitionID, new DoubleArray(partial, 0, vectorSize+1));
+         cenTable.addPartition(tmpAp);
+          
+      }else{
+          ArrPartition<DoubleArray> apInCenTable = cenTable.getPartition(nearestPartitionID);
+          for(int i=0; i < vectorSize +1; i++){
+             apInCenTable.getArray().getArray()[i] += partial[i];
+          }
+      }
+     }
+ System.out.println("Errors: "+err);
+}
+
+
+      </pre>
+</div>
+
+<p><strong>Updating Centers</strong></p>
+<pre>
+private void updateCenters(ArrTable<DoubleArray> cenTable){
+ for( ArrPartition<DoubleArray> partialCenTable: cenTable.getPartitions()){
+  double[] doubles = partialCenTable.getArray().getArray();
+  /* TODO – Write code here */
+  // Go through the components of the vector (i.e. a for loop) and divide it by the number of points assigned to that center.
+  // The number of points can be found at doubles[vectorSize]
+  // Vector components (x,y,z, etc.) can be found through 0 to (vectorSize – 1) indices in the doubles array
+  
+
+  doubles[vectorSize] = 0;
+ }
+ System.out.println("after calculate new centroids");
+ Utils.printArrTable(cenTable);
+</pre>
+
+    <h2>Compilation and Running</h2>
+    <ol>
+    <li>To compile the code, simply go into <strong>harp2-project-master/harp2-app</strong> and type <strong>ant</strong>.</li>
+    <li>Then copy the <strong>harp2-project-master/harp2-app/build/harp2-app-hadoop-2.6.0.jar</strong> file to <strong>$HADOOP_HOME</strong></li>
+    <li><p>To run the file, use the following command within <strong>$HADOOP_HOME</strong>.</p>
+    hadoop jar harp2-app-hadoop-2.6.0.jar edu.iu.simplekmeans.KmeansMapCollective 100 12 3 2 20 harpkmeans /tmp/simplekmeansdata
+    <p>This will produce 100 data points and cluster them into 12 clusters. We use 3D points. The program will run 2 parallel map tasks for 20 iterations. Note: you may want to give unique directory names for the last two parameters each time that you test. Otherwise, you may run into issues because of existing directories. Alternatively, you can delete old directories and reuse the same names. The folder harpkmeans will be in HDFS. The /tmp/simplekmeansdata will be in your local disk.</p></li>
+    <li><p>To get the output, use the following command and look at the part- files as usual.</p>
+    hdfs dfs -get harpkmeans/out </li>
+    </ol>
+</div>
+</body>
+</html>

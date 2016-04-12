@@ -1,0 +1,108 @@
+<html>
+<body>
+<div id="accordion">
+    <!--<h1>Harp K-means Project</h1>-->
+    <h2>Goal</h2>
+    <div>
+        <p>For this project you will once again be utilizing PageRank, this time with Harp rather than Hadoop.</p>
+    </div>
+
+    <h1>
+        Deliverables
+    </h1>
+    <div>
+      <p>Zip your source code and output as <strong>username_harp-pagerank.zip</strong>. Please submit this file to the Canvas Assignments page.
+</p>
+
+    </div>
+
+    <h1>Evaluation</h1>
+    <div>
+      <p>The point total for this project is 20, where the
+        distribution is as follows:</p>
+      <ol type="a">
+        <li>Completeness of your code and output (16 points)</li>
+        <li>Correct output (4 points)</li>
+      </ol>
+    </div>
+    <h2>Prerequisites</h2>
+    <div>
+    <ol>
+    <li>Before working on Harp PageRank, make sure you can successfully run Harp WordCount following the instructions of Lab 10 (the presentation is in Canvas).</li>
+    <li>Download <strong>simplepagerank</strong> folder from Canvas assignments under <strong>B649_Project8</strong> folder.</li>
+    <li>Copy that folder to <strong>harp2-project-master/harp2-app/src/edu/iu</strong></li>
+    <li>Open <strong>harp2-project-master/harp2-app/build.xml</strong> and add the following line next to where you find other <strong>include</strong> tags (this is within the <strong>javac</strong> tag of the build.xml file):<br>
+&#60;<strong>include name="edu/iu/simplepagerank/**" /</strong>&#62;
+</li>
+<li>The input folder contains the adjacency matrix for 5000 URLs split into two files as pr_0 and pr_1.</li>
+    </ol>
+    <h1>Harp PageRank Architecture</h1>
+    <img src="assets/img/hw/pagerank/PageRank_harp.png" alt="">
+      <h1>Harp Implementation</h1>
+      <p>Most of the code is completed for you; your task will be to perform the Compute PR step in the above diagram. The code for this can be found in simplepagerank/PageRankMapper.java.
+      </p>
+      <pre>
+public void computePartialPR(Map<Long, ArrayList<Long>> partialGraph, Long2DoubleKVTable localPRTable, Long2DoubleKVTable globalPRTable){
+   
+   for (Entry<Long, ArrayList<Long>> entry : partialGraph.entrySet()) {
+       Long sourceUrl = entry.getKey();
+       ArrayList<Long> targetUrls = entry.getValue();
+       System.out.println("sourceURL: "+sourceUrl);
+       if(targetUrls == null ){
+          // simply assume that the IDs of pages are: 0,1,2,...,(numUrls-1)
+          System.out.println("targetUrls is null");
+          double pr = localPRTable.getVal(sourceUrl) / numUrls;
+          // TODO - Write Code
+         // Add pr to the page rank of all other URLs in globalPRTable
+         // Note. The addKeyVal(key, val) method in globalPRTable will
+         // automatically sum values if the key exists. If the key does
+         // NOT exist then a new entry will be made.
+
+          
+       }else{
+          int numOfOutLinks = targetUrls.size();
+          double pr = localPRTable.getVal(sourceUrl) / numOfOutLinks;
+          // TODO - Write Code
+         // Add pr to the page rank of all target URLs.
+          
+       }
+   }
+}
+      </pre>
+</div>
+
+<p><strong>Updating Centers</strong></p>
+<pre>
+private void updateCenters(ArrTable<DoubleArray> cenTable){
+ for( ArrPartition<DoubleArray> partialCenTable: cenTable.getPartitions()){
+  double[] doubles = partialCenTable.getArray().getArray();
+  /* TODO – Write code here */
+  // Go through the components of the vector (i.e. a for loop) and divide it by the number of points assigned to that center.
+  // The number of points can be found at doubles[vectorSize]
+  // Vector components (x,y,z, etc.) can be found through 0 to (vectorSize – 1) indices in the doubles array
+  
+
+  doubles[vectorSize] = 0;
+ }
+ System.out.println("after calculate new centroids");
+ Utils.printArrTable(cenTable);
+</pre>
+
+    <h2>Compilation and Running</h2>
+    <ol>
+    <li>To compile the code, simply go into <strong>harp2-project-master/harp2-app</strong> and type <strong>ant</strong>.</li>
+    <li>Then copy the <strong>harp2-project-master/harp2-app/build/harp2-app-hadoop-2.6.0.jar</strong> file to <strong>$HADOOP_HOME</strong></li>
+    <li>Before running the program, copy input files from the input folder to HDFS.<br>
+hdfs dfs -mkdir -p pr/input5k<br>
+hdfs dfs -put <path-to-input-dir>/pr_* pr/input5k</li>
+    <li><p>To run the file, use the following command within <strong>$HADOOP_HOME</strong>.</p>
+    hadoop jar harp2-app-hadoop-2.6.0.jar edu.iu.simplepagerank.HarpPageRank pr/input5k pr/output5k 5000 10
+    <p>This will run PageRank against 500 URLs. The program will run 2 parallel map tasks for 100 iterations. Be aware you may want to give unique directory names for the last two parameters each time you run a test. Otherwise, you may run into issues because of existing directories. Alternatively, you can delete old directories and reuse the same names.</p></li>
+    <li><p>To get the output, use the following commands and look at the part- files.</p>
+    hdfs dfs -get pr/output5k <br>
+vim output5k/part-m-00000
+</li>
+    </ol>
+</div>
+</body>
+</html>

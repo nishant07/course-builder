@@ -8,6 +8,6 @@ id,type,unit_id,title,release_date,now_available,difficulty,unit_description
 7,U,5,How to Store Data (NoSQL),,True,3,
 8,U,6,Internet of Things,,True,2,
 9,U,7,How to Build a Search Engine (SaaS),,True,3,
-10,A,Fin,Post-course assessment,,False,2,
+10,A,Fin,Post-course assessment,,True,2,
 11,O,https://docs.google.com/forms/d/1FEj8HMwRaW5gtxdjz1aA-VdW5hHvkztF5bqkpyfeTLU/viewform,Post-course Survey,,False,0,
-12,A,Test,Test-course assessment,,False,2,
+12,A,Test,Test-course assessment,,True,2,

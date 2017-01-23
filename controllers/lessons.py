@@ -26,6 +26,8 @@ from tools import verify
 from utils import BaseHandler
 from utils import BaseRESTHandler
 from utils import XsrfTokenManager
+import datetime
+import math
 
 # Whether to record events in a database.
 CAN_PERSIST_ACTIVITY_EVENTS = ConfigProperty(
@@ -132,6 +134,18 @@ class CourseHandler(BaseHandler):
         progress = progress/len(progressList)
         # overriding the normal progress calculation
         progress = self.get_email_for_student(user.email()).progress
+
+        #01/23/2017 Ethan. use days to calculate the progress. 
+        today = datetime.date.today()
+        semester_start = datetime.date(2017, 1, 9)
+        semester_end = datetime.date(2017, 5, 5)
+        diff = semester_end - semester_start
+        diffnow = today - semester_start
+        progress = diffnow.days * 1.0 / diff.days * 100
+        progress = math.floor(progress)
+        if progress >= 100:
+            progress = 100
+
         self.template_value['progress_total'] = progress
 
         self.template_value['is_progress_recorded'] = (
